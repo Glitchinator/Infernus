@@ -1,2 +1,2 @@
 # InfernusModGH
-This is the official repository for Infernus Mod in Terraria Version 1.4.
+This is the official repository for Infernus Mod in Terraria Version 1.4.3
