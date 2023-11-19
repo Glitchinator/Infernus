@@ -11,8 +11,6 @@ namespace Infernus.Items.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Meteor Binkie");
-            Tooltip.SetDefault("Summons a baby Raiko to follow you");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()

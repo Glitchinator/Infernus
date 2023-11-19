@@ -7,10 +7,6 @@ namespace Infernus.Projectiles
 
     public class Ice_Rain : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Ice Rain");
-        }
         public override void SetDefaults()
         {
             Projectile.aiStyle = 0;

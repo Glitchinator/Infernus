@@ -7,8 +7,8 @@ namespace Infernus.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eternal Zero");
-            Description.SetDefault("\"Soothing... Like staring into a fire\"");
+            // DisplayName.SetDefault("Eternal Zero");
+            // Description.SetDefault("\"Soothing... Like staring into a fire\"");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }

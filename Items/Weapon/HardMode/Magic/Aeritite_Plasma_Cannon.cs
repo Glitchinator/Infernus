@@ -10,7 +10,6 @@ namespace Infernus.Items.Weapon.HardMode.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Aeritite Plasma Cannon");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

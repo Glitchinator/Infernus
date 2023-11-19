@@ -11,10 +11,6 @@ namespace Infernus.Items.Weapon.Ranged
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Celebration Chainshotgun");
-            Tooltip.SetDefault("Shoot a barrage of Fireworks"
-                + "\n Yes this is a refrence to the 4th of July"
-                + "\n From the 4th of July of 2022");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

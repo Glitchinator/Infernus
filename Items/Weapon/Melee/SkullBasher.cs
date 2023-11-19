@@ -9,14 +9,12 @@ namespace Infernus.Items.Weapon.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Skullbasher");
-            Tooltip.SetDefault("Spooky, Scary, Boomerang");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 24;
+            Item.damage = 48;
             Item.DamageType = DamageClass.Melee;
             Item.width = 38;
             Item.height = 38;

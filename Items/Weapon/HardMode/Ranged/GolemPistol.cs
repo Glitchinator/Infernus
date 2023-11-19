@@ -12,14 +12,12 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Solar Pistol");
-            Tooltip.SetDefault("Shoot two piercing exploding bullets that gain velocity");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 52;
+            Item.damage = 44;
             Item.DamageType = DamageClass.Ranged;
             Item.noMelee = true;
             Item.width = 48;

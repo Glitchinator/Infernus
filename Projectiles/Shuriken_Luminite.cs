@@ -11,7 +11,6 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Luminite Shuriken");
             ProjectileID.Sets.TrailingMode[Type] = 0;
             ProjectileID.Sets.TrailCacheLength[Type] = 8;
 
@@ -52,7 +51,7 @@ namespace Infernus.Projectiles
 
             Projectile.velocity.Y += Projectile.ai[0];
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Frostburn2, 500);
         }

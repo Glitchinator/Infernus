@@ -9,14 +9,13 @@ namespace Infernus.Items.Weapon.HardMode.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("True Light's Edge");
-            Tooltip.SetDefault("spawns a shard when fully thrown, has a chance to spawn daggers on hit");
+            ItemID.Sets.ToolTipDamageMultiplier[Type] = 2f;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 50;
+            Item.damage = 52;
             Item.DamageType = DamageClass.Melee;
             Item.noMelee = true;
             Item.width = 38;
@@ -32,6 +31,7 @@ namespace Infernus.Items.Weapon.HardMode.Melee
             Item.noUseGraphic = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.LightTrue>();
             Item.channel = true;
+            Item.shootSpeed = 11f;
         }
         public override void AddRecipes()
         {

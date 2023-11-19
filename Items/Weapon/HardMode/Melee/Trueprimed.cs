@@ -10,14 +10,13 @@ namespace Infernus.Items.Weapon.HardMode.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Prime Light's Edge");
-            Tooltip.SetDefault("spawns 3 shards when fully thrown,Shoots white daggers at enemies, has a chance to spawn daggers on hit, inflicts cursed flame");
+            ItemID.Sets.ToolTipDamageMultiplier[Type] = 2f;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 60;
+            Item.damage = 75;
             Item.DamageType = DamageClass.Melee;
             Item.noMelee = true;
             Item.width = 38;
@@ -33,6 +32,7 @@ namespace Infernus.Items.Weapon.HardMode.Melee
             Item.noUseGraphic = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.LightTruePrimed>();
             Item.channel = true;
+            Item.shootSpeed = 11f;
         }
         public override void AddRecipes()
         {

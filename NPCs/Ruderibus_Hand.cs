@@ -38,7 +38,6 @@ namespace Infernus.NPCs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cryonic Clasper");
             Main.npcFrameCount[Type] = 1;
             NPCID.Sets.BossBestiaryPriority.Add(Type);
         }
@@ -176,7 +175,7 @@ namespace Infernus.NPCs
             while (chainLengthRemainingToDraw > 0f)
             {
                 var chainTextureToDraw = chainTexture;
-                Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, Color.White, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+                Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, drawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
                 chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
                 chainCount++;
                 chainLengthRemainingToDraw -= chainSegmentLength;

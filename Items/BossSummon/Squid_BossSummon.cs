@@ -11,9 +11,6 @@ namespace Infernus.Items.BossSummon
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hypnotic Glow Lyum");
-            Tooltip.SetDefault("Summons the Temporal Glow Squid"
-                + "\nMust be in ocean biome");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 2;
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
@@ -50,7 +47,6 @@ namespace Infernus.Items.BossSummon
             .AddIngredient(ItemID.FallenStar, 2)
             .AddIngredient(ItemID.Lens, 1)
             .AddIngredient(ItemID.Gel, 6)
-            .AddCondition(Recipe.Condition.NearWater)
             .Register();
         }
     }

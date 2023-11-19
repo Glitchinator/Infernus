@@ -9,9 +9,6 @@ namespace Infernus.Placeable
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Maul Trophy");
-            Tooltip.SetDefault("The teeth of a terrifing fish");
-
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

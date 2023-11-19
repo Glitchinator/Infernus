@@ -11,13 +11,12 @@ namespace Infernus.Items.Weapon.HardMode.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Plantera's Pistol");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 42;
+            Item.damage = 46;
             Item.DamageType = DamageClass.Magic;
             Item.width = 36;
             Item.height = 36;

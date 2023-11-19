@@ -10,9 +10,6 @@ namespace Infernus.Items.BossSummon
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Beetle Bait");
-            Tooltip.SetDefault("Summons Serphious"
-                + "\n Must be in ocean biome");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 2;
         }
         public override void SetDefaults()

@@ -11,8 +11,6 @@ namespace Infernus.Items.Weapon.HardMode.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Luminite Sword");
-            Tooltip.SetDefault("A blade that cuts multiple rifts when swung");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

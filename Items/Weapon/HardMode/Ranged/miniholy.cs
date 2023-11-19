@@ -15,11 +15,6 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
         public int pumps;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Pump Charge Shotgun");
-            Tooltip.SetDefault("Fires a spread of flaming bullets"
-                                + "\n Right click to charge the shotgun loading more bullets into the chamber"
-                                 + "\n If you charge too many times the player will throw the exploding shotgun"
-                                  + "\n Overcharging increases damages to a max of 10 charges");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

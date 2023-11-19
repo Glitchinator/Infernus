@@ -11,8 +11,6 @@ namespace Infernus.Items.Weapon.Ranged
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Equite Recurver");
-            Tooltip.SetDefault("Shoots piercing bolts");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

@@ -15,7 +15,6 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Petal Bullet");
             ProjectileID.Sets.TrailingMode[Type] = 0;
             ProjectileID.Sets.TrailCacheLength[Type] = 4;
         }

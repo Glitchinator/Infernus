@@ -9,8 +9,6 @@ namespace Infernus.Items.Consumable
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Calamari Rage");
-            Tooltip.SetDefault("Gives a boost to most stats");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
         }
         public override void SetDefaults()

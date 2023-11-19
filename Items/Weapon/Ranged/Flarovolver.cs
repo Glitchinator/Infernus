@@ -11,15 +11,12 @@ namespace Infernus.Items.Weapon.Ranged
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flarovlver");
-            Tooltip.SetDefault("Right click to fan the revolver"
-                + "\n 22% chance to not consume ammo");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 20;
+            Item.damage = 24;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 46;
             Item.height = 20;
@@ -60,7 +57,7 @@ namespace Infernus.Items.Weapon.Ranged
         {
             if (player.altFunctionUse == 2)
             {
-                Item.damage = 12;
+                Item.damage = 14;
                 Item.useAnimation = 80;
                 Item.useTime = 16;
                 Item.reuseDelay = 1;

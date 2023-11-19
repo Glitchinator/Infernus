@@ -3,13 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 namespace Infernus.Projectiles
 {
-
     public class Slicer : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Nuclear Slice");
-        }
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.DeathSickle);

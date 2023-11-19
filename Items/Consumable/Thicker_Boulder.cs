@@ -10,8 +10,6 @@ namespace Infernus.Items.Consumable
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Thicker Boulder");
-            Tooltip.SetDefault("Don't throw it, worst thing I've done in my life");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
         }
         public override void SetDefaults()

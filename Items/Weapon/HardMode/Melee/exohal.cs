@@ -9,24 +9,24 @@ namespace Infernus.Items.Weapon.HardMode.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shining Gladius");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 130;
+            Item.damage = 112;
             Item.DamageType = DamageClass.Melee;
             Item.width = 75;
             Item.height = 75;
-            Item.useTime = 12;
-            Item.useAnimation = 12;
+            Item.useTime = 18;
+            Item.useAnimation = 18;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.knockBack = 7f;
+            Item.knockBack = 5f;
             Item.value = 240000;
             Item.rare = ItemRarityID.Yellow;
             Item.UseSound = SoundID.Item19;
             Item.autoReuse = true;
+            Item.useTurn = true;
         }
 
         public override void AddRecipes()
@@ -37,9 +37,9 @@ namespace Infernus.Items.Weapon.HardMode.Melee
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Right.X, target.Right.Y, 0, 0, ProjectileID.DD2ExplosiveTrapT1Explosion, damage * 2, 0, player.whoAmI);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ProjectileID.DD2ExplosiveTrapT1Explosion, (int)(Item.damage * 1.2f), 0, player.whoAmI);
         }
     }
 }

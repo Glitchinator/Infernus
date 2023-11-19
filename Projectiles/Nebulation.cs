@@ -9,7 +9,6 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
         public override void SetDefaults()
@@ -26,7 +25,7 @@ namespace Infernus.Projectiles
             Projectile.timeLeft = 600;
             Projectile.netImportant = true;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.ShadowFlame, 300);
         }

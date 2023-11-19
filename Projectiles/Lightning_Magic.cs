@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,10 +8,6 @@ namespace Infernus.Projectiles
 
     public class Lightning_Magic : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Lightning Sphere");
-        }
         public override void SetDefaults()
         {
             AIType = ProjectileID.Bullet;
@@ -29,8 +20,8 @@ namespace Infernus.Projectiles
             Projectile.netImportant = true;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 4;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 12;
             Projectile.penetrate = -1;
         }
         public override void AI()
@@ -41,23 +32,25 @@ namespace Infernus.Projectiles
             Projectile.velocity.Y = 0;
 
             var proj = ModContent.ProjectileType<Lightning_Magic_Shot>();
+            var damage = (int)(Projectile.damage * 0.7f);
             if(Projectile.timeLeft == 40)
             {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X - 45, Projectile.Center.Y + 45, 0, 0, proj, Projectile.damage, Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X + 45, Projectile.Center.Y + 45, 0, 0, proj, Projectile.damage, Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X - 45, Projectile.Center.Y - 45, 0, 0, proj, Projectile.damage, Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X + 45, Projectile.Center.Y - 45, 0, 0, proj, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X - 45, Projectile.Center.Y + 45, 0, 0, proj, damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X + 45, Projectile.Center.Y + 45, 0, 0, proj, damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X - 45, Projectile.Center.Y - 45, 0, 0, proj, damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X + 45, Projectile.Center.Y - 45, 0, 0, proj, damage, Projectile.knockBack, Projectile.owner);
             }
             if (Projectile.timeLeft == 20)
             {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X - 90, Projectile.Center.Y, 0, 0, proj, Projectile.damage, Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y - 90, 0, 0, proj, Projectile.damage, Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X + 90, Projectile.Center.Y, 0, 0, proj, Projectile.damage, Projectile.knockBack, Projectile.owner);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y + 90, 0, 0, proj, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X - 90, Projectile.Center.Y, 0, 0, proj, damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y - 90, 0, 0, proj, damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X + 90, Projectile.Center.Y, 0, 0, proj, damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y + 90, 0, 0, proj, damage, Projectile.knockBack, Projectile.owner);
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
+            var damage = (int)(Projectile.damage * 0.7f);
             var proj = ModContent.ProjectileType<Lightning_Magic_Shot>();
             for (int k = 0; k < 7; k++)
             {
@@ -65,10 +58,10 @@ namespace Infernus.Projectiles
                 Dust wand = Dust.NewDustPerfect(Projectile.Center + speed2 * 32, DustID.Electric, speed2 * 2, Scale: 1f);
                 wand.noGravity = true;
             }
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X - 90, Projectile.Center.Y + 90, 0, 0, proj, Projectile.damage, Projectile.knockBack, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X + 90, Projectile.Center.Y + 90, 0, 0, proj, Projectile.damage, Projectile.knockBack, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X - 90, Projectile.Center.Y - 90, 0, 0, proj, Projectile.damage, Projectile.knockBack, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X + 90, Projectile.Center.Y - 90, 0, 0, proj, Projectile.damage, Projectile.knockBack, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X - 90, Projectile.Center.Y + 90, 0, 0, proj, damage, Projectile.knockBack, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X + 90, Projectile.Center.Y + 90, 0, 0, proj, damage, Projectile.knockBack, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X - 90, Projectile.Center.Y - 90, 0, 0, proj, damage, Projectile.knockBack, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X + 90, Projectile.Center.Y - 90, 0, 0, proj, damage, Projectile.knockBack, Projectile.owner);
         }
     }
 }

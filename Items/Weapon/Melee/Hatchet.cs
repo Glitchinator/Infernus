@@ -9,8 +9,6 @@ namespace Infernus.Items.Weapon.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Darvyle's Hatchet of Might");
-            Tooltip.SetDefault("Throw a hatchet that shreds enemies with shards");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

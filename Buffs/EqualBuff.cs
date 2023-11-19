@@ -7,8 +7,8 @@ namespace Infernus.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Knifes");
-            Description.SetDefault("\"I could get tetanus from one\"");
+            // DisplayName.SetDefault("Knifes");
+            // Description.SetDefault("\"I could get tetanus from one\"");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }

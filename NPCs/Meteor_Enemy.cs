@@ -10,7 +10,6 @@ namespace Infernus.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Midlite");
             Main.npcFrameCount[NPC.type] = 3;
         }
 
@@ -31,7 +30,7 @@ namespace Infernus.NPCs
             BannerItem = Item.BannerToItem(Banner);
             NPC.value = 45;
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {
@@ -42,15 +41,15 @@ namespace Infernus.NPCs
             {
                 for (int k = 0; k < 16; k++)
                 {
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Torch, 4f * hitDirection, -2.5f, 0, default, 1f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Torch, 4f, -2.5f, 0, default, 1f);
                 }
                 for (int k = 0; k < 16; k++)
                 {
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.SolarFlare, 4f * hitDirection, -2.5f, 0, default, 1f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.SolarFlare, 4f, -2.5f, 0, default, 1f);
                 }
                 for (int k = 0; k < 16; k++)
                 {
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Smoke, 4f * hitDirection, -2.5f, 0, default, 1f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Smoke, 4f, -2.5f, 0, default, 1f);
                 }
             }
         }
@@ -75,7 +74,7 @@ namespace Infernus.NPCs
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.Player.ZoneNormalSpace || spawnInfo.Player.ZoneMeteor)
+            if (spawnInfo.Player.ZoneNormalSpace && spawnInfo.PlayerInTown == false || spawnInfo.Player.ZoneMeteor)
             {
                 return .6f;
             }

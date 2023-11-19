@@ -9,8 +9,6 @@ namespace Infernus.Items.Weapon.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Glacies Lancea");
-            Tooltip.SetDefault("A spear of winter, throw it. And a path is opened.");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

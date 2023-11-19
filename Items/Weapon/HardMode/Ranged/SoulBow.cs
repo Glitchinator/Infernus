@@ -13,15 +13,12 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
         int cycle;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Breaker Bow");
-            Tooltip.SetDefault("'With many arrows, comes many targets'"
-                + "\n1.3 Sec Charge Time");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 24;
+            Item.damage = 34;
             Item.DamageType = DamageClass.Ranged;
             Item.noMelee = true;
             Item.width = 32;

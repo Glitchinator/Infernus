@@ -11,16 +11,13 @@ namespace Infernus.Items.Weapon.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stick of Stars");
-            Tooltip.SetDefault("Shoots 3 stars in a row"
-                + "\n Gumga's stick");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 10;
+            Item.damage = 12;
             Item.DamageType = DamageClass.Magic;
             Item.width = 50;
             Item.height = 50;

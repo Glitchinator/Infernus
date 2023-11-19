@@ -12,8 +12,6 @@ namespace Infernus.Items.Weapon.HardMode.Summon
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eternal Point");
-            Tooltip.SetDefault("Engulfs you in a raging fire");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true;
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

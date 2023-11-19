@@ -12,8 +12,6 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Boulder Soul");
-
             ProjectileID.Sets.TrailingMode[Type] = 0;
             ProjectileID.Sets.TrailCacheLength[Type] = 8;
         }
@@ -43,11 +41,11 @@ namespace Infernus.Projectiles
                 Projectile.alpha -= 15;
             }
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             Projectile.Kill();
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.position);
             for (int k = 0; k < 19; k++)

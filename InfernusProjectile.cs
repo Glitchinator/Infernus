@@ -1,6 +1,7 @@
 ﻿using Infernus.NPCs;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Infernus
@@ -29,6 +30,13 @@ namespace Infernus
                 {
                     projectile.Kill();
                 }
+            }
+        }
+        public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if(projectile.type == ProjectileID.Flare || projectile.type == ProjectileID.BlueFlare)
+            {
+                projectile.damage = (int)(projectile.damage * 0.70f);
             }
         }
     }

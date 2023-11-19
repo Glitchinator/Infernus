@@ -10,10 +10,6 @@ namespace Infernus.Items.Weapon
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Meteor Eateor");
-            Tooltip.SetDefault("Throw out meteors that follow the cursor. can only have 10 thrown"
-                + "\n They will take a chunk out of you"
-                + "\n Your really cool if you use this");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

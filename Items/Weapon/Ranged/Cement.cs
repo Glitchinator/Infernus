@@ -9,17 +9,15 @@ namespace Infernus.Items.Weapon.Ranged
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rouge Ball");
-            Tooltip.SetDefault("Bounces a lot");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 10;
+            Item.damage = 11;
             Item.noMelee = true;
             Item.DamageType = DamageClass.Ranged;
-            Item.width = 26;
+            Item.width = 30;
             Item.height = 26;
             Item.useTime = 20;
             Item.useAnimation = 20;
@@ -29,7 +27,7 @@ namespace Infernus.Items.Weapon.Ranged
             Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item19;
             Item.shootSpeed = 7f;
-            Item.shoot = ModContent.ProjectileType<Projectiles.Cement>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.Aeritite_Mine>();
             Item.autoReuse = true;
             Item.noUseGraphic = true;
         }
@@ -37,7 +35,7 @@ namespace Infernus.Items.Weapon.Ranged
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Materials.Gaming>(), 4)
+            .AddIngredient(ModContent.ItemType<Materials.Gaming>(), 12)
             .AddTile(TileID.Anvils)
             .Register();
         }

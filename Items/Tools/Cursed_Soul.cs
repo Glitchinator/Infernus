@@ -12,9 +12,6 @@ namespace Infernus.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cursed Soul");
-            Tooltip.SetDefault("Increases movespeed buffs in Stress"
-                 + "\n Can only be used once");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 2;
         }
         public override void SetDefaults()

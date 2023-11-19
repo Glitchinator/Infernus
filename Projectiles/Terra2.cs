@@ -9,7 +9,6 @@ namespace Infernus.Projectiles
 
     public class Terra2 : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 3;

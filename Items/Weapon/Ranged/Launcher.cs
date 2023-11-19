@@ -11,8 +11,6 @@ namespace Infernus.Items.Weapon.Ranged
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bullet Launcher");
-            Tooltip.SetDefault("Shoots 6 slugs at once, talk about the recoil.");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

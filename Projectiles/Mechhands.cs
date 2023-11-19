@@ -6,9 +6,6 @@ namespace Infernus.Projectiles
 {
     public class Mechhands : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-        }
         public override void SetDefaults()
         {
             Projectile.width = 24;

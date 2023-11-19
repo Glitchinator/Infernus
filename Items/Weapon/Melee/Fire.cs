@@ -10,13 +10,12 @@ namespace Infernus.Items.Weapon.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flame Saber");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 16;
+            Item.damage = 20;
             Item.DamageType = DamageClass.Melee;
             Item.width = 42;
             Item.height = 46;

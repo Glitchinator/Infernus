@@ -10,7 +10,6 @@ namespace Infernus.Items.Weapon.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lead Pipe");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -20,14 +19,15 @@ namespace Infernus.Items.Weapon.Melee
             Item.DamageType = DamageClass.Melee;
             Item.width = 56;
             Item.height = 56;
-            Item.useTime = 16;
-            Item.useAnimation = 16;
+            Item.useTime = 26;
+            Item.useAnimation = 26;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.knockBack = 7.5f;
+            Item.knockBack = 3f;
             Item.value = Item.buyPrice(0, 0, 80, 0);
             Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
+            Item.useTurn = true;
         }
         public override void AddRecipes()
         {
@@ -43,7 +43,7 @@ namespace Infernus.Items.Weapon.Melee
                 Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Lead);
             }
         }
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Main.rand.NextBool(2))
             {
@@ -52,7 +52,7 @@ namespace Infernus.Items.Weapon.Melee
         }
 
 
-        public override void OnHitPvp(Player player, Player target, int damage, bool crit)
+        public override void OnHitPvp(Player player, Player target, Player.HurtInfo hurtInfo)
         {
             if (Main.rand.NextBool(4))
             {

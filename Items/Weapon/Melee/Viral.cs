@@ -11,14 +11,13 @@ namespace Infernus.Items.Weapon.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rot Ball");
-            Tooltip.SetDefault("Throw out an evil flail that lodges spikes in enemies.");
+            ItemID.Sets.ToolTipDamageMultiplier[Type] = 2f;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 22;
+            Item.damage = 24;
             Item.DamageType = DamageClass.Melee;
             Item.width = 40;
             Item.height = 40;
@@ -34,6 +33,7 @@ namespace Infernus.Items.Weapon.Melee
             Item.shoot = ModContent.ProjectileType<Projectiles.ViralCRIM>();
             Item.channel = true;
             Item.noUseGraphic = true;
+            Item.shootSpeed = 9f;
         }
         public override void AddRecipes()
         {

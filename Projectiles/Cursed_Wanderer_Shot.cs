@@ -12,19 +12,18 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cursed Soul");
             ProjectileID.Sets.TrailingMode[Type] = 0;
             ProjectileID.Sets.TrailCacheLength[Type] = 4;
         }
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.NebulaSphere);
-            Projectile.width = 36;
-            Projectile.height = 36;
+            Projectile.width = 30;
+            Projectile.height = 30;
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.netImportant = true;
-            Projectile.timeLeft = 200;
+            Projectile.timeLeft = 120;
             Projectile.alpha = 0;
             Projectile.extraUpdates = 1;
             Projectile.tileCollide = false;
@@ -33,16 +32,16 @@ namespace Infernus.Projectiles
         {
             Projectile.rotation += (float)Projectile.direction * 16;
 
-            Projectile.velocity.X = Projectile.velocity.X * .95f;
-            Projectile.velocity.Y = Projectile.velocity.Y * .95f;
+            Projectile.velocity.X = Projectile.velocity.X * .94f;
+            Projectile.velocity.Y = Projectile.velocity.Y * .94f;
 
             Projectile.velocity.Y = Projectile.velocity.Y + 0.2f;
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             Projectile.Kill();
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.position);
             for (int k = 0; k < 8; k++)

@@ -9,13 +9,12 @@ namespace Infernus.Items.Weapon.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Skull Throw");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 23;
+            Item.damage = 24;
             Item.DamageType = DamageClass.Melee;
             Item.width = 30;
             Item.height = 26;

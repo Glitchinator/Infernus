@@ -9,9 +9,6 @@ namespace Infernus.Items.Weapon.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("StormGlobe");
-            Tooltip.SetDefault("Throws a flask, which explodes into fireballs and rains meteors."
-                + "\n [WEATHER ALERT]");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

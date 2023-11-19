@@ -10,8 +10,6 @@ namespace Infernus.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Magic Nine Ball");
-            Tooltip.SetDefault("Tells the effects of Stress buffs");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 2;
         }
         public override void SetDefaults()

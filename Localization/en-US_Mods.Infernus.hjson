@@ -1,0 +1,677 @@
+Projectiles: {
+}
+
+NPCs: {
+	Ruderibus.BossChecklistIntegration.SpawnInfo: While in the snow biome, use [i:5574].
+
+	Boulderminiboss: {
+		BossChecklistIntegration: {
+			SpawnInfo: Use a [i:5549] to spawn the Boulder Invasion. At the end of the Hardmode Boulder Invasion. This boss will spawn.
+			EntryName: Corrupted Husk
+		}
+	}
+
+	Calypsical: {
+		BossChecklistIntegration: {
+			SpawnInfo: Use a [i:5577] after Moonlord's defeat
+			EntryName: Calypsical
+		}
+	}
+
+	Boulder_Corpse: {
+		BossChecklistIntegration: {
+			SpawnInfo: Spawns naturally when daytime or, use a [i:5549] during day.
+			EntryName: Boulder Invasion Pre-HM
+		}
+	}
+
+	TemporalSquid: {
+		BossChecklistIntegration: {
+			SpawnInfo: While in the ocean biome use [i:5582] no matter the time.
+			EntryName: Temporal Glow Squid
+		}
+	}
+
+	Shark: {
+		BossChecklistIntegration: {
+			SpawnInfo: Use a [i:5571]
+			EntryName: Serphious
+		}
+	}
+
+	Raiko.BossChecklistIntegration.SpawnInfo: Use a [i:5573] during night.
+}
+
+Items: {
+	Work: {
+	}
+
+	Trophy: {
+	}
+
+	Squid_Trophy: {
+	}
+
+	Squid_Relic.Tooltip: ""
+
+	SharkTrophy: {
+	}
+
+	SharkRelic.Tooltip: ""
+
+	RudeTrophy: {
+	}
+
+	RudeRelic.Tooltip: ""
+	Rock.Tooltip: ""
+	RaikoRelic.Tooltip: ""
+
+	Ore: {
+	}
+
+	MechTrophy: {
+	}
+
+	MechRelic.Tooltip: ""
+	XP_Item.Tooltip: ""
+
+	Whipice: {
+	}
+
+	Whipgem: {
+	}
+
+	Whipaer: {
+	}
+
+	Minionshell: {
+	}
+
+	Minion2: {
+	}
+
+	Minion: {
+	}
+
+	Mini: {
+	}
+
+	EqualMin: {
+	}
+
+	Dunger: {
+	}
+
+	bold: {
+	}
+
+	BlizStaff: {
+	}
+
+	Squid_Gun: {
+	}
+
+	Levercoin.Tooltip: ""
+
+	Launcher: {
+	}
+
+	July4th: {
+	}
+
+	IceBow.Tooltip: ""
+	Ice.Tooltip: ""
+
+	Honey: {
+	}
+
+	Flarovolver: {
+	}
+
+	Firebow: {
+	}
+
+	Fire.Tooltip: ""
+	Eye_Launcher.Tooltip: ""
+
+	Equalbow: {
+	}
+
+	Desert_Blaster: {
+	}
+
+	Coral.Tooltip: ""
+
+	Cement: {
+	}
+
+	AerBow: {
+	}
+
+	Meteor: {
+	}
+
+	Viral: {
+	}
+
+	Swingy2: {
+	}
+
+	Swingy: {
+	}
+
+	Starfish_yoyo.Tooltip: ""
+
+	SkullBasher: {
+	}
+
+	Skull_Yoyo.Tooltip: ""
+	Seashellsword.Tooltip: ""
+	LeadPipe.Tooltip: ""
+
+	IvyWhip: {
+	}
+
+	Ink_Sprinkler.Tooltip: ""
+
+	Hatchet: {
+	}
+
+	EqualBlade.Tooltip: ""
+	ChainWhip.Tooltip: ""
+
+	BoldnBash: {
+	}
+
+	Sword: {
+	}
+
+	Storm: {
+	}
+
+	Solder: {
+	}
+
+	SkullStaff: {
+	}
+
+	Rifle: {
+	}
+
+	Radiant_Staff: {
+	}
+
+	MeteorEater: {
+	}
+
+	Ices: {
+	}
+
+	Flower.Tooltip: ""
+
+	Fallen: {
+	}
+
+	EqualStaff: {
+	}
+
+	CrimStaff: {
+	}
+
+	CorrStaff: {
+	}
+
+	Coralstaff.Tooltip: ""
+
+	Buther: {
+	}
+
+	AerititeCannon: {
+	}
+
+	Infernal_Bat: {
+	}
+
+	Whiprock: {
+	}
+
+	whiplight: {
+	}
+
+	TerraStaff: {
+	}
+
+	MechWhip: {
+	}
+
+	Mecharmr: {
+	}
+
+	GoblinStaff: {
+	}
+
+	eternal: {
+	}
+
+	Drillxwhip: {
+	}
+
+	DemonStaff: {
+	}
+
+	CausticStaff: {
+	}
+
+	BatStaff: {
+	}
+
+	TommyGun: {
+	}
+
+	SuperShredder: {
+	}
+
+	SoulBow: {
+	}
+
+	Rifle2: {
+	}
+
+	nailgun.Tooltip: ""
+
+	miniholy: {
+	}
+
+	MechBow: {
+	}
+
+	Lightning_Daggers: {
+	}
+
+	Lightning: {
+	}
+
+	Ligh: {
+	}
+
+	GolemPistol: {
+	}
+
+	Fireini: {
+	}
+
+	Electricbow: {
+	}
+
+	ClockSMG: {
+	}
+
+	ChainShotGun: {
+	}
+
+	Bomb.Tooltip: ""
+
+	Bog: {
+	}
+
+	Trueprimed: {
+	}
+
+	TrueLight: {
+	}
+
+	Subslicer: {
+	}
+
+	Scythe: {
+	}
+
+	lumsword: {
+	}
+
+	HolyRam: {
+	}
+
+	golemsword.Tooltip: ""
+	Frisbe.Tooltip: ""
+	exohal.Tooltip: ""
+
+	Electricice: {
+	}
+
+	EarthShock.Tooltip: ""
+
+	Coralcronk: {
+	}
+
+	bronzesword: {
+	}
+
+	bould: {
+	}
+
+	SkullStorm.Tooltip: ""
+	nebula.Tooltip: ""
+
+	lumiken: {
+	}
+
+	JungleCrash.Tooltip: ""
+
+	Hallowed: {
+	}
+
+	gungolem.Tooltip: ""
+
+	gun: {
+	}
+
+	Golemretrib: {
+	}
+
+	Flour: {
+	}
+
+	Cyclone: {
+	}
+
+	coralst: {
+	}
+
+	coralbeam.Tooltip: ""
+
+	BoulderTomb: {
+	}
+
+	Bouldermagicweapon.Tooltip: ""
+
+	DoomLeggings: {
+	}
+
+	DoomHelm: {
+	}
+
+	DoomChestplate: {
+	}
+
+	ChlorophyteHat: {
+	}
+
+	Wings: {
+	}
+
+	Mechwings: {
+	}
+
+	Mechboss: {
+	}
+
+	HiveHeart: {
+	}
+
+	eleScale: {
+	}
+
+	Pickaxe: {
+	}
+
+	MechPole.Tooltip: ""
+
+	MartianPole: {
+	}
+
+	Magic9Ball: {
+	}
+
+	LunarPole.Tooltip: ""
+
+	LevelEnabler: {
+	}
+
+	JunglePole: {
+	}
+
+	HellPole.Tooltip: ""
+
+	HamAxe: {
+	}
+
+	FishingPole.Tooltip: ""
+
+	Dwarfern_Pickaxe: {
+	}
+
+	Day: {
+	}
+
+	Cursed_Soul: {
+	}
+
+	Chorus_Bloom: {
+	}
+
+	Squid_PetItem: {
+	}
+
+	RudeItem: {
+	}
+
+	RaikoPetItem: {
+	}
+
+	MechItem: {
+	}
+
+	CrabItem: {
+	}
+
+	IceSpikes.Tooltip: ""
+	Hot.Tooltip: ""
+	Gaming.Tooltip: ""
+
+	Equite_Bar: {
+	}
+
+	Easter_Egg: {
+	}
+
+	Broken_Heros_Staff.Tooltip: ""
+
+	Key: {
+	}
+
+	Thicker_Boulder: {
+	}
+
+	StartingBag: {
+	}
+
+	Potion: {
+	}
+
+	Squid_BossSummon: {
+	}
+
+	Squid_Bag: {
+	}
+
+	SharkBag: {
+	}
+
+	PlanteraBossSummon: {
+	}
+
+	OctopusBag: {
+	}
+
+	Mechsummon: {
+	}
+
+	Mechbag: {
+	}
+
+	Boulder_Bag: {
+	}
+
+	BossSummon: {
+	}
+
+	Boss1sum: {
+	}
+
+	Boss1bag: {
+	}
+
+	BeetleBait: {
+	}
+
+	Leggings.Tooltip: ""
+
+	Helmetrange: {
+	}
+
+	Helmetmagic: {
+	}
+
+	Helmet: {
+	}
+
+	ChestPLate.Tooltip: ""
+
+	Tree_Branch: {
+	}
+
+	Tree_Band: {
+	}
+
+	Throwing: {
+	}
+
+	Squid_Expert: {
+	}
+
+	Squid_Accessory: {
+	}
+
+	Shiny: {
+	}
+
+	Scroll: {
+	}
+
+	Drill_Bit: {
+	}
+
+	Charge: {
+	}
+
+	CHARD: {
+	}
+
+	Buckle: {
+	}
+
+	Bone_Sash: {
+	}
+
+	Blindfold: {
+	}
+
+	Antlion_Glove: {
+	}
+
+	Antlion_Fist: {
+	}
+
+	Accessory: {
+	}
+
+	ThickBoulder: {
+	}
+}
+
+Buffs: {
+	Squid_Buff: {
+	}
+
+	RudeBuff: {
+	}
+
+	RaikoPetBuff: {
+	}
+
+	MechPetBuff: {
+	}
+
+	CrabBuff: {
+	}
+
+	Whipbuff: {
+	}
+
+	rockywhipbuff: {
+	}
+
+	icewhipbuff: {
+	}
+
+	gemwhipbuff: {
+	}
+
+	elewhipbuff: {
+	}
+
+	drillwhipbuff: {
+	}
+
+	aerwhipbuff: {
+	}
+
+	TerraBuff: {
+	}
+
+	ShellBuff: {
+	}
+
+	RaikoBuff: {
+	}
+
+	PotionBuff: {
+	}
+
+	MechBuff: {
+	}
+
+	IcyBuff: {
+	}
+
+	IceBuff: {
+	}
+
+	GoblinBuff: {
+	}
+
+	flameBuff: {
+	}
+
+	EqualBuff: {
+	}
+
+	DungBuff: {
+	}
+
+	DemonBuff: {
+	}
+
+	CasBuff: {
+	}
+
+	boldBuff: {
+	}
+
+	BatBuff: {
+	}
+
+	AerBuff: {
+	}
+}

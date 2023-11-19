@@ -9,14 +9,13 @@ namespace Infernus.Items.Weapon.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ivy Clipper");
-            Tooltip.SetDefault("Shoots leafs at max range");
+            ItemID.Sets.ToolTipDamageMultiplier[Type] = 2f;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 12;
+            Item.damage = 16;
             Item.DamageType = DamageClass.Melee;
             Item.width = 30;
             Item.height = 32;
@@ -30,7 +29,7 @@ namespace Infernus.Items.Weapon.Melee
             Item.autoReuse = true;
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.Laserivy>();
-            Item.shootSpeed = 3f;
+            Item.shootSpeed = 8f;
             Item.channel = true;
             Item.noUseGraphic = true;
         }

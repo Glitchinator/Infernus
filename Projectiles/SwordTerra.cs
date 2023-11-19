@@ -13,7 +13,6 @@ namespace Infernus.Projectiles
         int timer;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sword Slash");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -64,7 +63,7 @@ namespace Infernus.Projectiles
 
             return true;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             for (int k = 0; k < 34; k++)

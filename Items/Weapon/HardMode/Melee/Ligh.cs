@@ -9,20 +9,18 @@ namespace Infernus.Items.Weapon.HardMode.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Prismatic Javelin");
-            Tooltip.SetDefault("Strike them down");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 35;
+            Item.damage = 62;
             Item.DamageType = DamageClass.Melee;
             Item.noMelee = true;
             Item.width = 40;
             Item.height = 40;
-            Item.useTime = 28;
-            Item.useAnimation = 20;
+            Item.useTime = 34;
+            Item.useAnimation = 34;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 3f;
             Item.value = Item.buyPrice(0, 14, 50, 0);
@@ -30,7 +28,7 @@ namespace Infernus.Items.Weapon.HardMode.Melee
             Item.UseSound = SoundID.Item39;
             Item.autoReuse = true;
             Item.noUseGraphic = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.Prism>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.Prismatic_Javelin>();
             Item.shootSpeed = 20f;
         }
         public override void AddRecipes()

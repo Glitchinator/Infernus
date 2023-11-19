@@ -13,12 +13,9 @@ namespace Infernus.Biome
         {
             progress.Message = "Aeritite ore is being added to your amazing world";
 
-            for (int i = 0; i < (int)((Main.maxTilesX * Main.maxTilesY) * 6E-04); i++)
+            for (int i = 0; i < (int)((Main.maxTilesX * Main.maxTilesY) * 4E-05); i++)
             {
-                int x = WorldGen.genRand.Next(100, Main.maxTilesX);
-                int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
-
-                WorldGen.TileRunner(x, y, WorldGen.genRand.Next(2, 6), WorldGen.genRand.Next(2, 6), TileType<Tiles.Ore>());
+                WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(Main.maxTilesY - 260, Main.maxTilesY - 200), WorldGen.genRand.Next(12, 17), WorldGen.genRand.Next(12, 17), TileType<Tiles.Ore>());
             }
         }
     }

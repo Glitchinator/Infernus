@@ -11,12 +11,6 @@ namespace Infernus.NPCs
 {
     public class Boulder_Slime : ModNPC
     {
-
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Spry Stone");
-        }
-
         public override void SetDefaults()
         {
             NPC.lifeMax = 204;
@@ -45,7 +39,7 @@ namespace Infernus.NPCs
                 NPC.defense = 26;
             }
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {
@@ -55,7 +49,7 @@ namespace Infernus.NPCs
             {
                 for (int k = 0; k < 20; k++)
                 {
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Stone, 2.5f * hitDirection, -2.5f, 0, default, 1.2f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Stone, 2.5f, -2.5f, 0, default, 1.2f);
                 }
             }
         }

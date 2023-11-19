@@ -9,8 +9,6 @@ namespace Infernus.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Aeritite Axmer");
-            Tooltip.SetDefault("Axmer is the new Hamaxe");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -29,6 +27,8 @@ namespace Infernus.Items.Tools
             Item.autoReuse = true;
             Item.axe = 15;
             Item.hammer = 70;
+            Item.useTurn = true;
+            Item.attackSpeedOnlyAffectsWeaponAnimation = true;
         }
         public override void AddRecipes()
         {

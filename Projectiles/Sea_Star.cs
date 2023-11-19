@@ -11,7 +11,6 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sea Star");
             ProjectileID.Sets.TrailingMode[Type] = 0;
             ProjectileID.Sets.TrailCacheLength[Type] = 5;
         }
@@ -77,20 +76,18 @@ namespace Infernus.Projectiles
 
             return closestNPC;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int k = 0; k < 20; k++)
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.WaterCandle, 2.5f, -2.5f, 0, default, 1.2f);
             }
             homing = true;
+            Projectile.damage = (int)(Projectile.damage * 0.85f);
         }
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (target.defense <= 12)
-            {
-                damage += target.defense / 2;
-            }
+             modifiers.ScalingArmorPenetration += .12f;
         }
         public override bool PreDraw(ref Color lightColor)
         {

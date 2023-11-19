@@ -20,21 +20,12 @@ namespace Infernus.NPCs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ruderibus");
-
             NPCID.Sets.MPAllowedEnemies[Type] = true;
 
             NPCID.Sets.BossBestiaryPriority.Add(Type);
 
-            NPCDebuffImmunityData debuffData = new()
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.Frostburn,
-
-                    BuffID.Confused
-                }
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn] = true;
         }
 
         public override void SetDefaults()
@@ -408,7 +399,7 @@ namespace Infernus.NPCs
                 }
             }
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {
@@ -439,10 +430,28 @@ namespace Infernus.NPCs
                 SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
             }
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.damage = (int)(NPC.damage * 1.15f);
-            NPC.lifeMax = (int)(NPC.lifeMax = 12750 + numPlayers);
+            NPC.lifeMax = (int)(NPC.lifeMax = 12750 * (int)balance);
+
+            if (Main.masterMode == true)
+            {
+                NPC.lifeMax = (int)(NPC.lifeMax = 15600 * (int)balance);
+                NPC.life = (int)(NPC.lifeMax = 15600 * (int)balance);
+                NPC.damage = ((NPC.damage / 2) * 3);
+            }
+            if (Main.getGoodWorld == true)
+            {
+                NPC.scale = .8f;
+                NPC.lifeMax = (int)(NPC.lifeMax = 21000 * (int)balance);
+                NPC.life = (int)(NPC.lifeMax = 21000 * (int)balance);
+                NPC.damage = ((NPC.damage / 10) * 13);
+            }
+        }
+        public override void OnSpawn(IEntitySource source)
+        {
+            Spawn_IceShards();
         }
         private float Magnitude(Vector2 mag)
         {
@@ -459,6 +468,7 @@ namespace Infernus.NPCs
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
+            int chance = 13;
 
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.BossSummon.OctopusBag>()));
 
@@ -470,6 +480,15 @@ namespace Infernus.NPCs
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
 
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.IceSpikes>(), 1, 58, 58));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.FlurryBoots, chance, 1, 1));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.IceMirror, chance, 1, 1));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.IceBoomerang, chance, 1, 1));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.IceBlade, chance, 1, 1));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.BlizzardinaBottle, chance, 1, 1));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.SnowballCannon, chance, 1, 1));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.IceSkates, chance, 1, 1));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.IceMachine, chance, 1, 1));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.Fish, chance, 1, 1));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.Infernal_Bat>()));
 
             npcLoot.Add(notExpertRule);
@@ -481,23 +500,6 @@ namespace Infernus.NPCs
                 new MoonLordPortraitBackgroundProviderBestiaryInfoElement(),
                 new FlavorTextBestiaryInfoElement("A giant ice construct. Filled with the life of a frozen heart, this machine prows the underground ice caverns and leads a hive of ice catalyst. Some call it a hive mind how it reacts quickly to signals and how it reaches it's sight over the terrain.")
             });
-        }
-        public override void OnSpawn(IEntitySource source)
-        {
-            Spawn_IceShards();
-            if (Main.masterMode == true)
-            {
-                NPC.lifeMax = 15600;
-                NPC.life = 15600;
-                NPC.damage = ((NPC.damage / 2) * 3);
-            }
-            if (Main.getGoodWorld == true)
-            {
-                NPC.scale = .8f;
-                NPC.lifeMax = 21000;
-                NPC.life = 21000;
-                NPC.damage = ((NPC.damage / 10) * 13);
-            }
         }
     }
 }

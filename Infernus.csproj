@@ -8,6 +8,53 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <AdditionalFiles Remove="en-US.hjson" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Buffs\Aeritite_Sword_Buff.png" />
+    <None Remove="Buffs\Aeritite_Timer.png" />
+    <None Remove="Buffs\Bleeding_Debuff.png" />
+    <None Remove="Buffs\Boulder_Buff.png" />
+    <None Remove="Items\Ammo\Aeritite_arrow_Ammo.png" />
+    <None Remove="Items\Armor\Aeritite_Chestplate.png" />
+    <None Remove="Items\Armor\Aeritite_Chestplate_Body.png" />
+    <None Remove="Items\Armor\Aeritite_Helmet.png" />
+    <None Remove="Items\Armor\Aeritite_Helmet_Head.png" />
+    <None Remove="Items\Armor\Aeritite_Leggings.png" />
+    <None Remove="Items\Armor\Aeritite_Leggings_Legs.png" />
+    <None Remove="Items\BossSummon\Boulder_Bag.png" />
+    <None Remove="Items\Materials\Gaming.png" />
+    <None Remove="Items\Tools\FishingPole.png" />
+    <None Remove="Items\Tools\HamAxe.png" />
+    <None Remove="Items\Tools\Pickaxe.png" />
+    <None Remove="Items\Weapon\HardMode\Accessories\Boulder_Expert.png" />
+    <None Remove="Items\Weapon\HardMode\Accessories\Boulder_Expert_Shield.png" />
+    <None Remove="Items\Weapon\HardMode\Magic\Aeritite_Plasma_Cannon.png" />
+    <None Remove="Items\Weapon\Magic\AerititeCannon.png" />
+    <None Remove="Items\Weapon\Magic\Solder.png" />
+    <None Remove="Items\Weapon\Melee\AerititeSword.png" />
+    <None Remove="Items\Weapon\Melee\ChainWhip.png" />
+    <None Remove="Items\Weapon\Meteor - Copy.png" />
+    <None Remove="Items\Weapon\Ranged\Aerbow.png" />
+    <None Remove="Items\Weapon\Ranged\Cement.png" />
+    <None Remove="Items\Weapon\Summon\Minion2.png" />
+    <None Remove="Items\Weapon\Summon\Whipaer.png" />
+    <None Remove="Placeable\Ore.png" />
+    <None Remove="Projectiles\Aeritite_Arrow.png" />
+    <None Remove="Projectiles\Aeritite_Magic_Bomb.png" />
+    <None Remove="Projectiles\Aeritite_Mine_Explosion.png" />
+    <None Remove="Projectiles\Boulder_Orbit.png" />
+    <None Remove="Projectiles\Boulder_Orbit_Proj.png" />
+    <None Remove="Projectiles\Budsnap_Thorn.png" />
+    <None Remove="Projectiles\Cloud_Knife.png" />
+    <None Remove="Projectiles\Cloud_Knife_Prime.png" />
+    <None Remove="Projectiles\Cloud_Knife_Proj.png" />
+    <None Remove="Projectiles\Light_Proj.png" />
+    <None Remove="Projectiles\Prismatic_Javelin.png" />
+    <None Remove="Projectiles\Prismatic_Javelin_Proj.png" />
+    <None Remove="Projectiles\Sea_Star_Lite.png" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
 </Project>

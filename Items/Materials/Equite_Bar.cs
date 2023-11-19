@@ -9,8 +9,6 @@ namespace Infernus.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Equite Bar");
-            Tooltip.SetDefault("It's not moldy cheese");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
         }
         public override void SetDefaults()

@@ -7,8 +7,8 @@ namespace Infernus.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Snappers");
-            Description.SetDefault("\"the shells will fight for you\"");
+            // DisplayName.SetDefault("Snappers");
+            // Description.SetDefault("\"the shells will fight for you\"");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }

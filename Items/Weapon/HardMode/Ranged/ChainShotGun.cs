@@ -11,14 +11,12 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bullet Launcher v2");
-            Tooltip.SetDefault("Shoots three large exploding bullets that leave a trail");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 25;
+            Item.damage = 24;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 42;
             Item.height = 20;
@@ -41,7 +39,7 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
                 Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(4));
 

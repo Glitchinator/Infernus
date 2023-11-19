@@ -7,8 +7,8 @@ namespace Infernus.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Demon Skull");
-            Description.SetDefault("\"Don't look into it's eyes\"");
+            // DisplayName.SetDefault("Demon Skull");
+            // Description.SetDefault("\"Don't look into it's eyes\"");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }

@@ -11,14 +11,12 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blazing Ectofire");
-            Tooltip.SetDefault("Converts gel into homing flames");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 42;
+            Item.damage = 40;
             Item.DamageType = DamageClass.Ranged;
             Item.noMelee = true;
             Item.width = 58;

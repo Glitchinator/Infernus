@@ -7,10 +7,6 @@ namespace Infernus.Projectiles
 
     public class BoulderMini : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("mini Boulder");
-        }
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Magic;
@@ -36,6 +32,10 @@ namespace Infernus.Projectiles
             {
                 Projectile.velocity.Y = 16f;
             }
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            Projectile.damage = (int)(Projectile.damage * 0.85f);
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

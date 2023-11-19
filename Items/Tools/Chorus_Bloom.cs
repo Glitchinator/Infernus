@@ -12,9 +12,6 @@ namespace Infernus.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chorus Bloom");
-            Tooltip.SetDefault("Increases damage and crit buffs in Stress"
-                 + "\n Can only be used once");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 2;
         }
         public override void SetDefaults()

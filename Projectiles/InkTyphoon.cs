@@ -9,8 +9,6 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ink Typhoon");
-
             Main.projFrames[Projectile.type] = 3;
         }
         public override void SetDefaults()
@@ -57,7 +55,7 @@ namespace Infernus.Projectiles
                 Projectile.alpha -= 15;
             }
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Obstructed, 60, quiet: false);
         }

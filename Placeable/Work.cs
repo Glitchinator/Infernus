@@ -9,8 +9,6 @@ namespace Infernus.Placeable
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Construction WorkBench");
-            Tooltip.SetDefault("A historic relic, of what a mod used to be. A glimpse into the past...");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

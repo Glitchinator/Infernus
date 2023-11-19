@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
@@ -17,17 +18,12 @@ namespace Infernus.NPCs
     public class Cursed_Wanderer : ModNPC
     {
         private Player player;
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Cursed Wanderer");
-        }
-
         public override void SetDefaults()
         {
             NPC.lifeMax = 3500;
             NPC.damage = 36;
-            NPC.defense = 24;
-            NPC.knockBackResist = 0.0f;
+            NPC.defense = 3;
+            NPC.knockBackResist = 0.4f;
             NPC.width = 38;
             NPC.height = 56;
             NPC.aiStyle = 22;
@@ -45,6 +41,7 @@ namespace Infernus.NPCs
             NPC.netUpdate = true;
             NPC.TargetClosest(true);
             NPC.spriteDirection = NPC.direction;
+
 
             if (NPC.target < 0 || NPC.target == 255 || player.dead || !player.active)
             {
@@ -104,12 +101,34 @@ namespace Infernus.NPCs
             {
                 Shoot();
             }
-            if (timer == 180)
+            if(timer >= 219)
+            {
+                NPC.damage = 0;
+                NPC.velocity.Y = 0;
+                NPC.velocity.X = 0;
+            }
+            if (timer == 220)
+            {
+                if (player.direction == 1)
+                {
+                    Teleport_Right_Close();
+                }
+                if (player.direction == -1)
+                {
+                    Teleport_Left_Close();
+                }
+            }
+            if (timer == 330)
             {
                 timer = 0;
             }
 
 
+        }
+        public override void OnSpawn(IEntitySource source)
+        {
+            NPC.lifeMax = 3500;
+            NPC.life = 3500;
         }
         private float Magnitude(Vector2 mag)
         {
@@ -147,7 +166,7 @@ namespace Infernus.NPCs
         {
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Vector2 position = player.Center + new Vector2(450f, 0f);
+                Vector2 position = player.Center + new Vector2(250f, 0f);
                 NPC.Center = position;
                 NPC.velocity.X = 0;
                 NPC.velocity.Y = 0;
@@ -157,7 +176,27 @@ namespace Infernus.NPCs
         {
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Vector2 position = player.Center + new Vector2(-450f, 0f);
+                Vector2 position = player.Center + new Vector2(-250f, 0f);
+                NPC.Center = position;
+                NPC.velocity.X = 0;
+                NPC.velocity.Y = 0;
+            }
+        }
+        private void Teleport_Left_Close()
+        {
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                Vector2 position = player.Center + new Vector2(30f, 0f);
+                NPC.Center = position;
+                NPC.velocity.X = 0;
+                NPC.velocity.Y = 0;
+            }
+        }
+        private void Teleport_Right_Close()
+        {
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                Vector2 position = player.Center + new Vector2(-30f, 0f);
                 NPC.Center = position;
                 NPC.velocity.X = 0;
                 NPC.velocity.Y = 0;
@@ -204,7 +243,7 @@ namespace Infernus.NPCs
             }
             return true;
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {
@@ -214,7 +253,7 @@ namespace Infernus.NPCs
             {
                 for (int k = 0; k < 24; k++)
                 {
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GlowingMushroom, 2.5f * hitDirection, -2.5f, 0, default, 1.2f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GlowingMushroom, 2.5f, -2.5f, 0, default, 1.2f);
                 }
             }
         }

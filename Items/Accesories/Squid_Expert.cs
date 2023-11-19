@@ -10,8 +10,6 @@ namespace Infernus.Items.Accesories
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Emergency Ink");
-            Tooltip.SetDefault("Has a 33% chance to summon an ink typhoon when the player takes damage");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()

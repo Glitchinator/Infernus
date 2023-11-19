@@ -9,10 +9,6 @@ namespace Infernus.Projectiles
 
     public class Meteor1 : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Eater Fellas");
-        }
         public override void SetDefaults()
         {
             Projectile.width = 10;

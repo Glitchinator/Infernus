@@ -21,20 +21,13 @@ namespace Infernus.NPCs
         private float speed;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Temporal Glow Squid");
             Main.npcFrameCount[NPC.type] = 6;
 
             NPCID.Sets.MPAllowedEnemies[Type] = true;
 
             NPCID.Sets.BossBestiaryPriority.Add(Type);
 
-            NPCDebuffImmunityData debuffData = new()
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.Confused
-                }
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
 
         public override void SetDefaults()
@@ -642,7 +635,7 @@ namespace Infernus.NPCs
         {
             return (float)Math.Sqrt(mag.X * mag.X + mag.Y * mag.Y);
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {
@@ -653,7 +646,7 @@ namespace Infernus.NPCs
             {
                 for (int k = 0; k < 36; k++)
                 {
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, 4f * hitDirection, -2.5f, 0, default, 1f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, 4f, -2.5f, 0, default, 1f);
                 }
                 for (int i = 0; i < 1; i++)
                 {
@@ -689,7 +682,7 @@ namespace Infernus.NPCs
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Squid_Bag>()));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Consumable.Potion>(), 1, 5, 8));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Consumable.Potion>(), 1, 7, 9));
 
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Placeable.Squid_Trophy>(), 10));
 
@@ -709,24 +702,22 @@ namespace Infernus.NPCs
         {
             potionType = ItemID.HealingPotion;
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.damage = (int)(NPC.damage * 1.1f);
-            NPC.lifeMax = (int)(NPC.lifeMax = 3350 + numPlayers);
-        }
-        public override void OnSpawn(IEntitySource source)
-        {
+            NPC.lifeMax = (int)(NPC.lifeMax = 3350 * (int)balance);
+
             if (Main.masterMode == true)
             {
-                NPC.lifeMax = 4400;
-                NPC.life = 4400;
+                NPC.lifeMax = (int)(NPC.lifeMax = 4400 * (int)balance);
+                NPC.life = (int)(NPC.lifeMax = 4400 * (int)balance);
                 NPC.damage = ((NPC.damage / 2) * 3);
             }
             if (Main.getGoodWorld == true)
             {
                 NPC.scale = .6f;
-                NPC.lifeMax = 5650;
-                NPC.life = 5650;
+                NPC.lifeMax = (int)(NPC.lifeMax = 5650 * (int)balance);
+                NPC.life = (int)(NPC.lifeMax = 5650 * (int)balance);
                 NPC.damage = ((NPC.damage / 10) * 13);
             }
         }

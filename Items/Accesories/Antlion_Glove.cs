@@ -10,8 +10,6 @@ namespace Infernus.Items.Accesories
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Antlion Glove");
-            Tooltip.SetDefault("12% increased melee speed." + "\n Enables autoswing for melee weapons." + "\n Increases mining speed.");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()

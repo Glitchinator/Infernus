@@ -8,10 +8,6 @@ namespace Infernus.Projectiles
 
     public class CorrShot : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Demonite Energy");
-        }
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.Bullet);

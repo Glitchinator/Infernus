@@ -8,10 +8,6 @@ namespace Infernus.Projectiles
 
     public class EqualSword : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Magic Sword");
-        }
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.Bullet);

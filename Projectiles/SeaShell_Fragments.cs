@@ -4,13 +4,8 @@ using Terraria.ModLoader;
 
 namespace Infernus.Projectiles
 {
-
     public class SeaShell_Fragments : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("SeaShell Fragment");
-        }
         public override void SetDefaults()
         {
             AIType = ProjectileID.Bullet;
@@ -19,7 +14,7 @@ namespace Infernus.Projectiles
             Projectile.height = 8;
             Projectile.width = 6;
             Projectile.hostile = false;
-            Projectile.timeLeft = 250;
+            Projectile.timeLeft = 100;
             Projectile.netImportant = true;
         }
         public override void AI()

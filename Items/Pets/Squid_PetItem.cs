@@ -11,8 +11,6 @@ namespace Infernus.Items.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ink Storm");
-            Tooltip.SetDefault("Summons a mini squiddy");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()

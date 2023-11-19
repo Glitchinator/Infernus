@@ -10,8 +10,6 @@ namespace Infernus.Items.Accesories
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Energy Cell");
-            Tooltip.SetDefault("+6% Summon damage");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()

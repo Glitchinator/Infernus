@@ -13,7 +13,6 @@ namespace Infernus.Projectiles
         int timer;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Boulder Slash");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -45,6 +44,10 @@ namespace Infernus.Projectiles
                 Projectile.tileCollide = true;
             }
         }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            Projectile.damage = (int)(Projectile.damage * 0.85f);
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             Main.instance.LoadProjectile(Projectile.type);
@@ -64,7 +67,7 @@ namespace Infernus.Projectiles
 
             return true;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             for (int k = 0; k < 34; k++)

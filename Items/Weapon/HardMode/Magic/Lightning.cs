@@ -12,14 +12,12 @@ namespace Infernus.Items.Weapon.HardMode.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sickilin");
-            Tooltip.SetDefault("Summons a lightning vortex to periodically summon electric patterns");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 130;
+            Item.damage = 98;
             Item.DamageType = DamageClass.Magic;
             Item.width = 28;
             Item.height = 30;

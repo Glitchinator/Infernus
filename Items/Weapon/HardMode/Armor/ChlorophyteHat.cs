@@ -10,9 +10,6 @@ namespace Infernus.Items.Weapon.HardMode.Armor
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chlorophyte Hat");
-            Tooltip.SetDefault("16% increased summon damage" +
-                "\n Increases your max number of minions by 1");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

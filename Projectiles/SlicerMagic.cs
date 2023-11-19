@@ -6,10 +6,6 @@ namespace Infernus.Projectiles
 
     public class SlicerMagic : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Dark Scythe");
-        }
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.DeathSickle);
@@ -21,7 +17,7 @@ namespace Infernus.Projectiles
             Projectile.hostile = false;
             Projectile.netImportant = true;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 3;
             target.immune[Projectile.owner] = 3;

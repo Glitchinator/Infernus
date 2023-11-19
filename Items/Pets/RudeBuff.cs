@@ -8,8 +8,6 @@ namespace Infernus.Items.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mini Ruderibus");
-            Description.SetDefault("A miniature Ruderibus is following you");
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
         }

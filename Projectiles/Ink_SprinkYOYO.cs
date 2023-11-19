@@ -9,7 +9,6 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ink Sprinkler");
             ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 225f;
             ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 12.5f;
         }

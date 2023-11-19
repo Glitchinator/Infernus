@@ -9,11 +9,6 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hive Heart");
-            Tooltip.SetDefault("All attacks inflict Venom and Poisoned"
-                  + "\n + Immune to venom and poisoned"
-                  + "\n + Increases the strength of bees"
-                    + "\n Minor increase to life regen");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()

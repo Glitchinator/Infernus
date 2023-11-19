@@ -9,8 +9,6 @@ namespace Infernus.Items.Weapon.HardMode.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Ninth Annihilator");
-            Tooltip.SetDefault("Throw a javelin that creates a trail of homing sparks");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

@@ -9,8 +9,6 @@ namespace Infernus.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Martian Pole");
-            Tooltip.SetDefault("Catch fish with artificial gravity");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             ItemID.Sets.CanFishInLava[Item.type] = true;
         }

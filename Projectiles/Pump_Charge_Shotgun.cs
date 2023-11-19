@@ -1,15 +1,10 @@
-﻿using IL.Terraria.Social.Base;
-using Infernus.Items.Weapon.HardMode.Ranged;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Mono.Cecil;
-using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace Infernus.Projectiles
 {
@@ -17,7 +12,6 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Pump Charge Shotgun");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -57,7 +51,7 @@ namespace Infernus.Projectiles
                 Projectile.damage = 3080;
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int k = 0; k < 11; k++)
             {

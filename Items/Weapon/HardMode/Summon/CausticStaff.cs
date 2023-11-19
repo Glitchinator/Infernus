@@ -12,8 +12,6 @@ namespace Infernus.Items.Weapon.HardMode.Summon
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Caustic Staff");
-            Tooltip.SetDefault("Summon a virus to inflict every debuff known to man. Deals tick damage like a debuff, more summons, more damage");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true;
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -42,7 +40,7 @@ namespace Infernus.Items.Weapon.HardMode.Summon
             player.AddBuff(Item.buffType, 2);
             position = Main.MouseWorld;
             Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
-            return true;
+            return false;
         }
         public override void AddRecipes()
         {

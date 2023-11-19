@@ -10,10 +10,6 @@ namespace Infernus.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dwarfven Pickaxe");
-            Tooltip.SetDefault("Gets more powerful in hardmode" +
-                 "\n Right click to salute your fellow dwarfs" +
-                 "\n 'Rock and Stone, it never gets old'");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

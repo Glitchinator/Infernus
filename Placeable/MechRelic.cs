@@ -9,8 +9,6 @@ namespace Infernus.Placeable
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Calypsical Relic");
-
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

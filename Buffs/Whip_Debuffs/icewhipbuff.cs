@@ -7,14 +7,10 @@ namespace Infernus.Buffs.Whip_Debuffs
     public class icewhipbuff : ModBuff
     {
         public override string Texture => "Infernus/Buffs/Whip_Debuffs/Whip_Debuff_Icon";
+        public static readonly int TagDamage = 7;
         public override void SetStaticDefaults()
         {
-            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
-        }
-
-        public override void Update(NPC npc, ref int buffIndex)
-        {
-            npc.GetGlobalNPC<Whip_Debuffs_Global>().markedByiceWhip = true;
+            BuffID.Sets.IsATagBuff[Type] = true;
         }
     }
 }

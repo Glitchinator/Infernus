@@ -10,10 +10,6 @@ namespace Infernus.Items.Weapon.HardMode.Summon
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Volt Conductor");
-            Tooltip.SetDefault("Your minions will attack struck foes"
-                            + "\n Minions have a chance to rain lightning on hit"
-                            + "\n + 12 summon tag damage");
         }
 
         public override void SetDefaults()

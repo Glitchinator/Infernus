@@ -1,0 +1,1572 @@
+Mods: {
+	Infernus: {
+		Buffs: {
+			AerBuff: {
+				DisplayName: Aeritite meatball
+				Description: '''"The meatball will fight for you"'''
+			}
+
+			BatBuff: {
+				DisplayName: Cave Bats
+				Description: '''"The bats will fight for you"'''
+			}
+
+			boldBuff: {
+				DisplayName: Elements
+				Description: '''"the vortexes are ready"'''
+			}
+
+			CasBuff: {
+				DisplayName: Infection
+				Description: '''"The virus will fight for you"'''
+			}
+
+			DemonBuff: {
+				DisplayName: Demon Skull
+				Description: '''"Don't look into it's eyes"'''
+			}
+
+			DungBuff: {
+				DisplayName: Pile o' Bones
+				Description: '''"The bones will fight for you"'''
+			}
+
+			EqualBuff: {
+				DisplayName: Knifes
+				Description: '''"I could get tetanus from one"'''
+			}
+
+			flameBuff: {
+				DisplayName: Eternal Zero
+				Description: '''"Soothing... Like staring into a fire"'''
+			}
+
+			GoblinBuff: {
+				DisplayName: Shadow phantoms
+				Description: '''"Wait... It's on my side"'''
+			}
+
+			IceBuff: {
+				DisplayName: Aurora Defenders
+				Description: '''"The Shurikens fly closely"'''
+			}
+
+			IcyBuff: {
+				DisplayName: Cryonic Arm
+				Description: '''"An arm that creates ice bombs? Cool."'''
+			}
+
+			MechBuff: {
+				DisplayName: Holy Fist of Fate
+				Description: '''"*Thumbs up*"'''
+			}
+
+			PotionBuff: {
+				DisplayName: Calamari Rage
+				Description: '''"Boost to Defense, Regen, Damage and Crit"'''
+			}
+
+			RaikoBuff: {
+				DisplayName: Raiko's Flames
+				Description: '''"The fire burns brightly"'''
+			}
+
+			ShellBuff: {
+				DisplayName: Snappers
+				Description: '''"the shells will fight for you"'''
+			}
+
+			TerraBuff: {
+				DisplayName: Terra Seedler
+				Description: '''"The Terra Seedler will fight for you"'''
+			}
+
+			aerwhipbuff: {
+				DisplayName: Mods.Infernus.BuffName.aerwhipbuff
+				Description: Mods.Infernus.BuffDescription.aerwhipbuff
+			}
+
+			drillwhipbuff: {
+				DisplayName: Mods.Infernus.BuffName.drillwhipbuff
+				Description: Mods.Infernus.BuffDescription.drillwhipbuff
+			}
+
+			elewhipbuff: {
+				DisplayName: Mods.Infernus.BuffName.elewhipbuff
+				Description: Mods.Infernus.BuffDescription.elewhipbuff
+			}
+
+			gemwhipbuff: {
+				DisplayName: Mods.Infernus.BuffName.gemwhipbuff
+				Description: Mods.Infernus.BuffDescription.gemwhipbuff
+			}
+
+			icewhipbuff: {
+				DisplayName: Mods.Infernus.BuffName.icewhipbuff
+				Description: Mods.Infernus.BuffDescription.icewhipbuff
+			}
+
+			rockywhipbuff: {
+				DisplayName: Mods.Infernus.BuffName.rockywhipbuff
+				Description: Mods.Infernus.BuffDescription.rockywhipbuff
+			}
+
+			Whipbuff: {
+				DisplayName: Mods.Infernus.BuffName.Whipbuff
+				Description: Mods.Infernus.BuffDescription.Whipbuff
+			}
+
+			CrabBuff: {
+				DisplayName: Horseshoe Crab
+				Description: A Horseshoe Crab is following you
+			}
+
+			MechPetBuff: {
+				DisplayName: Lost Eye
+				Description: A confused Eye is following you
+			}
+
+			RaikoPetBuff: {
+				DisplayName: Mini Raiko
+				Description: A Baby Raiko is following you
+			}
+
+			RudeBuff: {
+				DisplayName: Mini Ruderibus
+				Description: A miniature Ruderibus is following you
+			}
+
+			Squid_Buff: {
+				DisplayName: Mini Squiddy
+				Description: Mini Squiddy!!!
+			}
+
+			Boulder_Buff: {
+				DisplayName: Shielded by the Husk
+				Description: Gain multiple orbiting boulders
+			}
+
+			Aeritite_Timer: {
+				DisplayName: Aeritite Bulwark Cooldown
+				Description: Aeritite set-bonus on cooldown
+			}
+
+			Aeritite_Sword_Buff: {
+				DisplayName: Aeritite Stamina
+				Description: Increases melee speed by 50%
+			}
+
+			Bleeding_Debuff: {
+				DisplayName: Bleeding_ Debuff
+				Description: Mods.Infernus.Buffs.Bleeding_Debuff.Description
+			}
+		}
+
+		Items: {
+			ThickBoulder: {
+				DisplayName: Thick Boulder
+				Tooltip: Don't throw it, the boulders are watching
+			}
+
+			Accessory: {
+				DisplayName: Snowfall Tiara
+				Tooltip: Summons an ice arm that shoots homing ice bombs
+			}
+
+			Antlion_Fist: {
+				DisplayName: Antlion Claw
+				Tooltip:
+					'''
+					10% increased melee speed
+					Increases mining speed
+					'''
+			}
+
+			Antlion_Glove: {
+				DisplayName: Antlion Glove
+				Tooltip:
+					'''
+					12% increased melee speed
+					Enables autoswing for melee weapons
+					Increases mining speed
+					'''
+			}
+
+			Blindfold: {
+				DisplayName: Silky Sash
+				Tooltip:
+					'''
+					Defense reduced by 3
+					Damage increased by 8%
+					'''
+			}
+
+			Bone_Sash: {
+				DisplayName: Silky Ossein Sash
+				Tooltip:
+					'''
+					Defense reduced by 6
+					Life regen reduced by 1
+					Damage increased by 15%
+					'''
+			}
+
+			Buckle: {
+				DisplayName: Chipped Whetstone
+				Tooltip:
+					'''
+					Increases armor penetration by 1
+					Weapons tear enemies open, making them bleed
+					'''
+			}
+
+			CHARD: {
+				DisplayName: Sentinel Battery
+				Tooltip: +12% Summon damage + 1 Minion
+			}
+
+			Charge: {
+				DisplayName: Duel Cell
+				Tooltip: +10% Summon damage
+			}
+
+			Drill_Bit: {
+				DisplayName: Shattered Drill
+				Tooltip:
+					'''
+					Increased mining speed
+					'Did I hear a rock and stone?'
+					'''
+			}
+
+			Scroll: {
+				DisplayName: Ice Scroll
+				Tooltip:
+					'''
+					Cold to the touch
+					8% Reduced Mana Usage
+					Increases max mana by 40
+					'''
+			}
+
+			Shiny: {
+				DisplayName: Raiko's Toothpaste
+				Tooltip:
+					'''
+					Allows the holder to double jump
+					4% increased movement speed
+					4% increased jump speed
+					'''
+			}
+
+			Squid_Accessory: {
+				DisplayName: Radiant Squid Heart
+				Tooltip:
+					'''
+					Increases your max number of minions by 1
+					8% increased summon damage
+					7% reduced mana cost
+					'''
+			}
+
+			Squid_Expert: {
+				DisplayName: Emergency Ink
+				Tooltip: Has a 33% chance to summon an ink typhoon when the player takes damage
+			}
+
+			Throwing: {
+				DisplayName: Energy Cell
+				Tooltip: 6% increased Summon damage
+			}
+
+			Tree_Band: {
+				DisplayName: Band of Terra
+				Tooltip:
+					'''
+					Increased life regen by 1
+					Increases life by 20
+					'''
+			}
+
+			Tree_Branch: {
+				DisplayName: Tree Idol
+				Tooltip: Increased life regen by 1
+			}
+
+			ChestPLate.DisplayName: Aeritite Breastplate
+
+			Helmet: {
+				DisplayName: Aeritite Helm
+				Tooltip: 6% increased melee damage
+			}
+
+			Helmetmagic: {
+				DisplayName: Aeritite Hood
+				Tooltip: Increases your max number of minions by 1
+			}
+
+			Helmetrange: {
+				DisplayName: Aeritite Headgear
+				Tooltip: 6% increased ranged damage
+			}
+
+			Leggings.DisplayName: Aeritite Leggings
+
+			BeetleBait: {
+				DisplayName: Beetle Bait
+				Tooltip:
+					'''
+					Summons Serphious
+					Must be in ocean biome
+					'''
+			}
+
+			Boss1bag: {
+				DisplayName: Treasure Bag
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			Boss1sum: {
+				DisplayName: Meteor Shard
+				Tooltip:
+					'''
+					Summons Raiko
+					Must be night
+					'''
+			}
+
+			BossSummon: {
+				DisplayName: Suspicious Ice Heart
+				Tooltip:
+					'''
+					Summons Ruberibus
+					Must be in snow biome
+					'''
+			}
+
+			Boulder_Bag: {
+				DisplayName: Cracked Husk
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			Mechbag: {
+				DisplayName: Treasure Bag
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			Mechsummon: {
+				DisplayName: Damaged Exotic Prism
+				Tooltip:
+					'''
+					Summons Calypsical
+					Must have killed Moon Lord
+					'''
+			}
+
+			OctopusBag: {
+				DisplayName: Treasure Bag
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			PlanteraBossSummon: {
+				DisplayName: Sapling
+				Tooltip:
+					'''
+					Summons Plantera
+					Must be in the jungle
+					'''
+			}
+
+			SharkBag: {
+				DisplayName: Treasure Bag
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			Squid_Bag: {
+				DisplayName: Treasure Bag
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			Squid_BossSummon: {
+				DisplayName: Hypnotic Glow Lyum
+				Tooltip:
+					'''
+					Summons the Temporal Glow Squid
+					Must be in ocean biome
+					'''
+			}
+
+			Potion: {
+				DisplayName: Calamari Rage
+				Tooltip: Gives a boost to most stats
+			}
+
+			StartingBag: {
+				DisplayName: Terrarians Bag
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			Thicker_Boulder: {
+				DisplayName: Thicker Boulder
+				Tooltip: Don't throw it, worst thing I've done in my life
+			}
+
+			Key: {
+				DisplayName: Construction Key
+				Tooltip: Why you always chasing me? (Why me)
+			}
+
+			Broken_Heros_Staff.DisplayName: Broken Staff
+
+			Easter_Egg: {
+				DisplayName: Easter Egg
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			Equite_Bar: {
+				DisplayName: Equite Bar
+				Tooltip: It's not moldy cheese
+			}
+
+			Gaming.DisplayName: Aeritite Bar
+			Hot.DisplayName: Meteorite Flame
+			IceSpikes.DisplayName: Cryonic Chunk
+
+			CrabItem: {
+				DisplayName: Murky Horseshoe
+				Tooltip: Summons a Horseshoe Crab to follow you
+			}
+
+			MechItem: {
+				DisplayName: Lost Eye
+				Tooltip: Summons a Confused Eye to follow you
+			}
+
+			RaikoPetItem: {
+				DisplayName: Meteor Binkie
+				Tooltip: Summons a baby Raiko to follow you
+			}
+
+			RudeItem: {
+				DisplayName: Ice Shard
+				Tooltip: Summons a miniature Ruderibus to follow you
+			}
+
+			Squid_PetItem: {
+				DisplayName: Ink Storm
+				Tooltip: Summons a mini squiddy
+			}
+
+			Chorus_Bloom: {
+				DisplayName: Chorus Bloom
+				Tooltip:
+					'''
+					Increases damage and crit buffs in Stress
+					 Can only be used once
+					'''
+			}
+
+			Cursed_Soul: {
+				DisplayName: Cursed Soul
+				Tooltip:
+					'''
+					Increases movespeed buffs in Stress
+					 Can only be used once
+					'''
+			}
+
+			Day: {
+				DisplayName: Meteorite Lamp
+				Tooltip: Take control of the day... or night
+			}
+
+			Dwarfern_Pickaxe: {
+				DisplayName: Dwarfven Pickaxe
+				Tooltip:
+					'''
+					Gets more powerful in hardmode
+					 Right click to salute your fellow dwarfs
+					 'Rock and Stone, it never gets old'
+					'''
+			}
+
+			FishingPole.DisplayName: Aeritite Pole
+
+			HamAxe: {
+				DisplayName: Aeritite Axmer
+				Tooltip: Axmer is the new Hamaxe
+			}
+
+			HellPole.DisplayName: Hellstone Pole
+
+			JunglePole: {
+				DisplayName: Chlorophyte Pole
+				Tooltip: More powerful in the jungle
+			}
+
+			LevelEnabler: {
+				DisplayName: Heresy
+				Tooltip:
+					'''
+					Your journey awaits, with fortune and fame...
+					 Enables Stress for the Player
+					 40% Increase Health and 40% Increased Damage of Bosses
+					 Adds custom AI to these bosses (Temporal Glow Squid, Raiko, Ruderibus, Corrupted Husk, Serphious, Calypsical)
+					 Stress is an amount of hits the player can take before they die
+					 With each hit(s) you take, you gain a buff until you die
+					 Stress only activates when a boss is alive
+					 Future updates like custom vanilla AI and drops will come later
+					'''
+			}
+
+			LunarPole.DisplayName: Lunar Pole
+
+			Magic9Ball: {
+				DisplayName: Magic Nine Ball
+				Tooltip: Tells the effects of Stress buffs
+			}
+
+			MartianPole: {
+				DisplayName: Martian Pole
+				Tooltip: Catch fish with artificial gravity
+			}
+
+			MechPole.DisplayName: Divine Pole
+
+			Pickaxe: {
+				DisplayName: Aeritite Pickaxe
+				Tooltip: Can mine meteorite
+			}
+
+			eleScale: {
+				DisplayName: Electric Scale
+				Tooltip:
+					'''
+					In space or at the ocean you gain
+					 +10 defense + 15% Damage + 16% Crit
+					 Infinite breath and swimming
+					 + Minor increase to life regen
+					'''
+			}
+
+			HiveHeart: {
+				DisplayName: Hive Heart
+				Tooltip:
+					'''
+					All attacks inflict Venom and Poisoned
+					 + Immune to venom and poisoned
+					 + Increases the strength of bees
+					 Minor increase to life regen
+					'''
+			}
+
+			Mechboss: {
+				DisplayName: Mechanical Mind
+				Tooltip:
+					'''
+					Shoots lazers when attacking
+					 Only works with projectile weapons
+					'''
+			}
+
+			Mechwings: {
+				DisplayName: Angelic Wings
+				Tooltip:
+					'''
+					Allows flight, and slow falling
+					+ 6% damage + 4% crit
+					'''
+			}
+
+			Wings: {
+				DisplayName: Crumbled Flight
+				Tooltip: Allows flight, and slow falling
+			}
+
+			ChlorophyteHat: {
+				DisplayName: Chlorophyte Hat
+				Tooltip:
+					'''
+					16% increased summon damage
+					 Increases your max number of minions by 1
+					'''
+			}
+
+			DoomChestplate: {
+				DisplayName: Praetor Suit
+				Tooltip: Heals on enemy strike
+			}
+
+			DoomHelm: {
+				DisplayName: Praetor Helm
+				Tooltip:
+					'''
+					Immune to knockback
+					 20% increased damage
+					'''
+			}
+
+			DoomLeggings: {
+				DisplayName: Praetor Stompers
+				Tooltip:
+					'''
+					+ 15% Movement Speed
+					 + 14% Crit Chance
+					'''
+			}
+
+			Aeritite_Plasma_Cannon: {
+				DisplayName: Aeritite Plasma Cannon
+				Tooltip: Deals increased damage the further the enemy is
+			}
+
+			Bouldermagicweapon.DisplayName: Big Rock Fork
+
+			BoulderTomb: {
+				DisplayName: Boulder Tomb
+				Tooltip: Casts micro bouncing boulders
+			}
+
+			coralbeam.DisplayName: Stellar Strike
+
+			coralst: {
+				DisplayName: Starfish Stalker
+				Tooltip:
+					'''
+					Casts a starfish that locks onto enemies
+					 Ignores a substantial amount of enemy defense
+					'''
+			}
+
+			Cyclone: {
+				DisplayName: Scourge of the Scythes
+				Tooltip: Conjures a line of hyperimposed scythes to rip enemies
+			}
+
+			Flour: {
+				DisplayName: Bloom Bomb
+				Tooltip: Shoots a exploding flower bloom
+			}
+
+			Golemretrib: {
+				DisplayName: Telsa Revolt
+				Tooltip: Shoots waves of electricity frying anything in it's way
+			}
+
+			gun: {
+				DisplayName: DRAK-25 Plasma Carbine
+				Tooltip: "God Damn it! There is a pebble in my boot! "
+			}
+
+			gungolem.DisplayName: Plantera's Pistol
+
+			Hallowed: {
+				DisplayName: Exgnir
+				Tooltip: Shoots homing shots
+			}
+
+			JungleCrash.DisplayName: Spore Shooter
+
+			Lightning: {
+				DisplayName: Sickilin
+				Tooltip: Summons a lightning vortex to periodically summon electric patterns
+			}
+
+			lumiken: {
+				DisplayName: Cosmic Three
+				Tooltip: Throws three different shurikens.
+			}
+
+			nebula.DisplayName: Nebulation
+			SkullStorm.DisplayName: Skullstorm
+
+			bould: {
+				DisplayName: Boulder Breaker
+				Tooltip: A blade strong enough to split a mountain in half
+			}
+
+			bronzesword: {
+				DisplayName: Hellfire Flayer
+				Tooltip: Slashes spew fire on impact
+			}
+
+			Coralcronk: {
+				DisplayName: Seashine Claymore
+				Tooltip: Shoots short ranged shells that fragment as they fly
+			}
+
+			EarthShock.DisplayName: Earthquake
+
+			Electricice: {
+				DisplayName: Arc Swinger
+				Tooltip:
+					'''
+					Sporadically shoots lightning bolts
+					 Shoots a lightning bolt that ricochets into enemies every 2 second
+					'''
+			}
+
+			exohal.DisplayName: Shining Gladius
+			Frisbe.DisplayName: Frisbe
+			golemsword.DisplayName: Brartic Sword
+
+			HolyRam: {
+				DisplayName: The Ninth Annihilator
+				Tooltip: Throw a javelin that creates a trail of homing sparks
+			}
+
+			Ligh: {
+				DisplayName: Prismatic Javelin
+				Tooltip: Strike them down
+			}
+
+			lumsword: {
+				DisplayName: Luminite Sword
+				Tooltip: A blade that cuts multiple rifts when swung
+			}
+
+			Scythe: {
+				DisplayName: Scythe of Dark
+				Tooltip: Throw out a Scythe that fades quickly but releases homing souls on hit
+			}
+
+			Subslicer: {
+				DisplayName: Nuclear Subslicer
+				Tooltip: Shoots hyperinfused scythe heads that rip through time
+			}
+
+			TrueLight: {
+				DisplayName: True Light's Edge
+				Tooltip: spawns a shard when fully thrown, has a chance to spawn daggers on hit
+			}
+
+			Trueprimed: {
+				DisplayName: Prime Light's Edge
+				Tooltip: spawns 3 shards when fully thrown,Shoots white daggers at enemies, has a chance to spawn daggers on hit, inflicts cursed flame
+			}
+
+			Bog: {
+				DisplayName: Hero's Launcher
+				Tooltip:
+					'''
+					Charge up a powerful bouncing boulder
+					1.6 Sec Charge Time
+					'''
+			}
+
+			Bomb.DisplayName: Chlorophyte Burst Shotgun
+
+			ChainShotGun: {
+				DisplayName: Bullet Launcher v2
+				Tooltip: Shoots two large exploding bullets that leave a trail
+			}
+
+			ClockSMG: {
+				DisplayName: Lost Clockwork SMG
+				Tooltip: 25% chance to not consume ammo
+			}
+
+			Electricbow: {
+				DisplayName: Shutter Bow
+				Tooltip: Shoots electric arrows that fall and arc off the ground
+			}
+
+			Fireini: {
+				DisplayName: Molten Barrager
+				Tooltip:
+					'''
+					Shoot an ungodly amount of bullets
+					50% Chance for bullets to melt into hot magma
+					66% chance to not consume ammo
+					'''
+			}
+
+			GolemPistol: {
+				DisplayName: Solar Pistol
+				Tooltip: Shoot two piercing exploding bullets that gain velocity
+			}
+
+			Lightning_Daggers: {
+				DisplayName: Lightning Daggers
+				Tooltip:
+					'''
+					Charge up a barrage of daggers
+					 25% chance to shoot a single overpowered dagger
+					 1 Sec Charge Time
+					'''
+			}
+
+			MechBow: {
+				DisplayName: Pulse Rifle
+				Tooltip: Converts bullets to shotgun lazars
+			}
+
+			miniholy: {
+				DisplayName: Pump Charge Shotgun
+				Tooltip:
+					'''
+					Fires a spread of flaming bullets
+					 Right click to charge the shotgun loading more bullets into the chamber
+					 If you charge too many times the player will throw the exploding shotgun
+					 Overcharging increases damages to a max of 10 charges
+					'''
+			}
+
+			nailgun.DisplayName: Vivid Glory
+
+			Rifle2: {
+				DisplayName: Blazing Ectofire
+				Tooltip: Converts gel into homing flames
+			}
+
+			SoulBow: {
+				DisplayName: Breaker Bow
+				Tooltip:
+					'''
+					'With many arrows, comes many targets'
+					1.3 Sec Charge Time
+					'''
+			}
+
+			SuperShredder: {
+				DisplayName: Super Shredder
+				Tooltip: Doomguy's favorite
+			}
+
+			TommyGun: {
+				DisplayName: Tommy Gun
+				Tooltip: 35% chance to not consume ammo
+			}
+
+			BatStaff: {
+				DisplayName: Bat Staff
+				Tooltip: Summon a bat to attack enemies
+			}
+
+			CausticStaff: {
+				DisplayName: Caustic Staff
+				Tooltip: Summon a virus to inflict every debuff known to man. Deals tick damage like a debuff, more summons, more damage
+			}
+
+			DemonStaff: {
+				DisplayName: Demon Palm
+				Tooltip: Summon a skull to attack enemies
+			}
+
+			Drillxwhip: {
+				DisplayName: Giant's Drill
+				Tooltip:
+					'''
+					Belonged to Drill-X
+					 Your minions will attack struck foes
+					 + Explosions
+					 + 14 summon tag damage
+					'''
+			}
+
+			eternal: {
+				DisplayName: Eternal Point
+				Tooltip: Engulfs you in a raging fire
+			}
+
+			GoblinStaff: {
+				DisplayName: Shadowflame Puppet
+				Tooltip: Summons Shadowflame Apparitions to attack enemies
+			}
+
+			Mecharmr: {
+				DisplayName: Holy Fist of Fate
+				Tooltip: Summon a pair of mecha arms that throw hands with enemies
+			}
+
+			MechWhip: {
+				DisplayName: Paladin's Flail
+				Tooltip:
+					'''
+					Throw multiple whips that rip enemies
+					 Your minions will attack struck foes
+					 + 28 summon tag damage
+					 + 2 summon knockback
+					'''
+			}
+
+			TerraStaff: {
+				DisplayName: Terra Seedler
+				Tooltip: Summon a Terra Seedler to fight for you
+			}
+
+			whiplight: {
+				DisplayName: Volt Conductor
+				Tooltip:
+					'''
+					Your minions will attack struck foes
+					 Minions have a chance to rain lightning on hit
+					 + 12 summon tag damage
+					'''
+			}
+
+			Whiprock: {
+				DisplayName: Rumble Crunch
+				Tooltip:
+					'''
+					Your minions will attack struck foes
+					 + Venom and boulders
+					 + 10 summon tag damage
+					'''
+			}
+
+			Infernal_Bat: {
+				DisplayName: Infernal Bat
+				Tooltip:
+					'''
+					Happy Birthday Infernus!
+					 Damage is equal to 2% of the enemy's health
+					'''
+			}
+
+			AerititeCannon: {
+				DisplayName: Aeritite Blaster
+				Tooltip: Shoots a burst of energy
+			}
+
+			Buther: {
+				DisplayName: Boulder Staff
+				Tooltip: Shoots a giant boulder
+			}
+
+			Coralstaff.DisplayName: Starfish Staff
+
+			CorrStaff: {
+				DisplayName: Demonite Staff
+				Tooltip:
+					'''
+					Shoot demonite energy shots to your left or right
+					  goes faster how far your cursor is from the middle of the screen
+					'''
+			}
+
+			CrimStaff: {
+				DisplayName: Crimtane Staff
+				Tooltip:
+					'''
+					Shoot crimtane energy shots to your left or right
+					  goes faster how far your cursor is from the middle of the screen
+					'''
+			}
+
+			EqualStaff: {
+				DisplayName: Equite Staff
+				Tooltip: Conjures magic spears and daggers
+			}
+
+			Fallen: {
+				DisplayName: Scorched Stick
+				Tooltip: Shoots stars and fire
+			}
+
+			Flower.DisplayName: Budsnap
+			FlowerTooltip: Shoots a flower bud that shoots seeds on impact
+
+			Ices: {
+				DisplayName: Glacies Lancea
+				Tooltip: A spear of winter, throw it. And a path is opened.
+			}
+
+			MeteorEater: {
+				DisplayName: StormGlobe
+				Tooltip:
+					'''
+					Throws a flask, which explodes into fireballs and rains meteors.
+					 [WEATHER ALERT]
+					'''
+			}
+
+			Radiant_Staff: {
+				DisplayName: Radiant Glow
+				Tooltip:
+					'''
+					Conjures magical vortexes.
+					 Ignores defense
+					'''
+			}
+
+			Rifle: {
+				DisplayName: Stick of Stars
+				Tooltip:
+					'''
+					Shoots 3 stars in a row
+					 Gumga's stick
+					'''
+			}
+
+			SkullStaff: {
+				DisplayName: Skull Staff
+				Tooltip: Conjures bouncin bones
+			}
+
+			Solder: {
+				DisplayName: Aeritite Wand
+				Tooltip: Conjures exploding aeritite shards from below
+			}
+
+			Storm: {
+				DisplayName: Storm Surge
+				Tooltip: Rain Lightning from the sky
+			}
+
+			Sword: {
+				DisplayName: Cloud Crasher
+				Tooltip:
+					'''
+					Throw star infused daggers
+					every 4th dagger will rain star plasma
+					'''
+			}
+
+			AerititeSword: {
+				DisplayName: Aeritite Sword
+				Tooltip:
+					'''
+					Deals 2x damage to enemies under half health
+					After hitting an enemy you gain increased melee speed
+					'''
+			}
+
+			BoldnBash: {
+				DisplayName: Meteor Masher
+				Tooltip: Throw out exploding flails that are affect by gravity
+			}
+
+			ChainWhip.DisplayName: Aeritite Mace
+			EqualBlade.DisplayName: Equite Saber
+			Fire.DisplayName: Flame Saber
+
+			Hatchet: {
+				DisplayName: Darvyle's Hatchet of Might
+				Tooltip: Throw a hatchet that shreds enemies with shards
+			}
+
+			Ice.DisplayName: Cryonic Claymore
+			Ink_Sprinkler.DisplayName: Ink Sprinkler
+
+			IvyWhip: {
+				DisplayName: Ivy Clipper
+				Tooltip: Shoots three leaves at max range
+			}
+
+			LeadPipe.DisplayName: Lead Pipe
+
+			Light: {
+				DisplayName: Shadow's Reach
+				Tooltip: shoots a silhouette of the flail
+			}
+
+			Seashellsword.DisplayName: Seashell Sword
+			Skull_Yoyo.DisplayName: Skull Throw
+
+			SkullBasher: {
+				DisplayName: Skullbasher
+				Tooltip: Spooky, Scary, Boomerang
+			}
+
+			Starfish_yoyo.DisplayName: Star-yo
+
+			Swingy: {
+				DisplayName: Smoldered Sword
+				Tooltip: Goodbye space sword
+			}
+
+			Swingy2: {
+				DisplayName: Thiriscus
+				Tooltip: Cursed by the dungeon, the blade turns blue. Showing a thousand souls a fight.
+			}
+
+			Viral: {
+				DisplayName: Rot Ball
+				Tooltip: Throw out a flail that lodges spikes in enemies
+			}
+
+			Meteor: {
+				DisplayName: Meteor Eateor
+				Tooltip:
+					'''
+					Throw out meteors that follow the cursor. can only have 10 thrown
+					 They will take a chunk out of you
+					 Your really cool if you use this
+					'''
+			}
+
+			AerBow: {
+				DisplayName: Aeritite Bow
+				Tooltip:
+					'''
+					Charge up a four arrow shot
+					Converts wooden arrows into aeritite arrows
+					2 Sec Charge Time
+					'''
+			}
+
+			Cement: {
+				DisplayName: Aeritite Detonator
+				Tooltip: Throw a grenade that explodes with aeritite energy
+			}
+
+			Coral.DisplayName: Coral Knifes
+
+			Desert_Blaster: {
+				DisplayName: Desert Blaster
+				Tooltip: Shoots sandy slugs
+			}
+
+			Equalbow: {
+				DisplayName: Equite Recurver
+				Tooltip: Shoots piercing bolts
+			}
+
+			Eye_Launcher.DisplayName: Eye launcher
+
+			Firebow: {
+				DisplayName: Breath of Hades
+				Tooltip: Shoots burning and exploding bolts
+			}
+
+			Flarovolver: {
+				DisplayName: Flarovlver
+				Tooltip:
+					'''
+					Right click to fan the revolver
+					 22% chance to not consume ammo
+					'''
+			}
+
+			Honey: {
+				DisplayName: Rough HoneyComb
+				Tooltip: Explodes into stingers
+			}
+
+			IceBow.DisplayName: Verglas Bow
+
+			July4th: {
+				DisplayName: Celebration Chainshotgun
+				Tooltip:
+					'''
+					Shoot a barrage of Fireworks
+					 Yes this is a refrence to the 4th of July
+					 From the 4th of July of 2022
+					'''
+			}
+
+			Launcher: {
+				DisplayName: Bullet Launcher
+				Tooltip: Shoots 6 slugs at once, talk about the recoil.
+			}
+
+			Levercoin.DisplayName: Lever Action Rifle
+
+			Mini: {
+				DisplayName: Molten Chaingun
+				Tooltip:
+					'''
+					Shoot a barrage of bullets sometimes fireballs
+					 33% chance to not consume ammo
+					'''
+			}
+
+			Squid_Gun: {
+				DisplayName: Squid Rifle
+				Tooltip:
+					'''
+					SQUID RIFFFLEEE
+					 23% chance to not consume ammo
+					'''
+			}
+
+			BlizStaff: {
+				DisplayName: Aurora Spear
+				Tooltip: Summons an Aurora shuriken
+			}
+
+			bold: {
+				DisplayName: Elemental Staff
+				Tooltip: Summons a vortex to ram enemies
+			}
+
+			Dunger: {
+				DisplayName: Dunger
+				Tooltip: Summon a bouncing pile of bones
+			}
+
+			EqualMin: {
+				DisplayName: Equite Beastblade
+				Tooltip: Summons broken knifes to fight for you. Deals tick damage like a debuff, more summons, more damage
+			}
+
+			Minion: {
+				DisplayName: Raiko's Flame
+				Tooltip: Summon a flame that engulfs you, shoots homing flame projectiles, can only summon one
+			}
+
+			Minion2: {
+				DisplayName: Aeritite Shell
+				Tooltip: Summons a sentient aeritite meatball
+			}
+
+			Minionshell: {
+				DisplayName: Staff of the Snappers
+				Tooltip: Summon a shell to fight for you
+			}
+
+			Whipaer: {
+				DisplayName: Aeritite Whip
+				Tooltip:
+					'''
+					Your minions will attack struck foes
+					 + 4 summon tag damage
+					'''
+			}
+
+			Whipgem: {
+				DisplayName: Gem Tremor
+				Tooltip:
+					'''
+					Your minions will attack struck foes
+					 + 5 summon tag damage
+					'''
+			}
+
+			Whipice: {
+				DisplayName: Iceicle Snap
+				Tooltip:
+					'''
+					Your minions will attack struck foes
+					 + Frostburn
+					 + 7 summon tag damage
+					'''
+			}
+
+			XP_Item.DisplayName: Infernal Soul
+			MechRelic.DisplayName: Calypsical Relic
+
+			MechTrophy: {
+				DisplayName: Calypsical Trophy
+				Tooltip: Best mech
+			}
+
+			Ore: {
+				DisplayName: Aeritite Ore
+				Tooltip: A soft metal
+			}
+
+			RaikoRelic.DisplayName: Raiko Relic
+			Rock.DisplayName: Chiseled Rock
+			RudeRelic.DisplayName: Ruderibus Relic
+
+			RudeTrophy: {
+				DisplayName: Ruderibus Trophy
+				Tooltip: The chilled hive mind
+			}
+
+			SharkRelic.DisplayName: Serphious Relic
+
+			SharkTrophy: {
+				DisplayName: The Maul Trophy
+				Tooltip: The teeth of a terrifing fish
+			}
+
+			Squid_Relic.DisplayName: Temporal Glow Squid Relic
+
+			Squid_Trophy: {
+				DisplayName: Radiant Trophy
+				Tooltip: Defeated, it's eye still watches
+			}
+
+			Trophy: {
+				DisplayName: Raiko Trophy
+				Tooltip: A pair of Galatic Chompers
+			}
+
+			Work: {
+				DisplayName: Construction WorkBench
+				Tooltip: A historic relic, of what a mod used to be. A glimpse into the past...
+			}
+
+			Boulder_Expert: {
+				DisplayName: Ornate Husk Shield
+				Tooltip:
+					'''
+					Increases damage reduction by 10%
+					Equip a shield of stone
+					Boulders orbit around you
+					when dashing you drop boulders
+					when an enemy hits you, orbiting boulders fly outward
+					'''
+			}
+
+			Aeritite_Chestplate: {
+				DisplayName: Aeritite Chestplate
+				Tooltip: 3% increased critical strike chance
+			}
+
+			Aeritite_Helmet: {
+				DisplayName: Aeritite Visor
+				Tooltip: 5% increased damage
+			}
+
+			Aeritite_Leggings: {
+				DisplayName: Aeritite Leggings
+				Tooltip: 8% increased jump speed
+			}
+
+			Aeritite_Arrow_Ammo: {
+				DisplayName: Aeritite Tipped Arrow
+				Tooltip: " Ignores a small amount of enemy defense"
+			}
+
+			golemgh: {
+				DisplayName: golemgh
+				Tooltip: ""
+			}
+		}
+
+		Projectiles: {
+			CrabPet.DisplayName: Crab Pet
+			MechPet.DisplayName: Lost Eye
+			RaikoPet.DisplayName: Mini Raiko
+			RudePet.DisplayName: Mini Ruderibus
+			Squid_Pet.DisplayName: Mini Squiddy
+			A_Death.DisplayName: Dead
+			A_Ray.DisplayName: Sunlight Sinder Ray
+			Aeritite_Plasma.DisplayName: Aeritite Plasma
+			AerititeShot.DisplayName: Aeritite Energy
+			BatMinion.DisplayName: Bat Minion
+			Blizzard.DisplayName: Blizzard
+			Boldsum.DisplayName: Boldsum
+			Bone.DisplayName: Bouncy Bone
+			Boulder.DisplayName: Boulder
+			Boulder_Bolt.DisplayName: Boulder Bolt
+			Boulder_Cannon.DisplayName: Grape Shot
+			Boulder_Rain.DisplayName: Boulder
+			Boulder_Rain2.DisplayName: Boulder
+			Boulder_Rocket.DisplayName: Boulder Soul
+			Boulder2.DisplayName: Boulder
+			Bouldermagicweaponshot.DisplayName: Rock Shrapnel
+			BoulderMini.DisplayName: mini Boulder
+			Bullet_Explosion.DisplayName: Explosion
+			Bullet_Rocket.DisplayName: Huge Bullet
+			Bullet_Rocket_Prime.DisplayName: Exploding Bullet
+			Bullet_Rocket_Trail.DisplayName: Huge Bullet Trail
+			Caustic.DisplayName: Caustic
+			Cement.DisplayName: Rough Ball
+			Cement2.DisplayName: Cement2
+			Cloud_Crasher.DisplayName: Crasher Knife
+			Coral.DisplayName: Coral Knife
+			CoralMinion.DisplayName: Coral Minion
+			CorrShot.DisplayName: Demonite Energy
+			CrimShot.DisplayName: Crimtane Energy
+			Cursed_Wanderer_Shot.DisplayName: Cursed Soul
+			Death_Ring.DisplayName: Death Ring
+			Death_Ring_Big.DisplayName: Death Ring
+			Death_Ring_White.DisplayName: Death Ring
+			Death_Sparks.DisplayName: Death Sparks
+			DemonHand.DisplayName: Demon Hand
+			Dunger.DisplayName: Dunger
+			elumfire.DisplayName: elumfire
+			EqualMinion.DisplayName: Equal Minion
+			EqualSword.DisplayName: Magic Sword
+			eternalfire.DisplayName: eternalfire
+			Eternalflame.DisplayName: Eternalflame
+			Eye_Bounce.DisplayName: Eye
+			FireSword.DisplayName: Molten Slash
+			Flame_Shot.DisplayName: Fire Bullet
+			Flicker_Flame.DisplayName: Flicker Flame
+			Flour.DisplayName: Bloom Bomb
+			Flour_Homing.DisplayName: Petals
+			Frisbe.DisplayName: Skull Basher
+			Gas.DisplayName: Spore Cloud
+			Giant_Boulder.DisplayName: Giant Boulder
+			Hatchet.DisplayName: Hatchet
+			Holy_Bullet.DisplayName: Holy Bullet
+			Holy_Energy.DisplayName: Calypsical Energy
+			Holy_Explosion.DisplayName: Holy Explosion
+			Holy_Fist.DisplayName: Calypsical's Fist
+			Holy_Homing_Bomb.DisplayName: Heat Seeking Bomb
+			Holy_Rockets.DisplayName: Divine Nuke
+			Holy_Shot.DisplayName: Sniper Round
+			HolyRam.DisplayName: Holy Ram
+			Homing.DisplayName: Exgnir Shot
+			honey.DisplayName: Honey Grenade
+			Ice_Arms.DisplayName: Cryonic Heart
+			Ice_Arms_Shot.DisplayName: Cryonic Star
+			Ice_Bolt.DisplayName: Ice Bolt
+			Ice_Bolt_Homing.DisplayName: Homing Ice Bolt
+			Ice_Rain.DisplayName: Ice Rain
+			Ice_Slash.DisplayName: Ice Slash
+			Ice_Slash_Magic.DisplayName: Ice Slash
+			Ice_Slash_Ranged.DisplayName: Ice Slash
+			Ice_Spear.DisplayName: Ice_ Spear
+			Ice_Wall.DisplayName: Ice Wall
+			Ink_EmergencyTyphoon.DisplayName: Ink Typhoon
+			Ink_Sprink.DisplayName: Ink
+			Ink_SprinkYOYO.DisplayName: Ink Sprinkler
+			InkBolt.DisplayName: Ink Bolt
+			InkBomb.DisplayName: Ink Ball
+			InkTyphoon.DisplayName: Ink Typhoon
+			Laser.DisplayName: Laser
+			Laserivy.DisplayName: Laserivy
+			Lazar.DisplayName: ZAP
+			Lazar_Magic.DisplayName: Plasma Rail Round
+			Leaf.DisplayName: Jungle Shot
+			Light.DisplayName: Light
+			Lightning.DisplayName: Ligtning Bolt
+			Lightning_Arrow.DisplayName: Lightning Arrows
+			Lightning_Ball.DisplayName: Lightning Ball
+			Lightning_Bolt.DisplayName: Lightning
+			Lightning_Dagger_Giant.DisplayName: Lightning Dagger
+			Lightning_Daggers_Shot.DisplayName: Lightning Dagger
+			Lightning_Explosion.DisplayName: Shock
+			Lightning_Explosion_Small.DisplayName: Shock
+			Lightning_Magic.DisplayName: Lightning Sphere
+			Lightning_Magic_Shot.DisplayName: Lightning Sphere
+			Lightning_Summon_Shot.DisplayName: Lightning Rain
+			Lightning_Tracking.DisplayName: Lightning_ Tracking
+			Lightning_Yoyo.DisplayName: Arc Swinger
+			Lightning_Yoyo_Shot.DisplayName: Lightning_ Yoyo_ Shot
+			Lightning_Yoyo_Shot_Strong.DisplayName: Lightning_ Yoyo_ Shot_ Strong
+			LightTrue.DisplayName: Light True
+			LightTruePrimed.DisplayName: Light True Primed
+			Mecharms.DisplayName: Mecharms
+			Mechhands.DisplayName: Mechhands
+			Meteor_Flail.DisplayName: Meteor Masher
+			Meteor_Flare.DisplayName: Meteor Storm
+			Meteor_MagicFlask.DisplayName: Meteor Flask
+			Meteor_MagicWeapon.DisplayName: Tiny Meteor
+			Meteor_Storm.DisplayName: Meteorite
+			Meteor1.DisplayName: Eater Fellas
+			Minion_Fire.DisplayName: Minion_ Fire
+			Minion2.DisplayName: Minion2
+			Nebulation.DisplayName: Nebulation
+			Petal_Ball.DisplayName: Petal Ball
+			Petal_Bullet.DisplayName: Petal Bullet
+			Petal_Explosion.DisplayName: Petal Explosion
+			Petal_Rocket.DisplayName: Petal Rocket
+			plant.DisplayName: Pistol Shot
+			Plasma_Ball.DisplayName: Plasma
+			Prism.DisplayName: Prism
+			Pump_Charge_Shotgun.DisplayName: Pump Charge Shotgun
+			Pump_Explosion.DisplayName: Overcharged Explosion
+			Pump_Fire_Slug.DisplayName: Fire Slug
+			Radiant_GlowBomb.DisplayName: Radiant Bomb
+			SandySlug.DisplayName: Sandy Slug
+			Scythe.DisplayName: Dark Scythe
+			Sea_Star.DisplayName: Sea Star
+			SeaShell.DisplayName: SeaShell
+			SeaShell_Fragments.DisplayName: SeaShell Fragment
+			Shuriken_HellFire.DisplayName: Hellfire Shuriken
+			Shuriken_Luminite.DisplayName: Luminite Shuriken
+			Shuriken_Nebula.DisplayName: Nebula Shuriken
+			Shuriken_Nebula_Explosion.DisplayName: Nebula Explosion
+			Skull_Yoyo.DisplayName: Skull Throw
+			SkullBasher.DisplayName: Skull Basher
+			Slicer.DisplayName: Nuclear Slice
+			SlicerMagic.DisplayName: Dark Scythe
+			StarFish_Yoyo.DisplayName: Starfish Yoyo
+			Swingy.DisplayName: Swingy
+			Swingy2.DisplayName: Swingy2
+			SwordHell.DisplayName: Sword Slash
+			SwordProjecilte.DisplayName: Sword Slash
+			SwordTerra.DisplayName: Sword Slash
+			SwordTerra2.DisplayName: Boulder Slash
+			Terra_2_Shot.DisplayName: Terra_2_ Shot
+			Terra2.DisplayName: Terra2
+			Tesla.DisplayName: Tesla Beam
+			TGoblinM.DisplayName: T Goblin M
+			TGoblinM_Shot.DisplayName: Shadowflame?
+			Viral.DisplayName: Viral
+			ViralCRIM.DisplayName: Viral C R I M
+			Vivid_Glory_Round.DisplayName: Vivid Glory Round
+			Wall_Horde.DisplayName: Wall_Horde
+			Whip.DisplayName: Whip
+			WhipDrillx.DisplayName: Whip Drillx
+			Whipele.DisplayName: Whipele
+			Whipgem.DisplayName: Whipgem
+			Whipice.DisplayName: Whipice
+			Whipmech.DisplayName: Whipmech
+			Whiprock.DisplayName: Whiprock
+			Boulder_Orbit.DisplayName: Boulder Orbit
+			Boulder_Orbit_Proj.DisplayName: Boulder Orbit Boulder
+			Light_Proj.DisplayName: Shadow's Scorn
+			Aeritite_Mine.DisplayName: Aeritite Mine
+			Aeritite_Mine_Explosion.DisplayName: Aeritite Mine Explosion
+			Aeritite_Arrow.DisplayName: Aeritite Arrow
+			Aeritite_Magic_Bomb.DisplayName: Aeritite_ Magic_ Bomb
+			Aeritite_Minion.DisplayName: Aeritite_ Minion
+			Prismatic_Javelin.DisplayName: Prismatic_ Javelin
+			Prismatic_Javelin_Proj.DisplayName: Prismatic_ Javelin_ Proj
+			Sea_Star_Lite.DisplayName: Sea_ Star_ Lite
+			Budsnap_Proj.DisplayName: Budsnap_ Proj
+			Budsnap_Thorn.DisplayName: Budsnap_ Thorn
+			Cloud_Knife.DisplayName: Cloud_ Knife
+			Cloud_Knife_Prime.DisplayName: Cloud_ Knife_ Prime
+			Cloud_Knife_Proj.DisplayName: Cloud_ Knife_ Proj
+		}
+
+		NPCs: {
+			Basalt_Boulder.DisplayName: Basalt Bastion
+			Boulder_Bat.DisplayName: Rock Bat
+			Boulder_Beetle.DisplayName: Boulder Beetle
+			Boulder_Cloud.DisplayName: Crumbling Aquifer
+			Boulder_Corpse.DisplayName: Stoned Corpse
+			Boulder_Golem.DisplayName: Mossy Golem
+			Boulder_Slime.DisplayName: Spry Stone
+			Boulderminiboss.DisplayName: Corrupted Husk
+			Calypsical.DisplayName: King Calypsical
+			Chorus_Plant.DisplayName: Chorus Plant
+			Chorus_Plant_Arm.DisplayName: Chlorophyte Vine
+			Cursed_Wanderer.DisplayName: Cursed Wanderer
+			HorseShoeCrab.DisplayName: Horseshoe Crab
+			Meteor_Enemy.DisplayName: Midlite
+			NavalMine.DisplayName: Naval Mine
+			Raiko.DisplayName: Raiko
+			Ruderibus.DisplayName: Ruderibus
+			Ruderibus_Hand.DisplayName: Cryonic Clasper
+			Ruderibus_Receiver.DisplayName: Ruderibus's Receivers
+			Shark.DisplayName: Serphious
+			ShellPile.DisplayName: Shell Slime
+			TemporalSquid.DisplayName: Temporal Glow Squid
+			Yuletideelf.DisplayName: Yuletide Elf
+		}
+
+		BossChecklistIntegration: {
+			BoulderInvasionPreHM.EntryName: Boulder Invasion Pre H M
+			BoulderInvasionHM.EntryName: Boulder Invasion H M
+			BoulderInvasionPreHm.EntryName: Boulder Invasion Pre Hm
+			BoulderInvasionHm.EntryName: Boulder Invasion Hm
+		}
+
+		Configs: {
+			InfernusConfig: {
+				DisplayName: Infernus Config
+				Headers.Items: Items Header
+
+				Skip_Dialogue: {
+					Label: Skip Boss Dialogue
+					Tooltip:
+						'''
+						Turning this on will disable all boss dialogue that interfers with boss fight.
+						EX: Calypsical's Monologue when you spawn him. This will not disable boss death
+						animations or texts that appear during or after the boss fight.
+						'''
+				}
+
+				No_Invasion: {
+					Label: Disable Boulder Invasion Natural Spawning
+					Tooltip:
+						'''
+						Turning this on will disable the Boulder Invasion from naturally spawning in your worlds.
+						This will not stop the Invasion from happening when you summon it yourself.
+						'''
+				}
+			}
+		}
+	}
+}

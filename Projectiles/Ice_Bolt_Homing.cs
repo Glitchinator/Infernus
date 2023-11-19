@@ -7,10 +7,6 @@ namespace Infernus.Projectiles
 
     public class Ice_Bolt_Homing : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Homing Ice Bolt");
-        }
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.HallowBossRainbowStreak);

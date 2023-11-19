@@ -1,12 +1,5 @@
-﻿using Microsoft.VisualBasic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.IO;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,10 +8,6 @@ namespace Infernus.Projectiles
 
     public class Lightning_Magic_Shot : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Lightning Sphere");
-        }
         public override void SetDefaults()
         {
             AIType = ProjectileID.Bullet;
@@ -52,7 +41,7 @@ namespace Infernus.Projectiles
                 Projectile.velocity.Y += Projectile.ai[0];
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int k = 0; k < 7; k++)
             {

@@ -10,9 +10,6 @@ namespace Infernus.Items.Weapon.HardMode.Armor
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Praetor Stompers");
-            Tooltip.SetDefault("+ 15% Movement Speed"
-                + "\n + 14% Crit Chance");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

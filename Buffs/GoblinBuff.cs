@@ -7,8 +7,8 @@ namespace Infernus.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shadow phantoms");
-            Description.SetDefault("\"Wait... It's on my side\"");
+            // DisplayName.SetDefault("Shadow phantoms");
+            // Description.SetDefault("\"Wait... It's on my side\"");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }

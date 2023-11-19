@@ -51,7 +51,7 @@ namespace Infernus.Projectiles
                 Projectile.timeLeft = 2;
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.OnFire3, 300);
             target.AddBuff(BuffID.Frostburn2, 300);

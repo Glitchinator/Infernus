@@ -7,8 +7,8 @@ namespace Infernus.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Elements");
-            Description.SetDefault("\"the vortexes are ready\"");
+            // DisplayName.SetDefault("Elements");
+            // Description.SetDefault("\"the vortexes are ready\"");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }

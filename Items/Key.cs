@@ -9,8 +9,6 @@ namespace Infernus.Items
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Construction Key");
-            Tooltip.SetDefault("Why you always chasing me? (Why me)");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()

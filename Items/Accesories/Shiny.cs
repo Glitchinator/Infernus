@@ -11,9 +11,6 @@ namespace Infernus.Items.Accesories
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Raiko's Toothpaste");
-            Tooltip.SetDefault("Allows the holder to double jump"
-                + "\n 4% increased movement speed" + "\n 4% increased jump speed");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -29,7 +26,7 @@ namespace Infernus.Items.Accesories
         {
             player.moveSpeed += .04f;
             player.maxRunSpeed += .04f;
-            player.hasJumpOption_WallOfFleshGoat = true;
+            player.GetJumpState(ExtraJump.GoatMount).Enable();
             player.jumpSpeedBoost += .04f;
         }
     }

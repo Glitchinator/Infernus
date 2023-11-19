@@ -10,9 +10,6 @@ namespace Infernus.Items.Consumable
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Terrarians Bag");
-            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()

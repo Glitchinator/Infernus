@@ -9,8 +9,6 @@ namespace Infernus.Invas
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Thick Boulder");
-            Tooltip.SetDefault("Don't throw it, the boulders are watching");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 2;
         }
         public override void SetDefaults()

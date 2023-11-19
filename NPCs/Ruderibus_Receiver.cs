@@ -11,7 +11,6 @@ namespace Infernus.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ruderibus's Receivers");
             Main.npcFrameCount[NPC.type] = 4;
         }
 
@@ -31,7 +30,7 @@ namespace Infernus.NPCs
             BannerItem = Item.BannerToItem(Banner);
             NPC.value = 40;
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {
@@ -52,7 +51,7 @@ namespace Infernus.NPCs
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.Player.ZoneSnow && (Main.dayTime == true))
+            if (spawnInfo.Player.ZoneSnow && (Main.dayTime == true) && spawnInfo.PlayerInTown == false)
             {
                 return .4f;
             }

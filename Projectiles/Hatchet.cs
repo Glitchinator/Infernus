@@ -6,35 +6,29 @@ namespace Infernus.Projectiles
 
     public class Hatchet : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Hatchet");
-        }
         public override void SetDefaults()
         {
-            Projectile.width = 38;
-            Projectile.height = 32;
+            Projectile.width = 28;
+            Projectile.height = 22;
             Projectile.aiStyle = 39;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.timeLeft = 300;
-            Projectile.penetrate = 2;
-            Projectile.light = 0.5f;
-            Projectile.extraUpdates = 1;
-            Projectile.tileCollide = false;
+            Projectile.penetrate = 4;
+            Projectile.tileCollide = true;
             Projectile.netImportant = true;
             Projectile.usesIDStaticNPCImmunity = true;
-            Projectile.idStaticNPCHitCooldown = 4;
+            Projectile.idStaticNPCHitCooldown = 14;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            for (int k = 0; k < 20; k++)
+            for (int k = 0; k < 6; k++)
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, 2.5f, -2.5f, 0, default, 1.2f);
             }
-            if (Main.rand.Next(3) < 1)
+            if (Main.rand.NextBool(7))
             {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y - 8f, 0, 0, ProjectileID.IceSickle, (int)(damage * 1.4f), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ProjectileID.IceSickle, (int)(Projectile.damage * .8f), 0, Projectile.owner);
             }
         }
     }

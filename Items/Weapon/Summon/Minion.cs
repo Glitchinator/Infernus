@@ -12,8 +12,6 @@ namespace Infernus.Items.Weapon.Summon
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Raiko's Flame");
-            Tooltip.SetDefault("Summon a flame that engulfs you, shoots homing flame projectiles, can only summon one");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true;
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

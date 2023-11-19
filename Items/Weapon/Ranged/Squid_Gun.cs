@@ -10,9 +10,6 @@ namespace Infernus.Items.Weapon.Ranged
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Squid Rifle");
-            Tooltip.SetDefault("SQUID RIFFFLEEE"
-                + "\n 23% chance to not consume ammo"); ;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

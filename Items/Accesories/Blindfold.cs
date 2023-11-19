@@ -10,8 +10,6 @@ namespace Infernus.Items.Accesories
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Silky Sash");
-            Tooltip.SetDefault("Decreases defense but exchanges it for offense.");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -25,7 +23,7 @@ namespace Infernus.Items.Accesories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetDamage(DamageClass.Generic) += .09f;
+            player.GetDamage(DamageClass.Generic) += .08f;
         }
         public override void AddRecipes()
         {

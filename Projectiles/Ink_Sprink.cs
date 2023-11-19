@@ -8,10 +8,6 @@ namespace Infernus.Projectiles
 
     public class Ink_Sprink : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Ink");
-        }
         public override void SetDefaults()
         {
             Projectile.aiStyle = ProjAIStyleID.Arrow;

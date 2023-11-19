@@ -103,8 +103,10 @@ namespace Infernus.Invas
                     BoulderInvasionWarning();
                     Main.invasionType = 0;
                     Main.invasionDelay = 0;
-
-                    NPC.SpawnOnPlayer(player.whoAmI, ModLoader.GetMod("Infernus").Find<ModNPC>("Boulderminiboss").Type);
+                    if (Main.hardMode == true && NPC.downedPlantBoss == true)
+                    {
+                        NPC.SpawnOnPlayer(player.whoAmI, ModLoader.GetMod("Infernus").Find<ModNPC>("Boulderminiboss").Type);
+                    }
                 }
                 if (Main.invasionX == Main.spawnTileX)
                 {

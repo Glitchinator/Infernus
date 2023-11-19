@@ -9,9 +9,6 @@ namespace Infernus.Placeable
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Raiko Trophy");
-            Tooltip.SetDefault("A pair of Galatic Chompers");
-
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

@@ -12,7 +12,6 @@ namespace Infernus.Items.Weapon.HardMode.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nebulation");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

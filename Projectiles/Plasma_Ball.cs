@@ -4,13 +4,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 namespace Infernus.Projectiles
 {
-
     public class Plasma_Ball : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Plasma");
-        }
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Magic;
@@ -19,7 +14,7 @@ namespace Infernus.Projectiles
             Projectile.width = 12;
             Projectile.height = 12;
             Projectile.netImportant = true;
-            Projectile.penetrate = 5;
+            Projectile.penetrate = 4;
             Projectile.timeLeft = 240;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 16;
@@ -33,9 +28,10 @@ namespace Infernus.Projectiles
                 Projectile.ai[0] = 15f;
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.ShadowFlame, 400);
+            Projectile.damage = (int)(Projectile.damage * 0.85f);
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

@@ -1,10 +1,12 @@
-﻿using Infernus.Projectiles;
+﻿using Infernus.Items.Weapon.HardMode.Summon;
+using Infernus.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -38,7 +40,6 @@ namespace Infernus.NPCs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chlorophyte Vine");
             Main.npcFrameCount[Type] = 1;
             NPCID.Sets.BossBestiaryPriority.Add(Type);
         }
@@ -66,6 +67,8 @@ namespace Infernus.NPCs
         }
         public override void AI()
         {
+            
+
             Player player = Main.player[NPC.target];
             NPC.netUpdate = true;
             NPC.TargetClosest(true);
@@ -95,6 +98,11 @@ namespace Infernus.NPCs
             }
             Form_Ice();
         }
+        public override void OnSpawn(IEntitySource source)
+        {
+            NPC.lifeMax = 8000;
+            NPC.life = 8000;
+        }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Infernus/NPCs/Chorus_Plant_Arm_Sprite");
@@ -117,7 +125,7 @@ namespace Infernus.NPCs
             while (chainLengthRemainingToDraw > 0f)
             {
                 var chainTextureToDraw = chainTexture;
-                Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, Color.White, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+                Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, drawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
                 chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
                 chainCount++;
                 chainLengthRemainingToDraw -= chainSegmentLength;

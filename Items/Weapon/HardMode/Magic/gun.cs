@@ -12,19 +12,17 @@ namespace Infernus.Items.Weapon.HardMode.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("DRAK-25 Plasma Carbine");
-            Tooltip.SetDefault("God Damn it! There is a pebble in my boot! ");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 46;
+            Item.damage = 38;
             Item.DamageType = DamageClass.Magic;
             Item.width = 60;
             Item.height = 26;
-            Item.useTime = 7;
-            Item.useAnimation = 7;
+            Item.useTime = 9;
+            Item.useAnimation = 9;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 2f;
             Item.value = 210000;
@@ -36,7 +34,7 @@ namespace Infernus.Items.Weapon.HardMode.Magic
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<Plasma_Ball>();
             Item.autoReuse = true;
-            Item.shootSpeed = 18f;
+            Item.shootSpeed = 16f;
             Item.mana = 6;
         }
         public override Vector2? HoldoutOffset()

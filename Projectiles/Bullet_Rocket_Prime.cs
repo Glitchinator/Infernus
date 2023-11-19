@@ -12,7 +12,6 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Exploding Bullet");
             ProjectileID.Sets.TrailingMode[Type] = 0;
             ProjectileID.Sets.TrailCacheLength[Type] = 6;
         }
@@ -37,11 +36,11 @@ namespace Infernus.Projectiles
             Projectile.velocity.X = Projectile.velocity.X * 1.024f;
             Projectile.velocity.Y = Projectile.velocity.Y * 1.024f;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.OnFire3, 500);
 
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Bullet_Explosion>(), Projectile.damage * 2, 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Bullet_Explosion>(), Projectile.damage, 0, Projectile.owner);
 
             for (int k = 0; k < 20; k++)
             {

@@ -11,7 +11,6 @@ namespace Infernus.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Yuletide Elf");
             Main.npcFrameCount[NPC.type] = 3;
         }
 
@@ -40,7 +39,7 @@ namespace Infernus.NPCs
                 Dust.NewDust(NPC.position + NPC.velocity, NPC.width, NPC.height, DustID.WhiteTorch, NPC.velocity.X * 0.5f, NPC.velocity.Y * 0.5f);
             }
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {
@@ -51,7 +50,7 @@ namespace Infernus.NPCs
             {
                 for (int k = 0; k < 16; k++)
                 {
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Confetti, 4f * hitDirection, -2.5f, 0, default, 1f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Confetti, 4f, -2.5f, 0, default, 1f);
                 }
             }
         }

@@ -9,7 +9,6 @@ namespace Infernus.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Broken Staff");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 8;
         }
         public override void SetDefaults()

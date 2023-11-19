@@ -7,10 +7,6 @@ namespace Infernus.Projectiles
 
     public class Lazar : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("ZAP");
-        }
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.Bullet);

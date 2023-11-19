@@ -10,14 +10,12 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lost Clockwork SMG");
-            Tooltip.SetDefault("25% chance to not consume ammo");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 14;
+            Item.damage = 16;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 76;
             Item.height = 34;

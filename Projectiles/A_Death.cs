@@ -6,10 +6,6 @@ namespace Infernus.Projectiles
 
     public class A_Death : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Dead");
-        }
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Magic;

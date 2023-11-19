@@ -12,8 +12,6 @@ namespace Infernus.Items.Accesories
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Snowfall Tiara");
-            Tooltip.SetDefault("Summons an ice arm that shoots homing ice bombs");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()

@@ -8,8 +8,6 @@ namespace Infernus.Items.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mini Squiddy");
-            Description.SetDefault("Mini Squiddy!!!");
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
         }

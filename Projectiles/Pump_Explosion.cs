@@ -5,11 +5,6 @@ namespace Infernus.Projectiles
 {
     public class Pump_Explosion : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Overcharged Explosion");
-
-        }
         public override void SetDefaults()
         {
             Projectile.width = 400;

@@ -5,7 +5,6 @@ using Terraria.ModLoader;
 
 namespace Infernus.Projectiles
 {
-
     public class Lightning_Yoyo_Shot_Strong : ModProjectile
     {
         int Richochet;
@@ -15,8 +14,8 @@ namespace Infernus.Projectiles
             Projectile.height = 1;
             Projectile.width = 1;
             Projectile.hostile = false;
-            Projectile.extraUpdates = 200;
-            Projectile.timeLeft = 200;
+            Projectile.extraUpdates = 150;
+            Projectile.timeLeft = 150;
             Projectile.netImportant = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
@@ -53,9 +52,10 @@ namespace Infernus.Projectiles
 
             Projectile.velocity.Y += Projectile.ai[0];
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Richochet = Main.rand.Next(new int[] { 140, -140, 170, -170, 230 ,-230 });
+            //Main.rand.Next(-230, 230); I can definately somehow make a better ricochet
             Projectile.position.X = target.position.X - Richochet;
             Projectile.position.Y = target.position.Y - Richochet;
         }

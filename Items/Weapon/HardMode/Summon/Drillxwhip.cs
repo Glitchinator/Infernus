@@ -10,11 +10,6 @@ namespace Infernus.Items.Weapon.HardMode.Summon
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Giant's Drill");
-            Tooltip.SetDefault("Belonged to Drill-X"
-                + "\n Your minions will attack struck foes"
-                            + "\n + Explosions"
-                            + "\n + 14 summon tag damage");
         }
 
         public override void SetDefaults()

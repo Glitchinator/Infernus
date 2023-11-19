@@ -5,10 +5,6 @@ namespace Infernus.Projectiles
 
     public class Ice_Wall : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Ice Wall");
-        }
         public override void SetDefaults()
         {
             Projectile.aiStyle = 0;

@@ -12,7 +12,6 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lightning Ball");
             Main.projFrames[Projectile.type] = 2;
         }
         public override void SetDefaults()
@@ -43,11 +42,11 @@ namespace Infernus.Projectiles
                 }
             }
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             Projectile.Kill();
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.position);
             for (int k = 0; k < 12; k++)

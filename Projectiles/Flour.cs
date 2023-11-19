@@ -9,10 +9,6 @@ namespace Infernus.Projectiles
 
     public class Flour : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Bloom Bomb");
-        }
         public override void SetDefaults()
         {
             Projectile.width = 92;
@@ -30,7 +26,7 @@ namespace Infernus.Projectiles
             Projectile.velocity.X = Projectile.velocity.X * 1.02f;
             Projectile.velocity.Y = Projectile.velocity.Y * 1.02f;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion, Projectile.position);
 

@@ -8,10 +8,6 @@ namespace Infernus.Projectiles
 
     public class CrimShot : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Crimtane Energy");
-        }
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.Bullet);

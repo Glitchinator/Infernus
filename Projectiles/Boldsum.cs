@@ -143,7 +143,7 @@ namespace Infernus.Projectiles
         {
             return true;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.OnFire, 300);
             target.AddBuff(BuffID.Frostburn, 300);

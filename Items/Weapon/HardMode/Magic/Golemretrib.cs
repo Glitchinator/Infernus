@@ -12,14 +12,12 @@ namespace Infernus.Items.Weapon.HardMode.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Telsa Revolt");
-            Tooltip.SetDefault("Shoots waves of electricity frying anything in it's way");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 68;
+            Item.damage = 60;
             Item.DamageType = DamageClass.Magic;
             Item.width = 24;
             Item.height = 56;
@@ -50,7 +48,7 @@ namespace Infernus.Items.Weapon.HardMode.Magic
             for (int i = 0; i < 2; i++)
             {
                 Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i));
-                Projectile.NewProjectileDirect(source, position, perturbedSpeed, ModContent.ProjectileType<Tesla>(), damage * 3, knockback, player.whoAmI);
+                Projectile.NewProjectileDirect(source, position, perturbedSpeed, ModContent.ProjectileType<Tesla>(), damage * 2, knockback, player.whoAmI);
             }
 
             for (int i = 0; i < 2; i++)

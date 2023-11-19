@@ -9,7 +9,6 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Starfish Yoyo");
             ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 200f;
             ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 10f;
         }

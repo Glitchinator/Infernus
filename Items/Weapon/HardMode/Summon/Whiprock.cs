@@ -10,10 +10,6 @@ namespace Infernus.Items.Weapon.HardMode.Summon
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Rumble Crunch");
-            Tooltip.SetDefault("Your minions will attack struck foes"
-                            + "\n + Venom and boulders"
-                            + "\n + 10 summon tag damage");
         }
 
         public override void SetDefaults()

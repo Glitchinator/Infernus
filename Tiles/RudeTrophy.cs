@@ -23,10 +23,5 @@ namespace Infernus.Tiles
             AddMapEntry(new Color(120, 85, 60), Language.GetText("Trophy"));
             DustType = DustID.WoodFurniture;
         }
-
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Placeable.RudeTrophy>());
-        }
     }
 }

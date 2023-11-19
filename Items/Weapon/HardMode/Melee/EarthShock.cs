@@ -10,13 +10,12 @@ namespace Infernus.Items.Weapon.HardMode.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Earthquake");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 66;
+            Item.damage = 68;
             Item.DamageType = DamageClass.Melee;
             Item.width = 56;
             Item.height = 56;
@@ -28,6 +27,7 @@ namespace Infernus.Items.Weapon.HardMode.Melee
             Item.rare = ItemRarityID.LightRed;
             Item.UseSound = SoundID.Item19;
             Item.autoReuse = true;
+            Item.useTurn = true;
         }
         public override void AddRecipes()
         {
@@ -40,9 +40,9 @@ namespace Infernus.Items.Weapon.HardMode.Melee
             .Register();
         }
 
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Right.X, target.Right.Y / 1.35f, 0, 0, ModContent.ProjectileType<Projectiles.Boulder2>(), damage, 0, player.whoAmI);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Right.X, target.Right.Y / 1.35f, 0, 0, ModContent.ProjectileType<Projectiles.Boulder2>(), (int)(Item.damage * 1.2f), 0, player.whoAmI);
         }
     }
 }

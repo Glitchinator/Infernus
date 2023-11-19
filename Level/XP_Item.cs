@@ -10,7 +10,6 @@ namespace Infernus.Level
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Infernal Soul");
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             ItemID.Sets.ItemIconPulse[Item.type] = true;

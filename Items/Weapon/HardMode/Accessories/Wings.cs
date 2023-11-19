@@ -11,9 +11,6 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crumbled Flight");
-            Tooltip.SetDefault("Allows flight, and slow falling");
-
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(130, 5.4f, 1.8f);

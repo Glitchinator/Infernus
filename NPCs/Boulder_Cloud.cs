@@ -11,11 +11,6 @@ namespace Infernus.NPCs
 {
     public class Boulder_Cloud : ModNPC
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Crumbling Aquifer");
-        }
-
         public override void SetDefaults()
         {
             NPC.lifeMax = 186;
@@ -45,7 +40,7 @@ namespace Infernus.NPCs
             }
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {
@@ -55,7 +50,7 @@ namespace Infernus.NPCs
             {
                 for (int k = 0; k < 20; k++)
                 {
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Stone, 2.5f * hitDirection, -2.5f, 0, default, 1.2f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Stone, 2.5f, -2.5f, 0, default, 1.2f);
                 }
             }
         }

@@ -6,10 +6,6 @@ namespace Infernus.Projectiles
 
     public class Meteor_Flare : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Meteor Storm");
-        }
         public override void SetDefaults()
         {
             Projectile.width = 64;

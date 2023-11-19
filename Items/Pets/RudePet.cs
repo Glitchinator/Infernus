@@ -10,8 +10,6 @@ namespace Infernus.Items.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mini Ruderibus");
-
             Main.projFrames[Projectile.type] = 6;
             Main.projPet[Projectile.type] = true;
         }

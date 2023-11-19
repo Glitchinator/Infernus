@@ -8,10 +8,6 @@ namespace Infernus.Projectiles
 
     public class Eye_Bounce : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Eye");
-        }
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Ranged;

@@ -9,11 +9,6 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Electric Scale");
-            Tooltip.SetDefault("In space or at the ocean you gain"
-                  + "\n +10 defense + 15% Damage + 16% Crit"
-                    + "\n Infinite breath and swimming"
-                        + "\n + Minor increase to life regen");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

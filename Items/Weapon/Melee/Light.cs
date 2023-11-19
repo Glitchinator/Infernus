@@ -9,13 +9,13 @@ namespace Infernus.Items.Weapon.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shadow's Reach");
+            ItemID.Sets.ToolTipDamageMultiplier[Type] = 2f;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 24;
+            Item.damage = 30;
             Item.DamageType = DamageClass.Melee;
             Item.width = 38;
             Item.height = 34;
@@ -31,12 +31,14 @@ namespace Infernus.Items.Weapon.Melee
             Item.shoot = ModContent.ProjectileType<Projectiles.Light>();
             Item.channel = true;
             Item.noUseGraphic = true;
+            Item.shootSpeed = 10f;
         }
         public override void AddRecipes()
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<BoldnBash>(), 1)
             .AddIngredient(ModContent.ItemType<IvyWhip>(), 1)
+            .AddIngredient(ModContent.ItemType<Viral>(), 1)
             .AddIngredient(ItemID.BlueMoon, 1)
             .AddTile(TileID.Anvils)
             .Register();

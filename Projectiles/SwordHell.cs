@@ -13,7 +13,6 @@ namespace Infernus.Projectiles
         int timer;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sword Slash");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -44,10 +43,10 @@ namespace Infernus.Projectiles
                 Projectile.tileCollide = true;
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, Main.rand.Next(-5, 6), Main.rand.Next(-5, -5), ProjectileID.Flames, (int)(damage * 1.1f), 0, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, Main.rand.Next(-5, 6), Main.rand.Next(-5, -5), ProjectileID.Flames, (int)(damage * 1.1f), 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, Main.rand.Next(-5, 6), Main.rand.Next(-5, -5), ProjectileID.Flames, (int)(damageDone * 1.1f), 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, Main.rand.Next(-5, 6), Main.rand.Next(-5, -5), ProjectileID.Flames, (int)(damageDone * 1.1f), 0, Projectile.owner);
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -68,7 +67,7 @@ namespace Infernus.Projectiles
 
             return true;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             for (int k = 0; k < 34; k++)

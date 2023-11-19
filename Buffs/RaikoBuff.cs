@@ -7,8 +7,8 @@ namespace Infernus.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Raiko's Flames");
-            Description.SetDefault("\"The fire burns brightly\"");
+            // DisplayName.SetDefault("Raiko's Flames");
+            // Description.SetDefault("\"The fire burns brightly\"");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }

@@ -9,9 +9,6 @@ namespace Infernus.Items.Weapon.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Radiant Glow");
-            Tooltip.SetDefault("Conjures magical vortexes."
-                + "\n Ignores defense");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

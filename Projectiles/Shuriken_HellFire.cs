@@ -11,7 +11,6 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hellfire Shuriken");
             ProjectileID.Sets.TrailingMode[Type] = 0;
             ProjectileID.Sets.TrailCacheLength[Type] = 7;
 
@@ -52,11 +51,11 @@ namespace Infernus.Projectiles
 
             Projectile.velocity.Y += Projectile.ai[0];
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.OnFire3, 500);
 
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ProjectileID.SolarWhipSwordExplosion, damage, 1, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ProjectileID.SolarWhipSwordExplosion, damageDone, 1, Projectile.owner);
         }
 
         public NPC FindClosestNPC(float maxDetectDistance)

@@ -47,30 +47,16 @@ namespace Infernus.Tiles
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
             TileObjectData.newTile.StyleHorizontal = false;
+            TileObjectData.newTile.StyleWrapLimitVisualOverride = 2;
+            TileObjectData.newTile.StyleMultiplier = 2;
+            TileObjectData.newTile.StyleWrapLimit = 2;
+            TileObjectData.newTile.styleLineSkipVisualOverride = 0;
             TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile);
             TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight;
             TileObjectData.addAlternate(1);
             TileObjectData.addTile(Type);
 
             AddMapEntry(new Color(233, 207, 94), Language.GetText("Relic"));
-        }
-
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            int placeStyle = frameX / FrameWidth;
-
-            int itemType = 0;
-            switch (placeStyle)
-            {
-                case 0:
-                    itemType = ModContent.ItemType<Placeable.RaikoRelic>();
-                    break;
-            }
-
-            if (itemType > 0)
-            {
-                Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, itemType);
-            }
         }
 
         public override bool CreateDust(int i, int j, ref int type)

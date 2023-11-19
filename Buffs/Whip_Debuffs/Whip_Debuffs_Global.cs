@@ -8,52 +8,24 @@ namespace Infernus.Buffs.Whip_Debuffs
 {
     public class Whip_Debuffs_Global : GlobalNPC
     {
-        public override bool InstancePerEntity => true;
-
-        public bool markedByaerWhip;
-        public bool markedBypalWhip;
-        public bool markedByrockyWhip;
-        public bool markedByiceWhip;
-        public bool markedBygemWhip;
-        public bool markedByeleWhip;
-        public bool markedBydrillWhip;
-
-
-        public override void ResetEffects(NPC npc)
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            markedByaerWhip = false;
-            markedBypalWhip = false;
-            markedByrockyWhip = false;
-            markedByiceWhip = false;
-            markedBygemWhip = false;
-            markedByeleWhip = false;
-            markedBydrillWhip = false;
-        }
-        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            if (markedByaerWhip && !projectile.npcProj && !projectile.trap && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type]))
+            if (projectile.npcProj || projectile.trap || !projectile.IsMinionOrSentryRelated)
+                return;
+
+
+            var projTagMultiplier = ProjectileID.Sets.SummonTagDamageMultiplier[projectile.type];
+            if (npc.HasBuff<aerwhipbuff>())
             {
-                damage += 4;
+                modifiers.FlatBonusDamage += aerwhipbuff.TagDamage * projTagMultiplier;
             }
-            if (markedBypalWhip && !projectile.npcProj && !projectile.trap && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type]))
+            if (npc.HasBuff<drillwhipbuff>())
             {
-                damage += 28;
-                knockback += 2f;
+                modifiers.FlatBonusDamage += drillwhipbuff.TagDamage * projTagMultiplier;
             }
-            if (markedByrockyWhip && !projectile.npcProj && !projectile.trap && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type]))
+            if (npc.HasBuff<elewhipbuff>())
             {
-                damage += 10;
-            }
-            if (markedByiceWhip && !projectile.npcProj && !projectile.trap && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type]))
-            {
-                damage += 7;
-            }
-            if (markedBygemWhip && !projectile.npcProj && !projectile.trap && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type]))
-            {
-                damage += 5;
-            }
-            if (markedByeleWhip && !projectile.npcProj && !projectile.trap && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type]))
-            {
+                modifiers.FlatBonusDamage += drillwhipbuff.TagDamage * projTagMultiplier;
                 if (Main.rand.NextBool(3))
                 {
                     for (int k = 0; k < 6; k++)
@@ -64,11 +36,23 @@ namespace Infernus.Buffs.Whip_Debuffs
                     }
                     Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), npc.Right.X, npc.Right.Y / 1.25f, 0, 10, ModContent.ProjectileType<Lightning_Summon_Shot>(), 110, 0, projectile.owner);
                 }
-                damage += 12;
             }
-            if (markedBydrillWhip && !projectile.npcProj && !projectile.trap && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type]))
+            if (npc.HasBuff<gemwhipbuff>())
             {
-                damage += 14;
+                modifiers.FlatBonusDamage += gemwhipbuff.TagDamage * projTagMultiplier;
+            }
+            if (npc.HasBuff<icewhipbuff>())
+            {
+                modifiers.FlatBonusDamage += icewhipbuff.TagDamage * projTagMultiplier;
+            }
+            if (npc.HasBuff<rockywhipbuff>())
+            {
+                modifiers.FlatBonusDamage += rockywhipbuff.TagDamage * projTagMultiplier;
+            }
+            if (npc.HasBuff<Whipbuff>())
+            {
+                modifiers.FlatBonusDamage += Whipbuff.TagDamage * projTagMultiplier;
+                modifiers.Knockback += Whipbuff.TagKnockBack * projTagMultiplier;
             }
         }
     }

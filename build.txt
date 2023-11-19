@@ -1,4 +1,4 @@
 displayName = Infernus Mod [10K Downloads!]
 author = LogansLowest
-version = 1.6
+version = 1.6.3
 homepage = https://forums.terraria.org/index.php?threads/infernus-mod-is-public-v1-1-0-2.113586/

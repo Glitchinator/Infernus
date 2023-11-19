@@ -10,14 +10,12 @@ namespace Infernus.Items.Weapon.HardMode.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hellfire Flayer");
-            Tooltip.SetDefault("Slashes spew fire on impact");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 38;
+            Item.damage = 36;
             Item.DamageType = DamageClass.Melee;
             Item.width = 52;
             Item.height = 52;

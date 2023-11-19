@@ -9,21 +9,19 @@ namespace Infernus.Items.Weapon.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Thiriscus");
-            Tooltip.SetDefault("Cursed by the dungeon, the blade turns blue. Showing a thousand souls a fight.");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 18;
+            Item.damage = 22;
             Item.DamageType = DamageClass.Melee;
             Item.width = 48;
             Item.height = 54;
             Item.useTime = 7;
             Item.useAnimation = 25;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 3f;
+            Item.knockBack = 3.6f;
             Item.value = Item.buyPrice(0, 9, 50, 0);
             Item.rare = ItemRarityID.Orange;
             Item.UseSound = SoundID.Item1;

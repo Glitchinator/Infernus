@@ -5,11 +5,6 @@ namespace Infernus.Projectiles
 {
     public class Holy_Explosion : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Holy Explosion");
-
-        }
         public override void SetDefaults()
         {
             Projectile.width = 80;
@@ -23,7 +18,6 @@ namespace Infernus.Projectiles
             Projectile.scale = 1f;
             Projectile.penetrate = -1;
         }
-
         public override void AI()
         {
             Projectile.alpha += 3;

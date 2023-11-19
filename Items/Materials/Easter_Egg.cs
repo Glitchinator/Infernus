@@ -10,8 +10,6 @@ namespace Infernus.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Easter Egg");
-            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
         }
         public override void SetDefaults()

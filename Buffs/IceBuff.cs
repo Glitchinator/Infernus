@@ -7,8 +7,8 @@ namespace Infernus.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Aurora Defenders");
-            Description.SetDefault("\"The Shurikens fly closely\"");
+            // DisplayName.SetDefault("Aurora Defenders");
+            // Description.SetDefault("\"The Shurikens fly closely\"");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }

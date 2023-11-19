@@ -5,11 +5,6 @@ namespace Infernus.Projectiles
 {
     public class Shuriken_Nebula_Explosion : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Nebula Explosion");
-
-        }
         public override void SetDefaults()
         {
             Projectile.width = 400;

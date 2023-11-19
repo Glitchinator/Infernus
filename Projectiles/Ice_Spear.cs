@@ -24,7 +24,7 @@ namespace Infernus.Projectiles
         {
             Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.HallowedPlants, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int k = 0; k < 20; k++)
             {

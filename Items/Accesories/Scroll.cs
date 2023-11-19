@@ -10,9 +10,6 @@ namespace Infernus.Items.Accesories
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ice Scroll");
-            Tooltip.SetDefault("Cold to the touch"
-                + "\n 8% Reduced Mana Usage +40 Mana");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()

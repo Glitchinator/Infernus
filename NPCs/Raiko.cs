@@ -21,27 +21,15 @@ namespace Infernus.NPCs
         private float speed;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Raiko");
             Main.npcFrameCount[NPC.type] = 3;
 
             NPCID.Sets.MPAllowedEnemies[Type] = true;
 
             NPCID.Sets.BossBestiaryPriority.Add(Type);
 
-            NPCDebuffImmunityData debuffData = new()
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.OnFire,
-                    BuffID.Frostburn,
-                    BuffID.CursedInferno,
-                    BuffID.ShadowFlame,
-                    BuffID.Oiled,
-                    BuffID.Daybreak,
-
-                    BuffID.Confused
-                }
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
 
         public override void SetDefaults()
@@ -348,7 +336,7 @@ namespace Infernus.NPCs
             }
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {
@@ -371,9 +359,9 @@ namespace Infernus.NPCs
             {
                 for (int k = 0; k < 16; k++)
                 {
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Torch, 4f * hitDirection, -2.5f, 0, default, 1f);
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Meteorite, 4f * hitDirection, -2.5f, 0, default, 1f);
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.SolarFlare, 4f * hitDirection, -2.5f, 0, default, 1f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Torch, 4f, -2.5f, 0, default, 1f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Meteorite, 4f, -2.5f, 0, default, 1f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.SolarFlare, 4f, -2.5f, 0, default, 1f);
                 }
                 for (int i = 0; i < 1; i++)
                 {
@@ -382,10 +370,24 @@ namespace Infernus.NPCs
                 SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
             }
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.damage = (int)(NPC.damage * 1.15f);
-            NPC.lifeMax = (int)(NPC.lifeMax = 4860 + numPlayers);
+            NPC.lifeMax = (int)(NPC.lifeMax = 4860 * (int)balance);
+
+            if (Main.masterMode == true)
+            {
+                NPC.lifeMax = (int)(NPC.lifeMax = 5980 * (int)balance);
+                NPC.life = (int)(NPC.lifeMax = 5980 * (int)balance);
+                NPC.damage = ((NPC.damage / 2) * 3);
+            }
+            if (Main.getGoodWorld == true)
+            {
+                NPC.scale = 1.1f;
+                NPC.lifeMax = (int)(NPC.lifeMax = 6750 * (int)balance);
+                NPC.life = (int)(NPC.lifeMax = 6750 * (int)balance);
+                NPC.damage = ((NPC.damage / 10) * 13);
+            }
         }
         public override void BossLoot(ref string name, ref int potionType)
         {
@@ -424,22 +426,6 @@ namespace Infernus.NPCs
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.Hot>(), 1, 58, 58));
 
             npcLoot.Add(notExpertRule);
-        }
-        public override void OnSpawn(IEntitySource source)
-        {
-            if (Main.masterMode == true)
-            {
-                NPC.lifeMax = 5980;
-                NPC.life = 5980;
-                NPC.damage = ((NPC.damage / 2) * 3);
-            }
-            if (Main.getGoodWorld == true)
-            {
-                NPC.scale = 1.1f;
-                NPC.lifeMax = 6750;
-                NPC.life = 6750;
-                NPC.damage = ((NPC.damage / 10) * 13);
-            }
         }
     }
 }

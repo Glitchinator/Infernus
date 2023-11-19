@@ -10,8 +10,6 @@ namespace Infernus.Items.Accesories
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chipped Whetstone");
-            Tooltip.SetDefault("Weapon armor penetration increased.");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -24,14 +22,18 @@ namespace Infernus.Items.Accesories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetArmorPenetration(DamageClass.Generic) += 4;
+            player.GetArmorPenetration(DamageClass.Generic) += 1;
+        }
+        public override void UpdateEquip(Player player)
+        {
+            Main.LocalPlayer.GetModPlayer<InfernusPlayer>().NPC_Bleeding = true;
         }
         public override void AddRecipes()
         {
             CreateRecipe()
             .AddIngredient(ItemID.StoneBlock, 16)
             .AddTile(TileID.Anvils)
-            .AddCondition(Recipe.Condition.NearWater)
+            .AddCondition(Condition.NearWater)
             .Register();
         }
     }

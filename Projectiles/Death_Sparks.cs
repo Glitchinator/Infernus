@@ -8,10 +8,6 @@ namespace Infernus.Projectiles
 
     public class Death_Sparks : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Death Sparks");
-        }
         public override void SetDefaults()
         {
             Projectile.friendly = false;

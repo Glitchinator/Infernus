@@ -12,11 +12,6 @@ namespace Infernus.Items.Weapon.HardMode.Summon
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Paladin's Flail");
-            Tooltip.SetDefault("Throw multiple whips that rip enemies"
-                + "\n Your minions will attack struck foes"
-                            + "\n + 28 summon tag damage"
-                            + "\n + 2 summon knockback");
         }
 
         public override void SetDefaults()

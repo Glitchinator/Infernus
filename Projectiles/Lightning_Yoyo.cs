@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -8,13 +7,11 @@ using Terraria.ModLoader;
 
 namespace Infernus.Projectiles
 {
-
     public class Lightning_Yoyo : ModProjectile
     {
         int timer;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Arc Swinger");
             ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 330f;
             ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 15f;
             ProjectileID.Sets.TrailingMode[Type] = 0;
@@ -31,21 +28,21 @@ namespace Infernus.Projectiles
             Projectile.hostile = false;
             Projectile.netImportant = true;
             Projectile.usesIDStaticNPCImmunity = true;
-            Projectile.idStaticNPCHitCooldown = 7;
+            Projectile.idStaticNPCHitCooldown = 12;
             Projectile.extraUpdates = 1;
             Projectile.ignoreWater = true;
         }
         public override void AI()
         {
-            if (Main.rand.NextBool(8))
+            if (Main.rand.NextBool(12))
             {
-                for (int k = 0; k < 6; k++)
+                for (int k = 0; k < 4; k++)
                 {
                     Vector2 speed2 = Main.rand.NextVector2Unit();
                     Dust wand = Dust.NewDustPerfect(Projectile.Center + speed2 * 16, DustID.Electric, speed2 * 2, Scale: 1f);
                     wand.noGravity = true;
                 }
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, 11), ModContent.ProjectileType<Lightning_Yoyo_Shot>(), Projectile.damage, 2f, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, 11), ModContent.ProjectileType<Lightning_Yoyo_Shot>(), (int)(Projectile.damage * 0.66f), 2f, Projectile.owner);
             }
             timer++;
             if(timer >= 120)

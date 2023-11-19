@@ -6,10 +6,6 @@ namespace Infernus.Projectiles
 
     public class SandySlug : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Sandy Slug");
-        }
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.Bullet);

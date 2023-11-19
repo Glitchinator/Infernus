@@ -9,7 +9,6 @@ namespace Infernus.Items.Weapon.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Seashell Sword");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -27,6 +26,7 @@ namespace Infernus.Items.Weapon.Melee
             Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
+            Item.useTurn = true;
         }
         public override void AddRecipes()
         {

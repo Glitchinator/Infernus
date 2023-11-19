@@ -9,18 +9,17 @@ namespace Infernus.Items.Weapon.HardMode.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Brartic Sword");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 145;
+            Item.damage = 125;
             Item.DamageType = DamageClass.Melee;
             Item.width = 54;
             Item.height = 54;
-            Item.useTime = 18;
-            Item.useAnimation = 13;
+            Item.useTime = 20;
+            Item.useAnimation = 15;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 7f;
             Item.value = Item.buyPrice(0, 24, 50, 0);

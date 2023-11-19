@@ -8,10 +8,6 @@ namespace Infernus.Projectiles
 
     public class Tesla : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Tesla Beam");
-        }
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Magic;
@@ -22,7 +18,7 @@ namespace Infernus.Projectiles
             Projectile.extraUpdates = 75;
             Projectile.timeLeft = 75;
             Projectile.netImportant = true;
-            Projectile.penetrate = 3;
+            Projectile.penetrate = 2;
             Projectile.tileCollide = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;

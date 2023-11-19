@@ -7,10 +7,6 @@ namespace Infernus.Projectiles
 
     public class Petal_Ball : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Petal Ball");
-        }
         public override void SetDefaults()
         {
             Projectile.friendly = false;
@@ -26,7 +22,7 @@ namespace Infernus.Projectiles
             Projectile.rotation += 0.2f * (float)Projectile.direction;
             Projectile.velocity.Y = Projectile.velocity.Y + 0.2f;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int k = 0; k < 11; k++)
             {

@@ -11,8 +11,6 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Pulse Rifle");
-            Tooltip.SetDefault("Converts bullets to shotgun lazars");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

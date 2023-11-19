@@ -7,8 +7,8 @@ namespace Infernus.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Pile o' Bones");
-            Description.SetDefault("\"The bones will fight for you\"");
+            // DisplayName.SetDefault("Pile o' Bones");
+            // Description.SetDefault("\"The bones will fight for you\"");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }

@@ -9,8 +9,6 @@ namespace Infernus.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Aeritite Pickaxe");
-            Tooltip.SetDefault("Can mine meteorite");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -29,6 +27,8 @@ namespace Infernus.Items.Tools
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.pick = 55;
+            Item.useTurn = true;
+            Item.attackSpeedOnlyAffectsWeaponAnimation = true;
         }
         public override void AddRecipes()
         {

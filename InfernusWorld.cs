@@ -1,3 +1,4 @@
+using Infernus.Config;
 using Infernus.Invas;
 using Infernus.Level;
 using Microsoft.Xna.Framework;
@@ -18,16 +19,16 @@ namespace Infernus
         public static bool BoulderInvasionUp = false;
         public static bool downedBoulderInvasion = false;
 
-        public int Boulder_Cooldown = 43200; // 12 mins cooldown for boulder invasion
+        public int Boulder_Cooldown = 162000; // 45 mins cooldown for boulder invasion, for natural spawning
 
-        public int Stress_Enemy_There = 30; // stress update tick
+        public int Stress_Enemy_There = 30; // stress enemy alert update tick
 
 
-        public int Last_Check_Arms = 30;
+        public int Last_Check_Arms = 30; // checks of any arms are alive before chorus plant can be damaged
 
-        public int Last_Plant_Spawn = 10800;
+        public int Last_Plant_Spawn = 10800; // miniboss natural spawning timer
 
-        public int Last_Cursed_Spawn = 10800;
+        public int Last_Cursed_Spawn = 10800; // miniboss natural spawning timer
 
         private UserInterface XP_BarUserInterface;
 
@@ -153,23 +154,26 @@ namespace Infernus
         }
         private void Boulder_Invasion_Try_Spawn()
         {
-            if (Main.dayTime == true && Boulder_Cooldown > 0)
+            if (ModContent.GetInstance<InfernusConfig>().No_Invasion == false)
             {
-                Boulder_Cooldown--;
-            }
-            if (Boulder_Cooldown <= 0 && Main.rand.NextBool(18000) && BoulderInvasionUp == false && NPC.downedBoss3 == true && InfernusNPC.Is_Spawned != true)
-            {
-                BoulderInvasion.StartBoulderInvasion();
+                if (Main.dayTime == true && Boulder_Cooldown > 0)
+                {
+                    Boulder_Cooldown--;
+                }
+                if (Boulder_Cooldown <= 0 && Main.rand.NextBool(1) && BoulderInvasionUp == false && NPC.downedBoss3 == true && InfernusNPC.Is_Spawned != true)
+                {
+                    BoulderInvasion.StartBoulderInvasion();
 
-                if (Main.netMode == NetmodeID.SinglePlayer)
-                {
-                    Main.NewText("A storm rolls overhead from the west. The ground trembles with vibrations deep below.", 207, 196, 162);
+                    if (Main.netMode == NetmodeID.SinglePlayer)
+                    {
+                        Main.NewText("A storm rolls overhead from the west. The ground trembles with vibrations deep below.", 207, 196, 162);
+                    }
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    {
+                        Main.NewText("A storm rolls overhead from the west. The ground trembles with vibrations deep below.", 207, 196, 162);
+                    }
+                    Boulder_Cooldown = 162000; // 45 mins reset
                 }
-                if (Main.netMode == NetmodeID.MultiplayerClient)
-                {
-                    Main.NewText("A storm rolls overhead from the west. The ground trembles with vibrations deep below.", 207, 196, 162);
-                }
-                Boulder_Cooldown = 43200; // 12 mins reset
             }
         }
         /// Boss Checklist bugs
@@ -185,96 +189,72 @@ namespace Infernus
             {
                 return;
             }
-            if (bossChecklistMod.Version < new Version(1, 3, 1))
+            if (bossChecklistMod.Version < new Version(1, 6))
             {
                 return;
             }
-            string bossName = "Raiko";
+            string RaikoName = "Raiko";
 
-            int bossType = ModContent.NPCType<NPCs.Raiko>();
+            int RaikoType = ModContent.NPCType<NPCs.Raiko>();
 
-            float weight = 3.5f;
+            float RaikoWeight = 3.5f;
 
-            Func<bool> downed = () => InfernusSystem.downedRaiko;
+            Func<bool> RaikoDowned = () => InfernusSystem.downedRaiko;
 
-            Func<bool> available = () => true;
-
-            List<int> collection = new()
+            List<int> RaikoCollection = new()
             {
                 ModContent.ItemType<Placeable.RaikoRelic>(),
                 ModContent.ItemType<Items.Pets.RaikoPetItem>(),
-                ModContent.ItemType<Placeable.Trophy>(),
-                ModContent.ItemType<Items.Weapon.Meteor>(),
-                ModContent.ItemType<Items.Weapon.Ranged.Firebow>(),
-                ModContent.ItemType<Items.Weapon.Magic.MeteorEater>(),
-                ModContent.ItemType<Items.Weapon.Melee.BoldnBash>(),
-                ModContent.ItemType<Items.Weapon.Summon.Minion>(),
-                ModContent.ItemType<Items.Tools.Day>()
+                ModContent.ItemType<Items.Accesories.Shiny>()
             };
 
-            int summonItem = ModContent.ItemType<Items.BossSummon.Boss1sum>();
+            int RaikoSummonItem = ModContent.ItemType<Items.BossSummon.Boss1sum>();
 
-            string spawnInfo = $"Use a [i:{summonItem}] during night.";
+            string RaikoSpawnInfo = $"Use a [i:{RaikoSummonItem}] during night.";
 
-            string despawnInfo = null;
-
-            var customBossPortrait = (SpriteBatch sb, Rectangle rect, Color color) =>
+            var RaikoPortrait = (SpriteBatch sb, Rectangle rect, Color color) =>
             {
                 Texture2D texture = ModContent.Request<Texture2D>("Infernus/BossChecklist/Raiko").Value;
                 Vector2 centered = new(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
                 sb.Draw(texture, centered, color);
             };
-
             bossChecklistMod.Call(
-                "AddBoss",
+                "LogBoss",
                 Mod,
-                bossName,
-                bossType,
-                weight,
-                downed,
-                available,
-                collection,
-                summonItem,
-                spawnInfo,
-                despawnInfo,
-                customBossPortrait
+                RaikoName,
+                RaikoWeight,
+                RaikoDowned,
+                RaikoType,
+                new Dictionary<string, object>()
+                {
+                    ["spawnItems"] = RaikoSummonItem,
+                    ["spawninfo"] = RaikoSpawnInfo,
+                    ["collectibles"] = RaikoCollection,
+                    ["customPortrait"] = RaikoPortrait
+                }
             );
 
 
-            string bossName1 = "Ruderibus";
+            string RuderibusName = "Ruderibus";
 
-            int bossType1 = ModContent.NPCType<NPCs.Ruderibus>();
+            int RuderibusType = ModContent.NPCType<NPCs.Ruderibus>();
 
-            float weight1 = 6.9f;
+            float RuderibusWeight = 6.9f;
 
-            Func<bool> downed1 = () => InfernusSystem.downedRuderibus;
+            Func<bool> RuderibusDowned = () => InfernusSystem.downedRuderibus;
 
-            Func<bool> available1 = () => true;
-
-            List<int> collection1 = new()
+            List<int> RuderibusCollection = new()
             {
                 ModContent.ItemType<Placeable.RudeRelic>(),
                 ModContent.ItemType<Items.Pets.RudeItem>(),
-                ModContent.ItemType<Placeable.RudeTrophy>(),
-                ModContent.ItemType<Items.Materials.IceSpikes>(),
-                ItemID.FlurryBoots,
-                ItemID.IceMirror,
-                ItemID.IceBoomerang,
-                ItemID.IceBlade,
-                ItemID.BlizzardinaBottle,
-                ItemID.SnowballCannon,
-                ItemID.IceSkates,
-                ItemID.IceMachine,
-                ItemID.Fish,
+                ModContent.ItemType<Items.Accesories.Accessory>()
             };
 
-            int summonItem1 = ModContent.ItemType<Items.BossSummon.BossSummon>();
+            int RuderibusSummonItem = ModContent.ItemType<Items.BossSummon.BossSummon>();
 
-            string spawnInfo1 = $"While in the snow biome, use [i:{summonItem1}].";
+            string RuderibusSpawnInfo = $"While in the snow biome, use [i:{RuderibusSummonItem}].";
 
-            string despawnInfo1 = null;
-
-            var customBossPortrait1 = (SpriteBatch sb, Rectangle rect, Color color) =>
+            var RuderibusPortrait = (SpriteBatch sb, Rectangle rect, Color color) =>
             {
                 Texture2D texture = ModContent.Request<Texture2D>("Infernus/BossChecklist/Ruderibus").Value;
                 Vector2 centered = new(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
@@ -282,54 +262,42 @@ namespace Infernus
             };
 
             bossChecklistMod.Call(
-                "AddBoss",
+                "LogBoss",
                 Mod,
-                bossName1,
-                bossType1,
-                weight1,
-                downed1,
-                available1,
-                collection1,
-                summonItem1,
-                spawnInfo1,
-                despawnInfo1,
-                customBossPortrait1
+                RuderibusName,
+                RuderibusWeight,
+                RuderibusDowned,
+                RuderibusType,
+                new Dictionary<string, object>()
+                {
+                    ["spawnItems"] = RuderibusSummonItem,
+                    ["spawninfo"] = RuderibusSpawnInfo,
+                    ["collectibles"] = RuderibusCollection,
+                    ["customPortrait"] = RuderibusPortrait
+                }
             );
 
 
 
-            string bossName2 = "Serphious";
+            string SerphiousName = "Serphious";
 
-            int bossType2 = ModContent.NPCType<NPCs.Shark>();
+            int SerphiousType = ModContent.NPCType<NPCs.Shark>();
 
-            float weight2 = 16.9f;
+            float SerphiousWeight = 16.1f;
 
-            Func<bool> downed2 = () => InfernusSystem.downedTigerShark;
+            Func<bool> SerphiousDowned = () => InfernusSystem.downedTigerShark;
 
-            Func<bool> available2 = () => true;
-
-            List<int> collection2 = new()
+            List<int> SerphiousCollection = new()
             {
                 ModContent.ItemType<Placeable.SharkRelic>(),
-                ModContent.ItemType<Placeable.SharkTrophy>(),
-                ModContent.ItemType<Items.Weapon.HardMode.Accessories.eleScale>(),
-                ModContent.ItemType<Items.Weapon.HardMode.Melee.Electricice>(),
-                ModContent.ItemType<Items.Weapon.HardMode.Ranged.Electricbow>(),
-                ModContent.ItemType<Items.Weapon.HardMode.Magic.Lightning>(),
-                ModContent.ItemType<Items.Weapon.HardMode.Summon.whiplight>(),
-                ItemID.JellyfishDivingGear,
-                ItemID.WaterWalkingBoots,
-                ItemID.SharkFin,
-                ItemID.FloatingTube
+                ModContent.ItemType<Items.Weapon.HardMode.Accessories.eleScale>()
             };
 
-            int summonItem2 = ModContent.ItemType<Items.BossSummon.BeetleBait>();
+            int SerphiousSummonItem = ModContent.ItemType<Items.BossSummon.BeetleBait>();
 
-            string spawnInfo2 = $"Use a [i:{summonItem2}]";
+            string SerphiousSpawnInfo = $"Use a [i:{SerphiousSummonItem}] in the ocean biome";
 
-            string despawnInfo2 = null;
-
-            var customBossPortrait2 = (SpriteBatch sb, Rectangle rect, Color color) =>
+            var SerphiousPortrait = (SpriteBatch sb, Rectangle rect, Color color) =>
             {
                 Texture2D texture = ModContent.Request<Texture2D>("Infernus/BossChecklist/TigerShark").Value;
                 Vector2 centered = new(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
@@ -337,76 +305,79 @@ namespace Infernus
             };
 
             bossChecklistMod.Call(
-                "AddBoss",
-                Mod,
-                bossName2,
-                bossType2,
-                weight2,
-                downed2,
-                available2,
-                collection2,
-                summonItem2,
-                spawnInfo2,
-                despawnInfo2,
-                customBossPortrait2
-            );
+               "LogBoss",
+               Mod,
+               SerphiousName,
+               SerphiousWeight,
+               SerphiousDowned,
+               SerphiousType,
+               new Dictionary<string, object>()
+               {
+                   ["spawnItems"] = SerphiousSummonItem,
+                   ["spawninfo"] = SerphiousSpawnInfo,
+                   ["collectibles"] = SerphiousCollection,
+                   ["customPortrait"] = SerphiousPortrait
+               }
+           );
 
-            string minibossName = "Temporal Glow Squid";
+            string TempName = "TemporalGlowSquid";
 
-            int minibossType = ModContent.NPCType<NPCs.TemporalSquid>();
+            int TempType = ModContent.NPCType<NPCs.TemporalSquid>();
 
-            float miniweight = 1.9f;
+            float TempProgression = 1.9f;
 
-            Func<bool> minidowned = () => InfernusSystem.downedSquid;
+            Func<bool> TempDowned = () => InfernusSystem.downedSquid;
 
-            Func<bool> miniavailable = () => true;
-
-            List<int> minicollection = new()
+            List<int> TempCollection = new()
             {
-                ModContent.ItemType<Items.Consumable.Potion>()
+                ModContent.ItemType<Placeable.Squid_Relic>(),
+                ModContent.ItemType<Items.Pets.Squid_PetItem>(),
+                ModContent.ItemType<Items.Accesories.Squid_Expert>()
             };
 
-            int minisummonItem = ModContent.ItemType<Items.BossSummon.Squid_BossSummon>();
+            int TempSummonItem = ModContent.ItemType<Items.BossSummon.Squid_BossSummon>();
 
-            string minispawnInfo = $"While in the ocean biome use [i:{minisummonItem}] no matter the time.";
-
-            string minidespawnInfo = null;
+            string TempSpawnInfo = $"While in the ocean biome use [i:{TempSummonItem}] no matter the time.";
 
             bossChecklistMod.Call(
-                "AddBoss",
-                Mod,
-                minibossName,
-                minibossType,
-                miniweight,
-                minidowned,
-                miniavailable,
-                minicollection,
-                minisummonItem,
-                minispawnInfo,
-                minidespawnInfo
-            );
-            string EventName = "Boulder Invasion Pre-HM";
+               "LogBoss",
+               Mod,
+               TempName,
+               TempProgression,
+               TempDowned,
+               TempType,
+               new Dictionary<string, object>()
+               {
+                   ["spawnItems"] = TempSummonItem,
+                   ["spawninfo"] = TempSpawnInfo,
+                   ["collectibles"] = TempCollection
+               }
+           );
 
-            int EventType = ModContent.NPCType<NPCs.Boulder_Corpse>();
+            string EventName = "BoulderInvasionPreHm";
 
-            float Eventweight = 5.8f;
-
-            Func<bool> Eventdowned = () => InfernusSystem.downedBoulderInvasionPHM;
-
-            Func<bool> Eventavailable = () => true;
-
-            List<int> Eventcollection = new()
+            List<int> EventType = new List<int>()
             {
-                ModContent.ItemType<Items.Weapon.Ranged.July4th>()
+                ModContent.NPCType<NPCs.Boulder_Bat>(),
+                ModContent.NPCType<NPCs.Boulder_Cloud>(),
+                ModContent.NPCType<NPCs.Boulder_Corpse>(),
+                ModContent.NPCType<NPCs.Boulder_Golem>(),
+                ModContent.NPCType<NPCs.Boulder_Slime>()
             };
 
-            int EventsummonItem = ModContent.ItemType<ThickBoulder>();
+            float EventWeight = 5.8f;
 
-            string EventspawnInfo = $"Spawns naturally when daytime or, use a [i:{EventsummonItem}] during day.";
+            Func<bool> EventDowned = () => InfernusSystem.downedBoulderInvasionPHM;
 
-            string EventdespawnInfo = null;
+            List<int> EventCollection = new()
+            {
+            };
 
-            var EventcustomBossPortrait = (SpriteBatch sb, Rectangle rect, Color color) =>
+            int EventSummonItem = ModContent.ItemType<ThickBoulder>();
+
+            string EventSpawnInfo = $"Spawns naturally when daytime or, use a [i:{EventSummonItem}] during day.";
+
+            var EventPortrait = (SpriteBatch sb, Rectangle rect, Color color) =>
             {
                 Texture2D texture = ModContent.Request<Texture2D>("Infernus/BossChecklist/BIPHM").Value;
                 Vector2 centered = new(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
@@ -414,47 +385,48 @@ namespace Infernus
             };
 
             bossChecklistMod.Call(
-                "AddBoss",
-                Mod,
-                EventName,
-                EventType,
-                Eventweight,
-                Eventdowned,
-                Eventavailable,
-                Eventcollection,
-                EventsummonItem,
-                EventspawnInfo,
-                EventdespawnInfo,
-                EventcustomBossPortrait
-            );
+               "LogEvent",
+               Mod,
+               EventName,
+               EventWeight,
+               EventDowned,
+               EventType,
+               new Dictionary<string, object>()
+               {
+                   ["spawnItems"] = EventSummonItem,
+                   ["spawninfo"] = EventSpawnInfo,
+                   ["collectibles"] = EventCollection,
+                   ["customPortrait"] = EventPortrait
+               }
+           );
 
-            string EventName2 = "Boulder Invasion HM";
+            string EventNameHM = "BoulderInvasionHm";
 
-            int EventType2 = ModContent.NPCType<NPCs.Boulder_Corpse>();
-
-            float Eventweight2 = 12.4f;
-
-            Func<bool> Eventdowned2 = () => InfernusSystem.downedBoulderInvasionHM;
-
-            Func<bool> Eventavailable2 = () => true;
-
-            List<int> Eventcollection2 = new()
+            List<int> EventTypeHM = new List<int>()
             {
-                ModContent.ItemType<Items.Weapon.HardMode.Ranged.Bog>(),
-                ModContent.ItemType<Items.Weapon.HardMode.Summon.Whiprock>(),
-                ModContent.ItemType<Items.Weapon.HardMode.Melee.bould>(),
-                ModContent.ItemType<Items.Weapon.HardMode.Magic.Bouldermagicweapon>(),
-                ModContent.ItemType<Items.Weapon.HardMode.Accessories.Wings>(),
-                ModContent.ItemType<Items.Weapon.HardMode.Accessories.HiveHeart>()
+                ModContent.NPCType<NPCs.Boulder_Beetle>(),
+                ModContent.NPCType<NPCs.Boulder_Bat>(),
+                ModContent.NPCType<NPCs.Boulderminiboss>(),
+                ModContent.NPCType<NPCs.Boulder_Cloud>(),
+                ModContent.NPCType<NPCs.Boulder_Corpse>(),
+                ModContent.NPCType<NPCs.Boulder_Golem>(),
+                ModContent.NPCType<NPCs.Boulder_Slime>(),
+                ModContent.NPCType<NPCs.Basalt_Boulder>()
             };
 
-            int EventsummonItem2 = ModContent.ItemType<ThickBoulder>();
+            float EventWeightHM = 12.4f;
 
-            string EventspawnInfo2 = $"Spawns naturally when daytime or, use a [i:{EventsummonItem2}] during day.";
+            Func<bool> EventDownedHM = () => InfernusSystem.downedBoulderInvasionHM;
 
-            string EventdespawnInfo2 = null;
+            List<int> EventCollectionHM = new()
+            {
+            };
 
-            var EventcustomBossPortrait2 = (SpriteBatch sb, Rectangle rect, Color color) =>
+            int EventSummonItemHM = ModContent.ItemType<ThickBoulder>();
+
+            string EventSpawnInfoHM = $"Spawns naturally when daytime or, use a [i:{EventSummonItemHM}] during day.";
+
+            var EventPortraitHM = (SpriteBatch sb, Rectangle rect, Color color) =>
             {
                 Texture2D texture = ModContent.Request<Texture2D>("Infernus/BossChecklist/BIHM").Value;
                 Vector2 centered = new(rect.X + (rect.Width / 2) - (texture.Width / 2), rect.Y + (rect.Height / 2) - (texture.Height / 2));
@@ -462,101 +434,86 @@ namespace Infernus
             };
 
             bossChecklistMod.Call(
-                "AddBoss",
-                Mod,
-                EventName2,
-                EventType2,
-                Eventweight2,
-                Eventdowned2,
-                Eventavailable2,
-                Eventcollection2,
-                EventsummonItem2,
-                EventspawnInfo2,
-                EventdespawnInfo2,
-                EventcustomBossPortrait2
-            );
+               "LogEvent",
+               Mod,
+               EventNameHM,
+               EventWeightHM,
+               EventDownedHM,
+               EventTypeHM,
+               new Dictionary<string, object>()
+               {
+                   ["spawnItems"] = EventSummonItemHM,
+                   ["spawninfo"] = EventSpawnInfoHM,
+                   ["collectibles"] = EventCollectionHM,
+                   ["customPortrait"] = EventPortraitHM
+               }
+           );
 
-            string bossName3 = "Calypsical";
+            string CalypsicalName = "Calypsical";
 
-            int bossType3 = ModContent.NPCType<NPCs.Calypsical>();
+            int CalypsicalType = ModContent.NPCType<NPCs.Calypsical>();
 
-            float weight3 = 19.6f;
+            float CalypsicalWeight = 19.6f;
 
-            Func<bool> downed3 = () => InfernusSystem.downedCalypsical;
+            Func<bool> CalypsicalDowned = () => InfernusSystem.downedCalypsical;
 
-            Func<bool> available3 = () => true;
-
-            List<int> collection3 = new()
+            List<int> CalypsicalCollection = new()
             {
-                ModContent.ItemType<Items.Weapon.HardMode.Ranged.miniholy>(),
-                ModContent.ItemType<Items.Weapon.HardMode.Summon.Mecharmr>(),
-                ModContent.ItemType<Items.Weapon.HardMode.Summon.MechWhip>(),
-                ModContent.ItemType<Items.Weapon.HardMode.Melee.HolyRam>(),
-                ModContent.ItemType<Items.Weapon.HardMode.Magic.Cyclone>(),
+                ModContent.ItemType<Placeable.MechRelic>(),
+                ModContent.ItemType<Items.Pets.MechItem>(),
                 ModContent.ItemType<Items.Weapon.HardMode.Accessories.Mechwings>()
             };
 
-            int summonItem3 = ModContent.ItemType<Items.BossSummon.Mechsummon>();
+            int CalypsicalSummonItem = ModContent.ItemType<Items.BossSummon.Mechsummon>();
 
-            string spawnInfo3 = $"Use a [i:{summonItem3}] after Moonlord's defeat";
-
-            string despawnInfo3 = null;
+            string CalypsicalSpawnInfo = $"Use a [i:{CalypsicalSummonItem}] after Moonlord's defeat";
 
             bossChecklistMod.Call(
-                "AddBoss",
-                Mod,
-                bossName3,
-                bossType3,
-                weight3,
-                downed3,
-                available3,
-                collection3,
-                summonItem3,
-                spawnInfo3,
-                despawnInfo3
-            );
+               "LogBoss",
+               Mod,
+               CalypsicalName,
+               CalypsicalWeight,
+               CalypsicalDowned,
+               CalypsicalType,
+               new Dictionary<string, object>()
+               {
+                   ["spawnItems"] = CalypsicalSummonItem,
+                   ["spawninfo"] = CalypsicalSpawnInfo,
+                   ["collectibles"] = CalypsicalCollection
+               }
+           );
 
 
-            string bossName4 = "Corrupted Husk";
+            string HuskName = "CorruptedHusk";
 
-            int bossType4 = ModContent.NPCType<NPCs.Boulderminiboss>();
+            int HuskType = ModContent.NPCType<NPCs.Boulderminiboss>();
 
-            float weight4 = 12.2f;
+            float HuskWeight = 12.2f;
 
-            Func<bool> downed4 = () => InfernusSystem.downedBoulderBoss;
+            Func<bool> HuskDowned = () => InfernusSystem.downedBoulderBoss;
 
-            Func<bool> available4 = () => true;
-
-            List<int> collection4 = new()
+            List<int> HuskCollection = new()
             {
-                ModContent.ItemType<Items.Weapon.HardMode.Ranged.Bog>(),
-                ModContent.ItemType<Items.Weapon.HardMode.Summon.Whiprock>(),
-                ModContent.ItemType<Items.Weapon.HardMode.Melee.bould>(),
-                ModContent.ItemType<Items.Weapon.HardMode.Magic.BoulderTomb>(),
-                 ModContent.ItemType<Items.Weapon.HardMode.Magic.Bouldermagicweapon>(),
-                ModContent.ItemType<Items.Weapon.HardMode.Accessories.HiveHeart>(),
-                 ModContent.ItemType<Items.Weapon.HardMode.Accessories.Wings>()
             };
 
-            int summonItem4 = ModContent.ItemType<ThickBoulder>();
+            int HuskSummonItem = ModContent.ItemType<ThickBoulder>();
 
-            string spawnInfo4 = $"Use a [i:{summonItem4}] to spawn the Boulder Invasion. At the end of the Hardmode Boulder Invasion. This boss will spawn.";
-
-            string despawnInfo4 = null;
+            string HuskSpawnInfo = $"Use a [i:{HuskSummonItem}] to spawn the Boulder Invasion. At the end of the Hardmode Boulder Invasion. This boss will spawn.";
 
             bossChecklistMod.Call(
-                "AddBoss",
-                Mod,
-                bossName4,
-                bossType4,
-                weight4,
-                downed4,
-                available4,
-                collection4,
-                summonItem4,
-                spawnInfo4,
-                despawnInfo4
-            );
+               "LogBoss",
+               Mod,
+               HuskName,
+               HuskWeight,
+               HuskDowned,
+               HuskType,
+               new Dictionary<string, object>()
+               {
+                   ["spawnItems"] = HuskSummonItem,
+                   ["spawninfo"] = HuskSpawnInfo,
+                   ["collectibles"] = HuskCollection
+               }
+           );
         }
     }
 }

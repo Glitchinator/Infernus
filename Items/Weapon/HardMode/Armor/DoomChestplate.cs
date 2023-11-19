@@ -10,9 +10,6 @@ namespace Infernus.Items.Weapon.HardMode.Armor
     {
         public override void SetStaticDefaults()
         {
-            base.SetStaticDefaults();
-            DisplayName.SetDefault("Praetor Suit");
-            Tooltip.SetDefault("Heals on enemy strike");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

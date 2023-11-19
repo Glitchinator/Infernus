@@ -9,8 +9,6 @@ namespace Infernus.Items.Weapon.HardMode.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Seashine Claymore");
-            Tooltip.SetDefault("Shoots short ranged shells that fragment as they fly");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

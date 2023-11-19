@@ -11,14 +11,13 @@ namespace Infernus.Items.Weapon.HardMode.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stellar Strike");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 100;
+            Item.damage = 110;
             Item.DamageType = DamageClass.Magic;
             Item.width = 54;
             Item.height = 54;

@@ -7,8 +7,8 @@ namespace Infernus.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Holy Fist of Fate");
-            Description.SetDefault("\"*Thumbs up*\"");
+            // DisplayName.SetDefault("Holy Fist of Fate");
+            // Description.SetDefault("\"*Thumbs up*\"");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }

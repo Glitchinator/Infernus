@@ -11,9 +11,6 @@ namespace Infernus.Items.Weapon.Ranged
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Molten Chaingun");
-            Tooltip.SetDefault("Shoot a barrage of bullets sometimes fireballs"
-                + "\n 33% chance to not consume ammo");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

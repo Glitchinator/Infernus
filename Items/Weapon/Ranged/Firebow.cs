@@ -11,14 +11,12 @@ namespace Infernus.Items.Weapon.Ranged
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Breath of Hades");
-            Tooltip.SetDefault("Shoots burning and exploding bolts");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 16;
+            Item.damage = 14;
             Item.DamageType = DamageClass.Ranged;
             Item.noMelee = true;
             Item.width = 44;

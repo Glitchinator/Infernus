@@ -5,11 +5,6 @@ namespace Infernus.Projectiles
 {
     public class Lightning_Explosion : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Shock");
-
-        }
         public override void SetDefaults()
         {
             Projectile.width = 200;

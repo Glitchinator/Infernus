@@ -10,8 +10,6 @@ namespace Infernus.Items.Accesories
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Silky Ossein Sash");
-            Tooltip.SetDefault("Decreases defense and life regen but exchanges it for offense");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
@@ -25,10 +23,10 @@ namespace Infernus.Items.Accesories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetDamage(DamageClass.Generic) += .19f;
-            if (player.lifeRegenCount >= 2)
+            player.GetDamage(DamageClass.Generic) += .15f;
+            if (player.lifeRegen >= 2)
             {
-                player.lifeRegenCount -= 1;
+                player.lifeRegen -= 1;
             }
         }
         public override void AddRecipes()

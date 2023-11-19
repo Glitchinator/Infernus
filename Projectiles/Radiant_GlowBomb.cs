@@ -6,10 +6,6 @@ namespace Infernus.Projectiles
 
     public class Radiant_GlowBomb : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Radiant Bomb");
-        }
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Magic;
@@ -29,29 +25,22 @@ namespace Infernus.Projectiles
         }
         public override void AI()
         {
-            if (Main.rand.NextBool(3))
+            if (Main.rand.NextBool(2))
             {
-                Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Electric, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
+                Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Electric, Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
             }
             Projectile.velocity.X = Projectile.velocity.X * .97f;
             Projectile.velocity.Y = Projectile.velocity.Y * .97f;
             Projectile.rotation += (float)Projectile.direction * 7;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.velocity.Y = 0;
             Projectile.velocity.X = 0;
-            for (int k = 0; k < 20; k++)
-            {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.FrostHydra, 2.5f, -2.5f, 0, default, 1.2f);
-            }
         }
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (target.defense <= 9999)
-            {
-                damage += target.defense / 2;
-            }
+            modifiers.ScalingArmorPenetration += 1f;
         }
     }
 }

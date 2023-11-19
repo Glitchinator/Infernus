@@ -10,9 +10,6 @@ namespace Infernus.Items.Weapon.Summon
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Gem Tremor");
-            Tooltip.SetDefault("Your minions will attack struck foes"
-                + "\n + 5 summon tag damage");
         }
 
         public override void SetDefaults()

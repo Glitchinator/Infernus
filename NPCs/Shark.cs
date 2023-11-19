@@ -1,5 +1,4 @@
-﻿using IL.Terraria.GameContent.Biomes;
-using Infernus.Projectiles;
+﻿using Infernus.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.Biomes;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,26 +22,16 @@ namespace Infernus.NPCs
         int Spawn_Area;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Serphious");
             Main.npcFrameCount[NPC.type] = 2;
 
             NPCID.Sets.MPAllowedEnemies[Type] = true;
 
             NPCID.Sets.BossBestiaryPriority.Add(Type);
 
-            NPCDebuffImmunityData debuffData = new()
-            {
-                SpecificallyImmuneTo = new int[] {
-
-                    BuffID.Electrified,
-                    BuffID.Frostburn2,
-                    BuffID.Frostburn,
-
-
-                    BuffID.Confused
-                }
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Electrified] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn2] = true;
         }
 
         public override void SetDefaults()
@@ -476,10 +466,24 @@ namespace Infernus.NPCs
                 #endregion
             }
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.damage = (int)(NPC.damage * 1.15f);
-            NPC.lifeMax = (int)(NPC.lifeMax = 110360 + numPlayers);
+            NPC.lifeMax = (int)(NPC.lifeMax = 104000 * (int)balance);
+
+            if (Main.masterMode == true)
+            {
+                NPC.lifeMax = (int)(NPC.lifeMax = 125000 * (int)balance);
+                NPC.life = (int)(NPC.lifeMax = 125000 * (int)balance);
+                NPC.damage = ((NPC.damage / 2) * 3);
+            }
+            if (Main.getGoodWorld == true)
+            {
+                NPC.scale = .8f;
+                NPC.lifeMax = (int)(NPC.lifeMax = 136600 * (int)balance);
+                NPC.life = (int)(NPC.lifeMax = 136600 * (int)balance);
+                NPC.damage = ((NPC.damage / 10) * 13);
+            }
         }
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
@@ -795,7 +799,7 @@ namespace Infernus.NPCs
                 }
             }
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {
@@ -806,7 +810,7 @@ namespace Infernus.NPCs
             {
                 for (int k = 0; k < 36; k++)
                 {
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, 4f * hitDirection, -2.5f, 0, default, 1f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, 4f, -2.5f, 0, default, 1f);
                 }
                 for (int i = 0; i < 1; i++)
                 {
@@ -832,6 +836,7 @@ namespace Infernus.NPCs
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
+            int chance = 13;
 
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Items.BossSummon.SharkBag>()));
 
@@ -847,6 +852,10 @@ namespace Infernus.NPCs
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Summon.whiplight>(), 2));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Ranged.Electricbow>(), 2));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Ranged.Lightning_Daggers>(), 1, 175, 2580));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.JellyfishDivingGear, chance, 1, 1));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.WaterWalkingBoots, chance, 1, 1));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.SharkFin, chance, 1, 1));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.FloatingTube, chance, 1, 1));
 
             npcLoot.Add(notExpertRule);
         }

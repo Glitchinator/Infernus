@@ -7,10 +7,6 @@ namespace Infernus.Projectiles
 
     public class Ice_Slash_Ranged : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Ice Slash");
-        }
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Ranged;

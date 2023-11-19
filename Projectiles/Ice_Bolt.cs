@@ -7,10 +7,6 @@ namespace Infernus.Projectiles
 
     public class Ice_Bolt : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Ice Bolt");
-        }
         public override void SetDefaults()
         {
             Projectile.aiStyle = 0;

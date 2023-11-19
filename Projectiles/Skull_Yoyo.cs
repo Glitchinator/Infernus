@@ -9,7 +9,6 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Skull Throw");
             ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 260f;
             ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 13f;
         }

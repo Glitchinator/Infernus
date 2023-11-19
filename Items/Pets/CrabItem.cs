@@ -11,8 +11,6 @@ namespace Infernus.Items.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Murky Horseshoe");
-            Tooltip.SetDefault("Summons a Horseshoe Crab to follow you");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

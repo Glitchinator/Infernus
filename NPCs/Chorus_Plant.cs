@@ -39,7 +39,6 @@ namespace Infernus.NPCs
         }
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chorus Plant");
             Main.npcFrameCount[NPC.type] = 3;
         }
 
@@ -64,6 +63,7 @@ namespace Infernus.NPCs
             Player player = Main.player[NPC.target];
             NPC.netUpdate = true;
             NPC.TargetClosest(true);
+
 
             if (NPC.target < 0 || NPC.target == 255 || player.dead || !player.active)
             {
@@ -116,6 +116,8 @@ namespace Infernus.NPCs
         }
         public override void OnSpawn(IEntitySource source)
         {
+            NPC.lifeMax = 20000;
+            NPC.life = 20000;
             Spawn_IceShards();
         }
         private void Spawn_IceShards()
@@ -213,7 +215,7 @@ namespace Infernus.NPCs
                 SoundEngine.PlaySound(SoundID.Item39, NPC.position);
             }
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {
@@ -223,7 +225,7 @@ namespace Infernus.NPCs
             {
                 for (int k = 0; k < 24; k++)
                 {
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Confetti_Pink, 2.5f * hitDirection, -2.5f, 0, default, 1.2f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Confetti_Pink, 2.5f, -2.5f, 0, default, 1.2f);
                 }
             }
         }

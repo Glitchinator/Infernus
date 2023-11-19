@@ -6,10 +6,6 @@ namespace Infernus.Projectiles
 
     public class Frisbe : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Skull Basher");
-        }
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.Bananarang);

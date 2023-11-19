@@ -9,7 +9,6 @@ namespace Infernus.Items.Weapon.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Budsnap");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -28,7 +27,7 @@ namespace Infernus.Items.Weapon.Magic
             Item.value = Item.buyPrice(0, 5, 50, 0);
             Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item8;
-            Item.shoot = ModContent.ProjectileType<Projectiles.Leaf>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.Budsnap_Proj>();
             Item.shootSpeed = 10f;
             Item.autoReuse = true;
             Item.mana = 8;

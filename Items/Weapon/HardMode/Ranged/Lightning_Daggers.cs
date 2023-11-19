@@ -15,16 +15,12 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
         int numb;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lightning Daggers");
-            Tooltip.SetDefault("Charge up a barrage of daggers"
-                + "\n 25% chance to shoot a overpowered dagger"
-                + "\n 1 Sec Charge Time");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 92;
+            Item.damage = 80;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 22;
             Item.height = 32;

@@ -1,4 +1,5 @@
-﻿using Infernus.Items.BossSummon;
+﻿using Infernus.Config;
+using Infernus.Items.BossSummon;
 using Infernus.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -22,25 +23,18 @@ namespace Infernus.NPCs
         private float speed;
         private int damage;
         public static readonly Color Calypsical_Voice = new(232, 200, 125);
+        public static readonly Color Dialogue_Skip = new(118, 207, 89);
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("King Calypsical");
             Main.npcFrameCount[NPC.type] = 1;
 
             NPCID.Sets.MPAllowedEnemies[Type] = true;
 
             NPCID.Sets.BossBestiaryPriority.Add(Type);
 
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.Ichor,
-                    BuffID.BetsysCurse,
-
-                    BuffID.Confused
-                }
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Ichor] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.BetsysCurse] = true;
         }
 
         public override void SetDefaults()
@@ -134,11 +128,13 @@ namespace Infernus.NPCs
                     NPC.velocity.X = 0;
                     NPC.damage = 0;
                 }
-
-                if (First_Phase_Timer <= 60)
+                if(ModContent.GetInstance<InfernusConfig>().Skip_Dialogue == false)
                 {
-                    // Spawn animation
-                    First_Phase_Timer = 20000;
+                    if (First_Phase_Timer <= 60)
+                    {
+                        // Spawn animation
+                        First_Phase_Timer = 20000;
+                    }
                 }
                 if (First_Phase_Timer == 72)
                 {
@@ -292,6 +288,14 @@ namespace Infernus.NPCs
                     NPC.Center = position;
                     NPC.dontTakeDamage = true;
                     Music = MusicID.OtherworldlySpace;
+                    if (Main.netMode == NetmodeID.SinglePlayer)
+                    {
+                        Main.NewText("You can disable dialogue in the configs.", Dialogue_Skip);
+                    }
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    {
+                        Main.NewText("You can disable dialogue in the configs.", Dialogue_Skip);
+                    }
                 }
                 if (First_Phase_Timer == 20050)
                 {
@@ -729,7 +733,6 @@ namespace Infernus.NPCs
                     First_Phase_Timer = 1200;
                 }
                 #endregion
-
 
 
                 //Second Phase
@@ -1637,10 +1640,24 @@ namespace Infernus.NPCs
                 #endregion
             }
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.damage = (int)(NPC.damage * 1.08f);
-            NPC.lifeMax = (int)(NPC.lifeMax = 523200 + numPlayers);
+            NPC.lifeMax = (int)(NPC.lifeMax = 523200 * (int)balance);
+
+            if (Main.masterMode == true)
+            {
+                NPC.lifeMax = (NPC.lifeMax = 573800 * (int)balance);
+                NPC.life = (NPC.lifeMax = 573800 * (int)balance);
+                NPC.damage = ((NPC.damage / 2) * 3);
+            }
+            if (Main.getGoodWorld == true)
+            {
+                NPC.scale = .8f;
+                NPC.lifeMax = (NPC.lifeMax = 623800 * (int)balance);
+                NPC.life = (NPC.lifeMax = 623800 * (int)balance);
+                NPC.damage = ((NPC.damage / 10) * 13);
+            }
         }
         public override bool CheckDead()
         {
@@ -2116,7 +2133,7 @@ namespace Infernus.NPCs
             return (float)Math.Sqrt(mag.X * mag.X + mag.Y * mag.Y);
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {
@@ -2175,22 +2192,6 @@ namespace Infernus.NPCs
         public override void OnKill()
         {
             InfernusSystem.downedCalypsical = true;
-        }
-        public override void OnSpawn(IEntitySource source)
-        {
-            if (Main.masterMode == true)
-            {
-                NPC.lifeMax = 573800;
-                NPC.life = 573800;
-                NPC.damage = ((NPC.damage / 2) * 3);
-            }
-            if (Main.getGoodWorld == true)
-            {
-                NPC.scale = .8f;
-                NPC.lifeMax = 623800;
-                NPC.life = 623800;
-                NPC.damage = ((NPC.damage / 10) * 13);
-            }
         }
     }
 }

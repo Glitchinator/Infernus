@@ -10,10 +10,6 @@ namespace Infernus.Items.Weapon.Summon
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            DisplayName.SetDefault("Iceicle Snap");
-            Tooltip.SetDefault("Your minions will attack struck foes"
-                                + "\n + Frostburn"
-                                + "\n + 7 summon tag damage");
         }
 
         public override void SetDefaults()

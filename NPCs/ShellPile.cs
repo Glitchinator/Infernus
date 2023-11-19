@@ -10,12 +10,6 @@ namespace Infernus.NPCs
 {
     public class ShellPile : ModNPC
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Shell Slime");
-            Main.npcFrameCount[NPC.type] = 1;
-        }
-
         public override void SetDefaults()
         {
             NPC.lifeMax = 76;
@@ -34,7 +28,7 @@ namespace Infernus.NPCs
             BannerItem = Item.BannerToItem(Banner);
             NPC.value = 32;
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {
@@ -45,7 +39,7 @@ namespace Infernus.NPCs
             {
                 for (int k = 0; k < 1; k++)
                 {
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Dirt, 4f * hitDirection, -2.5f, 0, default, 1f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Dirt, 4f, -2.5f, 0, default, 1f);
                 }
                 int frontGoreType = Mod.Find<ModGore>("Shell_Pile").Type;
 
@@ -58,7 +52,7 @@ namespace Infernus.NPCs
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.Player.ZoneBeach)
+            if (spawnInfo.Player.ZoneBeach && spawnInfo.PlayerInTown == false)
             {
                 return .6f;
             }

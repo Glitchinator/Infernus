@@ -9,8 +9,6 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mechanical Mind");
-            Tooltip.SetDefault("Shoots lazers when attacking" + "\n Only works with projectile weapons");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

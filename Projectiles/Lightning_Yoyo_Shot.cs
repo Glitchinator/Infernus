@@ -5,7 +5,6 @@ using Terraria.ModLoader;
 
 namespace Infernus.Projectiles
 {
-
     public class Lightning_Yoyo_Shot : ModProjectile
     {
         public override void SetDefaults()
@@ -14,8 +13,8 @@ namespace Infernus.Projectiles
             Projectile.height = 1;
             Projectile.width = 1;
             Projectile.hostile = false;
-            Projectile.extraUpdates = 80;
-            Projectile.timeLeft = 80;
+            Projectile.extraUpdates = 65;
+            Projectile.timeLeft = 65;
             Projectile.netImportant = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = true;

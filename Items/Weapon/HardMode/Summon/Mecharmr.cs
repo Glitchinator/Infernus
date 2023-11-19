@@ -12,8 +12,6 @@ namespace Infernus.Items.Weapon.HardMode.Summon
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Holy Fist of Fate");
-            Tooltip.SetDefault("Summon a pair of mecha arms that throw hands with enemies");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true;
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

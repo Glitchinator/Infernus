@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -12,30 +13,22 @@ namespace Infernus.Projectiles
         public override void SetDefaults()
         {
             Projectile.netImportant = true;
-            Projectile.width = 34;
-            Projectile.height = 34;
+            Projectile.width = 30;
+            Projectile.height = 30;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.scale = 1f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-
-            Projectile.aiStyle = ProjAIStyleID.Flail;
-            AIType = ProjectileID.FlowerPow;
-
-            DrawOffsetX = -6;
-            DrawOriginOffsetY = -6;
+            Projectile.aiStyle = 15;
         }
         public override bool PreDrawExtras()
         {
-            Projectile.type = ProjectileID.BallOHurt;
-            return base.PreDrawExtras();
+            return false;
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.type = ModContent.ProjectileType<LightTruePrimed>();
-
             if (Projectile.ai[0] == 1f)
             {
                 Texture2D projectileTexture = TextureAssets.Projectile[Projectile.type].Value;
@@ -59,11 +52,38 @@ namespace Infernus.Projectiles
                     Main.EntitySpriteDraw(projectileTexture, drawPosition + drawAdjustment, null, drawColor * opacity, Projectile.rotation, drawOrigin, Projectile.scale * 1.15f * MathHelper.Lerp(0.5f, 1f, opacity), spriteEffects, 0);
                 }
             }
+            Vector2 playerArmPosition = Main.GetPlayerArmPosition(Projectile);
 
-            return base.PreDraw(ref lightColor);
+            Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Infernus/Projectiles/Light_Chain");
+
+            Rectangle? chainSourceRectangle = null;
+            float chainHeightAdjustment = 0f;
+
+            Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+            Vector2 chainDrawPosition = Projectile.Center;
+            Vector2 vectorFromProjectileToPlayerArms = playerArmPosition.MoveTowards(chainDrawPosition, 4f) - chainDrawPosition;
+            Vector2 unitVectorFromProjectileToPlayerArms = vectorFromProjectileToPlayerArms.SafeNormalize(Vector2.Zero);
+            float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height()) + chainHeightAdjustment;
+            if (chainSegmentLength == 0)
+            {
+                chainSegmentLength = 10;
+            }
+            float chainRotation = unitVectorFromProjectileToPlayerArms.ToRotation() + MathHelper.PiOver2;
+            int chainCount = 0;
+            float chainLengthRemainingToDraw = vectorFromProjectileToPlayerArms.Length() + chainSegmentLength / 2f;
+
+            while (chainLengthRemainingToDraw > 0f)
+            {
+                var chainTextureToDraw = chainTexture;
+                Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, lightColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+                chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
+                chainCount++;
+                chainLengthRemainingToDraw -= chainSegmentLength;
+            }
+            return true;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Main.rand.NextBool(2))
             {
@@ -72,12 +92,12 @@ namespace Infernus.Projectiles
             {
                 if (Main.rand.Next(3) < 1)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, -5), ProjectileID.MagicDagger, (int)(damage * .60f), 0, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, -5), ProjectileID.MagicDagger, (int)(damageDone * .60f), 0, Projectile.owner);
                 }
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (Main.rand.NextBool(4))
             {
@@ -88,7 +108,10 @@ namespace Infernus.Projectiles
         {
             if (Main.myPlayer == Projectile.owner && Projectile.ai[0] == 2f && Projectile.ai[1] == 0f)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ProjectileID.BlackBolt, Projectile.damage, Projectile.knockBack, Main.myPlayer);
+                for(int i = 0; i < 3; i++)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, ProjectileID.BlackBolt, Projectile.damage, Projectile.knockBack, Main.myPlayer);
+                }
                 Projectile.ai[1]++;
             }
         }

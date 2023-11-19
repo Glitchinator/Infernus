@@ -10,18 +10,13 @@ namespace Infernus.Projectiles
 {
     public class Meteor_Flail : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Meteor Masher");
-        }
-
         public override void SetDefaults()
         {
             Projectile.netImportant = true;
             Projectile.width = 36;
             Projectile.height = 36;
             Projectile.friendly = true;
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 2;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.scale = 1f;
             Projectile.usesLocalNPCImmunity = true;
@@ -79,20 +74,19 @@ namespace Infernus.Projectiles
             return true;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             SoundEngine.PlaySound(SoundID.Item70, Projectile.position);
             for (int k = 0; k < 20; k++)
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.SolarFlare, 2.5f, -2.5f, 0, default, 1.2f);
             }
-            Projectile.Kill();
             if (Main.rand.NextBool(2))
             {
                 target.AddBuff(BuffID.OnFire, 300);
             }
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (Main.rand.NextBool(4))
             {

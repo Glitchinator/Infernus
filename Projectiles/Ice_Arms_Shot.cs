@@ -7,10 +7,6 @@ namespace Infernus.Projectiles
 
     public class Ice_Arms_Shot : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Cryonic Star");
-        }
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Generic;

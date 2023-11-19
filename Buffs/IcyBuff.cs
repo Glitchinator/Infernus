@@ -7,8 +7,8 @@ namespace Infernus.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cryonic Arm");
-            Description.SetDefault("\"An arm that creates ice bombs? Cool.\"");
+            // DisplayName.SetDefault("Cryonic Arm");
+            // Description.SetDefault("\"An arm that creates ice bombs? Cool.\"");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }

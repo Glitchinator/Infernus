@@ -11,15 +11,12 @@ namespace Infernus.Items.Weapon.HardMode.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Arc Swinger");
-            Tooltip.SetDefault("Sporadically shoots lightning bolts" +
-                "\n Shoots a lightning bolt that ricochets into enemies every 2 second");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 135;
+            Item.damage = 80;
             Item.DamageType = DamageClass.Melee;
             Item.width = 30;
             Item.height = 26;

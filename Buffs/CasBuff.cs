@@ -7,8 +7,8 @@ namespace Infernus.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Infection");
-            Description.SetDefault("\"The virus will fight for you\"");
+            // DisplayName.SetDefault("Infection");
+            // Description.SetDefault("\"The virus will fight for you\"");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }

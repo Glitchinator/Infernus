@@ -20,19 +20,11 @@ namespace Infernus.NPCs
         private float speed;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Corrupted Husk");
-
             NPCID.Sets.MPAllowedEnemies[Type] = true;
 
             NPCID.Sets.BossBestiaryPriority.Add(Type);
 
-            NPCDebuffImmunityData debuffData = new()
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.Confused
-                }
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
 
         public override void SetDefaults()
@@ -584,7 +576,7 @@ namespace Infernus.NPCs
         {
             return (float)Math.Sqrt(mag.X * mag.X + mag.Y * mag.Y);
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {
@@ -595,7 +587,7 @@ namespace Infernus.NPCs
             {
                 for (int k = 0; k < 60; k++)
                 {
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, 4f * hitDirection, -2.5f, 0, default, 2f);
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, 4f, -2.5f, 0, default, 2f);
                 }
                 for (int i = 0; i < 1; i++)
                 {
@@ -622,30 +614,41 @@ namespace Infernus.NPCs
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Boulder_Bag>()));
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<Boulder_Bag>()));
+
+            LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
+
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Magic.Bouldermagicweapon>(), 2));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Magic.BoulderTomb>(), 2));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Melee.bould>(), 2));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Ranged.Bog>(), 2));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Summon.Whiprock>(), 2));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Accessories.Wings>(), 2));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Accessories.HiveHeart>(), 2));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.Broken_Heros_Staff>(), 2));
+
+            npcLoot.Add(notExpertRule);
         }
         public override void BossLoot(ref string name, ref int potionType)
         {
             potionType = ItemID.GreaterHealingPotion;
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.damage = (int)(NPC.damage * 1.3f);
-            NPC.lifeMax = (int)(NPC.lifeMax = 44000 + numPlayers);
-        }
-        public override void OnSpawn(IEntitySource source)
-        {
+            NPC.lifeMax = (NPC.lifeMax = 44000 * (int)balance);
+
             if (Main.masterMode == true)
             {
-                NPC.lifeMax = 52000;
-                NPC.life = 52000;
+                NPC.lifeMax = (NPC.lifeMax = 52000 * (int)balance);
+                NPC.life = (NPC.lifeMax = 52000 * (int)balance);
                 NPC.damage = ((NPC.damage / 2) * 3);
             }
             if (Main.getGoodWorld == true)
             {
                 NPC.scale = 2f;
-                NPC.lifeMax = 60000;
-                NPC.life = 60000;
+                NPC.lifeMax = (NPC.lifeMax = 60000 * (int)balance);
+                NPC.life = (NPC.lifeMax = 60000 * (int)balance);
                 NPC.damage = ((NPC.damage / 10) * 13);
             }
         }

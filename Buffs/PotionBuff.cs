@@ -7,8 +7,8 @@ namespace Infernus.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Calamari Rage");
-            Description.SetDefault("\"Boost to Defense, Regen, Damage and Crit\"");
+            // DisplayName.SetDefault("Calamari Rage");
+            // Description.SetDefault("\"Boost to Defense, Regen, Damage and Crit\"");
         }
 
         public override void Update(Player player, ref int buffIndex)

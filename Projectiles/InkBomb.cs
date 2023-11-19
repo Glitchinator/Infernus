@@ -8,10 +8,6 @@ namespace Infernus.Projectiles
 
     public class InkBomb : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Ink Ball");
-        }
         public override void SetDefaults()
         {
             Projectile.width = 32;

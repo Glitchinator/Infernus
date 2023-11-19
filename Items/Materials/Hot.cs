@@ -9,7 +9,6 @@ namespace Infernus.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Meteorite Flame");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
         }
         public override void SetDefaults()

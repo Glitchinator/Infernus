@@ -7,10 +7,6 @@ namespace Infernus.Projectiles
 
     public class InkBolt : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Ink Bolt");
-        }
         public override void SetDefaults()
         {
             Projectile.aiStyle = 0;
@@ -31,7 +27,7 @@ namespace Infernus.Projectiles
                 Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Wraith, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
             }
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Obstructed, 60, quiet: false);
         }

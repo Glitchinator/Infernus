@@ -13,7 +13,6 @@ namespace Infernus.Projectiles
         int timer;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sword Slash");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
@@ -45,9 +44,10 @@ namespace Infernus.Projectiles
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ProjectileID.DaybreakExplosion, (int)(damage * 1.20f), 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ProjectileID.DaybreakExplosion, (int)(Projectile.damage * 1.20f), 0, Projectile.owner);
+            Projectile.damage = (int)(Projectile.damage * 0.9f);
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -68,7 +68,7 @@ namespace Infernus.Projectiles
 
             return true;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             for (int k = 0; k < 34; k++)

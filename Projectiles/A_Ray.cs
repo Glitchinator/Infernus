@@ -8,10 +8,6 @@ namespace Infernus.Projectiles
 
     public class A_Ray : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Sunlight Sinder Ray");
-        }
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Magic;
@@ -49,7 +45,7 @@ namespace Infernus.Projectiles
                 Projectile.tileCollide = true;
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
             Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ProjectileID.SolarWhipSwordExplosion, Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);

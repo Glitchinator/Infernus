@@ -7,15 +7,13 @@ namespace Infernus.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Aeritite meatball");
-            Description.SetDefault("\"The meatball will fight for you\"");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Cement2>()] > 0)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Aeritite_Minion>()] > 0)
             {
                 player.buffTime[buffIndex] = 18000;
             }

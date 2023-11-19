@@ -9,8 +9,6 @@ namespace Infernus.Items.Weapon.HardMode.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nuclear Subslicer");
-            Tooltip.SetDefault("Shoots hyperinfused scythe heads that rip through time");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

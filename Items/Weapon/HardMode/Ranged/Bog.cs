@@ -14,15 +14,12 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
         int cycle;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hero's Launcher");
-            Tooltip.SetDefault("Charge up a powerful bouncing boulder"
-                + "\n1.6 Sec Charge Time");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 86;
+            Item.damage = 98;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 52;
             Item.height = 32;

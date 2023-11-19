@@ -10,15 +10,6 @@ namespace Infernus.Items.Tools
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Heresy");
-            Tooltip.SetDefault("Your journey awaits, with fortune and fame..."
-                 + "\n Enables Stress for the Player"
-                 + "\n 40% Increase Health and 40% Increased Damage of Bosses"
-                + "\n Adds custom AI to these bosses (Temporal Glow Squid, Raiko, Ruderibus, Corrupted Husk, Serphious, Calypsical)"
-                + "\n Stress is an amount of hits the player can take before they die"
-                + "\n With each hit(s) you take, you gain a buff until you die"
-                + "\n Stress only activates when a boss is alive"
-                + "\n Future updates like custom vanilla AI and drops will come later");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 2;
         }
         public override void SetDefaults()
@@ -33,9 +24,12 @@ namespace Infernus.Items.Tools
         }
         public override bool CanUseItem(Player player)
         {
-            if (InfernusNPC.Is_Spawned == true)
+            for(int i = 0; i < Main.npc.Length; i++)
             {
-                return false;
+                if (Main.npc[i].boss == true && Main.npc[i].active == true)
+                {
+                    return false;
+                }
             }
             return true;
         }

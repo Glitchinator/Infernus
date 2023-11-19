@@ -16,10 +16,13 @@ namespace Infernus.Projectiles
             ProjectileID.Sets.IsAWhip[Type] = true;
             Projectile.netImportant = true;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if (target.type != NPCID.TargetDummy)
             {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Right.X, target.Right.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, -5), ModContent.ProjectileType<BoulderMini>(), (int)(damage * .60f), 0, Projectile.owner);
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Right.X, target.Right.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, -5), ModContent.ProjectileType<BoulderMini>(), (int)(damageDone * .60f), 0, Projectile.owner);
+                }
             }
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
             target.AddBuff(ModContent.BuffType<rockywhipbuff>(), 300);

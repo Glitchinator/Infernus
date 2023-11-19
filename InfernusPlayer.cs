@@ -1,4 +1,5 @@
-﻿using Infernus.Projectiles;
+﻿using Infernus.Buffs;
+using Infernus.Projectiles;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -15,42 +16,47 @@ namespace Infernus
         // Doom Guy dash variables
         public const int DashRight = 2;
         public const int DashLeft = 3;
-        public const int DashCooldown = 50;
-        public const int DashDuration = 35;
-        public const float DashVelocity = 16f;
+        public const int DashCooldown = 150;
+        public const int DashDuration = 39;
+        public const float DashVelocity = 16.6f;
         public int DashDir = -1;
         public bool DoomDash;
         public int DashDelay = 0;
         public int DashTimer = 0;
 
-        // XP for level variables
+        // stress variables
         public int Stress_Current;
         public const int DefaultStress_Max = 8;
         public int Stress_Max;
         public int Stress_Max2;
         public static readonly Color GainXP_Resource = new(247, 171, 72);
+        public bool Stress_Buff_1 = false;
+        public bool Stress_Buff_2 = false;
 
         // Ink Storm Variable
         public bool Ink_Storm_Equipped = false;
 
-        // stress variables
-        public bool Stress_Buff_1 = false;
-        public bool Stress_Buff_2 = false;
+        // aeritite armor variables
+        public bool Aeritite_Equipped = false;
+
+        // Boulder Expert Variable
+        public bool Boulder_Equipped = false;
+        public int Boulder_Timer;
 
         // Meteor ring variables
         public bool Meteor_Storm_Active = false;
 
         // Snowfall tiara variables
-
         public bool Tiara_Equipped = false;
 
         // mechanical mind equipped
-
         public bool Mech_Equipped = false;
 
         // hive heart
-
         public bool Heart_Equipped = false;
+
+        // chipped whetstone
+        public bool NPC_Bleeding = false;
 
         public override void ModifyNursePrice(NPC nurse, int health, bool removeDebuffs, ref int price)
         {
@@ -59,18 +65,18 @@ namespace Infernus
                 price = 100;
             }
         }
-        public override void OnEnterWorld(Player player)
+        public override void OnEnterWorld()
         {
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
-                Main.NewText("Welcome to Infernus Mod! If you have any questions the Discord or Forum is the place to ask.", GainXP_Resource);
+                Main.NewText("Welcome to Infernus Mod! If you have any questions the Discord or Forum is the place to ask." + "\nYou are playing on Infernus V1.6.3", GainXP_Resource);
             }
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
-                Main.NewText("Welcome to Infernus Mod! If you have any questions the Discord or Forum is the place to ask.", GainXP_Resource);
+                Main.NewText("Welcome to Infernus Mod! If you have any questions the Discord or Forum is the place to ask." + "\nYou are playing on Infernus V1.6.3", GainXP_Resource);
             }
         }
-        public override void OnHitByNPC(NPC npc, int damage, bool crit)
+        public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
             if (Ink_Storm_Equipped == true)
             {
@@ -80,36 +86,34 @@ namespace Infernus
                 }
             }
         }
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+        public override void OnHurt(Player.HurtInfo info)
         {
             if (InfernusNPC.Is_Spawned == true)
             {
                 Stress_Current += 1;
             }
+            if(Aeritite_Equipped == true)
+            {
+                Player.AddBuff(ModContent.BuffType<Aeritite_Timer>(), 1800);
+            }
         }
-        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             if (Heart_Equipped == true)
             {
                 target.AddBuff(BuffID.Venom, 700);
                 target.AddBuff(BuffID.Poisoned, 700);
             }
-            base.ModifyHitNPCWithProj(proj, target, ref damage, ref knockback, ref crit, ref hitDirection);
-        }
-        public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
-        {
-            if (Heart_Equipped == true)
+            if(NPC_Bleeding == true)
             {
-                target.AddBuff(BuffID.Venom, 700);
-                target.AddBuff(BuffID.Poisoned, 700);
+                target.AddBuff(ModContent.BuffType<Buffs.Bleeding_Debuff>(), 180);
             }
-            base.ModifyHitNPC(item, target, ref damage, ref knockback, ref crit);
         }
         public override bool Shoot(Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (Mech_Equipped == true)
             {
-                Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<Lazar>(), (int)(damage * .50f), knockback, 0);
+                Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<Lazar>(), (int)(damage * .35f), 0, 0);
             }
             return base.Shoot(item, source, position, velocity, type, damage, knockback);
         }
@@ -155,6 +159,9 @@ namespace Infernus
             Tiara_Equipped = false;
             Mech_Equipped = false;
             Heart_Equipped = false;
+            Boulder_Equipped = false;
+            Aeritite_Equipped = false;
+            NPC_Bleeding = false;
 
             if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[DashRight] < 15)
             {

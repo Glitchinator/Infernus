@@ -13,10 +13,6 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
         int attack;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Molten Barrager");
-            Tooltip.SetDefault("Shoot an ungodly amount of bullets"
-                 + "\n50% Chance for bullets to melt into hot magma"
-                 + "\n66% chance to not consume ammo");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

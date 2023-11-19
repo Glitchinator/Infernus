@@ -10,8 +10,6 @@ namespace Infernus.Items.Weapon.HardMode.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Exgnir");
-            Tooltip.SetDefault("Shoots homing shots");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -22,10 +20,10 @@ namespace Infernus.Items.Weapon.HardMode.Magic
             Item.DamageType = DamageClass.Magic;
             Item.width = 28;
             Item.height = 30;
-            Item.useTime = 18;
-            Item.useAnimation = 18;
+            Item.useTime = 16;
+            Item.useAnimation = 16;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 4f;
+            Item.knockBack = 3.2f;
             Item.value = 185000;
             Item.rare = ItemRarityID.Pink;
             Item.UseSound = SoundID.Item8;

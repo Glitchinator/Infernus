@@ -12,8 +12,6 @@ namespace Infernus.Items.Weapon.Summon
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dunger");
-            Tooltip.SetDefault("Summon a bouncing pile of bones");
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true;
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -42,7 +40,7 @@ namespace Infernus.Items.Weapon.Summon
             player.AddBuff(Item.buffType, 2);
             position = Main.MouseWorld;
             Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
-            return true;
+            return false;
         }
         public override void AddRecipes()
         {

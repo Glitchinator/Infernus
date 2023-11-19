@@ -11,15 +11,13 @@ namespace Infernus.Items.Weapon.HardMode.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bloom Bomb");
-            Tooltip.SetDefault("Shoots a exploding flower bloom");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 72;
+            Item.damage = 140;
             Item.DamageType = DamageClass.Magic;
             Item.width = 36;
             Item.height = 36;
@@ -38,7 +36,7 @@ namespace Infernus.Items.Weapon.HardMode.Magic
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Projectile.NewProjectileDirect(source, position, velocity, type, damage * 3, knockback, player.whoAmI);
+            Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
             return false;
         }
         public override void AddRecipes()

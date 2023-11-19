@@ -14,8 +14,7 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cryonic Heart");
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
         public override void SetDefaults()
@@ -27,8 +26,7 @@ namespace Infernus.Projectiles
             Projectile.hostile = false;
             Projectile.netImportant = true;
             Projectile.penetrate = -1;
-            Projectile.damage = 30;
-            Projectile.extraUpdates = 1;
+            Projectile.damage = 20;
         }
 
         int Timer;
@@ -56,9 +54,9 @@ namespace Infernus.Projectiles
 
             Timer++;
 
-            if (Timer == 25)
+            if (Timer == 50)
             {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Ice_Arms_Shot>(), 36, 1.5f, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Ice_Arms_Shot>(), 30, 1f, Projectile.owner);
                 Timer = 0;
             }
         }

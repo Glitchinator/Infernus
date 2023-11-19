@@ -12,7 +12,6 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shadowflame?");
             ProjectileID.Sets.TrailingMode[Type] = 0;
             ProjectileID.Sets.TrailCacheLength[Type] = 7;
         }
@@ -21,8 +20,8 @@ namespace Infernus.Projectiles
             AIType = ProjectileID.Bullet;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.friendly = true;
-            Projectile.height = 20;
-            Projectile.width = 10;
+            Projectile.height = 14;
+            Projectile.width = 8;
             Projectile.hostile = false;
             Projectile.timeLeft = 250;
             Projectile.netImportant = true;
@@ -47,7 +46,7 @@ namespace Infernus.Projectiles
 
             Projectile.velocity.Y += Projectile.ai[0];
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.ShadowFlame, 600);
         }

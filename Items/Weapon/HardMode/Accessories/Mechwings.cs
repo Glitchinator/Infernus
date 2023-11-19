@@ -11,10 +11,6 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Angelic Wings");
-            Tooltip.SetDefault("Allows flight, and slow falling"
-                 + "\n+ 6% damage + 4% crit");
-
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(220, 5.2f, 2.2f);

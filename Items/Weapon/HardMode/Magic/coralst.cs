@@ -9,16 +9,13 @@ namespace Infernus.Items.Weapon.HardMode.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Starfish Stalker");
-            Tooltip.SetDefault("Casts a starfish that locks onto enemies"
-                + "\n Ignores a substantial amount of enemy defense");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 46;
+            Item.damage = 35;
             Item.DamageType = DamageClass.Magic;
             Item.width = 42;
             Item.height = 42;

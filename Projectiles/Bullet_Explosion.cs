@@ -5,11 +5,6 @@ namespace Infernus.Projectiles
 {
     public class Bullet_Explosion : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Explosion");
-
-        }
         public override void SetDefaults()
         {
             Projectile.width = 80;

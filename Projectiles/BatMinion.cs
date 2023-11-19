@@ -38,7 +38,7 @@ namespace Infernus.Projectiles
             Player player = Main.player[Projectile.owner];
             Projectile.spriteDirection = Projectile.direction;
 
-            if (++Projectile.frameCounter >= 16)
+            if (++Projectile.frameCounter >= 11)
             {
                 Projectile.frameCounter = 0;
                 if (++Projectile.frame >= 3)
@@ -153,7 +153,7 @@ namespace Infernus.Projectiles
             return false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Poisoned, 300);
         }

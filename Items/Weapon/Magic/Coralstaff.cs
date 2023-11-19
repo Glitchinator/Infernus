@@ -9,7 +9,6 @@ namespace Infernus.Items.Weapon.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Starfish Staff");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -29,7 +28,7 @@ namespace Infernus.Items.Weapon.Magic
             Item.UseSound = SoundID.Item8;
             Item.autoReuse = true;
             Item.noMelee = true;
-            Item.shoot = ProjectileID.HeatRay;
+            Item.shoot = ModContent.ProjectileType<Projectiles.Sea_Star_Lite>();
             Item.shootSpeed = 12f;
             Item.mana = 8;
         }

@@ -12,7 +12,6 @@ namespace Infernus.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Horseshoe Crab");
             Main.npcFrameCount[NPC.type] = 2;
         }
 
@@ -35,7 +34,7 @@ namespace Infernus.NPCs
             BannerItem = Item.BannerToItem(Banner);
             NPC.value = 25;
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
             {

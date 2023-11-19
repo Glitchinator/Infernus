@@ -11,10 +11,6 @@ namespace Infernus.Projectiles
 
     public class Vivid_Glory_Round : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Vivid Glory Round");
-        }
         public override void SetDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 7;
@@ -97,7 +93,7 @@ namespace Infernus.Projectiles
 
             return true;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int k = 0; k < 20; k++)
             {

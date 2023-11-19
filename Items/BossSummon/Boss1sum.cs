@@ -10,9 +10,6 @@ namespace Infernus.Items.BossSummon
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Meteor Shard");
-            Tooltip.SetDefault("Summons Raiko"
-                + "\nMust be night");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 2;
         }
         public override void SetDefaults()

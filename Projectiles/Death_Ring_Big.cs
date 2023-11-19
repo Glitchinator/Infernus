@@ -5,11 +5,6 @@ namespace Infernus.Projectiles
 {
     public class Death_Ring_Big : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Death Ring");
-
-        }
         public override void SetDefaults()
         {
             Projectile.width = 100;

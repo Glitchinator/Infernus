@@ -10,9 +10,6 @@ namespace Infernus.Items.Weapon.HardMode.Armor
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Praetor Helm");
-            Tooltip.SetDefault("Immune to knockback"
-                            + "\n 20% increased damage");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

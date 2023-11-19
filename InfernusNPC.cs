@@ -85,7 +85,6 @@ namespace Infernus
                 {
                     Is_Spawned = true;
                 }
-                // Is_Spawned = true;
                 return;
             }
             if(npc.type == ModContent.NPCType<Chorus_Plant_Arm>())
@@ -95,33 +94,33 @@ namespace Infernus
                     Arms_Alive = true;
                 }
             }
-            //Is_Spawned = false;
         }
-        public override void SetupShop(int type, Chest shop, ref int nextSlot)
+        public override void ModifyShop(NPCShop shop)
         {
-            if (NPCID.Merchant == type)
+            if (shop.NpcType == NPCID.Merchant)
             {
-                shop.item[nextSlot].SetDefaults(ItemID.FlareGun);
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(ItemID.Flare);
-                nextSlot++;
+                shop.Add(ItemID.FlareGun);
+                shop.Add(ItemID.Flare);
             }
-            if (NPCID.Cyborg == type && NPC.downedGolemBoss)
+            // shops are broken
+            else if (shop.NpcType == NPCID.Cyborg && NPC.downedGolemBoss == true)
             {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Weapon.HardMode.Magic.Golemretrib>());
-                nextSlot++;
+                shop.Add(ModContent.ItemType<Items.Weapon.HardMode.Magic.Golemretrib>());
+                shop.GetEntry(ModContent.ItemType<Items.Weapon.HardMode.Magic.Golemretrib>());
+                shop.InsertAfter(ItemID.Nanites,ModContent.ItemType<Items.Weapon.HardMode.Magic.Golemretrib>());
             }
-            if (NPCID.ArmsDealer == type && NPC.downedMechBossAny)
+            else if (shop.NpcType == NPCID.ArmsDealer && NPC.downedMechBossAny == true)
             {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Weapon.HardMode.Ranged.ClockSMG>());
-                nextSlot++;
+                shop.Add(ModContent.ItemType<Items.Weapon.HardMode.Ranged.ClockSMG>());
+                shop.GetEntry(ModContent.ItemType<Items.Weapon.HardMode.Ranged.ClockSMG>());
             }
-            if (NPCID.ArmsDealer == type && NPC.downedPlantBoss)
+            else if (shop.NpcType == NPCID.ArmsDealer && NPC.downedPlantBoss == true)
             {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Weapon.HardMode.Ranged.TommyGun>());
-                nextSlot++;
+                shop.Add(ModContent.ItemType<Items.Weapon.HardMode.Ranged.TommyGun>());
+                shop.GetEntry(ModContent.ItemType<Items.Weapon.HardMode.Ranged.TommyGun>());
             }
         }
+
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
             if (InfernusWorld.BoulderInvasionUp && (Main.invasionX == Main.spawnTileX))

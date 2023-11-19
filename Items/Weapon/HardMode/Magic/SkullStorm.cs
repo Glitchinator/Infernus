@@ -11,19 +11,18 @@ namespace Infernus.Items.Weapon.HardMode.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Skullstorm");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 30;
+            Item.damage = 26;
             Item.DamageType = DamageClass.Magic;
             Item.width = 40;
             Item.height = 40;
-            Item.useTime = 19;
-            Item.useAnimation = 19;
+            Item.useTime = 23;
+            Item.useAnimation = 23;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 2f;
             Item.value = 150000;

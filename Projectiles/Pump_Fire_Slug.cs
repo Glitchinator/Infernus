@@ -7,12 +7,10 @@ using Terraria.ModLoader;
 
 namespace Infernus.Projectiles
 {
-
     public class Pump_Fire_Slug : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fire Slug");
             ProjectileID.Sets.TrailingMode[Type] = 0;
             ProjectileID.Sets.TrailCacheLength[Type] = 5;
         }
@@ -32,7 +30,7 @@ namespace Infernus.Projectiles
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Daybreak, 300);
         }

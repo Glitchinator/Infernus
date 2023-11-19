@@ -9,8 +9,6 @@ namespace Infernus.Items.Weapon.HardMode.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Scythe of Dark");
-            Tooltip.SetDefault("Throw out a Scythe that fades quickly but releases homing souls on hit");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

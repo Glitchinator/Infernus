@@ -9,9 +9,6 @@ namespace Infernus.Items.Weapon.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crimtane Staff");
-            Tooltip.SetDefault("Shoot crimtane energy shots to your left or right"
-            + "\n  goes faster how far your cursor is from the middle of the screen");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

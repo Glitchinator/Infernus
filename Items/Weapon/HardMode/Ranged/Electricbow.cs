@@ -11,8 +11,6 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shutter Bow");
-            Tooltip.SetDefault("Shoots electric arrows that fall and arc off the ground");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

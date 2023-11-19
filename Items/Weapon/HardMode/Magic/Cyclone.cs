@@ -11,8 +11,6 @@ namespace Infernus.Items.Weapon.HardMode.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Scourge of the Scythes");
-            Tooltip.SetDefault("Conjures a line of hyperimposed scythes to rip enemies");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

@@ -12,7 +12,6 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flicker Flame");
             ProjectileID.Sets.TrailingMode[Type] = 0;
             ProjectileID.Sets.TrailCacheLength[Type] = 10;
         }
@@ -29,7 +28,7 @@ namespace Infernus.Projectiles
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 4;
             Projectile.alpha = 0;
-            Projectile.timeLeft = 225;
+            Projectile.timeLeft = 215;
         }
         public override void AI()
         {
@@ -43,6 +42,10 @@ namespace Infernus.Projectiles
             {
                 Projectile.scale = 5.5f;
             }
+            if(Projectile.alpha == 110)
+            {
+                Projectile.damage = (int)(Projectile.damage * 0.4f);
+            }
             if (Projectile.alpha >= 110)
             {
                 float maxDetectRadius = 400f;
@@ -55,7 +58,7 @@ namespace Infernus.Projectiles
                 Projectile.velocity = (closestNPC.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * projSpeed;
 
                 Projectile.velocity.Y += Projectile.ai[0];
-                Projectile.penetrate = 2;
+                Projectile.penetrate = 1;
             }
             else
             {
@@ -63,7 +66,7 @@ namespace Infernus.Projectiles
                 Projectile.velocity.Y = Projectile.velocity.Y * .97f;
 
             }
-            if (Projectile.alpha >= 225)
+            if (Projectile.alpha >= 215)
             {
                 Projectile.Kill();
             }

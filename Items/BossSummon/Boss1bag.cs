@@ -14,8 +14,6 @@ namespace Infernus.Items.BossSummon
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Treasure Bag");
-            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
             ItemID.Sets.BossBag[Type] = true;
             ItemID.Sets.PreHardmodeLikeBossBag[Type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
@@ -28,6 +26,7 @@ namespace Infernus.Items.BossSummon
             Item.width = 32;
             Item.height = 32;
             Item.rare = ItemRarityID.Expert;
+            Item.expert = true;
         }
         public override bool CanRightClick()
         {

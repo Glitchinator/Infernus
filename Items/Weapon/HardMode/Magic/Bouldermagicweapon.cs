@@ -12,21 +12,20 @@ namespace Infernus.Items.Weapon.HardMode.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Big Rock Fork");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 46;
+            Item.damage = 38;
             Item.DamageType = DamageClass.Magic;
             Item.width = 46;
             Item.height = 48;
             Item.useTime = 22;
             Item.useAnimation = 22;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 5f;
+            Item.knockBack = 4.4f;
             Item.value = 300000;
             Item.rare = ItemRarityID.Lime;
             Item.UseSound = SoundID.Item39;
@@ -34,12 +33,12 @@ namespace Infernus.Items.Weapon.HardMode.Magic
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<Bouldermagicweaponshot>();
             Item.noUseGraphic = false;
-            Item.shootSpeed = 18f;
+            Item.shootSpeed = 17f;
             Item.mana = 8;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
 

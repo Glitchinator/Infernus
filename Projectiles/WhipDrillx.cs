@@ -16,7 +16,7 @@ namespace Infernus.Projectiles
             ProjectileID.Sets.IsAWhip[Type] = true;
             Projectile.netImportant = true;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
             target.AddBuff(ModContent.BuffType<drillwhipbuff>(), 300);
@@ -26,7 +26,7 @@ namespace Infernus.Projectiles
                 target.AddBuff(BuffID.OnFire3, 300);
             }
 
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ProjectileID.DD2ExplosiveTrapT3Explosion, (int)(damage * 2f), 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ProjectileID.DD2ExplosiveTrapT3Explosion, (int)(Projectile.damage * 0.35f), 0, Projectile.owner);
         }
 
         public override void SetDefaults()

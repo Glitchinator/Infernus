@@ -8,30 +8,32 @@ namespace Infernus.Projectiles
 {
     public class Giant_Boulder : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Giant Boulder");
-        }
+        int timer;
         public override void SetDefaults()
         {
-            Projectile.width = 82;
-            Projectile.height = 82;
+            Projectile.width = 78;
+            Projectile.height = 78;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.ignoreWater = false;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.timeLeft = 600;
             Projectile.penetrate = 3;
             Projectile.netImportant = true;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             SoundEngine.PlaySound(SoundID.Item70, Projectile.position);
         }
 
         public override void AI()
         {
+            timer++;
+            if (timer >= 10)
+            {
+                Projectile.tileCollide = true;
+            }
             if (Main.rand.NextBool(3))
             {
                 Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Stone, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);

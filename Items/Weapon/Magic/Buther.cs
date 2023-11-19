@@ -9,22 +9,20 @@ namespace Infernus.Items.Weapon.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Boulder Staff");
-            Tooltip.SetDefault("Shoots a giant boulder");
             Item.staff[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 30;
+            Item.damage = 26;
             Item.DamageType = DamageClass.Magic;
             Item.width = 38;
             Item.height = 38;
-            Item.useTime = 24;
-            Item.useAnimation = 24;
+            Item.useTime = 28;
+            Item.useAnimation = 28;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 6f;
+            Item.knockBack = 5f;
             Item.value = Item.buyPrice(0, 1, 50, 0);
             Item.rare = ItemRarityID.Orange;
             Item.UseSound = SoundID.Item88;

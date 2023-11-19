@@ -9,7 +9,7 @@ namespace Infernus.Items.Weapon.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Aeritite Mace");
+            ItemID.Sets.ToolTipDamageMultiplier[Type] = 2f;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -30,7 +30,7 @@ namespace Infernus.Items.Weapon.Melee
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.Laser>();
             Item.channel = true;
-            Item.shootSpeed = 1f;
+            Item.shootSpeed = 8f;
             Item.noUseGraphic = true;
         }
         public override void AddRecipes()
