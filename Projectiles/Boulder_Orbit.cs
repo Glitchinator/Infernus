@@ -19,7 +19,7 @@ namespace Infernus.Projectiles
             Projectile.hostile = false;
             Projectile.penetrate = -1;
             Projectile.usesIDStaticNPCImmunity = true;
-            Projectile.idStaticNPCHitCooldown = 18;
+            Projectile.idStaticNPCHitCooldown = 11;
         }
         public override bool? CanCutTiles()
         {
@@ -38,7 +38,7 @@ namespace Infernus.Projectiles
                 Projectile.timeLeft = 2;
             }
 
-            Projectile.damage = 26;
+            Projectile.damage = 36;
 
             Projectile.Center = player.Center;
 

@@ -1,32 +1,23 @@
-Infernus Mod
 
-Infernus Mod is a major content mod that adds a multitude of new and unique items, enemies, bosses, mechanics and Quality of Life changes. Infernus mod has been developed by only
-one developer for the past 3 years, although it has only been published for 1 year. It has been made a with a quality over quantity mindset. I have created this mod as a way to replay Terraria with some additions and changes to vanilla
-Terraria to make it more interesting.
+Infernus Mod is a major content mod that adds a multitude of new and unique items, enemies, bosses, mechanics, events and more!
 
-Infernus Mod is mostly multiplayer compatible (expect bugs) and cross content compatible. However I persaude you to check if the other mods you are using are also
-compatible before doing so.
-
-Discord: https://discord.gg/CwqFnS3sYW
-
-Wiki: [Not up to date] https://terrariamods.wiki.gg/wiki/Infernus_Mod
-
-Forums: [Not up to date] https://forums.terraria.org/index.php?threads/infernus-mod-is-public-v1-1-0-2.113586/
+Infernus Mod is 90% multiplayer compatible (expect bugs if you do play) and it is cross content compatible.
 
 What Infernus offers:
-* 204 New Items - including new armor sets, weapons for each class, accessories, new materials and more.
+* 260 New Items - including new armor sets, weapons for each class, accessories, new materials and more.
 * 1 New Difficulty - Heresy, increases difficulty and enables Stress mechanic.
 * 6 New Bosses - every boss has it's own AI, loot, treasure bag with unique expert items.
-* 2 New Mini-Bosses - stronger enemies with unique ai and drops.
+* 3 New Mini-Bosses - (Not fully fleshed out bosses) with unique ai and drops.
 * 23 New Enemies - each NPC has it's own use. Some Vanilla NPCs have additions.
 * 1 New Event - new invasion with new interesting mobs and loot, Upgrades after plantera is killed.
-* 1 New Ore - aeritite generates in the beginning of the game.
+* 2 New Ores - Generates on world creation and after killing a boss!
 * 13 New Pieces of Furniture - Mostly boss decor.
-* 1 New Song - Music for Temporal Glow Squid by Antibody.
+* Many New Soundtracks!
 * QOL Changes - changes and tweaks to Terraria to make playing more enjoyable and less frustrating.
 * Boss Checklist Compatibility.
 * post Moonlord Content.
 
 
+Discord: https://discord.gg/CwqFnS3sYW
 
-!All update logs are on Discord!
+Wiki Guide: https://terrariamods.wiki.gg/wiki/Infernus_Mod/Guide

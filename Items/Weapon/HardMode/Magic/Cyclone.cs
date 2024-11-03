@@ -1,3 +1,4 @@
+using Infernus.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -17,7 +18,7 @@ namespace Infernus.Items.Weapon.HardMode.Magic
 
         public override void SetDefaults()
         {
-            Item.damage = 135;
+            Item.damage = 115;
             Item.DamageType = DamageClass.Magic;
             Item.width = 58;
             Item.height = 58;
@@ -41,6 +42,12 @@ namespace Infernus.Items.Weapon.HardMode.Magic
                 velocity *= 1f - Main.rand.NextFloat(.3f);
 
                 Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
+            }
+            float rotation = MathHelper.ToRadians(12);
+            for (int i = 0; i < 20; i++)
+            {
+                Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(rotation, -rotation, i));
+                Projectile.NewProjectileDirect(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
             }
 
             return false;

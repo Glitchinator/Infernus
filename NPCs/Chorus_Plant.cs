@@ -14,6 +14,7 @@ using Terraria.ModLoader;
 
 namespace Infernus.NPCs
 {
+    [AutoloadBossHead]
     public class Chorus_Plant : ModNPC
     {
         private Player player;
@@ -56,8 +57,12 @@ namespace Infernus.NPCs
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.value = 10000;
+            NPC.boss = true;
+            Music = MusicLoader.GetMusicSlot("Infernus/Music/Floral_Disruption");
         }
         int timer;
+
+        public static int Arms_Left = 4;
         public override void AI()
         {
             Player player = Main.player[NPC.target];
@@ -107,7 +112,7 @@ namespace Infernus.NPCs
                 timer = 0;
             }
 
-            if (InfernusNPC.Arms_Alive == false)
+            if (Arms_Left == 0)
             {
                 NPC.dontTakeDamage = false;
                 return;
@@ -116,6 +121,7 @@ namespace Infernus.NPCs
         }
         public override void OnSpawn(IEntitySource source)
         {
+            Arms_Left = 4;
             NPC.lifeMax = 20000;
             NPC.life = 20000;
             Spawn_IceShards();
@@ -215,6 +221,10 @@ namespace Infernus.NPCs
                 SoundEngine.PlaySound(SoundID.Item39, NPC.position);
             }
         }
+        public override void BossLoot(ref string name, ref int potionType)
+        {
+            potionType = ItemID.GreaterHealingPotion;
+        }
         public override void HitEffect(NPC.HitInfo hit)
         {
             if (Main.netMode == NetmodeID.Server)
@@ -232,8 +242,14 @@ namespace Infernus.NPCs
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.LifeFruit, 2, 1, 4));
-            npcLoot.Add(ItemDropRule.Common(ItemID.ChlorophyteOre, 1, 24, 56));
+            npcLoot.Add(ItemDropRule.Common(ItemID.TurtleShell, 2, 1, 1));
+            npcLoot.Add(ItemDropRule.Common(ItemID.PlanteraBossBag, 1, 1, 1));
+            npcLoot.Add(ItemDropRule.Common(ItemID.ChlorophyteOre, 1, 24, 78));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.BossSummon.PlanteraBossSummon>(), 2, 1, 1));
+        }
+        public override void OnKill()
+        {
+            InfernusSystem.downedFlower = true;
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {

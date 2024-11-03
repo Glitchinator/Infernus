@@ -17,8 +17,8 @@ namespace Infernus.Projectiles
         public override void SetDefaults()
         {
             Projectile.aiStyle = 0;
-            Projectile.width = 14;
-            Projectile.height = 38;
+            Projectile.width = 12;
+            Projectile.height = 12;
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.netImportant = true;

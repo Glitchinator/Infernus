@@ -9,9 +9,8 @@ namespace Infernus.Projectiles
     {
         public override void SetDefaults()
         {
-            Projectile.CloneDefaults(ProjectileID.HallowBossRainbowStreak);
-            Projectile.width = 22;
-            Projectile.height = 24;
+            Projectile.width = 18;
+            Projectile.height = 20;
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.netImportant = true;

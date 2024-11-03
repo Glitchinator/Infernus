@@ -17,7 +17,6 @@ namespace Infernus.Projectiles
             Projectile.hostile = false;
             Projectile.extraUpdates = 100;
             Projectile.timeLeft = 100;
-            Projectile.netImportant = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
         }

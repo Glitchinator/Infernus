@@ -23,7 +23,7 @@ namespace Infernus.Items.Accesories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetAttackSpeed(DamageClass.Melee) += .12f;
-            player.pickSpeed -= .003f;
+            player.pickSpeed -= .25f;
             player.autoReuseGlove = true;
         }
         public override void AddRecipes()

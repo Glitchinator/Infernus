@@ -22,7 +22,7 @@ namespace Infernus.Projectiles
         {
             AIType = ProjectileID.Bullet;
             Projectile.friendly = false;
-            Projectile.height = 38;
+            Projectile.height = 14;
             Projectile.width = 14;
             Projectile.hostile = true;
             Projectile.timeLeft = 380;
@@ -34,6 +34,14 @@ namespace Infernus.Projectiles
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            if (Projectile.velocity.Y > 10f)
+            {
+                Projectile.velocity.Y = 10f;
+            }
+            if (Projectile.velocity.X > 10f)
+            {
+                Projectile.velocity.X = 10f;
+            }
         }
         public override bool PreDraw(ref Color lightColor)
         {

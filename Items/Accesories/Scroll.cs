@@ -18,7 +18,7 @@ namespace Infernus.Items.Accesories
             Item.height = 36;
             Item.accessory = true;
             Item.value = 60000;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.Green;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -29,9 +29,15 @@ namespace Infernus.Items.Accesories
         {
             CreateRecipe()
             .AddIngredient(ItemID.IceBlock, 26)
-            .AddIngredient(ItemID.Bone, 4)
             .AddIngredient(ItemID.Cobweb, 8)
-            .AddIngredient(ItemID.ManaCrystal, 2)
+            .AddIngredient(ItemID.TissueSample, 8)
+            .AddTile(TileID.Anvils)
+            .Register();
+
+            CreateRecipe()
+            .AddIngredient(ItemID.IceBlock, 26)
+            .AddIngredient(ItemID.Cobweb, 8)
+            .AddIngredient(ItemID.ShadowScale, 8)
             .AddTile(TileID.Anvils)
             .Register();
         }

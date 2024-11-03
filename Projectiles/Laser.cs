@@ -21,7 +21,7 @@ namespace Infernus.Projectiles
             Projectile.localNPCHitCooldown = 10;
             Projectile.aiStyle = 15;
         }
-        int Damage_Scaling;
+        //int Damage_Scaling;
         public override void AI()
         {
             // something I'm working on for flails. They do more damage based on how fast they are thrown.

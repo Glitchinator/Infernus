@@ -1,4 +1,5 @@
 ﻿using Infernus.Invas;
+using Infernus.Items.Weapon.HardMode.Accessories;
 using Infernus.NPCs;
 using System.Collections.Generic;
 using Terraria;
@@ -12,8 +13,6 @@ namespace Infernus
     public class InfernusNPC : GlobalNPC
     {
         public static bool Is_Spawned = false;
-
-        public static bool Arms_Alive = false;
 
         public static bool Plant_Spawned = false;
 
@@ -48,6 +47,10 @@ namespace Infernus
             if (npc.type == NPCID.UndeadMiner || npc.type == NPCID.ArmoredSkeleton)
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Accesories.Drill_Bit>(), 40, 1, 1));
+            }
+            if (npc.type == NPCID.Vampire || npc.type == NPCID.VampireBat)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Souldrinker>(), 40, 1, 1));
             }
         }
         public override void OnSpawn(NPC npc, IEntitySource source)
@@ -87,13 +90,6 @@ namespace Infernus
                 }
                 return;
             }
-            if(npc.type == ModContent.NPCType<Chorus_Plant_Arm>())
-            {
-                if(Arms_Alive == false)
-                {
-                    Arms_Alive = true;
-                }
-            }
         }
         public override void ModifyShop(NPCShop shop)
         {
@@ -102,22 +98,17 @@ namespace Infernus
                 shop.Add(ItemID.FlareGun);
                 shop.Add(ItemID.Flare);
             }
-            // shops are broken
-            else if (shop.NpcType == NPCID.Cyborg && NPC.downedGolemBoss == true)
+            if (shop.NpcType == NPCID.Cyborg)
             {
-                shop.Add(ModContent.ItemType<Items.Weapon.HardMode.Magic.Golemretrib>());
-                shop.GetEntry(ModContent.ItemType<Items.Weapon.HardMode.Magic.Golemretrib>());
-                shop.InsertAfter(ItemID.Nanites,ModContent.ItemType<Items.Weapon.HardMode.Magic.Golemretrib>());
+                shop.Add(ModContent.ItemType<Items.Weapon.HardMode.Magic.Golemretrib>(), Condition.DownedGolem);
             }
-            else if (shop.NpcType == NPCID.ArmsDealer && NPC.downedMechBossAny == true)
+            if (shop.NpcType == NPCID.ArmsDealer)
             {
-                shop.Add(ModContent.ItemType<Items.Weapon.HardMode.Ranged.ClockSMG>());
-                shop.GetEntry(ModContent.ItemType<Items.Weapon.HardMode.Ranged.ClockSMG>());
+                shop.Add(ModContent.ItemType<Items.Weapon.HardMode.Ranged.ClockSMG>(), Condition.DownedMechBossAny);
             }
-            else if (shop.NpcType == NPCID.ArmsDealer && NPC.downedPlantBoss == true)
+            if (shop.NpcType == NPCID.ArmsDealer)
             {
-                shop.Add(ModContent.ItemType<Items.Weapon.HardMode.Ranged.TommyGun>());
-                shop.GetEntry(ModContent.ItemType<Items.Weapon.HardMode.Ranged.TommyGun>());
+                shop.Add(ModContent.ItemType<Items.Weapon.HardMode.Ranged.TommyGun>(), Condition.DownedPlantera);
             }
         }
 
@@ -154,8 +145,8 @@ namespace Infernus
         {
             if (InfernusWorld.BoulderInvasionUp && (Main.invasionX == Main.spawnTileX))
             {
-                spawnRate = 2;
-                maxSpawns = 22;
+                spawnRate = 5;
+                maxSpawns = 14;
             }
         }
 
@@ -169,6 +160,7 @@ namespace Infernus
 
         public override void OnKill(NPC npc)
         {
+            Player player = new Player();
             if (InfernusWorld.BoulderInvasionUp)
             {
                 int[] FullList = BoulderInvasion.GetInvadersNOW();
@@ -177,6 +169,7 @@ namespace Infernus
                     if (npc.type == invader)
                     {
                         Main.invasionSize -= 1;
+                        NetMessage.SendData(MessageID.InvasionProgressReport, player.whoAmI, -1, null, Main.invasionSizeStart - Main.invasionSize, Main.invasionSizeStart, Main.invasionType, 0f, 0, 0, 0);
                     }
                 }
             }

@@ -17,20 +17,20 @@ namespace Infernus.Projectiles
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.NebulaSphere);
-            Projectile.width = 30;
-            Projectile.height = 30;
+            Projectile.width = 20;
+            Projectile.height = 20;
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.netImportant = true;
-            Projectile.timeLeft = 300;
+            Projectile.timeLeft = 120;
             Projectile.alpha = 0;
         }
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.X * 0.05f;
 
-            Projectile.velocity.X = Projectile.velocity.X * 1.065f;
-            Projectile.velocity.Y = Projectile.velocity.Y * 1.065f;
+            Projectile.velocity.X = Projectile.velocity.X * 1.05f;
+            Projectile.velocity.Y = Projectile.velocity.Y * 1.05f;
 
 
             if (++Projectile.frameCounter >= 22)

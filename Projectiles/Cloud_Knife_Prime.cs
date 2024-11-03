@@ -39,7 +39,7 @@ namespace Infernus.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y / 1.35f, 0, 10, ModContent.ProjectileType<Cloud_Knife_Proj>(), Projectile.damage * 2, 5f, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y / 1.25f, 0, 14, ModContent.ProjectileType<Cloud_Knife_Proj>(), Projectile.damage * 2, 5f, Projectile.owner);
         }
         public override bool PreDraw(ref Color lightColor)
         {

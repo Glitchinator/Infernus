@@ -31,8 +31,8 @@ namespace Infernus.Projectiles
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 
-            Projectile.velocity.X = Projectile.velocity.X * 1.029f;
-            Projectile.velocity.Y = Projectile.velocity.Y * 1.029f;
+            Projectile.velocity.X = Projectile.velocity.X * 1.01f;
+            Projectile.velocity.Y = Projectile.velocity.Y * 1.01f;
 
             if (Main.rand.NextBool(3))
             {

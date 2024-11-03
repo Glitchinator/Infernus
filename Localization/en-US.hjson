@@ -63,7 +63,7 @@ Mods: {
 
 			PotionBuff: {
 				DisplayName: Calamari Rage
-				Description: '''"Boost to Defense, Regen, Damage and Crit"'''
+				Description: '''"Increases damage by 7%, and crit by 4%"'''
 			}
 
 			RaikoBuff: {
@@ -160,6 +160,21 @@ Mods: {
 				DisplayName: Bleeding_ Debuff
 				Description: Mods.Infernus.Buffs.Bleeding_Debuff.Description
 			}
+
+			Souldrinker_Buff: {
+				Description: +6 life regen
+				DisplayName: Souldrinker
+			}
+
+			Rage: {
+				DisplayName: Rage
+				Description: Drowning... Drowning...
+			}
+
+			Rage_Cooldown: {
+				DisplayName: Rage Cooldown
+				Description: Rage ability on cooldown
+			}
 		}
 
 		Items: {
@@ -222,7 +237,7 @@ Mods: {
 
 			CHARD: {
 				DisplayName: Sentinel Battery
-				Tooltip: +12% Summon damage + 1 Minion
+				Tooltip: +10% Summon damage + 1 Minion
 			}
 
 			Charge: {
@@ -263,9 +278,9 @@ Mods: {
 				DisplayName: Radiant Squid Heart
 				Tooltip:
 					'''
-					Increases your max number of minions by 1
-					8% increased summon damage
-					7% reduced mana cost
+					whips have a 10% chance to mind rupture enemies
+					Mind rupture hits deal 65% increased damage
+					Psyker Psykinetic
 					'''
 			}
 
@@ -640,7 +655,7 @@ Mods: {
 
 			Cyclone: {
 				DisplayName: Scourge of the Scythes
-				Tooltip: Conjures a line of hyperimposed scythes to rip enemies
+				Tooltip: Conjures hyperimposed scythes all around you
 			}
 
 			Flour: {
@@ -1078,7 +1093,11 @@ Mods: {
 
 			Swingy2: {
 				DisplayName: Thiriscus
-				Tooltip: Cursed by the dungeon, the blade turns blue. Showing a thousand souls a fight.
+				Tooltip:
+					'''
+					Cursed by the dungeon, the blade turns blue. Showing a thousand souls a fight.
+					The souls increase the area of the swords coverage.
+					'''
 			}
 
 			Viral: {
@@ -1158,7 +1177,11 @@ Mods: {
 
 			Launcher: {
 				DisplayName: Bullet Launcher
-				Tooltip: Shoots 6 slugs at once, talk about the recoil.
+				Tooltip:
+					'''
+					'Shoots 6 slugs at once, talk about the recoil'
+					2.8 Sec Charge Time
+					'''
 			}
 
 			Levercoin.DisplayName: Lever Action Rifle
@@ -1325,6 +1348,392 @@ Mods: {
 			golemgh: {
 				DisplayName: golemgh
 				Tooltip: ""
+			}
+
+			Squid_FlameThrower: {
+				DisplayName: Ink Spray
+				Tooltip: Shoots a line of ink, uses gel for ammo
+			}
+
+			Ruderibus_Shard: {
+				DisplayName: Cryo Shard
+				Tooltip: Never back down never what? NEVER GIVE UP!
+			}
+
+			Raiko_Box: {
+				DisplayName: Music Box (Provenance 17)
+				Tooltip: ""
+			}
+
+			Ruderibus_Box: {
+				DisplayName: Music Box (Frigid Predator)
+				Tooltip: ""
+			}
+
+			Squid_Box: {
+				DisplayName: Music Box (Inked Vortex)
+				Tooltip: ""
+			}
+
+			Wanderer_Box: {
+				DisplayName: Music Box (The Wanderer)
+				Tooltip: ""
+			}
+
+			Mech_Box: {
+				DisplayName: Music Box (Divine Fight)
+				Tooltip: ""
+			}
+
+			Mech_Box_2: {
+				DisplayName: Music Box (Divinity)
+				Tooltip: ""
+			}
+
+			Shark_Box: {
+				DisplayName: Music Box (Eye of the Ocean)
+				Tooltip: ""
+			}
+
+			Corrupt_Box: {
+				DisplayName: Music Box (Volcanic Disaster)
+				Tooltip: ""
+			}
+
+			Plant_Box: {
+				DisplayName: Music Box (Floral Disruption)
+				Tooltip: ""
+			}
+
+			Equite_Ore_Item: {
+				DisplayName: Equite Ore
+				Tooltip: Bombaclattt
+			}
+
+			Equite_Breastplate: {
+				DisplayName: Equite Breastplate
+				Tooltip: 14% increased damage
+			}
+
+			Equite_Helmet: {
+				DisplayName: Equite Helmet
+				Tooltip: 9% increased critical strike chance
+			}
+
+			Equite_Leggings: {
+				DisplayName: Equite Leggings
+				Tooltip: 6% increased movement speed
+			}
+
+			Equite_Emblem: {
+				DisplayName: Equite Emblem
+				Tooltip:
+					'''
+					While wearing the Equite set
+					Increases max mana by 80
+					Increases max minions by 2
+					Increases armor penetration by 1
+					'''
+			}
+
+			Scorched_Sinew: {
+				DisplayName: Scorched Sinew
+				Tooltip: ""
+			}
+
+			Equite_Pickaxe: {
+				Tooltip: ""
+				DisplayName: Equite Pickaxe
+			}
+
+			Equite_Axmer: {
+				Tooltip: ""
+				DisplayName: Equite War Axmer
+			}
+
+			Crumbling_Basalt: {
+				DisplayName: Crumbling Basalt
+				Tooltip: Tastes like salt, looks like salt, yup, it's salt
+			}
+
+			Ancient_Crest: {
+				DisplayName: Ancient Crest
+				Tooltip: Shoots 3 high velocity piercing stone sword that explode into shrapnel on hit
+			}
+
+			Aeritite_Shield: {
+				DisplayName: Aeritite Shield
+				Tooltip:
+					'''
+					While wearing the Aeritite set
+					Taking Damage while set bonus is on cooldown will immediately reactivate the set bonus
+					set bonus damage reduction is reduced to 25%
+					'''
+			}
+
+			Basalt_Arrow_Ammo: {
+				DisplayName: Basalt Arrow
+				Tooltip: Arrows pierce 3 times, and create shrapnel on hit
+			}
+
+			Rocky_Rounds_Ammo: {
+				DisplayName: Rocky Rounds
+				Tooltip: Bullets burst through enemies with shrapnel
+			}
+
+			Ruderibus_Rounds_Ammo: {
+				DisplayName: Ruderibus Rounds
+				Tooltip: Explodes shortly after hit
+			}
+
+			Equite_Arrow_Ammo: {
+				DisplayName: Equite Tipped Arrow
+				Tooltip: Arrows pierce 3 enemies and fall slower
+			}
+
+			Condensed_Iceicle: {
+				DisplayName: Condensed Iceicle
+				Tooltip: Ranged Attacks inflict frostburn
+			}
+
+			Ice_Banner: {
+				DisplayName: Cryo Banner
+				Tooltip:
+					'''
+					Increases mana regen by 1
+					12% Reduced Mana Usage
+					Increases max mana by 60
+					'''
+			}
+
+			Icy_Quiver: {
+				DisplayName: Icy Quiver
+				Tooltip:
+					'''
+					Ranged Attacks inflict frostburn
+					Hitting an enemy with a ranged attack has a 5% chance to drop a health orb
+					'''
+			}
+
+			Quiver: {
+				DisplayName: Healers Quiver
+				Tooltip: Hitting an enemy with a ranged attack has a 5% chance to drop a health orb
+			}
+
+			Relic: {
+				DisplayName: Terra Emblem
+				Tooltip:
+					'''
+					Increased life regen by 1
+					Increases life by 20
+					'''
+			}
+
+			Stone_Emblem: {
+				DisplayName: Stone Emblem
+				Tooltip: "'Keeps you safe, that's all it needs ta do.'"
+			}
+
+			HP_Pickup: {
+				DisplayName: Health Orb
+				Tooltip: ""
+			}
+
+			Meteor_Whetstone: {
+				DisplayName: Meteor Whetstone
+				Tooltip:
+					'''
+					Increases armor penetration by 1
+					Weapons tear enemies open, making them bleed
+					20% chance hit enemies will explode into meteor flames
+					'''
+			}
+
+			Gleaming_Drillhead: {
+				DisplayName: Gleaming Drillhead
+				Tooltip:
+					'''
+					Further increases mining speed
+					'I wonder what slop they're serving in the canteen.'
+					'''
+			}
+
+			Power_Drills: {
+				DisplayName: Power Drills
+				Tooltip:
+					'''
+					20% increased melee speed
+					Enables autoswing for melee weapons
+					Fastest mining speed
+					'Hey, Dirt Digger!'
+					'''
+			}
+
+			Titanium_Gloves: {
+				DisplayName: Titanium Gloves
+				Tooltip:
+					'''
+					12% increased melee speed
+					Enables autoswing for melee weapons
+					Super fast mining speed
+					'''
+			}
+
+			Thorny_Extension: {
+				DisplayName: Thorny Extension
+				Tooltip: Increases whip range by 11%
+			}
+
+			Cryo_Lash: {
+				DisplayName: Cryo Lash
+				Tooltip:
+					'''
+					Increases whip range by 11%
+					Whips have a 33% chance to inflict frostburn on hit
+					'''
+			}
+
+			Frozen_Whiphead: {
+				DisplayName: Frozen Whiphead
+				Tooltip: Whips have a 33% chance to inflict frostburn on hit
+			}
+
+			Hallowed_Chain: {
+				DisplayName: Hallowed Chain
+				Tooltip: Increases whip speed by 22%
+			}
+
+			Elemental_Lash: {
+				DisplayName: Elemental Lash
+				Tooltip:
+					'''
+					Increases whip range by 11%
+					Increases whip speed by 18%
+					Increases whip damage by 15%
+					Whips have a 33% chance to inflict a random debuff on hit
+					'''
+			}
+
+			Hallowed_Lash: {
+				DisplayName: Hallowed Lash
+				Tooltip:
+					'''
+					Increases whip range by 11%
+					Increases whip speed by 18%
+					Whips have a 33% chance to inflict frostburn on hit
+					'''
+			}
+
+			Basalt_Whiphead: {
+				DisplayName: Basalt Whiphead
+				Tooltip: Whips rain down basalt fragments on hit
+			}
+
+			Effigy_of_might: {
+				DisplayName: Effigy of Might
+				Tooltip:
+					'''
+					Increased life regen by 1
+					Increases life by 40
+					Increases damage reduction by 9%
+					Immune to knockback
+					'''
+			}
+
+			Souldrinker: {
+				Tooltip: Hitting enemies has a 50% chance to gain life regen buff
+				DisplayName: Souldrinker
+			}
+
+			Lacerator_Whiphead: {
+				Tooltip:
+					'''
+					Whips rain down basalt fragments on hit
+					Whips have a 20% chance to create a bouncing bone on hit
+					Whips have a 33% chance to create a sandstorm on hit
+					'''
+				DisplayName: Lacerator Whiphead
+			}
+
+			Defiled_Whiphead: {
+				Tooltip:
+					'''
+					Whips have a 20% chance to create a bouncing bone on hit
+					Whips have a 33% chance to create a sandstorm on hit
+					'''
+				DisplayName: Defiled Whiphead
+			}
+
+			Blood_Quiver: {
+				Tooltip:
+					'''
+					Ranged Attacks inflict frostburn
+					Hitting an enemy with a ranged attack has a 5% chance to drop a health orb
+					Hitting enemies has a 50% chance to gain life regen buff
+					'''
+				DisplayName: Blood Quiver
+			}
+
+			Ancient_Whiphead: {
+				Tooltip: Whips have a 20% chance to create a bouncing bone on hit
+				DisplayName: Ancient Whiphead
+			}
+
+			Lectric: {
+				Tooltip:
+					'''
+					On crit, enemies explode in a shower of sparks
+					'And his music was electric.'
+					'''
+				DisplayName: Lectric'
+			}
+
+			Phantom_Blade: {
+				Tooltip:
+					'''
+					Increases melee speed by 10%
+					Increases melee damage by 10%
+					Blade hits cojure souls from below
+					'''
+				DisplayName: Phantom Blade
+			}
+
+			Hellion_Spite: {
+				Tooltip:
+					'''
+					Taking damage greater than 10 puts you in a rage for 8 second
+					While in rage, all attacks have lifesteal
+					lifesteal is 7% of the damage done with a half a second cooldown
+					This effect has a 30 second cooldown
+					'''
+				DisplayName: Hellion Spite
+			}
+
+			deitygift: {
+				Tooltip:
+					'''
+					While above 50% HP, gain 15% increased damage
+					While below 50% HP, gain 12 defense and 10% movement speed
+					'''
+				DisplayName: Ethereal Rune
+			}
+
+			Basalt_Tooth_Necklace: {
+				Tooltip:
+					'''
+					Increases armor penetration by 5
+					Increases damage by 12%
+					'''
+				DisplayName: Basalt Tooth Necklace
+			}
+
+			Ghostly_Edge: {
+				Tooltip:
+					'''
+					Increases melee speed by 10%
+					Increases melee damage by 8%
+					'''
+				DisplayName: Ghostly Edge
 			}
 		}
 
@@ -1508,6 +1917,33 @@ Mods: {
 			Cloud_Knife.DisplayName: Cloud_ Knife
 			Cloud_Knife_Prime.DisplayName: Cloud_ Knife_ Prime
 			Cloud_Knife_Proj.DisplayName: Cloud_ Knife_ Proj
+			Any_Boss_Telegraph.DisplayName: Any_ Boss_ Telegraph
+			Ink_Jet.DisplayName: Ink_ Jet
+			Temporal_Walls.DisplayName: Temporal_ Walls
+			Ink_Arena.DisplayName: Ink_ Arena
+			Ink_Flamethrower.DisplayName: Ink_ Flamethrower
+			Meteor_Heat.DisplayName: Meteor Heat
+			Minion1_Shot.DisplayName: Minion Shot
+			Lightning_Boom.DisplayName: Lightning Boom
+			Swingy_Proj.DisplayName: Swingy_ Proj
+			Equite_Leaf.DisplayName: Equite_ Leaf
+			B_Ray.DisplayName: B_ Ray
+			B_Ray_Proj.DisplayName: B_ Ray_ Proj
+			Basalt_Arrow.DisplayName: Basalt_ Arrow
+			Basalt_Proj.DisplayName: Basalt_ Proj
+			Rocky_Rounds.DisplayName: Rocky_ Rounds
+			Rocky_Rounds_Proj.DisplayName: Rocky_ Rounds_ Proj
+			Ruderibus_Rounds.DisplayName: Ruderibus_ Rounds
+			Equite_Arrow.DisplayName: Equite_ Arrow
+			Shark_Typhoon.DisplayName: Shark_ Typhoon
+			Meteor_Whetstone_Explosion.DisplayName: Meteor_ Whetstone_ Explosion
+			Basalt_Whip_Proj.DisplayName: Basalt_ Whip_ Proj
+			Sandstorm_Whip.DisplayName: Sandstorm_ Whip
+			Bone_Whip.DisplayName: Bone_ Whip
+			Lectric.DisplayName: Lectric
+			Phantom.DisplayName: Phantom
+			Meteor_Huge.DisplayName: Meteor_ Huge
+			Meteor_Tracking.DisplayName: Meteor_ Tracking
 		}
 
 		NPCs: {
@@ -1565,6 +2001,11 @@ Mods: {
 						Turning this on will disable the Boulder Invasion from naturally spawning in your worlds.
 						This will not stop the Invasion from happening when you summon it yourself.
 						'''
+				}
+
+				Disable_Elf: {
+					Label: Disable Yuletide Elf Spawns
+					Tooltip: This Disables the Yuletide Elf from spawning in your worlds.
 				}
 			}
 		}

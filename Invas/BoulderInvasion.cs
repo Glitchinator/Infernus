@@ -1,23 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
+using Steamworks;
 using System;
+using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace Infernus.Invas
 {
     public class BoulderInvasion
     {
-
         public static int[] PHMInvaders = {
             ModLoader.GetMod("Infernus").Find<ModNPC>("Boulder_Bat").Type,
-            ModLoader.GetMod("Infernus").Find<ModNPC>("Boulder_Cloud").Type,
             ModLoader.GetMod("Infernus").Find<ModNPC>("Boulder_Corpse").Type,
             ModLoader.GetMod("Infernus").Find<ModNPC>("Boulder_Golem").Type,
             ModLoader.GetMod("Infernus").Find<ModNPC>("Boulder_Slime").Type
         };
         public static int[] HMInvaders = {
-            ModLoader.GetMod("Infernus").Find<ModNPC>("Boulder_Beetle").Type,
             ModLoader.GetMod("Infernus").Find<ModNPC>("Basalt_Boulder").Type
         };
 
@@ -67,6 +68,7 @@ namespace Infernus.Invas
                 }
             }
         }
+        public static bool spawned_mini_boss = false;
         public static void BoulderInvasionWarning()
         {
             if (Main.invasionX == Main.spawnTileX && Main.invasionSize !<= 0)
@@ -86,6 +88,7 @@ namespace Infernus.Invas
                     InfernusSystem.downedBoulderInvasionPHM = true;
                 }
             }
+            spawned_mini_boss = false;
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
                 return;
@@ -97,6 +100,27 @@ namespace Infernus.Invas
 
             if (InfernusWorld.BoulderInvasionUp)
             {
+                // 75% invasion
+                if (Main.invasionSize == 24 && spawned_mini_boss == false)
+                {
+                    NPC.SpawnOnPlayer(player.whoAmI, ModLoader.GetMod("Infernus").Find<ModNPC>("Boulder_Beetle").Type);
+                    spawned_mini_boss = true;
+                }
+                if (Main.invasionSize == 26)
+                {
+                    spawned_mini_boss = false;
+                }
+                // 25% invasion
+                if (Main.invasionSize == 75 && spawned_mini_boss == false)
+                {
+                    NPC.SpawnOnPlayer(player.whoAmI, ModLoader.GetMod("Infernus").Find<ModNPC>("Boulder_Beetle").Type);
+                    spawned_mini_boss = true;
+                }
+                if (Main.invasionSize == 74)
+                {
+                    spawned_mini_boss = false;
+                }
+
                 if (Main.invasionSize <= 0)
                 {
                     InfernusWorld.BoulderInvasionUp = false;
@@ -185,6 +209,7 @@ namespace Infernus.Invas
             {
                 Main.ReportInvasionProgress(Main.invasionSizeStart - Main.invasionSize, progressMax3, 0, 0);
             }
+            Main.ReportInvasionProgress(Main.invasionSizeStart - Main.invasionSize, progressMax3, 0, 0);
 
             foreach (Player p in Main.player)
             {

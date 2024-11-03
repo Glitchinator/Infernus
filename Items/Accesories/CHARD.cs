@@ -22,7 +22,7 @@ namespace Infernus.Items.Accesories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetDamage(DamageClass.Summon) += .12f;
+            player.GetDamage(DamageClass.Summon) += .10f;
             player.maxMinions++;
         }
         public override void AddRecipes()
@@ -31,7 +31,7 @@ namespace Infernus.Items.Accesories
             .AddIngredient(ModContent.ItemType<Charge>(), 1)
             .AddIngredient(ModContent.ItemType<Materials.Hot>(), 7)
             .AddIngredient(ModContent.ItemType<Materials.IceSpikes>(), 7)
-            .AddIngredient(ItemID.HellstoneBar, 10)
+            .AddIngredient(ItemID.PygmyNecklace, 1)
             .AddTile(TileID.Anvils)
             .Register();
         }

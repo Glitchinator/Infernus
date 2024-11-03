@@ -41,9 +41,7 @@ namespace Infernus.Items.BossSummon
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddRecipeGroup(RecipeGroupID.IronBar, 2)
-            .AddIngredient(ItemID.StoneBlock, 10)
-            .AddIngredient(ItemID.Hellstone, 10)
+            .AddIngredient(ModContent.ItemType<Materials.Scorched_Sinew>(), 25)
             .AddTile(TileID.Furnaces)
             .Register();
         }

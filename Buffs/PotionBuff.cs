@@ -13,9 +13,7 @@ namespace Infernus.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.statDefense += 5;
-            player.lifeRegen += 1;
-            player.GetDamage(DamageClass.Generic) += .1f;
+            player.GetDamage(DamageClass.Generic) += .7f;
             player.GetCritChance(DamageClass.Generic) += 4;
         }
     }

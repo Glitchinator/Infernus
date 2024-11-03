@@ -19,12 +19,14 @@ namespace Infernus
         public static bool BoulderInvasionUp = false;
         public static bool downedBoulderInvasion = false;
 
-        public int Boulder_Cooldown = 162000; // 45 mins cooldown for boulder invasion, for natural spawning
+        public int Boulder_Cooldown = 360000; // 1.6 hour cooldown for boulder invasion, for natural spawning
 
         public int Stress_Enemy_There = 30; // stress enemy alert update tick
 
+        public static int Ruderibus_Timer;
 
-        public int Last_Check_Arms = 30; // checks of any arms are alive before chorus plant can be damaged
+        public static bool Ruderibus_Switch = false;
+
 
         public int Last_Plant_Spawn = 10800; // miniboss natural spawning timer
 
@@ -120,15 +122,6 @@ namespace Infernus
                 InfernusNPC.Is_Spawned = false;
                 Stress_Enemy_There = 30;
             }
-            if (InfernusNPC.Arms_Alive == true && Last_Check_Arms > 0)
-            {
-                Last_Check_Arms--;
-            }
-            if (Last_Check_Arms == 0)
-            {
-                InfernusNPC.Arms_Alive = false;
-                Last_Check_Arms = 30;
-            }
             if (InfernusNPC.Plant_Spawned == true && Last_Plant_Spawn > 0)
             {
                 Last_Plant_Spawn--;
@@ -160,7 +153,7 @@ namespace Infernus
                 {
                     Boulder_Cooldown--;
                 }
-                if (Boulder_Cooldown <= 0 && Main.rand.NextBool(1) && BoulderInvasionUp == false && NPC.downedBoss3 == true && InfernusNPC.Is_Spawned != true)
+                if (Boulder_Cooldown <= 0 && Main.rand.NextBool(50000) && BoulderInvasionUp == false && NPC.downedBoss3 == true && InfernusNPC.Is_Spawned != true)
                 {
                     BoulderInvasion.StartBoulderInvasion();
 
@@ -172,7 +165,7 @@ namespace Infernus
                     {
                         Main.NewText("A storm rolls overhead from the west. The ground trembles with vibrations deep below.", 207, 196, 162);
                     }
-                    Boulder_Cooldown = 162000; // 45 mins reset
+                    Boulder_Cooldown = 360000; // 1.6 hour reset
                 }
             }
         }
@@ -252,7 +245,7 @@ namespace Infernus
 
             int RuderibusSummonItem = ModContent.ItemType<Items.BossSummon.BossSummon>();
 
-            string RuderibusSpawnInfo = $"While in the snow biome, use [i:{RuderibusSummonItem}].";
+            string RuderibusSpawnInfo = $"Either craft a [i:{RuderibusSummonItem}] or gain it from killing Ruderibus's Recievers in the snow biome.Then use [i:{RuderibusSummonItem}] in the snow biome to summon Ruderibus.";
 
             var RuderibusPortrait = (SpriteBatch sb, Rectangle rect, Color color) =>
             {
@@ -512,6 +505,63 @@ namespace Infernus
                    ["spawnItems"] = HuskSummonItem,
                    ["spawninfo"] = HuskSpawnInfo,
                    ["collectibles"] = HuskCollection
+               }
+           );
+
+            List<int> BCollection = new()
+            {
+            };
+
+            bossChecklistMod.Call(
+               "LogMiniBoss",
+               Mod,
+               "BoulderBeetle",
+               5.81f,
+               () => InfernusSystem.downedBoulderInvasionPHM,
+               ModContent.NPCType<NPCs.Boulder_Beetle>(),
+               new Dictionary<string, object>()
+               {
+                   ["spawnItems"] = ModContent.ItemType<ThickBoulder>(),
+                   ["spawninfo"] = $"Mini-Boss of the Boulder Invasion. Spawns at 25% and 75% progress.",
+                   ["collectibles"] = BCollection
+               }
+           );
+
+            List<int> CCollection = new()
+            {
+                ModContent.ItemType<Items.Tools.Cursed_Soul>()
+            };
+
+            bossChecklistMod.Call(
+               "LogMiniBoss",
+               Mod,
+               "CursedWanderer",
+               5.1f,
+               () => InfernusSystem.downedWanderer,
+               ModContent.NPCType<NPCs.Cursed_Wanderer>(),
+               new Dictionary<string, object>()
+               {
+                   ["spawninfo"] = $"Naturally spawns in the dungeon.",
+                   ["collectibles"] = CCollection
+               }
+           );
+
+            List<int> DCollection = new()
+            {
+                ModContent.ItemType<Items.Tools.Chorus_Bloom>()
+            };
+
+            bossChecklistMod.Call(
+               "LogMiniBoss",
+               Mod,
+               "ChorusPlant",
+               12.1f,
+               () => InfernusSystem.downedFlower,
+               ModContent.NPCType<NPCs.Chorus_Plant>(),
+               new Dictionary<string, object>()
+               {
+                   ["spawninfo"] = $"Naturally spawns in the underground jungle",
+                   ["collectibles"] = DCollection
                }
            );
         }

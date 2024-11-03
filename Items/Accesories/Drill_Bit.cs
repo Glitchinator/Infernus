@@ -22,7 +22,14 @@ namespace Infernus.Items.Accesories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.pickSpeed -= .0055f;
+            player.pickSpeed -= .3f;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ItemID.StoneBlock, 80)
+            .AddTile(TileID.Anvils)
+            .Register();
         }
     }
 }

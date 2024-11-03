@@ -30,6 +30,7 @@ namespace Infernus.Items.Weapon.Melee
             Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item1;
             Item.useTurn = true;
+            Item.scale = 1.6f;
         }
         public override void AddRecipes()
         {

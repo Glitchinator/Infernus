@@ -17,8 +17,8 @@ namespace Infernus.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 260;
-            Projectile.height = 260;
+            Projectile.width = 300;
+            Projectile.height = 300;
             Projectile.aiStyle = 20;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
@@ -27,14 +27,15 @@ namespace Infernus.Projectiles
             Projectile.ownerHitCheck = true;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.netImportant = true;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 11;
         }
 
 
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.immune[Projectile.owner] = 9;
-            target.immune[Projectile.owner] = 9;
+            target.AddBuff(BuffID.Frostburn, 300);
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -44,6 +45,7 @@ namespace Infernus.Projectiles
 
         public override void AI()
         {
+            Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Electric, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
             Player player = Main.player[Projectile.owner];
             Projectile.velocity *= 1f;
             if (++Projectile.frameCounter >= 2)
@@ -53,18 +55,6 @@ namespace Infernus.Projectiles
                 {
                     Projectile.frame = 0;
                 }
-            }
-            if (player.direction > 0)
-            {
-                DrawOffsetX = +0;
-                DrawOriginOffsetX = -100;
-                DrawOriginOffsetY = -0;
-            }
-            else if (player.direction < 0)
-            {
-                DrawOffsetX = -0;
-                DrawOriginOffsetX = +100;
-                DrawOriginOffsetY = -0;
             }
 
             Projectile.direction = (Projectile.spriteDirection = ((Projectile.velocity.X > 0f) ? 1 : -1));

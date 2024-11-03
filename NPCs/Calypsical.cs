@@ -57,7 +57,7 @@ namespace Infernus.NPCs
             NPC.value = Item.buyPrice(1, 50, 0, 0);
             NPC.boss = true;
             AIType = NPCID.AngryBones;
-            Music = MusicID.Boss2;
+            Music = MusicLoader.GetMusicSlot("Infernus/Music/Divine_Fight");
             NPC.noTileCollide = true;
             NPC.lavaImmune = true;
             NPC.npcSlots = 8;
@@ -96,7 +96,7 @@ namespace Infernus.NPCs
             }
             if (second_phase == true)
             {
-                Music = MusicID.EmpressOfLight;
+                Music = MusicLoader.GetMusicSlot("Infernus/Music/Divine_Fight");
                 First_Phase_Timer = 9000;
                 if (First_Phase_Timer == 9000)
                 {
@@ -138,7 +138,7 @@ namespace Infernus.NPCs
                 }
                 if (First_Phase_Timer == 72)
                 {
-                    Music = MusicID.LunarBoss;
+                    Music = MusicLoader.GetMusicSlot("Infernus/Music/Divine_Fight");
                 }
                 if (First_Phase_Timer == 80)
                 {
@@ -273,7 +273,75 @@ namespace Infernus.NPCs
                 {
                     First_Phase_Timer = 70;
                 }
-
+                if ((526 < First_Phase_Timer && First_Phase_Timer < 626) || (796 < First_Phase_Timer && First_Phase_Timer < 896) || (700 < First_Phase_Timer && First_Phase_Timer < 800) || (14141 < First_Phase_Timer && First_Phase_Timer < 14241) || (0 < Second_Phase_Timer && Second_Phase_Timer < 86) || (276 < Second_Phase_Timer && Second_Phase_Timer < 376) || (396 < Second_Phase_Timer && Second_Phase_Timer < 496) || (180 < Second_Phase_Timer && Second_Phase_Timer < 280) || (14141 < Second_Phase_Timer && Second_Phase_Timer < 14241))
+                {
+                    if (Main.netMode == NetmodeID.SinglePlayer)
+                    {
+                        if (player.velocity.X > 0)
+                        {
+                            for (int k = 0; k < 4; k++)
+                            {
+                                Vector2 position = player.Center + new Vector2(550f, 0f);
+                                Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                                Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.SolarFlare, speed * 3, Scale: 2f);
+                                Sword.noGravity = true;
+                            }
+                        }
+                        if (player.velocity.X < 0)
+                        {
+                            for (int k = 0; k < 4; k++)
+                            {
+                                Vector2 position = player.Center + new Vector2(-550f, 0f);
+                                Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                                Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.SolarFlare, speed * 3, Scale: 2f);
+                                Sword.noGravity = true;
+                            }
+                        }
+                        if (player.velocity.X == 0)
+                        {
+                            for (int k = 0; k < 4; k++)
+                            {
+                                Vector2 position = player.Center + new Vector2(550f, 0f);
+                                Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                                Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.SolarFlare, speed * 3, Scale: 2f);
+                                Sword.noGravity = true;
+                            }
+                        }
+                    }
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    {
+                        if (player.velocity.X > 0)
+                        {
+                            for (int k = 0; k < 4; k++)
+                            {
+                                Vector2 position = player.Center + new Vector2(550f, 0f);
+                                Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                                Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.SolarFlare, speed * 3, Scale: 2f);
+                                Sword.noGravity = true;
+                            }
+                        }
+                        if (player.velocity.X < 0)
+                        {
+                            for (int k = 0; k < 4; k++)
+                            {
+                                Vector2 position = player.Center + new Vector2(-550f, 0f);
+                                Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                                Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.SolarFlare, speed * 3, Scale: 2f);
+                                Sword.noGravity = true;
+                            }
+                        }
+                        if (player.velocity.X == 0)
+                        {
+                            for (int k = 0; k < 4; k++)
+                            {
+                                Vector2 position = player.Center + new Vector2(550f, 0f);
+                                Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                                Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.SolarFlare, speed * 3, Scale: 2f);
+                                Sword.noGravity = true;
+                            }
+                        }
+                    }
+                }
 
                 #region Spawn_Animation
 
@@ -393,6 +461,8 @@ namespace Infernus.NPCs
                     NPC.dontTakeDamage = false;
                 }
                 #endregion
+
+
 
                 #region Stage_1_Boss_Unique_Attacks
                 if (First_Phase_Timer == 10021)
@@ -572,7 +642,18 @@ namespace Infernus.NPCs
                 }
                 if (First_Phase_Timer == 13001)
                 {
-                    Teleport();
+                    if (player.velocity.X > 0)
+                    {
+                        Teleport_Close_Left();
+                    }
+                    if (player.velocity.X < 0)
+                    {
+                        Teleport_Close_Right();
+                    }
+                    if (player.velocity.X == 0)
+                    {
+                        Teleport_Close_Left();
+                    }
                 }
                 if (First_Phase_Timer == 13011)
                 {
@@ -696,7 +777,18 @@ namespace Infernus.NPCs
                 }
                 if (First_Phase_Timer == 14241)
                 {
-                    Teleport();
+                    if (player.velocity.X > 0)
+                    {
+                        Teleport_Close_Left();
+                    }
+                    if (player.velocity.X < 0)
+                    {
+                        Teleport_Close_Right();
+                    }
+                    if (player.velocity.X == 0)
+                    {
+                        Teleport_Close_Left();
+                    }
                     NPC.velocity.X = 0;
                     NPC.velocity.Y = 0;
                 }
@@ -750,18 +842,6 @@ namespace Infernus.NPCs
 
                 if (Second_Phase_Timer == 40)
                 {
-                    if (player.velocity.X > 0)
-                    {
-                        Teleport_Close_Left();
-                    }
-                    if (player.velocity.X < 0)
-                    {
-                        Teleport_Close_Right();
-                    }
-                    if (player.velocity.X == 0)
-                    {
-                        Teleport_Close_Left();
-                    }
                     Dash_Strong();
                     Punch_Extra();
                 }
@@ -791,18 +871,6 @@ namespace Infernus.NPCs
                 }
                 if (Second_Phase_Timer == 130)
                 {
-                    if (player.velocity.X > 0)
-                    {
-                        Teleport_Close_Left();
-                    }
-                    if (player.velocity.X < 0)
-                    {
-                        Teleport_Close_Right();
-                    }
-                    if (player.velocity.X == 0)
-                    {
-                        Teleport_Close_Left();
-                    }
                     Dash_Strong();
                     Punch_Extra();
                 }
@@ -812,18 +880,6 @@ namespace Infernus.NPCs
                 }
                 if (Second_Phase_Timer == 170)
                 {
-                    if (player.velocity.X > 0)
-                    {
-                        Teleport_Close_Left();
-                    }
-                    if (player.velocity.X < 0)
-                    {
-                        Teleport_Close_Right();
-                    }
-                    if (player.velocity.X == 0)
-                    {
-                        Teleport_Close_Left();
-                    }
                     Dash_Strong();
                     Punch_Extra();
                 }
@@ -855,35 +911,11 @@ namespace Infernus.NPCs
                 }
                 if (Second_Phase_Timer == 320)
                 {
-                    if (player.velocity.X > 0)
-                    {
-                        Teleport_Close_Left();
-                    }
-                    if (player.velocity.X < 0)
-                    {
-                        Teleport_Close_Right();
-                    }
-                    if (player.velocity.X == 0)
-                    {
-                        Teleport_Close_Left();
-                    }
                     Dash_Strong();
                     Punch_Extra();
                 }
                 if (Second_Phase_Timer == 360)
                 {
-                    if (player.velocity.X > 0)
-                    {
-                        Teleport_Close_Left();
-                    }
-                    if (player.velocity.X < 0)
-                    {
-                        Teleport_Close_Right();
-                    }
-                    if (player.velocity.X == 0)
-                    {
-                        Teleport_Close_Left();
-                    }
                     Dash_Strong();
                     Punch_Extra();
                 }
@@ -991,35 +1023,11 @@ namespace Infernus.NPCs
                 }
                 if (Second_Phase_Timer == 750)
                 {
-                    if (player.velocity.X > 0)
-                    {
-                        Teleport_Close_Left();
-                    }
-                    if (player.velocity.X < 0)
-                    {
-                        Teleport_Close_Right();
-                    }
-                    if (player.velocity.X == 0)
-                    {
-                        Teleport_Close_Left();
-                    }
                     Dash_Strong();
                     Punch_Extra();
                 }
                 if (Second_Phase_Timer == 790)
                 {
-                    if (player.velocity.X > 0)
-                    {
-                        Teleport_Close_Left();
-                    }
-                    if (player.velocity.X < 0)
-                    {
-                        Teleport_Close_Right();
-                    }
-                    if (player.velocity.X == 0)
-                    {
-                        Teleport_Close_Left();
-                    }
                     Dash_Strong();
                     Punch_Extra();
                 }
@@ -1037,15 +1045,7 @@ namespace Infernus.NPCs
                 {
                     Dash_Strong();
                 }
-                if (Second_Phase_Timer == 10051)
-                {
-                    Dash_Strong();
-                }
                 if (Second_Phase_Timer == 10081)
-                {
-                    Dash_Strong();
-                }
-                if (Second_Phase_Timer == 10111)
                 {
                     Dash_Strong();
                 }
@@ -1062,15 +1062,7 @@ namespace Infernus.NPCs
                 {
                     Dash_Strong();
                 }
-                if (Second_Phase_Timer == 15051)
-                {
-                    Dash_Strong();
-                }
                 if (Second_Phase_Timer == 15081)
-                {
-                    Dash_Strong();
-                }
-                if (Second_Phase_Timer == 15111)
                 {
                     Dash_Strong();
                 }
@@ -1087,15 +1079,7 @@ namespace Infernus.NPCs
                 {
                     Dash_Strong();
                 }
-                if (Second_Phase_Timer == 16051)
-                {
-                    Dash_Strong();
-                }
                 if (Second_Phase_Timer == 16081)
-                {
-                    Dash_Strong();
-                }
-                if (Second_Phase_Timer == 16111)
                 {
                     Dash_Strong();
                 }
@@ -1220,7 +1204,18 @@ namespace Infernus.NPCs
 
                 if (Second_Phase_Timer == 13001)
                 {
-                    Teleport();
+                    if (player.velocity.X > 0)
+                    {
+                        Teleport_Close_Left();
+                    }
+                    if (player.velocity.X < 0)
+                    {
+                        Teleport_Close_Right();
+                    }
+                    if (player.velocity.X == 0)
+                    {
+                        Teleport_Close_Left();
+                    }
                 }
                 if (Second_Phase_Timer == 13011)
                 {
@@ -1478,7 +1473,18 @@ namespace Infernus.NPCs
                 }
                 if (Second_Phase_Timer == 14241)
                 {
-                    Teleport();
+                    if (player.velocity.X > 0)
+                    {
+                        Teleport_Close_Left();
+                    }
+                    if (player.velocity.X < 0)
+                    {
+                        Teleport_Close_Right();
+                    }
+                    if (player.velocity.X == 0)
+                    {
+                        Teleport_Close_Left();
+                    }
                 }
                 if (Second_Phase_Timer == 14243)
                 {
@@ -1522,7 +1528,7 @@ namespace Infernus.NPCs
                 if (Dead_Phase_Timer >= 1)
                 {
                     // death animation
-                    Music = MusicID.Credits;
+                    Music = MusicLoader.GetMusicSlot("Infernus/Music/Divinity");
 
                     if (Main.rand.NextBool(12))
                     {
@@ -1725,12 +1731,12 @@ namespace Infernus.NPCs
             player = Main.player[NPC.target];
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                NPC.velocity.X *= 3.5f;
-                NPC.velocity.Y *= 3.5f;
+                NPC.velocity.X *= 3.3f;
+                NPC.velocity.Y *= 3.3f;
                 {
                     float rotation = (float)Math.Atan2(NPC.Center.Y - (player.position.Y + player.height), NPC.Center.X - (player.position.X + player.width));
-                    NPC.velocity.X = (float)(Math.Cos(rotation) * 21) * -1;
-                    NPC.velocity.Y = (float)(Math.Sin(rotation) * 21) * -1;
+                    NPC.velocity.X = (float)(Math.Cos(rotation) * 18) * -1;
+                    NPC.velocity.Y = (float)(Math.Sin(rotation) * 18) * -1;
                 }
             }
         }
@@ -1788,23 +1794,6 @@ namespace Infernus.NPCs
                 newVelocity *= 1f - Main.rand.NextFloat(0.3f);
 
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, newVelocity, ModContent.ProjectileType<Death_Sparks>(), 0, NPC.whoAmI);
-            }
-        }
-        private void Teleport()
-        {
-            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
-            {
-
-                float spawnarea = player.velocity.X * 110;
-                Vector2 position = player.Top + new Vector2(spawnarea + Main.rand.Next(-100, 100), Main.rand.Next(50, 100));
-                NPC.Center = position;
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<Death_Ring_Big>(), 0, 0, Main.myPlayer, 0f, 0f);
-                SoundEngine.PlaySound(SoundID.Item94 with
-                {
-                    Volume = 1f,
-                    Pitch = -0.65f,
-                    SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest
-                });
             }
         }
         private void Teleport_Up_Center()
@@ -1913,7 +1902,7 @@ namespace Infernus.NPCs
         {
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Vector2 position = player.Center + new Vector2(390f, 0f);
+                Vector2 position = player.Center + new Vector2(550f, 0f);
                 NPC.Center = position;
                 Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<Death_Ring_Big>(), 0, 0, Main.myPlayer, 0f, 0f);
                 SoundEngine.PlaySound(SoundID.Item94 with
@@ -1928,7 +1917,7 @@ namespace Infernus.NPCs
         {
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Vector2 position = player.Center + new Vector2(-390f, 0f);
+                Vector2 position = player.Center + new Vector2(-550f, 0f);
                 NPC.Center = position;
                 Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), NPC.Center.X, NPC.Center.Y, 0, 0, ModContent.ProjectileType<Death_Ring_Big>(), 0, 0, Main.myPlayer, 0f, 0f);
                 SoundEngine.PlaySound(SoundID.Item94 with
@@ -1943,7 +1932,7 @@ namespace Infernus.NPCs
         {
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     player = Main.player[NPC.target];
                     Vector2 velocity = player.Center - NPC.Bottom;
@@ -1999,7 +1988,7 @@ namespace Infernus.NPCs
 
                 float rotation = MathHelper.ToRadians(55);
 
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i));
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Holy_Homing_Bomb>(), 29, NPC.whoAmI);
@@ -2191,6 +2180,7 @@ namespace Infernus.NPCs
         }
         public override void OnKill()
         {
+            death_aninatiom = false;
             InfernusSystem.downedCalypsical = true;
         }
     }

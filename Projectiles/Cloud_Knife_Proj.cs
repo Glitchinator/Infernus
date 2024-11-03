@@ -19,7 +19,7 @@ namespace Infernus.Projectiles
             Projectile.timeLeft = 90;
             Projectile.netImportant = true;
             Projectile.penetrate = 2;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
         }
         public override void AI()
         {

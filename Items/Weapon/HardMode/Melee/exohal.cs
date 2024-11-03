@@ -27,6 +27,7 @@ namespace Infernus.Items.Weapon.HardMode.Melee
             Item.UseSound = SoundID.Item19;
             Item.autoReuse = true;
             Item.useTurn = true;
+            Item.scale = 1.8f;
         }
 
         public override void AddRecipes()

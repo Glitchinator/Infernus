@@ -39,7 +39,7 @@ namespace Infernus.Projectiles
             bounces--;
             if (bounces <= 0)
             {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Aeritite_Mine_Explosion>(), Projectile.damage, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Aeritite_Mine_Explosion>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
                 for (int k = 0; k < 10; k++)
                 {
                     Vector2 speed = Main.rand.NextVector2Unit();
@@ -62,7 +62,7 @@ namespace Infernus.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Aeritite_Mine_Explosion>(), Projectile.damage, 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Aeritite_Mine_Explosion>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
             for (int k = 0; k < 10; k++)
             {
                 Vector2 speed = Main.rand.NextVector2Unit();

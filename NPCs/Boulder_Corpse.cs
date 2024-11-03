@@ -19,7 +19,7 @@ namespace Infernus.NPCs
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 224;
+            NPC.lifeMax = 214;
             NPC.damage = 30;
             NPC.defense = 14;
             NPC.knockBackResist = 0.5f;
@@ -62,8 +62,8 @@ namespace Infernus.NPCs
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ItemID.StoneBlock, 1, 4, 6));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Rock>(), 4, 2, 3));
+            npcLoot.Add(ItemDropRule.Common(ItemID.StoneBlock, 4, 4, 6));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Rock>(), 7, 1, 2));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.Ranged.July4th>(), 400, 1, 1));
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

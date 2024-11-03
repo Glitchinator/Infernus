@@ -16,6 +16,9 @@ namespace Infernus
         public static bool downedBoulderBoss = false;
         public static bool downedCalypsical = false;
         public static bool Level_systemON = false;
+        public static bool Equite_Generated = false;
+        public static bool downedWanderer = false;
+        public static bool downedFlower = false;
 
         public override void OnWorldLoad()
         {
@@ -28,6 +31,9 @@ namespace Infernus
             downedBoulderBoss = false;
             downedCalypsical = false;
             Level_systemON = false;
+            Equite_Generated = false;
+            downedWanderer = false;
+            downedFlower = false;
         }
 
         public override void OnWorldUnload()
@@ -41,6 +47,9 @@ namespace Infernus
             downedBoulderBoss = false;
             downedCalypsical = false;
             Level_systemON = false;
+            Equite_Generated = false;
+            downedWanderer = false;
+            downedFlower = false;
         }
         public override void SaveWorldData(TagCompound tag)
         {
@@ -80,6 +89,18 @@ namespace Infernus
             {
                 tag["LevelON"] = true;
             }
+            if (Equite_Generated)
+            {
+                tag["EquiteGenerated"] = true;
+            }
+            if(downedWanderer)
+            {
+                tag["downedWanderer"] = true;
+            }
+            if(downedFlower)
+            {
+                tag["downedFlower"] = true;
+            }
         }
 
         public override void LoadWorldData(TagCompound tag)
@@ -93,6 +114,9 @@ namespace Infernus
             downedBoulderBoss = tag.ContainsKey("downedboulder");
             downedCalypsical = tag.ContainsKey("downedMech");
             Level_systemON = tag.ContainsKey("LevelON");
+            Equite_Generated = tag.ContainsKey("EquiteGenerated");
+            downedWanderer = tag.ContainsKey("downedWanderer");
+            downedFlower = tag.ContainsKey("downedFlower");
         }
 
         public override void NetSend(BinaryWriter writer)
@@ -107,6 +131,9 @@ namespace Infernus
             flags[6] = downedCalypsical;
             flags[7] = Level_systemON;
             flags[8] = downedBoulderBoss;
+            flags[9] = Equite_Generated;
+            flags[10] = downedWanderer;
+            flags[11] = downedFlower;
             writer.Write(flags);
         }
 
@@ -122,6 +149,9 @@ namespace Infernus
             downedCalypsical = flags[6];
             Level_systemON = flags[7];
             downedBoulderBoss = flags[8];
+            Equite_Generated = flags[9];
+            downedWanderer = flags[10];
+            downedFlower = flags[11];
         }
     }
 }

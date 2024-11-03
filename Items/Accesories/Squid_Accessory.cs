@@ -20,11 +20,9 @@ namespace Infernus.Items.Accesories
             Item.value = 75000;
             Item.rare = ItemRarityID.Blue;
         }
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Summon) += .08f;
-            player.maxMinions++;
-            player.manaCost -= .07f;
+            Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Squid_Heart = true;
         }
     }
 }

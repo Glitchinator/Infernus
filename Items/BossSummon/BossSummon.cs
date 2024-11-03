@@ -37,5 +37,13 @@ namespace Infernus.Items.BossSummon
             }
             return true;
         }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<Materials.Ruderibus_Shard>(), 32)
+            .AddIngredient(ItemID.IceBlock, 20)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
     }
 }

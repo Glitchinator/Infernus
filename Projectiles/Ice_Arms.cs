@@ -54,9 +54,9 @@ namespace Infernus.Projectiles
 
             Timer++;
 
-            if (Timer == 50)
+            if (Timer == 40)
             {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Ice_Arms_Shot>(), 30, 1f, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Ice_Arms_Shot>(), 40, 1f, Projectile.owner);
                 Timer = 0;
             }
         }

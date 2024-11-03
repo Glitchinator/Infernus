@@ -1,3 +1,4 @@
+using Infernus.Projectiles.Temporal_Glow_Squid.Drops;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -28,7 +29,7 @@ namespace Infernus.Items.Weapon.Magic
             Item.UseSound = SoundID.Item117;
             Item.autoReuse = true;
             Item.noMelee = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.Radiant_GlowBomb>();
+            Item.shoot = ModContent.ProjectileType<Radiant_GlowBomb>();
             Item.shootSpeed = 13f;
             Item.mana = 12;
         }

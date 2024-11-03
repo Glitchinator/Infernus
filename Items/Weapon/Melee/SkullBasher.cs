@@ -29,7 +29,7 @@ namespace Infernus.Items.Weapon.Melee
             Item.shoot = ModContent.ProjectileType<Projectiles.SkullBasher>();
             Item.channel = true;
             Item.noUseGraphic = true;
-            Item.shootSpeed = 16f;
+            Item.shootSpeed = 24f;
             Item.autoReuse = true;
         }
         public override void AddRecipes()

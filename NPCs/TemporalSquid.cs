@@ -1,9 +1,11 @@
 ﻿using Infernus.Items.BossSummon;
 using Infernus.Items.Weapon.Melee;
 using Infernus.Projectiles;
+using Infernus.Projectiles.Temporal_Glow_Squid.Boss;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -59,9 +61,9 @@ namespace Infernus.NPCs
         public override void AI()
         {
             Player player = Main.player[NPC.target];
-            NPC.netUpdate = true;
             NPC.TargetClosest(true);
             NPC.rotation = NPC.velocity.X * 0.01f;
+            NPC.netUpdate = true;
 
             if (NPC.target < 0 || NPC.target == 255 || player.dead || !player.active)
             {
@@ -89,12 +91,15 @@ namespace Infernus.NPCs
             Timer_Tornado++;
             if (secondphase == true)
             {
+                SoundEngine.PlaySound(SoundID.Zombie93, NPC.position);
+                frameSpeed = 4;
                 Timer = 10000;
                 if (Timer == 10000)
                 {
                     Timer_SecondPhase++;
                 }
             }
+            #region Tornado_Summon_Timer
             {
                 if (InfernusSystem.Level_systemON == true)
                 {
@@ -175,277 +180,8 @@ namespace Infernus.NPCs
                     }
                 }
             }
-
-            if (InfernusSystem.Level_systemON == true)
-            {
-                if (Timer_Tornado >= 420)
-                {
-                    Pre_Typhoon();
-                }
-                if (Timer_Tornado == 420)
-                {
-                    SoundEngine.PlaySound(SoundID.Item35, NPC.position);
-                }
-                if (Timer_Tornado == 480)
-                {
-                    SoundEngine.PlaySound(SoundID.Item35, NPC.position);
-                }
-                if (Timer_Tornado == 540)
-                {
-                    SoundEngine.PlaySound(SoundID.Item35, NPC.position);
-                }
-                if (Timer_Tornado == 600)
-                {
-                    SoundEngine.PlaySound(SoundID.Zombie103, NPC.position);
-                    Typhoon();
-                    Timer_Tornado = 0;
-                }
-                if (secondphase == true)
-                {
-                    if (Timer_SecondPhase == 60)
-                    {
-                        SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                        InkBolt();
-                    }
-                    if (Timer_SecondPhase == 100)
-                    {
-                        SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                        InkRain();
-                    }
-                    if (Timer_SecondPhase == 180)
-                    {
-                        SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                        InkRain();
-                    }
-                    if (Timer_SecondPhase == 210)
-                    {
-                        SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                        InkBolt();
-                    }
-                    if (Timer_SecondPhase == 270)
-                    {
-                        SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                        InkRain();
-                    }
-                    if (Timer_SecondPhase == 330)
-                    {
-                        SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                        InkBolt();
-                    }
-                    if (Timer_SecondPhase == 390)
-                    {
-                        SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                        InkBolt();
-                    }
-                    if (Timer_SecondPhase == 440)
-                    {
-                        SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                        InkRain();
-                    }
-                    if (Timer_SecondPhase == 490)
-                    {
-                        SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                        InkRain();
-                    }
-                    if (Timer_SecondPhase == 550)
-                    {
-                        SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                        InkBolt();
-                    }
-                    if (Timer_SecondPhase == 610)
-                    {
-                        SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                        InkBolt();
-                    }
-                    if (Timer_SecondPhase == 670)
-                    {
-                        SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                        InkRain();
-                    }
-                    if (Timer_SecondPhase == 730)
-                    {
-                        SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                        InkRain();
-                    }
-                    if (Timer_SecondPhase == 770)
-                    {
-                        SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                        InkBolt();
-                    }
-                    if (Timer_SecondPhase == 830)
-                    {
-                        SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                        InkRain();
-                    }
-                    if (Timer_SecondPhase == 730)
-                    {
-                        Timer_SecondPhase = 60;
-                    }
-                    SoundEngine.PlaySound(SoundID.Zombie93, NPC.position);
-                    frameSpeed = 4;
-                    return;
-                }
-                if (Timer == 60)
-                {
-                    SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                    InkBolt();
-                }
-                if (Timer == 120)
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                    InkRain();
-                }
-                if (Timer == 180)
-                {
-                    SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                    InkBolt();
-                }
-                if (Timer == 240)
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                    InkRain();
-                }
-                if (Timer == 300)
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                    InkRain();
-                }
-                if (Timer == 360)
-                {
-                    SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                    InkBolt();
-                }
-                if (Timer == 420)
-                {
-                    SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                    InkBolt();
-                }
-                if (Timer == 480)
-                {
-                    SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                    InkBolt();
-                }
-                if (Timer == 540)
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                    InkRain();
-                }
-                if (Timer == 600)
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                    InkRain();
-                }
-                if (Timer == 660)
-                {
-                    SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                    InkBolt();
-                }
-                if (Timer == 720)
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                    InkRain();
-                }
-                if (Timer == 780)
-                {
-                    SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                    InkBolt();
-                }
-                if (Timer == 840)
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                    InkRain();
-                }
-                if (Timer == 900)
-                {
-                    Timer = 0;
-                }
-                return;
-            }
-            if (secondphase == true)
-            {
-                if (Timer_SecondPhase == 60)
-                {
-                    SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                    InkBolt();
-                }
-                if (Timer_SecondPhase == 100)
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                    InkRain();
-                }
-                if (Timer_SecondPhase == 180)
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                    InkRain();
-                }
-                if (Timer_SecondPhase == 210)
-                {
-                    SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                    InkBolt();
-                }
-                if (Timer_SecondPhase == 270)
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                    InkRain();
-                }
-                if (Timer_SecondPhase == 330)
-                {
-                    SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                    InkBolt();
-                }
-                if (Timer_SecondPhase == 390)
-                {
-                    SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                    InkBolt();
-                }
-                if (Timer_SecondPhase == 440)
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                    InkRain();
-                }
-                if (Timer_SecondPhase == 490)
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                    InkRain();
-                }
-                if (Timer_SecondPhase == 550)
-                {
-                    SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                    InkBolt();
-                }
-                if (Timer_SecondPhase == 610)
-                {
-                    SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                    InkBolt();
-                }
-                if (Timer_SecondPhase == 670)
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                    InkRain();
-                }
-                if (Timer_SecondPhase == 730)
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                    InkRain();
-                }
-                if (Timer_SecondPhase == 770)
-                {
-                    SoundEngine.PlaySound(SoundID.Item171, NPC.position);
-                    InkBolt();
-                }
-                if (Timer_SecondPhase == 830)
-                {
-                    SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
-                    InkRain();
-                }
-                if (Timer_SecondPhase == 730)
-                {
-                    Timer_SecondPhase = 60;
-                }
-                SoundEngine.PlaySound(SoundID.Zombie93, NPC.position);
-                frameSpeed = 4;
-                return;
-            }
+            #endregion
+            #region First_Phase
             if (Timer == 60)
             {
                 SoundEngine.PlaySound(SoundID.Item171, NPC.position);
@@ -510,6 +246,294 @@ namespace Infernus.NPCs
             {
                 Timer = 0;
             }
+            #endregion
+            #region Second_Phase
+            if (Timer_SecondPhase == 60)
+            {
+                SoundEngine.PlaySound(SoundID.Item171, NPC.position);
+                InkBolt();
+            }
+            if (Timer_SecondPhase == 100)
+            {
+                SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
+                InkRain();
+            }
+            if (Timer_SecondPhase == 180)
+            {
+                SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
+                InkRain();
+            }
+            if (Timer_SecondPhase == 210)
+            {
+                SoundEngine.PlaySound(SoundID.Item171, NPC.position);
+                InkBolt();
+            }
+            if(210 < Timer_SecondPhase && Timer_SecondPhase < 270)
+            {
+                if (Main.netMode == NetmodeID.SinglePlayer)
+                {
+                    if (player.velocity.X > 0)
+                    {
+                        for (int k = 0; k < 4; k++)
+                        {
+                            Vector2 position = player.Center + new Vector2(300f, 150f);
+                            Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                            Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.Electric, speed * 3, Scale: 1f);
+                            Sword.noGravity = true;
+                        }
+                    }
+                    if (player.velocity.X < 0)
+                    {
+                        for (int k = 0; k < 4; k++)
+                        {
+                            Vector2 position = player.Center + new Vector2(-300f, 150f);
+                            Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                            Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.Electric, speed * 3, Scale: 1f);
+                            Sword.noGravity = true;
+                        }
+                    }
+                    if (player.velocity.X == 0)
+                    {
+                        for (int k = 0; k < 4; k++)
+                        {
+                            Vector2 position = player.Center + new Vector2(300f, 150f);
+                            Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                            Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.Electric, speed * 3, Scale: 1f);
+                            Sword.noGravity = true;
+                        }
+                    }
+                }
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                {
+                    if (player.velocity.X > 0)
+                    {
+                        for (int k = 0; k < 4; k++)
+                        {
+                            Vector2 position = player.Center + new Vector2(300f, 150f);
+                            Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                            Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.Electric, speed * 3, Scale: 1f);
+                            Sword.noGravity = true;
+                        }
+                    }
+                    if (player.velocity.X < 0)
+                    {
+                        for (int k = 0; k < 4; k++)
+                        {
+                            Vector2 position = player.Center + new Vector2(-300f, 150f);
+                            Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                            Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.Electric, speed * 3, Scale: 1f);
+                            Sword.noGravity = true;
+                        }
+                    }
+                    if (player.velocity.X == 0)
+                    {
+                        for (int k = 0; k < 4; k++)
+                        {
+                            Vector2 position = player.Center + new Vector2(300f, 150f);
+                            Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                            Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.Electric, speed * 3, Scale: 1f);
+                            Sword.noGravity = true;
+                        }
+                    }
+                }
+            }
+            if (Timer_SecondPhase == 270)
+            {
+                // ink jets // Temporal Tower
+                Timer_SecondPhase = 10000;
+            }
+            if (Timer_SecondPhase == 330)
+            {
+                SoundEngine.PlaySound(SoundID.Item171, NPC.position);
+                InkBolt();
+            }
+            if (Timer_SecondPhase == 390)
+            {
+                SoundEngine.PlaySound(SoundID.Item171, NPC.position);
+                InkBolt();
+            }
+            if (Timer_SecondPhase == 440)
+            {
+                SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
+                InkRain();
+            }
+            if (Timer_SecondPhase == 490)
+            {
+                SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
+                InkRain();
+            }
+            if (Timer_SecondPhase == 550)
+            {
+                SoundEngine.PlaySound(SoundID.Item171, NPC.position);
+                InkBolt();
+            }
+            if (550 < Timer_SecondPhase && Timer_SecondPhase < 610)
+            {
+                if (Main.netMode == NetmodeID.SinglePlayer)
+                {
+                    if (player.velocity.X > 0)
+                    {
+                        for (int k = 0; k < 4; k++)
+                        {
+                            Vector2 position = player.Center + new Vector2(300f, 150f);
+                            Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                            Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.Electric, speed * 3, Scale: 1f);
+                            Sword.noGravity = true;
+                        }
+                    }
+                    if (player.velocity.X < 0)
+                    {
+                        for (int k = 0; k < 4; k++)
+                        {
+                            Vector2 position = player.Center + new Vector2(-300f, 150f);
+                            Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                            Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.Electric, speed * 3, Scale: 1f);
+                            Sword.noGravity = true;
+                        }
+                    }
+                    if (player.velocity.X == 0)
+                    {
+                        for (int k = 0; k < 4; k++)
+                        {
+                            Vector2 position = player.Center + new Vector2(-300f, 150f);
+                            Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                            Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.Electric, speed * 3, Scale: 1f);
+                            Sword.noGravity = true;
+                        }
+                    }
+                }
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                {
+                    if (player.velocity.X > 0)
+                    {
+                        for (int k = 0; k < 4; k++)
+                        {
+                            Vector2 position = player.Center + new Vector2(300f, 150f);
+                            Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                            Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.Electric, speed * 3, Scale: 1f);
+                            Sword.noGravity = true;
+                        }
+                    }
+                    if (player.velocity.X < 0)
+                    {
+                        for (int k = 0; k < 4; k++)
+                        {
+                            Vector2 position = player.Center + new Vector2(-300f, 150f);
+                            Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                            Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.Electric, speed * 3, Scale: 1f);
+                            Sword.noGravity = true;
+                        }
+                    }
+                    if (player.velocity.X == 0)
+                    {
+                        for (int k = 0; k < 4; k++)
+                        {
+                            Vector2 position = player.Center + new Vector2(-300f, 150f);
+                            Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                            Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.Electric, speed * 3, Scale: 1f);
+                            Sword.noGravity = true;
+                        }
+                    }
+                }
+            }
+            if (Timer_SecondPhase == 610)
+            {
+                // ink jets // temporal Tower
+                Timer_SecondPhase = 11000;
+            }
+            if (Timer_SecondPhase == 670)
+            {
+                SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
+                InkRain();
+            }
+            if (Timer_SecondPhase == 730)
+            {
+                SoundEngine.PlaySound(SoundID.NPCDeath19, NPC.position);
+                InkRain();
+            }
+            if (Timer_SecondPhase == 730)
+            {
+                Timer_SecondPhase = 40;
+            }
+            #endregion
+            #region Temporal_Tower
+            if (Timer_SecondPhase == 10001)
+            {
+                if (player.velocity.X > 0)
+                {
+                    Teleport_Left();
+                }
+                if (player.velocity.X < 0)
+                {
+                    Teleport_Right();
+                }
+                if (player.velocity.X == 0)
+                {
+                    Teleport_Left();
+                }
+            }
+            if(Timer_SecondPhase == 10121)
+            {
+                Timer_SecondPhase = 300;
+            }
+
+            if(Timer_SecondPhase >= 10001)
+            {
+                InkJets();
+                NPC.rotation = MathHelper.ToRadians(180);
+            }
+
+
+
+
+            if (Timer_SecondPhase == 11001)
+            {
+                if (player.velocity.X > 0)
+                {
+                    Teleport_Left();
+                }
+                if (player.velocity.X < 0)
+                {
+                    Teleport_Right();
+                }
+                if (player.velocity.X == 0)
+                {
+                    Teleport_Right();
+                }
+            }
+            if (Timer_SecondPhase == 11121)
+            {
+                Timer_SecondPhase = 650;
+            }
+            #endregion
+        }
+        private void Teleport_Left()
+        {
+            if (NPC.HasValidTarget)
+            {
+                Vector2 position = player.Center + new Vector2(300f, 150f);
+                NPC.Center = position;
+                NPC.velocity.X = -6;
+                NPC.velocity.Y = 0;
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.SyncNPC, NPC.whoAmI);
+                }
+            }
+        }
+        private void Teleport_Right()
+        {
+            if (NPC.HasValidTarget)
+            {
+                Vector2 position = player.Center + new Vector2(-300f, 150f);
+                NPC.Center = position;
+                NPC.velocity.X = 6;
+                NPC.velocity.Y = 0;
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.SyncNPC, NPC.whoAmI);
+                }
+            }
         }
         public override void FindFrame(int frameHeight)
         {
@@ -541,6 +565,10 @@ namespace Infernus.NPCs
         }
         private void Move(Vector2 offset)
         {
+            if(Timer_SecondPhase >= 10000)
+            {
+                return;
+            }
             player = Main.player[NPC.target];
             speed = 4.3f;
             if (player.ZoneBeach == false)
@@ -601,16 +629,46 @@ namespace Infernus.NPCs
 
         private void Pre_Typhoon()
         {
+            if (Main.netMode == NetmodeID.SinglePlayer)
+            {
+                if (NPC.HasValidTarget)
+                {
+                    player = Main.player[NPC.target];
+                    float spawnarea = player.velocity.X * 70;
+                    Vector2 position = player.Top + new Vector2(spawnarea + Main.rand.Next(-100, 100), Main.rand.Next(50, 100));
+
+                    if (Main.rand.NextBool(1))
+                    {
+                        Dust.NewDust(position, (int)spawnarea, 1, DustID.Wraith, 1f, -2.5f, 0, default, 1f);
+                    }
+                }
+            }
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                if (NPC.HasValidTarget)
+                {
+                    player = Main.player[NPC.target];
+                    float spawnarea = player.velocity.X * 70;
+                    Vector2 position = player.Top + new Vector2(spawnarea + Main.rand.Next(-100, 100), Main.rand.Next(50, 100));
+
+                    if (Main.rand.NextBool(1))
+                    {
+                        Dust.NewDust(position, (int)spawnarea, 1, DustID.Wraith, 1f, -2.5f, 0, default, 1f);
+                    }
+                }
+            }
+        }
+        private void InkJets()
+        {
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
-
-                float spawnarea = player.velocity.X * 70;
-                Vector2 position = player.Top + new Vector2(spawnarea + Main.rand.Next(-100, 100), Main.rand.Next(50, 100));
-
-                if (Main.rand.NextBool(1))
+                Vector2 velocity = new(0f, -6.5f);
+                float magnitude = Magnitude(velocity);
+                if (magnitude > 0)
                 {
-                    Dust.NewDust(position, (int)spawnarea, 1, DustID.Wraith, 1f, -2.5f, 0, default, 1f);
+                    velocity *= 3f / magnitude;
                 }
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Top, velocity, ModContent.ProjectileType<Ink_Jet>(), 10, NPC.whoAmI);
             }
         }
         private void InkBolt()
@@ -648,7 +706,7 @@ namespace Infernus.NPCs
                 {
                     Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, 4f, -2.5f, 0, default, 1f);
                 }
-                for (int i = 0; i < 1; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.position, new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-6, 7)), Mod.Find<ModGore>("Squid_Eye").Type);
                 }
@@ -656,7 +714,7 @@ namespace Infernus.NPCs
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.position, new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-6, 7)), Mod.Find<ModGore>("Squid_Head").Type);
                 }
-                for (int i = 0; i < 1; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     Gore.NewGore(NPC.GetSource_Death(), NPC.position, new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-6, 7)), Mod.Find<ModGore>("Squid_Tenticles").Type);
                 }
@@ -694,6 +752,7 @@ namespace Infernus.NPCs
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.Magic.Radiant_Staff>(), 2));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Ink_Sprinkler>(), 2));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.Ranged.Squid_Gun>(), 2));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.Ranged.Squid_FlameThrower>(), 2));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Accesories.Squid_Accessory>(), 2));
 
             npcLoot.Add(notExpertRule);

@@ -17,10 +17,12 @@ namespace Infernus.Projectiles
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.alpha = 255;
+            Projectile.idStaticNPCHitCooldown = 20;
+            Projectile.usesIDStaticNPCImmunity = true;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.damage = (int)(Projectile.damage * 0.85f);
+            Projectile.damage = (int)(Projectile.damage * 0.75f);
         }
     }
 }

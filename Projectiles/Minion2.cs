@@ -124,7 +124,7 @@ namespace Infernus.Projectiles
                             }
                             shootVel.Normalize();
                             shootVel *= 8;
-                            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, shootVel.X, shootVel.Y, ProjectileID.Flamelash, Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);
+                            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, shootVel.X, shootVel.Y, ModContent.ProjectileType<Minion1_Shot>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, Projectile.owner);
                             Projectile.ai[1] = 1f;
                         }
                     }

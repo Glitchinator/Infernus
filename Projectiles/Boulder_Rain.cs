@@ -16,12 +16,13 @@ namespace Infernus.Projectiles
         }
         public override void SetDefaults()
         {
-            Projectile.width = 36;
-            Projectile.height = 36;
+            Projectile.width = 30;
+            Projectile.height = 30;
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.netImportant = true;
             Projectile.extraUpdates = 1;
+            Projectile.timeLeft = 400;
         }
         public override void AI()
         {
@@ -29,6 +30,10 @@ namespace Infernus.Projectiles
             if (Projectile.velocity.Y > 8.5f)
             {
                 Projectile.velocity.Y = 8.5f;
+            }
+            if (Projectile.velocity.X > 8.5f)
+            {
+                Projectile.velocity.X = 8.5f;
             }
         }
 
@@ -55,6 +60,16 @@ namespace Infernus.Projectiles
             }
 
             return true;
+        }
+        public override void Kill(int timeLeft)
+        {
+            for (int k = 0; k < 9; k++)
+            {
+                Vector2 speed_Dust = Main.rand.NextVector2Unit();
+                Dust wand = Dust.NewDustPerfect(Projectile.Center + speed_Dust * 18, DustID.Stone, speed_Dust, 0, default, Scale: 2f);
+                wand.noGravity = true;
+            }
+            //Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-5, 6), Main.rand.Next(-5, 6), ModContent.ProjectileType<Boulder_Bolt>(), Projectile.damage,0, Projectile.owner);
         }
     }
 }

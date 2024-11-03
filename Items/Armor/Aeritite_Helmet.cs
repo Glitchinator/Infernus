@@ -33,12 +33,13 @@ namespace Infernus.Items.Armor
         }
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Aeritite energy surrounds you" + "\n reducing next hit damage by 33%" + "\n and increases all jump power" + "\n 30 Second recharge";
+            player.setBonus = "Aeritite energy surrounds you" + "\n reducing next hit damage by " + Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Aeritite_DR + "\n and increases all jump power" + "\n 30 Second recharge";
             if (player.HasBuff(ModContent.BuffType<Aeritite_Timer>()))
             {
                 return;
             }
-            player.endurance += .33f;
+            // 33% DR, shield reduces to 25%
+            player.endurance += Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Aeritite_DR;
             player.jumpSpeedBoost += 4;
             Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Aeritite_Equipped = true;
             timer++;

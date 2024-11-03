@@ -1,4 +1,5 @@
-﻿using Infernus.Placeable;
+﻿using Infernus.Items.Materials;
+using Infernus.Placeable;
 using Infernus.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
@@ -21,13 +22,13 @@ namespace Infernus.NPCs
         int numb;
         public override void SetDefaults()
         {
-            NPC.lifeMax = 2000;
+            NPC.lifeMax = 1680;
             NPC.damage = 58;
             NPC.defense = 24;
-            NPC.knockBackResist = 0.0f;
+            NPC.knockBackResist = 0.7f;
             NPC.width = 34;
             NPC.height = 42;
-            NPC.aiStyle = 38;
+            NPC.aiStyle = 26;
             NPC.noGravity = false;
             NPC.noTileCollide = false;
             NPC.HitSound = SoundID.NPCHit2;
@@ -42,24 +43,11 @@ namespace Infernus.NPCs
         {
             timer++;
 
-            if (timer == 80)
+            if (timer == 500)
             {
-                numb = Main.rand.Next(new int[] { 0, 1 });
-                if(numb == 0)
-                {
-                    Shoot();
-                }
-                if (numb == 1)
-                {
-                    Shotgun_Spray();
-                }
-            }
-            if (timer == 180)
-            {
+                Shoot();
                 timer = 0;
             }
-
-
         }
         private float Magnitude(Vector2 mag)
         {
@@ -74,38 +62,14 @@ namespace Infernus.NPCs
                 float magnitude = Magnitude(velocity);
                 if (magnitude > 0)
                 {
-                    velocity *= 9f / magnitude;
+                    velocity *= 6f / magnitude;
                 }
                 else
                 {
-                    velocity = new Vector2(0f, 9f);
+                    velocity = new Vector2(0f, 6f);
                 }
 
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ProjectileID.RayGunnerLaser, 28, NPC.whoAmI);
-            }
-        }
-        private void Shotgun_Spray()
-        {
-            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                for (int i = 0; i < 6; i++)
-                {
-                    player = Main.player[NPC.target];
-                    Vector2 velocity = player.Center - NPC.Center;
-                    float magnitude = Magnitude(velocity);
-                    if (magnitude > 0)
-                    {
-                        velocity *= 6.5f / magnitude;
-                    }
-                    else
-                    {
-                        velocity = new Vector2(0f, 6.5f);
-                    }
-                    Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(38));
-                    newVelocity *= 1f - Main.rand.NextFloat(0.25f);
-
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, newVelocity, ProjectileID.RayGunnerLaser, 24, NPC.whoAmI);
-                }
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Ice_Rain>(), 18, NPC.whoAmI);
             }
         }
         public override void HitEffect(NPC.HitInfo hit)
@@ -124,8 +88,9 @@ namespace Infernus.NPCs
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ItemID.StoneBlock, 1, 4, 6));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Rock>(), 4, 2, 3));
+            npcLoot.Add(ItemDropRule.Common(ItemID.StoneBlock, 4, 4, 6));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Rock>(), 7, 1, 2));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Crumbling_Basalt>(), 1, 2, 4));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.Ranged.July4th>(), 400, 1, 1));
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

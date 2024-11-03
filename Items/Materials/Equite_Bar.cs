@@ -22,8 +22,7 @@ namespace Infernus.Items.Materials
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Hot>(), 2)
-            .AddIngredient(ModContent.ItemType<IceSpikes>(), 2)
+            .AddIngredient(ModContent.ItemType<Placeable.Equite_Ore_Item>(), 3)
             .AddTile(TileID.Furnaces)
             .Register();
         }

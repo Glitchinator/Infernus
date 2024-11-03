@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -87,6 +88,11 @@ namespace Infernus.NPCs
                 new MoonLordPortraitBackgroundProviderBestiaryInfoElement(),
                 new FlavorTextBestiaryInfoElement("Strange to say that a Meteorite came to life, but its even stranger trying to figure out where the smaller ones come from.")
             });
+        }
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Materials.Scorched_Sinew>(), 1, 4, 11));
+            npcLoot.Add(ItemDropRule.Common(ItemID.MilkCarton, 50, 1, 1));
         }
     }
 }

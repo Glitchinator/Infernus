@@ -31,7 +31,7 @@ namespace Infernus.Projectiles
             Projectile.minion = true;
             Projectile.minionSlots = 1;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 20;
+            Projectile.localNPCHitCooldown = 22;
         }
         public override bool MinionContactDamage()
         {
@@ -136,10 +136,10 @@ namespace Infernus.Projectiles
                             Dust Sword = Dust.NewDustPerfect(Projectile.Center + speed_Dust * 32, DustID.Confetti_Pink, speed_Dust * 3, Scale: 2f);
                             Sword.noGravity = true;
                         }
-                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, -5, ModContent.ProjectileType<Terra_2_Shot>(), 32, 0, Projectile.owner);
-                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 5, ModContent.ProjectileType<Terra_2_Shot>(), 32, 0, Projectile.owner);
-                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, -5, 0, ModContent.ProjectileType<Terra_2_Shot>(), 32, 0, Projectile.owner);
-                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 5, 0, ModContent.ProjectileType<Terra_2_Shot>(), 32, 0, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, -5, ModContent.ProjectileType<Terra_2_Shot>(), 28, 0, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 5, ModContent.ProjectileType<Terra_2_Shot>(), 28, 0, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, -5, 0, ModContent.ProjectileType<Terra_2_Shot>(), 28, 0, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 5, 0, ModContent.ProjectileType<Terra_2_Shot>(), 28, 0, Projectile.owner);
                     }
                 }
                 if (distanceFromTarget > 150f)
@@ -179,7 +179,7 @@ namespace Infernus.Projectiles
                                         Dust Sword = Dust.NewDustPerfect(Projectile.Center + speed_Dust * 32, DustID.Confetti_Pink, speed_Dust * 3, Scale: 2f);
                                         Sword.noGravity = true;
                                     }
-                                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X + 40, Projectile.Center.Y, shootVel.X, shootVel.Y, ModContent.ProjectileType<Terra_2_Shot>(), 48, Projectile.knockBack, Main.myPlayer, 0f, 0f);
+                                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X + 40, Projectile.Center.Y, shootVel.X, shootVel.Y, ModContent.ProjectileType<Terra_2_Shot>(), 38, Projectile.knockBack, Main.myPlayer, 0f, 0f);
                                     Projectile.ai[1] = 1f;
                                 }
                             }

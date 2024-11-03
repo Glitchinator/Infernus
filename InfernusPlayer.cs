@@ -1,5 +1,9 @@
 ﻿using Infernus.Buffs;
+using Infernus.Items.Accesories;
+using Infernus.Items.Materials;
+using Infernus.Items.Weapon.HardMode.Accessories;
 using Infernus.Projectiles;
+using Infernus.Projectiles.Temporal_Glow_Squid.Drops;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -8,6 +12,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.WorldBuilding;
 
 namespace Infernus
 {
@@ -39,9 +44,21 @@ namespace Infernus
         // aeritite armor variables
         public bool Aeritite_Equipped = false;
 
+        // aeritite shield variables
+        public bool Aeritite_Shield_Equipped = false;
+        public float Aeritite_DR = 0.33f;
+
+        // equite armor variables
+        public bool Equite_Equipped = false;
+        public static int Equite_Amount = 0;
+        public int Equite_Regen = 200;
+        public static NPC Equite_target;
+
+        public bool Equite_Accessory_Equipped = false;
+
         // Boulder Expert Variable
         public bool Boulder_Equipped = false;
-        public int Boulder_Timer;
+        public int Boulder_Timer = 0;
 
         // Meteor ring variables
         public bool Meteor_Storm_Active = false;
@@ -58,6 +75,38 @@ namespace Infernus
         // chipped whetstone
         public bool NPC_Bleeding = false;
 
+        public bool Meteor_Whetstone = false;
+
+        // Condensed iceicle
+        public bool NPC_Iced = false;
+
+        // quiver
+        public bool Quiver_Equipped = false;
+
+        // radinat squid heart
+        public bool Squid_Heart = false;
+
+        // whip heads
+        public bool Ice_Whiphead = false;
+        public bool Elemental_Whiphead = false;
+        public bool Basalt_Whiphead = false;
+        public bool Defiled_Whiphead = false;
+        public bool Ancient_Whiphead = false;
+
+        // Soul drinker
+        public bool Soul_Drinker = false;
+
+        // lectric'
+        public bool Lectric = false;
+
+        // Hellion spite
+        public bool Hellion_Spite = false;
+        public bool Rage = false;
+        public int life_steal_timer = 0;
+
+        // phantom blade
+        public bool Phantom_Blade = false;
+
         public override void ModifyNursePrice(NPC nurse, int health, bool removeDebuffs, ref int price)
         {
             if (Player.statLife < Player.statLifeMax)
@@ -67,13 +116,25 @@ namespace Infernus
         }
         public override void OnEnterWorld()
         {
+            Equite_Amount = 0;
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
-                Main.NewText("Welcome to Infernus Mod! If you have any questions the Discord or Forum is the place to ask." + "\nYou are playing on Infernus V1.6.3", GainXP_Resource);
+                Main.NewText("Welcome to Infernus Mod! If you have any questions the Discord is the place to ask." + "\nYou are playing on Infernus V1.6.6.1", GainXP_Resource);
             }
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
-                Main.NewText("Welcome to Infernus Mod! If you have any questions the Discord or Forum is the place to ask." + "\nYou are playing on Infernus V1.6.3", GainXP_Resource);
+                Main.NewText("Welcome to Infernus Mod! If you have any questions the Discord is the place to ask." + "\nYou are playing on Infernus V1.6.6.1", GainXP_Resource);
+            }
+        }
+
+        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (Phantom_Blade == true)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y * 1.35f, Main.rand.Next(-1, 1), Main.rand.Next(-20, 10), ModContent.ProjectileType<Projectiles.Phantom>(), (int)(damageDone * 0.75f), 0, 0);
+                }
             }
         }
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
@@ -82,7 +143,7 @@ namespace Infernus
             {
                 if (Main.rand.Next(3) < 1)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), npc.Center.X, npc.Center.Y, 0, 0, ModContent.ProjectileType<Ink_EmergencyTyphoon>(), 16, 0, 0);
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), npc.Center.X, npc.Center.Y, 0, 0, ModContent.ProjectileType<Ink_EmergencyTyphoon>(), 25, 0, 0);
                 }
             }
         }
@@ -92,9 +153,116 @@ namespace Infernus
             {
                 Stress_Current += 1;
             }
-            if(Aeritite_Equipped == true)
+            if (Aeritite_Shield_Equipped == true && Player.HasBuff(ModContent.BuffType<Aeritite_Timer>()))
+            {
+                Player.ClearBuff(ModContent.BuffType<Aeritite_Timer>());
+            }
+            if (Aeritite_Equipped == true)
             {
                 Player.AddBuff(ModContent.BuffType<Aeritite_Timer>(), 1800);
+            }
+            if(Player.HasBuff(ModContent.BuffType<Buffs.Rage_Cooldown>()) || Player.HasBuff(ModContent.BuffType<Buffs.Rage>()))
+            {
+                return;
+            }
+            if (Hellion_Spite == true && info.Damage >= 10)
+            {
+                Player.AddBuff(ModContent.BuffType<Buffs.Rage>(), 480);
+            }
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            int heal = (int)(damageDone * 0.07f);
+            if (heal < 1)
+            {
+                heal = 1;
+            }
+            if (Rage == true && life_steal_timer == 0)
+            {
+                Player.Heal(heal);
+                if(heal > 1)
+                {
+                    life_steal_timer = 30;
+                }
+            }
+            if(Soul_Drinker == true)
+            {
+                if (Main.rand.Next(2) < 1)
+                {
+                    Player.AddBuff(ModContent.BuffType<Souldrinker_Buff>(), 120);
+                }
+            }
+            if (Equite_Equipped == true && target.type != NPCID.TargetDummy)
+            {
+                Equite_target = target;
+            }
+            if (NPC_Iced == true && hit.DamageType == DamageClass.Ranged)
+            {
+                target.AddBuff(BuffID.Frostburn, 120);
+            }
+            if (Ice_Whiphead == true && hit.DamageType == DamageClass.SummonMeleeSpeed)
+            {
+                if (Main.rand.Next(3) < 1)
+                {
+                    target.AddBuff(BuffID.Frostburn, 120);
+                }
+            }
+            if (Lectric == true && hit.Crit == true)
+            {
+                for (int i = 0; i < 13; i++)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, -5), ModContent.ProjectileType<Projectiles.Lectric>(), (int)(damageDone * 0.55f), 0, 0);
+                }
+            }
+            if (Elemental_Whiphead == true && hit.DamageType == DamageClass.SummonMeleeSpeed)
+            {
+                if (Main.rand.Next(3) < 1)
+                {
+                    target.AddBuff(BuffID.Frostburn2, 120);
+                }
+                if (Main.rand.Next(3) < 1)
+                {
+                    target.AddBuff(BuffID.OnFire3, 120);
+                }
+                if (Main.rand.Next(3) < 1)
+                {
+                    target.AddBuff(BuffID.Venom, 120);
+                }
+            }
+            if (Basalt_Whiphead == true && hit.DamageType == DamageClass.SummonMeleeSpeed)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y / 1.35f, Main.rand.Next(-2, 3), Main.rand.Next(-2, 2), ModContent.ProjectileType<Basalt_Whip_Proj>(), (int)(damageDone * 0.5f), 0, 0);
+                }
+            }
+            if (Ancient_Whiphead == true && hit.DamageType == DamageClass.SummonMeleeSpeed)
+            {
+                if (Main.rand.Next(5) < 1)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, Main.rand.Next(-2, 3), Main.rand.Next(-2, -2), ModContent.ProjectileType<Bone_Whip>(), (int)(damageDone * 0.5f), 0, 0);
+                }
+            }
+            if (Defiled_Whiphead == true && hit.DamageType == DamageClass.SummonMeleeSpeed)
+            {
+                if (Main.rand.Next(3) < 1)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ModContent.ProjectileType<Sandstorm_Whip>(), (int)(damageDone * 0.6f), 0, 0);
+                }
+            }
+            if (Quiver_Equipped == true && hit.DamageType == DamageClass.Ranged)
+            {
+                if (Main.rand.Next(20) < 1)
+                {
+                    Item.NewItem(Entity.GetSource_OnHit(target), new Vector2(target.Center.X, target.Center.Y), ModContent.ItemType<Level.HP_Pickup>(), 1);
+                }
+            }
+            if (Meteor_Whetstone == true)
+            {
+                if (Main.rand.Next(5) < 1)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ModContent.ProjectileType<Meteor_Whetstone_Explosion>(), (int)(damageDone * 0.5f), 0, 0);
+                }
             }
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
@@ -107,6 +275,19 @@ namespace Infernus
             if(NPC_Bleeding == true)
             {
                 target.AddBuff(ModContent.BuffType<Buffs.Bleeding_Debuff>(), 180);
+            }
+            if (Squid_Heart == true && modifiers.DamageType == DamageClass.SummonMeleeSpeed)
+            {
+                if (Main.rand.Next(10) < 1)
+                {
+                    for (int k = 0; k < 13; k++)
+                    {
+                        Vector2 speed = Main.rand.NextVector2Circular(0.5f, 1f);
+                        Dust Sword = Dust.NewDustPerfect(target.Center + speed * 32, DustID.Vortex, speed * 3, Scale: 2f);
+                        Sword.noGravity = true;
+                    }
+                    modifiers.SourceDamage *= 1.65f;
+                }
             }
         }
         public override bool Shoot(Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -141,8 +322,46 @@ namespace Infernus
         }
         public override void PostUpdateMiscEffects()
         {
+            if (life_steal_timer > 0)
+            {
+                life_steal_timer--;
+            }
             Have_HeartAttack();
             Stress_Buffs();
+
+            if(Aeritite_Shield_Equipped == true)
+            {
+                Aeritite_DR = 0.25f;
+            }
+            else
+            {
+                Aeritite_DR = 0.33f;
+            }
+
+            if (Equite_Equipped == true && Equite_Accessory_Equipped == true)
+            {
+                Player.statManaMax2 += 80;
+                Player.maxMinions += 2;
+                Player.GetArmorPenetration(DamageClass.Generic) += 1;
+            }
+
+            if(Equite_Amount < 4 && Equite_Equipped == true)
+            {
+                Equite_Regen--;
+            }
+            if(Equite_Regen == 0 && Equite_Equipped == true)
+            {
+                SoundEngine.PlaySound(SoundID.MaxMana, Player.position);
+                for (int k = 0; k < 12; k++)
+                {
+                    Vector2 speed = Main.rand.NextVector2Circular(0.3f, 1f);
+                    Dust Sword = Dust.NewDustPerfect(Player.Center + speed * 32, DustID.SandstormInABottle, speed * 3, Scale: 1.4f);
+                    Sword.noGravity = true;
+                }
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<Equite_Leaf>(), 75, 5f, Player.whoAmI);
+                Equite_Amount++;
+                Equite_Regen = 200;
+            }
         }
 
         private void ResetVariables()
@@ -161,7 +380,24 @@ namespace Infernus
             Heart_Equipped = false;
             Boulder_Equipped = false;
             Aeritite_Equipped = false;
+            Equite_Equipped = false;
             NPC_Bleeding = false;
+            Equite_Accessory_Equipped = false;
+            Aeritite_Shield_Equipped = false;
+            NPC_Iced = false;
+            Quiver_Equipped = false;
+            Meteor_Whetstone = false;
+            Squid_Heart = false;
+            Ice_Whiphead = false;
+            Elemental_Whiphead = false;
+            Basalt_Whiphead = false;
+            Defiled_Whiphead = false;
+            Ancient_Whiphead = false;
+            Soul_Drinker = false;
+            Lectric = false;
+            Hellion_Spite = false;
+            Phantom_Blade = false;
+            Rage = false;
 
             if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[DashRight] < 15)
             {

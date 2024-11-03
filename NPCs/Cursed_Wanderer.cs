@@ -15,6 +15,7 @@ using Terraria.ModLoader;
 
 namespace Infernus.NPCs
 {
+    [AutoloadBossHead]
     public class Cursed_Wanderer : ModNPC
     {
         private Player player;
@@ -32,6 +33,8 @@ namespace Infernus.NPCs
             NPC.HitSound = SoundID.NPCHit2;
             NPC.DeathSound = SoundID.NPCDeath2;
             NPC.value = 7000;
+            NPC.boss = true;
+            Music = MusicLoader.GetMusicSlot("Infernus/Music/The_Wanderer");
         }
         int timer;
         public override void AI()
@@ -129,6 +132,10 @@ namespace Infernus.NPCs
         {
             NPC.lifeMax = 3500;
             NPC.life = 3500;
+        }
+        public override void OnKill()
+        {
+            InfernusSystem.downedWanderer = true;
         }
         private float Magnitude(Vector2 mag)
         {

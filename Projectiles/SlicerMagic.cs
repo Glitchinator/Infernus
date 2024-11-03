@@ -16,11 +16,9 @@ namespace Infernus.Projectiles
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.netImportant = true;
-        }
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            target.immune[Projectile.owner] = 3;
-            target.immune[Projectile.owner] = 3;
+            Projectile.penetrate = 6;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 3;
         }
         public override void AI()
         {

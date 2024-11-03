@@ -26,7 +26,7 @@ namespace Infernus.Tiles
             Main.tileBlockLight[Type] = true;
 
             MinPick = 55;
-            MineResist = 1.8f;
+            MineResist = 0.8f;
 
             AddMapEntry(new Color(121, 153, 163), Language.GetText("Aeritite Ore"));
 

@@ -79,6 +79,7 @@ namespace Infernus.NPCs
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.BossSummon.BossSummon>(), 10, 1, 1));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Materials.Ruderibus_Shard>(), 1, 5, 13));
             npcLoot.Add(ItemDropRule.Common(ItemID.IceCream, 50, 1, 1));
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Infernus.Config;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
@@ -56,7 +57,11 @@ namespace Infernus.NPCs
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            return .006f;
+            if (ModContent.GetInstance<InfernusConfig>().Disable_Elf == false)
+            {
+                return .006f;
+            }
+            return 0f;
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {

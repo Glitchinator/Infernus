@@ -13,15 +13,15 @@ namespace Infernus.Projectiles
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailingMode[Type] = 0;
-            ProjectileID.Sets.TrailCacheLength[Type] = 8;
+            ProjectileID.Sets.TrailCacheLength[Type] = 5;
         }
 
         public sealed override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.HallowBossRainbowStreak);
             AIType = ProjectileID.HallowBossRainbowStreak;
-            Projectile.width = 28;
-            Projectile.height = 58;
+            Projectile.width = 24;
+            Projectile.height = 24;
             Projectile.tileCollide = false;
             Projectile.friendly = false;
             Projectile.hostile = true;

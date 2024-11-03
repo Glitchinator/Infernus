@@ -1,3 +1,4 @@
+using Infernus.Projectiles.Temporal_Glow_Squid.Drops;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -28,7 +29,7 @@ namespace Infernus.Items.Weapon.Melee
             Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item1;
             Item.channel = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.Ink_SprinkYOYO>();
+            Item.shoot = ModContent.ProjectileType<Ink_SprinkYOYO>();
             Item.shootSpeed = 12f;
 
         }

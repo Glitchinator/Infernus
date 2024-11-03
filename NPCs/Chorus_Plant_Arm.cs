@@ -209,5 +209,9 @@ namespace Infernus.NPCs
             Vector2 moveTo = toDestinationNormalized * speed;
             NPC.velocity = (NPC.velocity * (inertia - 1) + moveTo) / inertia;
         }
+        public override void OnKill()
+        {
+            Chorus_Plant.Arms_Left -= 1;
+        }
     }
 }

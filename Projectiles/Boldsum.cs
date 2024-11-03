@@ -30,7 +30,7 @@ namespace Infernus.Projectiles
             Projectile.minionSlots = 1f;
             Projectile.penetrate = -1;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 20;
+            Projectile.localNPCHitCooldown = 22;
         }
         public override void AI()
         {
@@ -145,9 +145,18 @@ namespace Infernus.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.OnFire, 300);
-            target.AddBuff(BuffID.Frostburn, 300);
-            target.AddBuff(BuffID.Poisoned, 300);
+            if (Main.rand.NextBool(3))
+            {
+                target.AddBuff(BuffID.OnFire, 120);
+            }
+            if (Main.rand.NextBool(3))
+            {
+                target.AddBuff(BuffID.Frostburn, 120);
+            }
+            if (Main.rand.NextBool(3))
+            {
+                target.AddBuff(BuffID.Poisoned, 120);
+            }
         }
     }
 }

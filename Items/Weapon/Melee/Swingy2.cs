@@ -36,7 +36,7 @@ namespace Infernus.Items.Weapon.Melee
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<Swingy>(), 1)
-            .AddIngredient(ItemID.Muramasa, 1)
+            .AddIngredient(ItemID.Bone, 24)
             .AddTile(TileID.Anvils)
             .Register();
         }
