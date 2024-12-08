@@ -41,14 +41,20 @@ namespace Infernus.Projectiles
                 Projectile.velocity.X += .8f;
             }
 
-            float maxDetectRadius = 350f;
-            float projSpeed = 20f;
+            float maxDetectRadius = 400f;
+            var inertia = 12f;
 
             NPC closestNPC = FindClosestNPC(maxDetectRadius);
             if (closestNPC == null)
                 return;
 
-            Projectile.velocity = (closestNPC.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * projSpeed;
+            Vector2 direction = closestNPC.Center - Projectile.Center;
+            direction.Normalize();
+            direction *= 16;
+            Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
+
+            Projectile.rotation = Projectile.velocity.ToRotation();
+
             Projectile.velocity.Y += Projectile.ai[0];
         }
         public NPC FindClosestNPC(float maxDetectDistance)

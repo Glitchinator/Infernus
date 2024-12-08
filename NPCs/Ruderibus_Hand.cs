@@ -68,6 +68,9 @@ namespace Infernus.NPCs
             NPC.netUpdate = true;
             NPC.TargetClosest(true);
             NPC.dontTakeDamage = true;
+            NPC.despawnEncouraged = false;
+            NPC.DoesntDespawnToInactivity();
+            NPC.DiscourageDespawn(60);
 
             if (Despawn())
             {

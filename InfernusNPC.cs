@@ -175,8 +175,18 @@ namespace Infernus
             }
             if (InfernusSystem.Level_systemON == true && npc.boss == true)
             {
+                // When you kill a boss, it checks weather another is alive, or if one isn't. Then removes your stress
+                // Alot better and less jank then old setup with timers and shit
+                for (int i = 0; i < Main.npc.Length; i++)
+                {
+                    if (Main.npc[i].boss == true && Main.npc[i].active == true)
+                    {
+                        return;
+                    }
+                }
                 var modPlayer = Main.LocalPlayer.GetModPlayer<InfernusPlayer>();
                 modPlayer.Stress_Current = 0;
+                Is_Spawned = false;
             }
             if (InfernusSystem.Level_systemON == true)
             {

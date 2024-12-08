@@ -107,6 +107,9 @@ namespace Infernus
         // phantom blade
         public bool Phantom_Blade = false;
 
+        // Magic Pouch
+        public bool Magic_Pouch = false;
+
         public override void ModifyNursePrice(NPC nurse, int health, bool removeDebuffs, ref int price)
         {
             if (Player.statLife < Player.statLifeMax)
@@ -116,14 +119,15 @@ namespace Infernus
         }
         public override void OnEnterWorld()
         {
+            Stress_Current = 0;
             Equite_Amount = 0;
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
-                Main.NewText("Welcome to Infernus Mod! If you have any questions the Discord is the place to ask." + "\nYou are playing on Infernus V1.6.6.1", GainXP_Resource);
+                Main.NewText("Welcome to Infernus Mod! If you have any questions the Discord is the place to ask." + "\nYou are playing on Infernus V1.6.7", GainXP_Resource);
             }
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
-                Main.NewText("Welcome to Infernus Mod! If you have any questions the Discord is the place to ask." + "\nYou are playing on Infernus V1.6.6.1", GainXP_Resource);
+                Main.NewText("Welcome to Infernus Mod! If you have any questions the Discord is the place to ask." + "\nYou are playing on Infernus V1.6.7", GainXP_Resource);
             }
         }
 
@@ -257,6 +261,13 @@ namespace Infernus
                     Item.NewItem(Entity.GetSource_OnHit(target), new Vector2(target.Center.X, target.Center.Y), ModContent.ItemType<Level.HP_Pickup>(), 1);
                 }
             }
+            if (Magic_Pouch == true && hit.DamageType == DamageClass.Magic)
+            {
+                if (Main.rand.Next(20) < 1)
+                {
+                    Item.NewItem(Entity.GetSource_OnHit(target), new Vector2(target.Center.X, target.Center.Y), ItemID.Star, 1);
+                }
+            }
             if (Meteor_Whetstone == true)
             {
                 if (Main.rand.Next(5) < 1)
@@ -317,6 +328,7 @@ namespace Infernus
 
         public override void UpdateDead()
         {
+            Stress_Current = 0;
             ResetVariables();
             Stress_Current = 0;
         }
@@ -398,6 +410,7 @@ namespace Infernus
             Hellion_Spite = false;
             Phantom_Blade = false;
             Rage = false;
+            Magic_Pouch = false;
 
             if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[DashRight] < 15)
             {

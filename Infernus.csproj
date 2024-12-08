@@ -30,6 +30,7 @@
     <None Remove="Items\Accesories\Gleaming_Drillhead.png" />
     <None Remove="Items\Accesories\Ice_Banner.png" />
     <None Remove="Items\Accesories\Icy_Quiver.png" />
+    <None Remove="Items\Accesories\Magic_Pouch.png" />
     <None Remove="Items\Accesories\Meteor_Whetstone.png" />
     <None Remove="Items\Accesories\Quiver.png" />
     <None Remove="Items\Accesories\Relic.png" />
@@ -113,6 +114,7 @@
     <None Remove="Projectiles\Basalt_Arrow.png" />
     <None Remove="Projectiles\Basalt_Proj.png" />
     <None Remove="Projectiles\Basalt_Whip_Proj.png" />
+    <None Remove="Projectiles\Bloom_Bomb_Explosion.png" />
     <None Remove="Projectiles\Bone_Whip.png" />
     <None Remove="Projectiles\Boulder_Orbit.png" />
     <None Remove="Projectiles\Boulder_Orbit_Proj.png" />
@@ -121,13 +123,19 @@
     <None Remove="Projectiles\Cloud_Knife.png" />
     <None Remove="Projectiles\Cloud_Knife_Prime.png" />
     <None Remove="Projectiles\Cloud_Knife_Proj.png" />
+    <None Remove="Projectiles\Corrupt_Magic.png" />
+    <None Remove="Projectiles\EqualSword.png" />
     <None Remove="Projectiles\Equite_Arrow.png" />
     <None Remove="Projectiles\Equite_Leaf.png" />
     <None Remove="Projectiles\Ice_Rain.png" />
     <None Remove="Projectiles\Ink_Jet.png" />
     <None Remove="Projectiles\Lectric.png" />
+    <None Remove="Projectiles\Lightning.png" />
     <None Remove="Projectiles\Lightning_Boom.png" />
     <None Remove="Projectiles\Light_Proj.png" />
+    <None Remove="Projectiles\Magic_Meteor.png" />
+    <None Remove="Projectiles\Magic_Meteor_Explosion.png" />
+    <None Remove="Projectiles\Magic_Star.png" />
     <None Remove="Projectiles\Meteor_Huge.png" />
     <None Remove="Projectiles\Meteor_tracking.png" />
     <None Remove="Projectiles\Meteor_Whetstone_Explosion.png" />

@@ -1,3 +1,4 @@
+using Infernus.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -21,8 +22,8 @@ namespace Infernus.Items.Weapon.Magic
             Item.DamageType = DamageClass.Magic;
             Item.width = 50;
             Item.height = 50;
-            Item.useAnimation = 16;
-            Item.useTime = 8;
+            Item.useAnimation = 12;
+            Item.useTime = 4;
             Item.reuseDelay = 18;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 2f;
@@ -31,8 +32,8 @@ namespace Infernus.Items.Weapon.Magic
             Item.UseSound = SoundID.Item8;
             Item.autoReuse = true;
             Item.noMelee = true;
-            Item.shoot = ProjectileID.HallowStar;
-            Item.shootSpeed = 9f;
+            Item.shoot = ModContent.ProjectileType<Magic_Star>();
+            Item.shootSpeed = 1f;
             Item.mana = 10;
         }
         public override void AddRecipes()
@@ -42,15 +43,6 @@ namespace Infernus.Items.Weapon.Magic
             .AddIngredient(ItemID.Wood, 8)
             .AddTile(TileID.WorkBenches)
             .Register();
-        }
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            type = Main.rand.Next(new int[] { type, ProjectileID.HallowStar, ProjectileID.HallowStar, ProjectileID.HallowStar, });
-            return true;
-        }
-        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-        {
-            velocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
         }
     }
 }

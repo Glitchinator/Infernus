@@ -233,7 +233,7 @@ namespace Infernus.NPCs
                 }
                 for (int i = 0; i < (int)((Main.maxTilesX * Main.maxTilesY) * 1E-04); i++)
                 {
-                    WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.UnderworldLayer), WorldGen.genRand.Next(5, 9), WorldGen.genRand.Next(5, 9), ModContent.TileType<Tiles.Equite_Ore_Tile>());
+                    WorldGen.OreRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.UnderworldLayer), WorldGen.genRand.Next(5, 9), WorldGen.genRand.Next(5, 9), (ushort)ModContent.TileType<Tiles.Equite_Ore_Tile>());
                 }
                 InfernusSystem.Equite_Generated = true;
             }

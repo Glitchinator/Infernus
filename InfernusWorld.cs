@@ -21,8 +21,6 @@ namespace Infernus
 
         public int Boulder_Cooldown = 360000; // 1.6 hour cooldown for boulder invasion, for natural spawning
 
-        public int Stress_Enemy_There = 30; // stress enemy alert update tick
-
         public static int Ruderibus_Timer;
 
         public static bool Ruderibus_Switch = false;
@@ -113,15 +111,6 @@ namespace Infernus
             }
             Boulder_Invasion_Try_Spawn();
 
-            if (InfernusNPC.Is_Spawned == true && Stress_Enemy_There > 0)
-            {
-                Stress_Enemy_There--;
-            }
-            if (Stress_Enemy_There == 0)
-            {
-                InfernusNPC.Is_Spawned = false;
-                Stress_Enemy_There = 30;
-            }
             if (InfernusNPC.Plant_Spawned == true && Last_Plant_Spawn > 0)
             {
                 Last_Plant_Spawn--;

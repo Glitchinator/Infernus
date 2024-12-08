@@ -13,8 +13,8 @@ namespace Infernus.Items.Accesories
         }
         public override void SetDefaults()
         {
-            Item.width = 34;
-            Item.height = 42;
+            Item.width = 30;
+            Item.height = 46;
             Item.accessory = true;
             Item.value = 60000;
             Item.rare = ItemRarityID.Green;

@@ -1,5 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,70 +12,64 @@ namespace Infernus.Projectiles
 
     public class EqualSword : ModProjectile
     {
+        int timer;
+        Vector2 safed_velocity;
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.TrailingMode[Type] = 0;
+            ProjectileID.Sets.TrailCacheLength[Type] = 8;
+        }
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.Bullet);
             AIType = ProjectileID.Bullet;
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.friendly = true;
+            Projectile.friendly = false;
+            Projectile.tileCollide = false;
             Projectile.height = 10;
-            Projectile.width = 42;
+            Projectile.width = 10;
             Projectile.hostile = false;
             Projectile.netImportant = true;
+            Projectile.timeLeft = 30;
+            Projectile.penetrate = -1;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 40;
+        }
+        public override void OnSpawn(IEntitySource source)
+        {
+            safed_velocity = Projectile.velocity;
+            Projectile.velocity = new Vector2(0,0);
         }
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation();
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 
+            timer++;
 
-            if (Main.rand.NextBool(3))
+            if (timer == 10)
             {
-                Projectile.velocity.Y += .8f;
-                Projectile.velocity.X -= .8f;
-            }
-            if (Main.rand.NextBool(3))
-            {
-                Projectile.velocity.Y -= .8f;
-                Projectile.velocity.X += .8f;
-            }
-
-            float maxDetectRadius = 200f;
-            float projSpeed = 8f;
-
-            NPC closestNPC = FindClosestNPC(maxDetectRadius);
-            if (closestNPC == null)
-                return;
-
-            Projectile.velocity = (closestNPC.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * projSpeed;
-            Projectile.velocity.Y += Projectile.ai[0];
-
-            if (Main.rand.NextBool(1))
-            {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Gold, Projectile.velocity.X * 0.25f, Projectile.velocity.Y * 0.25f, 150, default, 0.7f);
+                Projectile.friendly = true;
+                Projectile.velocity = safed_velocity;
             }
         }
-        public NPC FindClosestNPC(float maxDetectDistance)
+        public override bool PreDraw(ref Color lightColor)
         {
-            NPC closestNPC = null;
+            Main.instance.LoadProjectile(Projectile.type);
+            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+            SpriteEffects spriteEffects = SpriteEffects.None;
 
-            float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
-
-            for (int k = 0; k < Main.maxNPCs; k++)
+            if (Projectile.spriteDirection == -1)
             {
-                NPC target = Main.npc[k];
-                if (target.CanBeChasedBy())
-                {
-                    float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, Projectile.Center);
-
-                    if (sqrDistanceToTarget < sqrMaxDetectDistance)
-                    {
-                        sqrMaxDetectDistance = sqrDistanceToTarget;
-                        closestNPC = target;
-                    }
-                }
+                spriteEffects = SpriteEffects.FlipHorizontally;
+            }
+            Vector2 drawOrigin = new(texture.Width * 0.5f, Projectile.height * 0.5f);
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            {
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Main.EntitySpriteDraw(texture, drawPos, null, new Color(242, 240, 235, 0) * (.70f - Projectile.alpha / 210f), Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
             }
 
-            return closestNPC;
+            return true;
         }
     }
 }

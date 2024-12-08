@@ -3,13 +3,13 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Infernus.Projectiles
 {
     public class Light : ModProjectile
     {
-        int timer;
         public override void SetDefaults()
         {
             Projectile.netImportant = true;
@@ -28,14 +28,10 @@ namespace Infernus.Projectiles
         }
         public override void AI()
         {
-            timer++;
-            if(timer == 10)
+            if (Main.myPlayer == Projectile.owner && Projectile.ai[0] == 2f && Projectile.ai[1] == 0f)
             {
                 Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, Projectile.velocity.X, Projectile.velocity.Y, ModContent.ProjectileType<Light_Proj>(), Projectile.damage, 0, Projectile.owner);
-            }
-            if(timer >= 100)
-            {
-                timer = 0;
+                Projectile.ai[1]++;
             }
         }
         public override bool PreDraw(ref Color lightColor)

@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+
 namespace Infernus.Projectiles
 {
     public class Homing : ModProjectile
@@ -34,13 +35,17 @@ namespace Infernus.Projectiles
             }
 
             float maxDetectRadius = 400f;
-            float projSpeed = 22f;
+            var inertia = 12f;
 
             NPC closestNPC = FindClosestNPC(maxDetectRadius);
             if (closestNPC == null)
                 return;
 
-            Projectile.velocity = (closestNPC.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * projSpeed;
+            Vector2 direction = closestNPC.Center - Projectile.Center;
+            direction.Normalize();
+            direction *= 16;
+            Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
+
             Projectile.rotation = Projectile.velocity.ToRotation();
 
             Projectile.velocity.Y += Projectile.ai[0];

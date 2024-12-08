@@ -48,14 +48,19 @@ namespace Infernus.Projectiles
             {
                 Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.JungleGrass, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
             }
-            float maxDetectRadius = 100f;
-            float projSpeed = 12f;
+            float maxDetectRadius = 400f;
+            var inertia = 12f;
 
             NPC closestNPC = FindClosestNPC(maxDetectRadius);
             if (closestNPC == null)
                 return;
 
-            Projectile.velocity = (closestNPC.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * projSpeed;
+            Vector2 direction = closestNPC.Center - Projectile.Center;
+            direction.Normalize();
+            direction *= 16;
+            Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
+
+            Projectile.rotation = Projectile.velocity.ToRotation();
 
             Projectile.velocity.Y += Projectile.ai[0];
         }

@@ -1,3 +1,4 @@
+using Infernus.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -21,8 +22,8 @@ namespace Infernus.Items.Weapon.Magic
             Item.DamageType = DamageClass.Magic;
             Item.width = 50;
             Item.height = 50;
-            Item.useAnimation = 18;
-            Item.useTime = 18;
+            Item.useAnimation = 30;
+            Item.useTime = 30;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 3f;
             Item.value = Item.buyPrice(0, 1, 50, 0);
@@ -30,7 +31,7 @@ namespace Infernus.Items.Weapon.Magic
             Item.UseSound = SoundID.Item8;
             Item.autoReuse = true;
             Item.noMelee = true;
-            Item.shoot = ProjectileID.HallowStar;
+            Item.shoot = ModContent.ProjectileType<Magic_Meteor>();
             Item.shootSpeed = 12f;
             Item.mana = 10;
         }
@@ -43,19 +44,16 @@ namespace Infernus.Items.Weapon.Magic
             .AddTile(TileID.Anvils)
             .Register();
         }
-        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        public override bool CanUseItem(Player player)
         {
-            velocity = velocity.RotatedByRandom(MathHelper.ToRadians(6));
-        }
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            int numb = 1 + Main.rand.Next(1);
-            for (int i = 0; i < numb; i++)
+            for (int i = 1; i < 1000; ++i)
             {
-                type = Main.rand.Next(new int[] { type, ProjectileID.BallofFire, ProjectileID.Flames, });
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, type, damage, knockback, player.whoAmI);
+                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == Item.shoot)
+                {
+                    return false;
+                }
             }
-            return false;
+            return true;
         }
     }
 }

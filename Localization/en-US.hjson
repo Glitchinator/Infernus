@@ -526,11 +526,9 @@ Mods: {
 					Your journey awaits, with fortune and fame...
 					 Enables Stress for the Player
 					 40% Increase Health and 40% Increased Damage of Bosses
-					 Adds custom AI to these bosses (Temporal Glow Squid, Raiko, Ruderibus, Corrupted Husk, Serphious, Calypsical)
 					 Stress is an amount of hits the player can take before they die
 					 With each hit(s) you take, you gain a buff until you die
 					 Stress only activates when a boss is alive
-					 Future updates like custom vanilla AI and drops will come later
 					'''
 			}
 
@@ -935,18 +933,18 @@ Mods: {
 				Tooltip:
 					'''
 					Happy Birthday Infernus!
-					 Damage is equal to 2% of the enemy's health
+					Damage is equal to 2% of the enemy's health
 					'''
 			}
 
 			AerititeCannon: {
 				DisplayName: Aeritite Blaster
-				Tooltip: Shoots a burst of energy
+				Tooltip: Shoots a burst of aeritite energy
 			}
 
 			Buther: {
 				DisplayName: Boulder Staff
-				Tooltip: Shoots a giant boulder
+				Tooltip: Shoots a giant bouncy boulder
 			}
 
 			Coralstaff.DisplayName: Starfish Staff
@@ -955,8 +953,8 @@ Mods: {
 				DisplayName: Demonite Staff
 				Tooltip:
 					'''
-					Shoot demonite energy shots to your left or right
-					  goes faster how far your cursor is from the middle of the screen
+					Shoot a corrupted flesh ball straining to hold energy
+					On impact, explodes into demonite energy which targets the cursor
 					'''
 			}
 
@@ -964,23 +962,23 @@ Mods: {
 				DisplayName: Crimtane Staff
 				Tooltip:
 					'''
-					Shoot crimtane energy shots to your left or right
-					  goes faster how far your cursor is from the middle of the screen
+					Conjures crimtane energy at the cursor
+					Energy bolts target the cursor after a second
 					'''
 			}
 
 			EqualStaff: {
 				DisplayName: Equite Staff
-				Tooltip: Conjures magic spears and daggers
+				Tooltip: Conjures equite slashes at the cursor
 			}
 
 			Fallen: {
 				DisplayName: Scorched Stick
-				Tooltip: Shoots stars and fire
+				Tooltip: Shoots a giant meteor that rips into enemies and explodes
 			}
 
 			Flower.DisplayName: Budsnap
-			FlowerTooltip: Shoots a flower bud that shoots seeds on impact
+			FlowerTooltip: Shoots a flower bud that explodes into penetrating thorns on hit
 
 			Ices: {
 				DisplayName: Glacies Lancea
@@ -992,7 +990,7 @@ Mods: {
 				Tooltip:
 					'''
 					Throws a flask, which explodes into fireballs and rains meteors.
-					 [WEATHER ALERT]
+					[WEATHER ALERT]
 					'''
 			}
 
@@ -1000,8 +998,8 @@ Mods: {
 				DisplayName: Radiant Glow
 				Tooltip:
 					'''
-					Conjures magical vortexes.
-					 Ignores defense
+					Conjures magical vortexes
+					Vortexes ignore enemy defense
 					'''
 			}
 
@@ -1009,8 +1007,8 @@ Mods: {
 				DisplayName: Stick of Stars
 				Tooltip:
 					'''
-					Shoots 3 stars in a row
-					 Gumga's stick
+					Shoots giant piercing stars
+					Gumga's stick
 					'''
 			}
 
@@ -1139,7 +1137,7 @@ Mods: {
 
 			Equalbow: {
 				DisplayName: Equite Recurver
-				Tooltip: Shoots piercing bolts
+				Tooltip: Converts wooden arrows into equite arrows
 			}
 
 			Eye_Launcher.DisplayName: Eye launcher
@@ -1735,6 +1733,16 @@ Mods: {
 					'''
 				DisplayName: Ghostly Edge
 			}
+
+			Magic_Pouch: {
+				DisplayName: Magic Pouch
+				Tooltip: Magic Attacks have a 5% chance to spawn a mana star on hit
+			}
+
+			Mana_Rail_Rider: {
+				DisplayName: Mana_ Rail_ Rider
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -1748,25 +1756,25 @@ Mods: {
 			Aeritite_Plasma.DisplayName: Aeritite Plasma
 			AerititeShot.DisplayName: Aeritite Energy
 			BatMinion.DisplayName: Bat Minion
-			Blizzard.DisplayName: Blizzard
-			Boldsum.DisplayName: Boldsum
+			Blizzard.DisplayName: Ruderibus Minion
+			Boldsum.DisplayName: Elemental Vortex
 			Bone.DisplayName: Bouncy Bone
 			Boulder.DisplayName: Boulder
 			Boulder_Bolt.DisplayName: Boulder Bolt
-			Boulder_Cannon.DisplayName: Grape Shot
+			Boulder_Cannon.DisplayName: Cannonball
 			Boulder_Rain.DisplayName: Boulder
 			Boulder_Rain2.DisplayName: Boulder
 			Boulder_Rocket.DisplayName: Boulder Soul
 			Boulder2.DisplayName: Boulder
 			Bouldermagicweaponshot.DisplayName: Rock Shrapnel
-			BoulderMini.DisplayName: mini Boulder
+			BoulderMini.DisplayName: Tiny Boulder
 			Bullet_Explosion.DisplayName: Explosion
 			Bullet_Rocket.DisplayName: Huge Bullet
 			Bullet_Rocket_Prime.DisplayName: Exploding Bullet
 			Bullet_Rocket_Trail.DisplayName: Huge Bullet Trail
-			Caustic.DisplayName: Caustic
-			Cement.DisplayName: Rough Ball
-			Cement2.DisplayName: Cement2
+			Caustic.DisplayName: Caustic Minion
+			Cement.DisplayName: Aeritite Grenade
+			Cement2.DisplayName: Aeritite Grenade Explosion
 			Cloud_Crasher.DisplayName: Crasher Knife
 			Coral.DisplayName: Coral Knife
 			CoralMinion.DisplayName: Coral Minion
@@ -1777,14 +1785,14 @@ Mods: {
 			Death_Ring_Big.DisplayName: Death Ring
 			Death_Ring_White.DisplayName: Death Ring
 			Death_Sparks.DisplayName: Death Sparks
-			DemonHand.DisplayName: Demon Hand
+			DemonHand.DisplayName: Cursed Skull
 			Dunger.DisplayName: Dunger
 			elumfire.DisplayName: elumfire
 			EqualMinion.DisplayName: Equal Minion
 			EqualSword.DisplayName: Magic Sword
-			eternalfire.DisplayName: eternalfire
-			Eternalflame.DisplayName: Eternalflame
-			Eye_Bounce.DisplayName: Eye
+			eternalfire.DisplayName: Eternal Fire
+			Eternalflame.DisplayName: Eternal Flame
+			Eye_Bounce.DisplayName: Luminite Slash
 			FireSword.DisplayName: Molten Slash
 			Flame_Shot.DisplayName: Fire Bullet
 			Flicker_Flame.DisplayName: Flicker Flame
@@ -1793,7 +1801,7 @@ Mods: {
 			Frisbe.DisplayName: Skull Basher
 			Gas.DisplayName: Spore Cloud
 			Giant_Boulder.DisplayName: Giant Boulder
-			Hatchet.DisplayName: Hatchet
+			Hatchet.DisplayName: Darvyle's Hatchet of Might
 			Holy_Bullet.DisplayName: Holy Bullet
 			Holy_Energy.DisplayName: Calypsical Energy
 			Holy_Explosion.DisplayName: Holy Explosion
@@ -1812,16 +1820,16 @@ Mods: {
 			Ice_Slash.DisplayName: Ice Slash
 			Ice_Slash_Magic.DisplayName: Ice Slash
 			Ice_Slash_Ranged.DisplayName: Ice Slash
-			Ice_Spear.DisplayName: Ice_ Spear
+			Ice_Spear.DisplayName: Ice Spear
 			Ice_Wall.DisplayName: Ice Wall
 			Ink_EmergencyTyphoon.DisplayName: Ink Typhoon
-			Ink_Sprink.DisplayName: Ink
+			Ink_Sprink.DisplayName: Ink Sprinkle
 			Ink_SprinkYOYO.DisplayName: Ink Sprinkler
 			InkBolt.DisplayName: Ink Bolt
 			InkBomb.DisplayName: Ink Ball
 			InkTyphoon.DisplayName: Ink Typhoon
-			Laser.DisplayName: Laser
-			Laserivy.DisplayName: Laserivy
+			Laser.DisplayName: Aeritite Mace
+			Laserivy.DisplayName: Leafy Mace
 			Lazar.DisplayName: ZAP
 			Lazar_Magic.DisplayName: Plasma Rail Round
 			Leaf.DisplayName: Jungle Shot
@@ -1839,8 +1847,8 @@ Mods: {
 			Lightning_Summon_Shot.DisplayName: Lightning Rain
 			Lightning_Tracking.DisplayName: Lightning_ Tracking
 			Lightning_Yoyo.DisplayName: Arc Swinger
-			Lightning_Yoyo_Shot.DisplayName: Lightning_ Yoyo_ Shot
-			Lightning_Yoyo_Shot_Strong.DisplayName: Lightning_ Yoyo_ Shot_ Strong
+			Lightning_Yoyo_Shot.DisplayName: Lightning Yoyo Shot
+			Lightning_Yoyo_Shot_Strong.DisplayName: Lightning Yoyo Shot Strong
 			LightTrue.DisplayName: Light True
 			LightTruePrimed.DisplayName: Light True Primed
 			Mecharms.DisplayName: Mecharms
@@ -1885,20 +1893,20 @@ Mods: {
 			SwordProjecilte.DisplayName: Sword Slash
 			SwordTerra.DisplayName: Sword Slash
 			SwordTerra2.DisplayName: Boulder Slash
-			Terra_2_Shot.DisplayName: Terra_2_ Shot
-			Terra2.DisplayName: Terra2
+			Terra_2_Shot.DisplayName: Terra Seedlet Explosion
+			Terra2.DisplayName: Terra Seedler
 			Tesla.DisplayName: Tesla Beam
-			TGoblinM.DisplayName: T Goblin M
+			TGoblinM.DisplayName: Shadowflame?
 			TGoblinM_Shot.DisplayName: Shadowflame?
-			Viral.DisplayName: Viral
-			ViralCRIM.DisplayName: Viral C R I M
+			Viral.DisplayName: Corrupt Flail
+			ViralCRIM.DisplayName: Crimson Flail
 			Vivid_Glory_Round.DisplayName: Vivid Glory Round
-			Wall_Horde.DisplayName: Wall_Horde
-			Whip.DisplayName: Whip
+			Wall_Horde.DisplayName: Wall Horde
+			Whip.DisplayName: Aeritite Whip
 			WhipDrillx.DisplayName: Whip Drillx
 			Whipele.DisplayName: Whipele
-			Whipgem.DisplayName: Whipgem
-			Whipice.DisplayName: Whipice
+			Whipgem.DisplayName: Gem Tremor
+			Whipice.DisplayName: Iceicle Snap
 			Whipmech.DisplayName: Whipmech
 			Whiprock.DisplayName: Whiprock
 			Boulder_Orbit.DisplayName: Boulder Orbit
@@ -1907,43 +1915,47 @@ Mods: {
 			Aeritite_Mine.DisplayName: Aeritite Mine
 			Aeritite_Mine_Explosion.DisplayName: Aeritite Mine Explosion
 			Aeritite_Arrow.DisplayName: Aeritite Arrow
-			Aeritite_Magic_Bomb.DisplayName: Aeritite_ Magic_ Bomb
-			Aeritite_Minion.DisplayName: Aeritite_ Minion
-			Prismatic_Javelin.DisplayName: Prismatic_ Javelin
-			Prismatic_Javelin_Proj.DisplayName: Prismatic_ Javelin_ Proj
-			Sea_Star_Lite.DisplayName: Sea_ Star_ Lite
-			Budsnap_Proj.DisplayName: Budsnap_ Proj
-			Budsnap_Thorn.DisplayName: Budsnap_ Thorn
-			Cloud_Knife.DisplayName: Cloud_ Knife
-			Cloud_Knife_Prime.DisplayName: Cloud_ Knife_ Prime
-			Cloud_Knife_Proj.DisplayName: Cloud_ Knife_ Proj
-			Any_Boss_Telegraph.DisplayName: Any_ Boss_ Telegraph
-			Ink_Jet.DisplayName: Ink_ Jet
-			Temporal_Walls.DisplayName: Temporal_ Walls
-			Ink_Arena.DisplayName: Ink_ Arena
-			Ink_Flamethrower.DisplayName: Ink_ Flamethrower
+			Aeritite_Magic_Bomb.DisplayName: Aeritite Magic Bomb
+			Aeritite_Minion.DisplayName: Aeritite Minion
+			Prismatic_Javelin.DisplayName: Prismatic Javelin
+			Prismatic_Javelin_Proj.DisplayName: Prismatic Javelin
+			Sea_Star_Lite.DisplayName: Sea Star Lite
+			Budsnap_Proj.DisplayName: Budsnap
+			Budsnap_Thorn.DisplayName: Budsnap Thorn
+			Cloud_Knife.DisplayName: Cloud Knife
+			Cloud_Knife_Prime.DisplayName: Cloud Knife Primed
+			Cloud_Knife_Proj.DisplayName: Cloud Knife Strike
+			Any_Boss_Telegraph.DisplayName: Any Boss Telegraph
+			Ink_Jet.DisplayName: Ink Jet
+			Temporal_Walls.DisplayName: Temporal Walls
+			Ink_Arena.DisplayName: Ink Arena
+			Ink_Flamethrower.DisplayName: Ink Flamethrower
 			Meteor_Heat.DisplayName: Meteor Heat
 			Minion1_Shot.DisplayName: Minion Shot
 			Lightning_Boom.DisplayName: Lightning Boom
 			Swingy_Proj.DisplayName: Swingy_ Proj
-			Equite_Leaf.DisplayName: Equite_ Leaf
+			Equite_Leaf.DisplayName: Equite Leaf
 			B_Ray.DisplayName: B_ Ray
-			B_Ray_Proj.DisplayName: B_ Ray_ Proj
-			Basalt_Arrow.DisplayName: Basalt_ Arrow
-			Basalt_Proj.DisplayName: Basalt_ Proj
-			Rocky_Rounds.DisplayName: Rocky_ Rounds
-			Rocky_Rounds_Proj.DisplayName: Rocky_ Rounds_ Proj
-			Ruderibus_Rounds.DisplayName: Ruderibus_ Rounds
-			Equite_Arrow.DisplayName: Equite_ Arrow
-			Shark_Typhoon.DisplayName: Shark_ Typhoon
-			Meteor_Whetstone_Explosion.DisplayName: Meteor_ Whetstone_ Explosion
-			Basalt_Whip_Proj.DisplayName: Basalt_ Whip_ Proj
-			Sandstorm_Whip.DisplayName: Sandstorm_ Whip
-			Bone_Whip.DisplayName: Bone_ Whip
-			Lectric.DisplayName: Lectric
+			B_Ray_Proj.DisplayName: Ancient Crest Sword
+			Basalt_Arrow.DisplayName: Basalt Arrow
+			Basalt_Proj.DisplayName: Basalt Fragments
+			Rocky_Rounds.DisplayName: Rocky Rounds
+			Rocky_Rounds_Proj.DisplayName: Rocky Round Shrapnel
+			Ruderibus_Rounds.DisplayName: Ruderibus Rounds
+			Equite_Arrow.DisplayName: Equite Arrow
+			Shark_Typhoon.DisplayName: Shark Typhoon
+			Meteor_Whetstone_Explosion.DisplayName: Meteor Whetstone Explosion
+			Basalt_Whip_Proj.DisplayName: Basalt Whiphead
+			Sandstorm_Whip.DisplayName: Sandstorm Whiphead
+			Bone_Whip.DisplayName: Bone Whiphead
+			Lectric.DisplayName: Lectric'
 			Phantom.DisplayName: Phantom
-			Meteor_Huge.DisplayName: Meteor_ Huge
+			Meteor_Huge.DisplayName: Raiko's Big Fucking Meteor
 			Meteor_Tracking.DisplayName: Meteor_ Tracking
+			Corrupt_Magic.DisplayName: Corrupt_ Magic
+			Magic_Meteor.DisplayName: Magic_ Meteor
+			Magic_Meteor_Explosion.DisplayName: Magic_ Meteor_ Explosion
+			Magic_Star.DisplayName: Magic_ Star
 		}
 
 		NPCs: {

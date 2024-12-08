@@ -14,7 +14,7 @@ namespace Infernus.Items.Ammo
 
         public override void SetDefaults()
         {
-            Item.damage = 11;
+            Item.damage = 10;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 14;
             Item.height = 32;

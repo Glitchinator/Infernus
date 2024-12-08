@@ -1,3 +1,4 @@
+using Infernus.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -29,7 +30,7 @@ namespace Infernus.Items.Weapon.Ranged
             Item.rare = ItemRarityID.Orange;
             Item.UseSound = SoundID.Item5;
             Item.autoReuse = true;
-            Item.shoot = ProjectileID.BoneArrowFromMerchant;
+            Item.shoot = ProjectileID.WoodenArrowFriendly;
             Item.shootSpeed = 12f;
             Item.useAmmo = AmmoID.Arrow;
         }
@@ -37,12 +38,12 @@ namespace Infernus.Items.Weapon.Ranged
         {
             return new Vector2(-2, 0);
         }
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            Vector2 offset = new(velocity.X * 3, velocity.Y * 3);
-            position += offset;
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, ProjectileID.BoneArrowFromMerchant, damage, knockback, player.whoAmI);
-            return false;
+            if (type == ProjectileID.WoodenArrowFriendly)
+            {
+                type = ModContent.ProjectileType<Equite_Arrow>();
+            }
         }
         public override void AddRecipes()
         {

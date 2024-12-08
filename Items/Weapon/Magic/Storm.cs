@@ -17,7 +17,7 @@ namespace Infernus.Items.Weapon.Magic
 
         public override void SetDefaults()
         {
-            Item.damage = 22;
+            Item.damage = 20;
             Item.DamageType = DamageClass.Magic;
             Item.width = 40;
             Item.height = 48;
@@ -32,7 +32,7 @@ namespace Infernus.Items.Weapon.Magic
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.Lightning>();
             Item.noUseGraphic = false;
-            Item.shootSpeed = 9f;
+            Item.shootSpeed = 11f;
             Item.mana = 12;
         }
         public override void AddRecipes()
@@ -49,8 +49,7 @@ namespace Infernus.Items.Weapon.Magic
             Vector2 target = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
             for (int i = 0; i < 2; i++)
             {
-                damage = 22;
-                position = player.Center - new Vector2(Main.rand.NextFloat(401) * player.direction, 600f);
+                position = Main.MouseWorld - new Vector2(Main.rand.NextFloat(401) * player.direction, 600f);
                 position.Y -= 100 * i;
                 Vector2 heading = target - position;
 

@@ -15,7 +15,7 @@ namespace Infernus.Items.Weapon.Magic
 
         public override void SetDefaults()
         {
-            Item.damage = 26;
+            Item.damage = 20;
             Item.DamageType = DamageClass.Magic;
             Item.width = 50;
             Item.height = 50;
@@ -28,8 +28,8 @@ namespace Infernus.Items.Weapon.Magic
             Item.UseSound = SoundID.Item8;
             Item.autoReuse = true;
             Item.noMelee = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.CorrShot>();
-            Item.shootSpeed = 13f;
+            Item.shoot = ModContent.ProjectileType<Projectiles.Corrupt_Magic>();
+            Item.shootSpeed = 16f;
             Item.mana = 9;
         }
         public override void AddRecipes()

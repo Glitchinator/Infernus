@@ -26,6 +26,8 @@ namespace Infernus.Projectiles
             Projectile.timeLeft = 340;
             Projectile.tileCollide = false;
             Projectile.extraUpdates = 1;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 16;
         }
         public override void AI()
         {
