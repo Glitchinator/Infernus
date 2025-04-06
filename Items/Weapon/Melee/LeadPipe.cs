@@ -15,19 +15,21 @@ namespace Infernus.Items.Weapon.Melee
 
         public override void SetDefaults()
         {
-            Item.damage = 12;
+            Item.damage = 18;
             Item.DamageType = DamageClass.Melee;
             Item.width = 56;
             Item.height = 56;
             Item.useTime = 26;
             Item.useAnimation = 26;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.knockBack = 3f;
+            Item.knockBack = 4f;
             Item.value = Item.buyPrice(0, 0, 80, 0);
             Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
-            Item.useTurn = true;
+            Item.noUseGraphic = true;
+            Item.shoot = ModContent.ProjectileType<Projectiles.LeadPipe>();
+            Item.shootSpeed = 10f;
         }
         public override void AddRecipes()
         {
@@ -36,28 +38,16 @@ namespace Infernus.Items.Weapon.Melee
             .AddTile(TileID.Anvils)
             .Register();
         }
-        public override void MeleeEffects(Player player, Rectangle hitbox)
+        public override bool CanUseItem(Player player)
         {
-            if (Main.rand.NextBool(3))
+            for (int i = 0; i < 1000; ++i)
             {
-                Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Lead);
+                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == Item.shoot)
+                {
+                    return false;
+                }
             }
-        }
-        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            if (Main.rand.NextBool(2))
-            {
-                target.AddBuff(BuffID.Poisoned, 300);
-            }
-        }
-
-
-        public override void OnHitPvp(Player player, Player target, Player.HurtInfo hurtInfo)
-        {
-            if (Main.rand.NextBool(4))
-            {
-                target.AddBuff(BuffID.Poisoned, 180, quiet: false);
-            }
+            return true;
         }
     }
 }

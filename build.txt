@@ -1,4 +1,4 @@
 displayName = Infernus Mod
 author = LogansLowest
 version = 1.6.7
-homepage = https://forums.terraria.org/index.php?threads/infernus-mod-is-public-v1-1-0-2.113586/
+homepage = https://terrariamods.wiki.gg/wiki/Infernus_Mod

@@ -4,11 +4,13 @@ using Infernus.Projectiles;
 using Infernus.Projectiles.Raiko.Boss;
 using Infernus.Projectiles.Temporal_Glow_Squid.Boss;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -51,20 +53,30 @@ namespace Infernus.NPCs
             Music = MusicLoader.GetMusicSlot("Infernus/Music/Provenance_17");
             NPC.noTileCollide = true;
             NPC.lavaImmune = true;
-            NPC.npcSlots = 6;
+            NPC.npcSlots = 10f;
         }
         bool is_dashing = false;
+        int rand_i = 0;
         int Timer;
+        bool looking_at_player = false;
+        int Move_Location = 0;
+        int Move_X = 0;
+        int Move_Y = -410;
+        bool should_move = true;
+        int Dust_amount = 6;
         public override void AI()
         {
             Player player = Main.player[NPC.target];
             NPC.netUpdate = true;
-            NPC.TargetClosest(true);
-            NPC.rotation = NPC.velocity.ToRotation();
+            NPC.TargetClosest();
+
+            if (looking_at_player == false)
+            {
+                NPC.rotation = NPC.velocity.ToRotation();
+            }
 
             if (NPC.target < 0 || NPC.target == 255 || player.dead || !player.active)
             {
-                NPC.TargetClosest(false);
                 NPC.velocity.Y = NPC.velocity.Y - .3f;
                 if (NPC.timeLeft > 20)
                 {
@@ -77,36 +89,56 @@ namespace Infernus.NPCs
                 NPC.velocity.X = NPC.velocity.X * 0.988f;
                 NPC.velocity.Y = NPC.velocity.Y * 0.988f;
             }
-            Move(new Vector2((Main.rand.Next(0)), -410f));
+            Move(new Vector2(Move_X, Move_Y));
+            if (Move_Location == 0)
             {
-                Timer++;
-                if (Timer == 120)
+                Move_X = 200;
+                Move_Y = 400;
+            }
+            if (Move_Location == 1)
+            {
+                Move_X = 0;
+                Move_Y = -400;
+            }
+            if (Move_Location == 2)
+            {
+                Move_X = -200;
+                Move_Y = -200;
+            }
+            if (Move_Location == 3)
+            {
+                Move_X = -200;
+                Move_Y = 300;
+            }
+            if(Move_Location == 4)
+            {
+                Move_X = 0;
+                Move_Y = -410;
+            }
+            Timer++;
+            {
+                
+                if (Timer == 160)
                 {
-                    SoundEngine.PlaySound(SoundID.Item124, NPC.position);
-                    Meteor_Shower();
+                    looking_at_player = true;
+                    SoundEngine.PlaySound(SoundID.NPCDeath14, NPC.position);
+                    Meteor_Spawner();
                 }
-                if (Timer == 200)
-                {
-                    SoundEngine.PlaySound(SoundID.Item124, NPC.position);
-                    Meteor_Shower();
-                }
-                if (Timer == 280)
-                {
-                    SoundEngine.PlaySound(SoundID.Item124, NPC.position);
-                    Meteor_Shower();
-                }
-                if (Timer == 360)
-                {
-                    //Dash begins 1
-                    Timer = 10000;
-                }
-                if (Timer == 400)
+                if (Timer == 180)
                 {
                     SoundEngine.PlaySound(SoundID.NPCDeath14, NPC.position);
                     Meteor_Spawner();
                 }
-                if (Timer == 460)
+                if (Timer == 200)
                 {
+                    looking_at_player = false;
+                    SoundEngine.PlaySound(SoundID.NPCDeath14, NPC.position);
+                    Meteor_Spawner();
+                }
+                /*
+                if(Timer == 500)
+                {
+                    looking_at_player = true;
                     SoundEngine.PlaySound(SoundID.NPCDeath14, NPC.position);
                     Meteor_Spawner();
                 }
@@ -115,37 +147,251 @@ namespace Infernus.NPCs
                     SoundEngine.PlaySound(SoundID.NPCDeath14, NPC.position);
                     Meteor_Spawner();
                 }
-                if (Timer == 600)
-                {
-                    //Dash begins 2
-                    Timer = 11000;
-                }
-                if (Timer == 680)
+                if (Timer == 540)
                 {
                     SoundEngine.PlaySound(SoundID.NPCDeath14, NPC.position);
                     Meteor_Spawner();
                 }
-                if (Timer == 740)
+                if (Timer == 560)
                 {
-                    SoundEngine.PlaySound(SoundID.Item124, NPC.position);
-                    Meteor_Shower();
-                }
-                if (Timer == 800)
-                {
+                    looking_at_player = false;
                     SoundEngine.PlaySound(SoundID.NPCDeath14, NPC.position);
                     Meteor_Spawner();
+                }
+                if(Timer == 600)
+                {
+                    rand_i = Main.rand.Next(3);
+                    is_dashing = true;
+                    looking_at_player = true;
+                    should_move = false;
+                }
+                if(Timer == 700)
+                {
+                    if (rand_i == 0)
+                    {
+                        looking_at_player = false;
+                        SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
+                        Dash();
+                    }
+                    if (rand_i == 1)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item124, NPC.position);
+                        Meteor_Shower();
+                    }
+                    if (rand_i == 2)
+                    {
+                        Huge_Meteor();
+                    }
+                    is_dashing = true;
+                    looking_at_player = true;
+                    should_move = false;
+                }
+                if (Timer == 760)
+                {
+                    if (rand_i == 0)
+                    {
+                        looking_at_player = false;
+                        SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
+                        Dash();
+                    }
+                    if (rand_i == 1)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item124, NPC.position);
+                        Meteor_Shower();
+                    }
+                    if (rand_i == 2)
+                    {
+                        Huge_Meteor();
+                    }
+                    is_dashing = true;
+                    looking_at_player = true;
+                    should_move = false;
+                }
+                if (Timer == 820)
+                {
+                    if (rand_i == 0)
+                    {
+                        looking_at_player = false;
+                        SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
+                        Dash();
+                    }
+                    if (rand_i == 1)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item124, NPC.position);
+                        Meteor_Shower();
+                    }
+                    if (rand_i == 2)
+                    {
+                        Huge_Meteor();
+                    }
+                    is_dashing = true;
+                    looking_at_player = true;
+                    should_move = false;
+                }
+                if (Timer == 880)
+                {
+                    is_dashing = false;
+                    looking_at_player = false;
+                    should_move = true;
+                    Timer = 0;
+                }
+                */
+                
+                if (Timer == 360)
+                {
+                    is_dashing = true;
+                    looking_at_player = true;
+                    should_move = false;
+                }
+                if (Timer == 460)
+                {
+                    looking_at_player = false;
+                    SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
+                    Dash();
+                }
+                if (Timer == 510)
+                {
+                    is_dashing = true;
+                    looking_at_player = true;
+                    should_move = false;
+                }
+                if (Timer == 610)
+                {
+                    looking_at_player = false;
+                    SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
+                    Dash();
+                }
+                if (Timer == 640)
+                {
+                    is_dashing = false;
+                    looking_at_player = false;
+                    should_move = true;
+                }
+                if (Timer == 700)
+                {
+                    looking_at_player = true;
+                    SoundEngine.PlaySound(SoundID.NPCDeath14, NPC.position);
+                    Meteor_Spawner();
+                }
+                if (Timer == 720)
+                {
+                    looking_at_player = false;
+                    SoundEngine.PlaySound(SoundID.NPCDeath14, NPC.position);
+                    Meteor_Spawner();
+                }
+                if (Timer == 820)
+                {
+                    looking_at_player = false;
+                    Move_Location = 4;
+                    is_dashing = true;
                 }
                 if (Timer == 860)
                 {
                     SoundEngine.PlaySound(SoundID.Item124, NPC.position);
                     Meteor_Shower();
                 }
-                if (Timer == 920)
+                if (Timer == 940)
                 {
-                    Timer = 12000;
+                    SoundEngine.PlaySound(SoundID.Item124, NPC.position);
+                    Meteor_Shower();
+                }
+                if (Timer == 1020)
+                {
+                    SoundEngine.PlaySound(SoundID.Item124, NPC.position);
+                    Meteor_Shower();
+                }
+                if (Timer == 1100)
+                {
+                    SoundEngine.PlaySound(SoundID.Item124, NPC.position);
+                    Meteor_Shower();
+                }
+                if (Timer == 1130)
+                {
+                    looking_at_player = false;
+                    should_move = true;
+                    is_dashing = false;
+                }
+                if (Timer == 1260)
+                {
+                    looking_at_player = true;
+                    SoundEngine.PlaySound(SoundID.NPCDeath14, NPC.position);
+                    Meteor_Spawner();
+                }
+                if (Timer == 1280)
+                {
+                    SoundEngine.PlaySound(SoundID.NPCDeath14, NPC.position);
+                    Meteor_Spawner();
+                }
+                if (Timer == 1300)
+                {
+                    looking_at_player = false;
+                    SoundEngine.PlaySound(SoundID.NPCDeath14, NPC.position);
+                    Meteor_Spawner();
+                }
+                if (Timer == 1400)
+                {
+                    looking_at_player = true;
+                    should_move = false;
+                    is_dashing = true;
+                }
+                if (Timer >= 1400)
+                {
+                    // dust amount = 6
+                    if (Main.rand.NextBool(Dust_amount))
+                    {
+                        Dust.NewDust(NPC.position + NPC.velocity, NPC.width, NPC.height, DustID.SolarFlare, NPC.velocity.X * -0.5f, NPC.velocity.Y * -0.5f, 0, default, 1.7f);
+                        Dust.NewDust(NPC.position + NPC.velocity, NPC.width, NPC.height, DustID.Torch, NPC.velocity.X * -0.5f, NPC.velocity.Y * -0.5f, 0, default, 1.7f);
+                    }
+                }
+                if(Timer == 1430)
+                {
+                    Dust_amount = 5;
+                }
+                if (Timer == 1450)
+                {
+                    Dust_amount = 3;
+                }
+                if (Timer == 1460)
+                {
+                    Dust_amount = 1;
+                }
+                if (Timer == 1490)
+                {
+                    Huge_Meteor();
+                    Dust_amount = 6;
                 }
 
+                if (Timer == 1520)
+                {
+                    Dust_amount = 5;
+                }
+                if (Timer == 1540)
+                {
+                    Dust_amount = 3;
+                }
+                if (Timer == 1550)
+                {
+                    Dust_amount = 1;
+                }
+                if (Timer == 1580)
+                {
+                    Huge_Meteor();
+                    Dust_amount = 6;
+                }
+                if(Timer == 1610)
+                {
+                    looking_at_player = false;
+                    should_move = true;
+                    is_dashing = false;
+                }
+                if(Timer == 1700)
+                {
+                    Timer = 0;
+                }
+                
 
+
+                /*
                 if (Timer == 10001)
                 {
                     SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
@@ -192,10 +438,11 @@ namespace Infernus.NPCs
                     Timer = 601;
                     is_dashing = false;
                 }
+                
                 if (Timer >= 12000)
                 {
-                    NPC.velocity.Y = 0;
-                    NPC.velocity.X = 0;
+                    is_dashing = true;
+                    looking_at_player = true;
                 }
                 if(Timer == 12100)
                 {
@@ -224,22 +471,39 @@ namespace Infernus.NPCs
                 if (Timer == 12600)
                 {
                     Timer = 0;
+                    is_dashing = false;
+                    looking_at_player = false;
                 }
+                */
             }
         }
         private void Move(Vector2 offset)
         {
+            if (should_move == false)
+            {
+                return;
+            }
             if (Timer >= 10000)
             {
-                Dust.NewDust(NPC.position + NPC.velocity, NPC.width, NPC.height, DustID.SolarFlare, NPC.velocity.X * -0.5f, NPC.velocity.Y * -0.5f);
-                Dust.NewDust(NPC.position + NPC.velocity, NPC.width, NPC.height, DustID.Torch, NPC.velocity.X * -0.5f, NPC.velocity.Y * -0.5f);
+                Dust.NewDust(NPC.position + NPC.velocity, NPC.width, NPC.height, DustID.SolarFlare, NPC.velocity.X * -0.5f, NPC.velocity.Y * -0.5f, 0, default, 1.7f);
+                Dust.NewDust(NPC.position + NPC.velocity, NPC.width, NPC.height, DustID.Torch, NPC.velocity.X * -0.5f, NPC.velocity.Y * -0.5f, 0, default, 1.7f);
                 return;
             }
             player = Main.player[NPC.target];
-            speed = 7f;
+            //speed = 7f;
             Vector2 moveTo = player.Center + offset;
+            Dust.NewDust(moveTo, 10, 10, DustID.SolarFlare, 0, 0);
             Vector2 move = moveTo - NPC.Center;
             float magnitude = Magnitude(move);
+            if ( magnitude <= 80f)
+            {
+                Move_Location = Main.rand.Next(4);
+                speed = 7f;
+            }
+            if(Move_Location == Move_Location)
+            {
+                speed += 0.1f;
+            }
             if (magnitude > speed)
             {
                 move *= speed / magnitude;
@@ -256,14 +520,22 @@ namespace Infernus.NPCs
         private void Dash()
         {
             player = Main.player[NPC.target];
+            var distancevec2 = player.position - NPC.position;
+            float magnitude = Magnitude(distancevec2);
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                NPC.velocity.X *= 1.9f;
-                NPC.velocity.Y *= 1.9f;
+                NPC.velocity.X *= 2.25f;
+                NPC.velocity.Y *= 2.25f;
                 {
-                    float rotation = (float)Math.Atan2((NPC.Center.Y) - (player.position.Y + (player.height)), (NPC.Center.X) - (player.position.X + (player.width)));
-                    NPC.velocity.X = (float)(Math.Cos(rotation) * 10) * -1;
-                    NPC.velocity.Y = (float)(Math.Sin(rotation) * 10) * -1;
+                    float rotation = (float)Math.Atan2(NPC.Center.Y - (player.position.Y + player.velocity.Y * 10), NPC.Center.X - (player.position.X + player.velocity.X * 10));
+                    if (magnitude >= 500f)
+                    {
+                        magnitude = 500;
+                    }
+                    NPC.velocity.X = (float)(Math.Cos(rotation) * 14 * (magnitude / 230)) * -1;
+                    NPC.velocity.Y = (float)(Math.Sin(rotation) * 14 * (magnitude / 230)) * -1;
+                    string i = magnitude.ToString();
+                    Main.NewText(i, 229, 214, 127);
                 }
             }
             for (int i = 0; i < 30; i++)

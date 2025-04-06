@@ -14,6 +14,7 @@ namespace Infernus.Items.Weapon.Melee
             ItemID.Sets.ToolTipDamageMultiplier[Type] = 2f;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
+        int combo = 0;
 
         public override void SetDefaults()
         {
@@ -30,7 +31,7 @@ namespace Infernus.Items.Weapon.Melee
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.noMelee = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.ViralCRIM>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.Viral>();
             Item.channel = true;
             Item.noUseGraphic = true;
             Item.shootSpeed = 9f;
@@ -51,10 +52,15 @@ namespace Infernus.Items.Weapon.Melee
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            for (int i = 0; i < 1; i++)
+            if (combo == 0)
             {
-                type = Main.rand.Next(new int[] { type, ModContent.ProjectileType<Projectiles.Viral>(), ModContent.ProjectileType<Projectiles.ViralCRIM>() });
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, ModContent.ProjectileType<Projectiles.Viral>(), damage, knockback, player.whoAmI);
+                combo = 1;
+            }
+            else if (combo == 1)
+            {
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, ModContent.ProjectileType<Projectiles.ViralCRIM>(), damage, knockback, player.whoAmI);
+                combo = 0;
             }
             return false;
         }

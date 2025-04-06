@@ -18,7 +18,7 @@ namespace Infernus.Items.Weapon.Ranged
         {
             Item.damage = 12;
             Item.DamageType = DamageClass.Ranged;
-            Item.width = 68;
+            Item.width = 58;
             Item.height = 22;
             Item.useAnimation = 18;
             Item.useTime = 18;
@@ -34,7 +34,17 @@ namespace Infernus.Items.Weapon.Ranged
         }
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(-10, 0);
+            return new Vector2(-7, 0);
+        }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            Vector2 muzzleOffset = Vector2.Normalize(velocity) * 25f;
+
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position += muzzleOffset;
+            }
+            velocity = velocity.RotatedByRandom(MathHelper.ToRadians(35));
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -52,11 +62,6 @@ namespace Infernus.Items.Weapon.Ranged
 
             return false;
         }
-        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-        {
-            velocity = velocity.RotatedByRandom(MathHelper.ToRadians(35));
-        }
-
 
     }
 }

@@ -21,7 +21,7 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
         {
             Item.damage = 98;
             Item.DamageType = DamageClass.Ranged;
-            Item.width = 52;
+            Item.width = 50;
             Item.height = 32;
             Item.useAnimation = 1;
             Item.useTime = 25;
@@ -42,6 +42,15 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-4, 0);
+        }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            Vector2 muzzleOffset = Vector2.Normalize(velocity) * 25f;
+
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position += muzzleOffset;
+            }
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {

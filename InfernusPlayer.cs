@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -141,6 +142,13 @@ namespace Infernus
                 }
             }
         }
+        public override void ModifyShootStats(Item item, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            if (Quiver_Equipped == true && item.DamageType == DamageClass.Ranged)
+            {
+                velocity *= 1.2f;
+            }
+        }
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
             if (Ink_Storm_Equipped == true)
@@ -215,7 +223,7 @@ namespace Infernus
             {
                 for (int i = 0; i < 13; i++)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, -5), ModContent.ProjectileType<Projectiles.Lectric>(), (int)(damageDone * 0.55f), 0, 0);
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, -5), ModContent.ProjectileType<Projectiles.Lectric>(), (int)(damageDone * 1.15f), 0, 0);
                 }
             }
             if (Elemental_Whiphead == true && hit.DamageType == DamageClass.SummonMeleeSpeed)
@@ -252,13 +260,6 @@ namespace Infernus
                 if (Main.rand.Next(3) < 1)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ModContent.ProjectileType<Sandstorm_Whip>(), (int)(damageDone * 0.6f), 0, 0);
-                }
-            }
-            if (Quiver_Equipped == true && hit.DamageType == DamageClass.Ranged)
-            {
-                if (Main.rand.Next(20) < 1)
-                {
-                    Item.NewItem(Entity.GetSource_OnHit(target), new Vector2(target.Center.X, target.Center.Y), ModContent.ItemType<Level.HP_Pickup>(), 1);
                 }
             }
             if (Magic_Pouch == true && hit.DamageType == DamageClass.Magic)
@@ -338,6 +339,7 @@ namespace Infernus
             {
                 life_steal_timer--;
             }
+            
             Have_HeartAttack();
             Stress_Buffs();
 

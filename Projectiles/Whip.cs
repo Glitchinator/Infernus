@@ -61,7 +61,7 @@ namespace Infernus.Projectiles
                     float t = Timer / timeToFlyOut;
                     scale = MathHelper.Lerp(0.55f, 1.55f, Utils.GetLerpValue(0.15f, 0.75f, t, true) * Utils.GetLerpValue(0.95f, 0.75f, t, true));
 
-                    if (Main.rand.NextBool(1))
+                    if (Main.rand.NextBool(4))
                     {
                         int whip = Dust.NewDust(pos, Projectile.width, Projectile.height, DustID.BlueCrystalShard, Projectile.velocity.X, Projectile.velocity.Y);
                         Main.dust[whip].noGravity = true;

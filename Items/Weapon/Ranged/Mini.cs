@@ -1,3 +1,4 @@
+using Infernus.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -13,6 +14,7 @@ namespace Infernus.Items.Weapon.Ranged
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
+        int shot = 0;
 
         public override void SetDefaults()
         {
@@ -41,14 +43,28 @@ namespace Infernus.Items.Weapon.Ranged
             .AddTile(TileID.Anvils)
             .Register();
         }
+        public override void UseAnimation(Player player)
+        {
+            for (int k = 0; k < 11; k++)
+            {
+                Vector2 speed = Main.rand.NextVector2Circular(1f, 1f);
+                Dust Sword = Dust.NewDustPerfect(player.Center + speed * 32, DustID.SolarFlare, speed * 3, Scale: 1f);
+                Sword.noGravity = true;
+            }
+        }
         public override bool CanConsumeAmmo(Item ammo, Player player)
         {
             return Main.rand.NextFloat() >= .33f;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            type = Main.rand.Next(new int[] { type, ProjectileID.Flames, });
-            Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(2));
+            shot++;
+            if (shot == 10)
+            {
+                type = ModContent.ProjectileType<Molten_Chaingun>();
+                shot = 0;
+            }
+            Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(4));
             Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI);
 
             return false;

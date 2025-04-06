@@ -31,8 +31,9 @@ namespace Infernus.Items.Accesories
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Condensed_Iceicle>(), 1)
-            .AddTile(TileID.TinkerersWorkbench)
+            .AddIngredient(ItemID.FallenStar, 8)
+            .AddRecipeGroup(RecipeGroupID.IronBar, 10)
+            .AddTile(TileID.Anvils)
             .Register();
         }
     }

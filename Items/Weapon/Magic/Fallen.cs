@@ -20,8 +20,8 @@ namespace Infernus.Items.Weapon.Magic
         {
             Item.damage = 14;
             Item.DamageType = DamageClass.Magic;
-            Item.width = 50;
-            Item.height = 50;
+            Item.width = 46;
+            Item.height = 42;
             Item.useAnimation = 30;
             Item.useTime = 30;
             Item.useStyle = ItemUseStyleID.Shoot;
@@ -38,7 +38,6 @@ namespace Infernus.Items.Weapon.Magic
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddRecipeGroup(RecipeGroupID.IronBar, 3)
             .AddIngredient(ModContent.ItemType<Rifle>(), 1)
             .AddIngredient(ModContent.ItemType<Materials.Hot>(), 32)
             .AddTile(TileID.Anvils)

@@ -17,8 +17,8 @@ namespace Infernus.Items.Weapon.Magic
         {
             Item.damage = 18;
             Item.DamageType = DamageClass.Magic;
-            Item.width = 50;
-            Item.height = 50;
+            Item.width = 34;
+            Item.height = 34;
             Item.useAnimation = 26;
             Item.useTime = 26;
             Item.useStyle = ItemUseStyleID.Shoot;
@@ -29,7 +29,7 @@ namespace Infernus.Items.Weapon.Magic
             Item.autoReuse = true;
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.Sea_Star_Lite>();
-            Item.shootSpeed = 12f;
+            Item.shootSpeed = 17f;
             Item.mana = 8;
         }
         public override void AddRecipes()

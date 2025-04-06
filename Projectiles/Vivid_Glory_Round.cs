@@ -53,8 +53,6 @@ namespace Infernus.Projectiles
             direction *= 16;
             Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
 
-            Projectile.rotation = Projectile.velocity.ToRotation();
-
             Projectile.velocity.Y += Projectile.ai[0];
         }
         public NPC FindClosestNPC(float maxDetectDistance)
@@ -112,7 +110,7 @@ namespace Infernus.Projectiles
                 Volume = .8f,
                 MaxInstances = 1,
                 SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest
-            });
+            }, Projectile.position);
         }
     }
 }

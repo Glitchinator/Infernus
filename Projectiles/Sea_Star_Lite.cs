@@ -22,23 +22,29 @@ namespace Infernus.Projectiles
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.netImportant = true;
-            Projectile.penetrate = 2;
+            Projectile.penetrate = -1;
             Projectile.timeLeft = 340;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
             Projectile.extraUpdates = 1;
             Projectile.usesIDStaticNPCImmunity = true;
-            Projectile.idStaticNPCHitCooldown = 16;
+            Projectile.idStaticNPCHitCooldown = 14;
         }
         public override void AI()
         {
-            Projectile.rotation += (float)Projectile.direction * 2;
+            Projectile.rotation += (float)Projectile.direction * 0.8f;
             if(Projectile.timeLeft <= 200)
             {
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.45f;
+                int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.WaterCandle, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.014f;
                 return;
             }
-            Projectile.velocity.X = Projectile.velocity.X * .97f;
-            Projectile.velocity.Y = Projectile.velocity.Y * .97f;
+            else
+            {
+                Projectile.velocity.X = Projectile.velocity.X * .93f;
+                Projectile.velocity.Y = Projectile.velocity.Y * .93f;
+            }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -62,10 +68,17 @@ namespace Infernus.Projectiles
             for (int k = 0; k < Projectile.oldPos.Length; k++)
             {
                 Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Main.EntitySpriteDraw(texture, drawPos, null, new Color(242, 240, 235, 0) * (.30f - Projectile.alpha / 210f), Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
+                Main.EntitySpriteDraw(texture, drawPos, null, new Color(242, 240, 235, 0) * (.60f - Projectile.alpha / 210f), Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
             }
 
             return true;
+        }
+        public override void OnKill(int timeLeft)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                Dust.NewDustPerfect(Projectile.Center, DustID.Coralstone);
+            }
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using Infernus.Projectiles;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -26,6 +28,7 @@ namespace Infernus.NPCs
             get => (int)NPC.ai[1] - 1;
             set => NPC.ai[1] = value + 1;
         }
+        public int Which_Fist;
 
         public bool HasPosition => PositionIndex > -1;
 
@@ -42,10 +45,11 @@ namespace Infernus.NPCs
             NPCID.Sets.BossBestiaryPriority.Add(Type);
         }
         int Timer;
-        int Ice_Shard_Area;
+        int Ice_Shard_Area = 120;
         private Vector2 destination;
         float inertia = 6;
         float speed = 16f;
+        bool dashing = false;
 
         public override void SetDefaults()
         {
@@ -76,11 +80,21 @@ namespace Infernus.NPCs
             {
                 return;
             }
-            if (Timer <= 619)
+            /*
+            string i = Which_Fist.ToString();
+            if (Timer == 120)
+            {
+                Main.NewText(i, 229, 214, 127);
+            }
+            if (Timer <= 399)
             {
                 inertia = 6;
                 speed = 14f;
                 Ice_Shard_Area = 120;
+            }
+            if (Timer == 400)
+            {
+                Ice_Shard_Area = 10;
             }
             if (Timer == 440)
             {
@@ -96,11 +110,97 @@ namespace Infernus.NPCs
             }
             if (Timer >= 620 && InfernusWorld.Ruderibus_Switch == true)
             {
-                Ice_Wall();
-                SoundEngine.PlaySound(SoundID.Item105, NPC.position);
-                Ice_Shard_Area = 36;
+                //Ice_Wall();
+               // SoundEngine.PlaySound(SoundID.Item105, NPC.position);
+                //Ice_Shard_Area = 36;
                 inertia = 2;
                 speed = 8f;
+            }
+            if (Timer == 560)
+            {
+                Ice_Shard_Area = 10;
+            }
+            */
+            if(Timer == 500 || Timer == 100)
+            {
+                Ice_Shard_Area = 1;
+            }
+            if(Timer <= 700 && Timer >= 500)
+            {
+                Ice_Wall();
+            }
+            if(Timer == 301)
+            {
+                Ice_Shard_Area = 120;
+            }
+
+            if (Timer == 700)
+            {
+                if (Which_Fist == 0)
+                {
+                    Ice_Shard_Area = 0;
+                    NPC.color = Color.Green;
+                    Dash();
+                }
+                else
+                {
+                    Ice_Shard_Area = 120;
+                }
+            }
+            if (Timer == 800)
+            {
+                if (Which_Fist == 1)
+                {
+                    Ice_Shard_Area = 0;
+                    NPC.color = Color.Blue;
+                    Dash();
+                }
+                else
+                {
+                    Ice_Shard_Area = 120;
+                }
+            }
+            if (Timer == 900)
+            {
+                if (Which_Fist == 2)
+                {
+                    Ice_Shard_Area = 0;
+                    NPC.color = Color.Red;
+                    Dash();
+                }
+                else
+                {
+                    Ice_Shard_Area = 120;
+                }
+            }
+            if (Timer == 1000)
+            {
+                if (Which_Fist == 3)
+                {
+                    Ice_Shard_Area = 0;
+                    NPC.color = Color.Yellow;
+                    Dash();
+                }
+                else
+                {
+                    Ice_Shard_Area = 120;
+                }
+            }
+            if(Timer == 1060)
+            {
+                InfernusWorld.Ruderibus_Timer = 0;
+                InfernusWorld.Ruderibus_Switch = false;
+                Ice_Shard_Area = 120;
+            }
+            if (Timer == 698)
+            {
+                NPC.velocity = new Vector2(0, 0);
+            }
+            if (Timer >= 700)
+            {
+                NPC.velocity.Y = NPC.velocity.Y * 0.98f;
+                NPC.velocity.X = NPC.velocity.X * 0.98f;
+                return;
             }
             Form_Ice();
         }
@@ -133,6 +233,29 @@ namespace Infernus.NPCs
             }
             return true;
         }
+        private void Dash()
+        {
+            dashing = true;
+            player = Main.player[NPC.target];
+            var distancevec2 = player.position - NPC.position;
+            float magnitude = Magnitude(distancevec2);
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                NPC.velocity.X *= 2.25f;
+                NPC.velocity.Y *= 2.25f;
+                {
+                    float rotation = (float)Math.Atan2(NPC.Center.Y - (player.position.Y + player.velocity.Y * 10), NPC.Center.X - (player.position.X + player.velocity.X * 10));
+                    if (magnitude > 0f)
+                    {
+                        NPC.velocity.X = (float)(Math.Cos(rotation) * 14 * (magnitude / 250)) * -1;
+                        NPC.velocity.Y = (float)(Math.Sin(rotation) * 14 * (magnitude / 250)) * -1;
+                    }
+                    string i = magnitude.ToString();
+                    Main.NewText(i, 229, 214, 127);
+                }
+            }
+        }
+
         private void Ice_Wall()
         {
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
@@ -148,7 +271,7 @@ namespace Infernus.NPCs
                 {
                     velocity = new Vector2(0f, 0f);
                 }
-                if (Main.rand.NextBool(30))
+                if (Main.rand.NextBool(24))
                 {
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Ice_Wall>(), 11, NPC.whoAmI);
                 }
@@ -183,7 +306,17 @@ namespace Infernus.NPCs
 
             float rad = (float)PositionIndex / 4 * MathHelper.TwoPi;
 
-            RotationTimer += 0.8f;
+            float lerp = 0f;
+            if (Timer <= 700 && Timer >= 500)
+            {
+                lerp += 0.1f;
+                 RotationTimer += 1.6f + lerp;
+            }
+            else
+            {
+                RotationTimer += 0.8f;
+                lerp = 0f;
+            }
             if (RotationTimer > 360)
             {
                 RotationTimer = 0;
@@ -203,7 +336,7 @@ namespace Infernus.NPCs
 
             Vector2 offset = Vector2.One.RotatedBy(rad) * distanceFromBody;
 
-            if (Timer >= 620 && InfernusWorld.Ruderibus_Switch == true)
+            if (InfernusWorld.Ruderibus_Switch == true)
             {
                 destination = player.Center + offset;
             }

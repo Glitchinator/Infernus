@@ -1,3 +1,4 @@
+using Infernus.Items.Weapon.Magic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -38,10 +39,20 @@ namespace Infernus.Items.Weapon.HardMode.Magic
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.SoulofLight, 8)
-            .AddIngredient(ItemID.SoulofNight, 14)
+            .AddIngredient(ItemID.SoulofLight, 4)
+            .AddIngredient(ItemID.SoulofNight, 8)
+            .AddIngredient(ModContent.ItemType<SkullStaff>(), 1)
             .AddTile(TileID.MythrilAnvil)
             .Register();
+        }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            Vector2 muzzleOffset = Vector2.Normalize(velocity) * 25f;
+
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position += muzzleOffset;
+            }
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {

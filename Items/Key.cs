@@ -27,8 +27,7 @@ namespace Infernus.Items
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Materials.Gaming>(), 30)
-            .AddRecipeGroup(RecipeGroupID.IronBar, 16)
+            .AddIngredient(ModContent.ItemType<Materials.Gaming>(), 24)
             .AddTile(TileID.Anvils)
             .Register();
         }

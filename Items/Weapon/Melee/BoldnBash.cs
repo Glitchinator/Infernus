@@ -25,12 +25,23 @@ namespace Infernus.Items.Weapon.Melee
             Item.value = Item.buyPrice(0, 1, 50, 0);
             Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item1;
-            Item.autoReuse = true;
+            Item.autoReuse = false;
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.Meteor_Flail>();
             Item.shootSpeed = 14;
             Item.channel = true;
             Item.noUseGraphic = true;
+        }
+        public override bool CanUseItem(Player player)
+        {
+            for (int i = 0; i < 1000; ++i)
+            {
+                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == Item.shoot)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

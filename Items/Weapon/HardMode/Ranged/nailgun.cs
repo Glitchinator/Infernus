@@ -19,7 +19,7 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
             Item.damage = 170;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 60;
-            Item.height = 30;
+            Item.height = 28;
             Item.useAnimation = 5;
             Item.useTime = 5;
             Item.useStyle = ItemUseStyleID.Shoot;
@@ -35,6 +35,15 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-16, 0);
+        }
+        public override void UseAnimation(Player player)
+        {
+            for (int k = 0; k < 7; k++)
+            {
+                Vector2 speed = Main.rand.NextVector2Circular(1f, 1f);
+                Dust Sword = Dust.NewDustPerfect(player.Center + speed * 32, DustID.Vortex, speed * 3, Scale: 1f);
+                Sword.noGravity = true;
+            }
         }
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {

@@ -175,6 +175,16 @@ Mods: {
 				DisplayName: Rage Cooldown
 				Description: Rage ability on cooldown
 			}
+
+			Rot_Ball_Crim: {
+				DisplayName: Rot_ Ball_ Crim
+				Description: Mods.Infernus.Buffs.Rot_Ball_Crim.Description
+			}
+
+			Rot_Ball_Demo: {
+				DisplayName: Rot_ Ball_ Demo
+				Description: Mods.Infernus.Buffs.Rot_Ball_Demo.Description
+			}
 		}
 
 		Items: {
@@ -810,8 +820,8 @@ Mods: {
 			}
 
 			MechBow: {
-				DisplayName: Pulse Rifle
-				Tooltip: Converts bullets to shotgun lazars
+				DisplayName: Hallowed Railgun
+				Tooltip: Railgun go brrrrtttt
 			}
 
 			miniholy: {
@@ -1047,7 +1057,7 @@ Mods: {
 
 			BoldnBash: {
 				DisplayName: Meteor Masher
-				Tooltip: Throw out exploding flails that are affect by gravity
+				Tooltip: Throw out a flail which spins around the player based on the cursor position
 			}
 
 			ChainWhip.DisplayName: Aeritite Mace
@@ -1056,7 +1066,7 @@ Mods: {
 
 			Hatchet: {
 				DisplayName: Darvyle's Hatchet of Might
-				Tooltip: Throw a hatchet that shreds enemies with shards
+				Tooltip: Throw a hatchet that shreds enemies and explodes
 			}
 
 			Ice.DisplayName: Cryonic Claymore
@@ -1067,7 +1077,10 @@ Mods: {
 				Tooltip: Shoots three leaves at max range
 			}
 
-			LeadPipe.DisplayName: Lead Pipe
+			LeadPipe: {
+				DisplayName: Rusty Pipe
+				Tooltip: Throw out a rust pipe that breaks on impact
+			}
 
 			Light: {
 				DisplayName: Shadow's Reach
@@ -1079,7 +1092,7 @@ Mods: {
 
 			SkullBasher: {
 				DisplayName: Skullbasher
-				Tooltip: Spooky, Scary, Boomerang
+				Tooltip: Throw a heavy hammer that crushes foes
 			}
 
 			Starfish_yoyo.DisplayName: Star-yo
@@ -1100,7 +1113,11 @@ Mods: {
 
 			Viral: {
 				DisplayName: Rot Ball
-				Tooltip: Throw out a flail that lodges spikes in enemies
+				Tooltip:
+					'''
+					Throw out evil flails that inflict damaging debuffs
+					When the debuffs are combined the target explodes
+					'''
 			}
 
 			Meteor: {
@@ -1131,8 +1148,8 @@ Mods: {
 			Coral.DisplayName: Coral Knifes
 
 			Desert_Blaster: {
-				DisplayName: Desert Blaster
-				Tooltip: Shoots sandy slugs
+				DisplayName: Pocket Sand
+				Tooltip: Shoots short ranged blasts
 			}
 
 			Equalbow: {
@@ -1144,7 +1161,11 @@ Mods: {
 
 			Firebow: {
 				DisplayName: Breath of Hades
-				Tooltip: Shoots burning and exploding bolts
+				Tooltip:
+					'''
+					Converts wooden arrows into piercing flaming bolts
+					33% chance to not consume ammo
+					'''
 			}
 
 			Flarovolver: {
@@ -1188,8 +1209,9 @@ Mods: {
 				DisplayName: Molten Chaingun
 				Tooltip:
 					'''
-					Shoot a barrage of bullets sometimes fireballs
-					 33% chance to not consume ammo
+					Shoots a barrage of bullets
+					Every 10th shot is a homing fire bullet
+					33% chance to not consume ammo
 					'''
 			}
 
@@ -1509,13 +1531,13 @@ Mods: {
 				Tooltip:
 					'''
 					Ranged Attacks inflict frostburn
-					Hitting an enemy with a ranged attack has a 5% chance to drop a health orb
+					Ranged attacks go 20% farther
 					'''
 			}
 
 			Quiver: {
-				DisplayName: Healers Quiver
-				Tooltip: Hitting an enemy with a ranged attack has a 5% chance to drop a health orb
+				DisplayName: Old Quiver
+				Tooltip: Ranged attacks go 20% farther
 			}
 
 			Relic: {
@@ -1666,7 +1688,7 @@ Mods: {
 				Tooltip:
 					'''
 					Ranged Attacks inflict frostburn
-					Hitting an enemy with a ranged attack has a 5% chance to drop a health orb
+					Ranged attacks go 20% farther
 					Hitting enemies has a 50% chance to gain life regen buff
 					'''
 				DisplayName: Blood Quiver
@@ -1740,7 +1762,17 @@ Mods: {
 			}
 
 			Mana_Rail_Rider: {
-				DisplayName: Mana_ Rail_ Rider
+				DisplayName: Mana Rail Rider
+				Tooltip:
+					'''
+					When on a mount
+					Increases max mana by 45
+					Increases mana regen by 1
+					'''
+			}
+
+			Raiko_Summon_Placeable: {
+				DisplayName: Raiko_ Summon_ Placeable
 				Tooltip: ""
 			}
 		}
@@ -1956,6 +1988,14 @@ Mods: {
 			Magic_Meteor.DisplayName: Magic_ Meteor
 			Magic_Meteor_Explosion.DisplayName: Magic_ Meteor_ Explosion
 			Magic_Star.DisplayName: Magic_ Star
+			Bloom_Bomb_Explosion.DisplayName: Bloom_ Bomb_ Explosion
+			Raiko_Bow_Arrow.DisplayName: Raiko_ Bow_ Arrow
+			A_M.DisplayName: A_ M
+			Molten_Chaingun.DisplayName: Molten_ Chaingun
+			Subslicer_Blade.DisplayName: Subslicer_ Blade
+			Subslicer_Proj.DisplayName: Subslicer_ Proj
+			LeadPipe.DisplayName: Lead Pipe
+			LeadPipe_Proj.DisplayName: Lead Pipe_ Proj
 		}
 
 		NPCs: {

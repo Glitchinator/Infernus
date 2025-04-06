@@ -29,7 +29,7 @@ namespace Infernus.Items.Weapon.Magic
             Item.autoReuse = true;
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.Ice_Spear>();
-            Item.shootSpeed = 9f;
+            Item.shootSpeed = 13f;
             Item.mana = 10;
             Item.noUseGraphic = true;
         }

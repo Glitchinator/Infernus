@@ -39,9 +39,9 @@ namespace Infernus.NPCs
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 413200;
+            NPC.lifeMax = 213200;
             NPC.damage = 95;
-            NPC.defense = 90;
+            NPC.defense = 24;
             NPC.knockBackResist = 0.0f;
             NPC.width = 115;
             NPC.height = 170;
@@ -68,6 +68,7 @@ namespace Infernus.NPCs
         int Dead_Phase_Timer;
         public static bool death_aninatiom = false;
         bool second_phase = false;
+        bool is_dashing = false;
 
         public override void AI()
         {
@@ -102,7 +103,7 @@ namespace Infernus.NPCs
                 {
                     Second_Phase_Timer++;
                 }
-                NPC.defense = 80 + (int)(damage * .000444f);
+                NPC.defense = 24 + (int)(damage * .000444f);
             }
             if (death_aninatiom == true)
             {
@@ -114,6 +115,11 @@ namespace Infernus.NPCs
                 }
                 NPC.DoesntDespawnToInactivity();
                 NPC.DiscourageDespawn(60);
+            }
+            if (is_dashing == true)
+            {
+                NPC.velocity.X = NPC.velocity.X * 0.988f;
+                NPC.velocity.Y = NPC.velocity.Y * 0.988f;
             }
 
             {
@@ -140,19 +146,7 @@ namespace Infernus.NPCs
                 {
                     Music = MusicLoader.GetMusicSlot("Infernus/Music/Divine_Fight");
                 }
-                if (First_Phase_Timer == 80)
-                {
-                    Shotgunblast();
-                }
                 if (First_Phase_Timer == 120)
-                {
-                    Shotgunblast();
-                }
-                if (First_Phase_Timer == 160)
-                {
-                    Heat_Seeking_Bombs();
-                }
-                if (First_Phase_Timer == 220)
                 {
                     Homing_Rockets();
                 }
@@ -163,24 +157,16 @@ namespace Infernus.NPCs
                 }
                 if (First_Phase_Timer == 380)
                 {
-                    Heat_Seeking_Bombs();
+                    
                 }
                 if (First_Phase_Timer == 340)
                 {
                     // Upwards dashes + Bullet Hell begins
                     First_Phase_Timer = 12001;
                 }
-                if (First_Phase_Timer == 420)
-                {
-                    Shotgunblast();
-                }
                 if (First_Phase_Timer == 500)
                 {
-                    Heat_Seeking_Bombs();
-                }
-                if (First_Phase_Timer == 560)
-                {
-                    Shotgunblast();
+                    Homing_Rockets();
                 }
                 if (First_Phase_Timer == 626)
                 {
@@ -201,18 +187,6 @@ namespace Infernus.NPCs
                 {
                     // Dash begins
                     First_Phase_Timer = 10001;
-                }
-                if (First_Phase_Timer == 720)
-                {
-                    Shotgunblast();
-                }
-                if (First_Phase_Timer == 740)
-                {
-                    Homing_Rockets();
-                }
-                if (First_Phase_Timer == 750)
-                {
-                    Shotgunblast();
                 }
                 if (First_Phase_Timer == 800)
                 {
@@ -239,28 +213,12 @@ namespace Infernus.NPCs
                     // Dash 2 begins
                     First_Phase_Timer = 11001;
                 }
-                if (First_Phase_Timer == 960)
-                {
-                    Heat_Seeking_Bombs();
-                }
-                if (First_Phase_Timer == 1040)
-                {
-                    Heat_Seeking_Bombs();
-                }
                 if (First_Phase_Timer == 1180)
                 {
                     // Above Player Sideways Dashes +  Bullet Hell Begins
                     First_Phase_Timer = 14001;
                 }
                 if (First_Phase_Timer == 1290)
-                {
-                    Shotgunblast();
-                }
-                if (First_Phase_Timer == 1350)
-                {
-                    Heat_Seeking_Bombs();
-                }
-                if (First_Phase_Timer == 1410)
                 {
                     Homing_Rockets();
                 }
@@ -273,7 +231,7 @@ namespace Infernus.NPCs
                 {
                     First_Phase_Timer = 70;
                 }
-                if ((526 < First_Phase_Timer && First_Phase_Timer < 626) || (796 < First_Phase_Timer && First_Phase_Timer < 896) || (700 < First_Phase_Timer && First_Phase_Timer < 800) || (14141 < First_Phase_Timer && First_Phase_Timer < 14241) || (0 < Second_Phase_Timer && Second_Phase_Timer < 86) || (276 < Second_Phase_Timer && Second_Phase_Timer < 376) || (396 < Second_Phase_Timer && Second_Phase_Timer < 496) || (180 < Second_Phase_Timer && Second_Phase_Timer < 280) || (14141 < Second_Phase_Timer && Second_Phase_Timer < 14241))
+                if ((526 < First_Phase_Timer && First_Phase_Timer < 626) || (796 < First_Phase_Timer && First_Phase_Timer < 896) || (700 < First_Phase_Timer && First_Phase_Timer < 800) || (14141 < First_Phase_Timer && First_Phase_Timer < 14241) || (0 < Second_Phase_Timer && Second_Phase_Timer < 86) || (276 < Second_Phase_Timer && Second_Phase_Timer < 376))
                 {
                     if (Main.netMode == NetmodeID.SinglePlayer)
                     {
@@ -342,10 +300,79 @@ namespace Infernus.NPCs
                         }
                     }
                 }
+                if (14141 < Second_Phase_Timer && Second_Phase_Timer < 14241)
+                {
+                    if (Main.netMode == NetmodeID.SinglePlayer)
+                    {
+                        if (player.velocity.X > 0)
+                        {
+                            for (int k = 0; k < 4; k++)
+                            {
+                                Vector2 position = player.Center + new Vector2(550f, 0f);
+                                Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                                Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.CrimsonSpray, speed * 3, Scale: 2f);
+                                Sword.noGravity = true;
+                            }
+                        }
+                        if (player.velocity.X < 0)
+                        {
+                            for (int k = 0; k < 4; k++)
+                            {
+                                Vector2 position = player.Center + new Vector2(-550f, 0f);
+                                Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                                Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.CrimsonSpray, speed * 3, Scale: 2f);
+                                Sword.noGravity = true;
+                            }
+                        }
+                        if (player.velocity.X == 0)
+                        {
+                            for (int k = 0; k < 4; k++)
+                            {
+                                Vector2 position = player.Center + new Vector2(550f, 0f);
+                                Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                                Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.CrimsonSpray, speed * 3, Scale: 2f);
+                                Sword.noGravity = true;
+                            }
+                        }
+                    }
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    {
+                        if (player.velocity.X > 0)
+                        {
+                            for (int k = 0; k < 4; k++)
+                            {
+                                Vector2 position = player.Center + new Vector2(550f, 0f);
+                                Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                                Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.CrimsonSpray, speed * 3, Scale: 2f);
+                                Sword.noGravity = true;
+                            }
+                        }
+                        if (player.velocity.X < 0)
+                        {
+                            for (int k = 0; k < 4; k++)
+                            {
+                                Vector2 position = player.Center + new Vector2(-550f, 0f);
+                                Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                                Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.CrimsonSpray, speed * 3, Scale: 2f);
+                                Sword.noGravity = true;
+                            }
+                        }
+                        if (player.velocity.X == 0)
+                        {
+                            for (int k = 0; k < 4; k++)
+                            {
+                                Vector2 position = player.Center + new Vector2(550f, 0f);
+                                Vector2 speed = Main.rand.NextVector2Circular(1.2f, 2f);
+                                Dust Sword = Dust.NewDustPerfect(position + speed * 32, DustID.CrimsonSpray, speed * 3, Scale: 2f);
+                                Sword.noGravity = true;
+                            }
+                        }
+                    }
+                }
 
                 #region Spawn_Animation
 
-                if (First_Phase_Timer >= 20000)
+                    if (First_Phase_Timer >= 20000)
                 {
                     NPC.velocity.X = 0;
                     NPC.velocity.Y = 0;
@@ -467,6 +494,7 @@ namespace Infernus.NPCs
                 #region Stage_1_Boss_Unique_Attacks
                 if (First_Phase_Timer == 10021)
                 {
+                    is_dashing = true;
                     Dash();
                 }
                 if (First_Phase_Timer == 10061)
@@ -488,10 +516,12 @@ namespace Infernus.NPCs
                 if (First_Phase_Timer == 10221)
                 {
                     //Dash ends 1
+                    is_dashing = false;
                     First_Phase_Timer = 660;
                 }
                 if (First_Phase_Timer == 11021)
                 {
+                    is_dashing = true;
                     Dash();
                 }
                 if (First_Phase_Timer == 11061)
@@ -513,6 +543,7 @@ namespace Infernus.NPCs
                 if (First_Phase_Timer == 11221)
                 {
                     //Dash ends 2
+                    is_dashing = false;
                     First_Phase_Timer = 920;
                 }
                 if (First_Phase_Timer == 12001)
@@ -521,39 +552,39 @@ namespace Infernus.NPCs
                 }
                 if (First_Phase_Timer == 12011)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 12021)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 12031)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 12041)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 12051)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 12061)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 12071)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 12081)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 12091)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 12101)
                 {
@@ -561,48 +592,44 @@ namespace Infernus.NPCs
                 }
                 if (First_Phase_Timer == 12111)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 12121)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 12131)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 12141)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 12151)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 12161)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 12171)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 12181)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 12191)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 12201)
                 {
                     Teleport_Down_Center();
                     Dash();
-                }
-                if (First_Phase_Timer == 12211)
-                {
-                    Homing_Basic_Shot();
                 }
                 if (First_Phase_Timer == 12221)
                 {
@@ -612,19 +639,11 @@ namespace Infernus.NPCs
                 {
                     Homing_Basic_Shot();
                 }
-                if (First_Phase_Timer == 12241)
-                {
-                    Homing_Basic_Shot();
-                }
                 if (First_Phase_Timer == 12251)
                 {
                     Homing_Basic_Shot();
                 }
                 if (First_Phase_Timer == 12261)
-                {
-                    Homing_Basic_Shot();
-                }
-                if (First_Phase_Timer == 12271)
                 {
                     Homing_Basic_Shot();
                 }
@@ -685,31 +704,31 @@ namespace Infernus.NPCs
                 }
                 if (First_Phase_Timer == 14011)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 14021)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 14031)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 14041)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 14051)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 14061)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 14071)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 14081)
                 {
@@ -717,49 +736,41 @@ namespace Infernus.NPCs
                 }
                 if (First_Phase_Timer == 14091)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 14101)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 14111)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 14121)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 14131)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 14141)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 14151)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (First_Phase_Timer == 14161)
                 {
                     Teleport_Up_Left();
-                }
-                if (First_Phase_Timer == 14171)
-                {
-                    Homing_Basic_Shot();
                 }
                 if (First_Phase_Timer == 14181)
                 {
                     Homing_Basic_Shot();
                 }
                 if (First_Phase_Timer == 14191)
-                {
-                    Homing_Basic_Shot();
-                }
-                if (First_Phase_Timer == 14201)
                 {
                     Homing_Basic_Shot();
                 }
@@ -845,10 +856,6 @@ namespace Infernus.NPCs
                     Dash_Strong();
                     Punch_Extra();
                 }
-                if (Second_Phase_Timer == 70)
-                {
-                    Heat_Seeking_Bombs();
-                }
                 if (Second_Phase_Timer == 86)
                 {
                     if (player.velocity.X > 0)
@@ -874,18 +881,10 @@ namespace Infernus.NPCs
                     Dash_Strong();
                     Punch_Extra();
                 }
-                if (Second_Phase_Timer == 145)
-                {
-                    Shotgunblast();
-                }
                 if (Second_Phase_Timer == 170)
                 {
                     Dash_Strong();
                     Punch_Extra();
-                }
-                if (Second_Phase_Timer == 200)
-                {
-                    Homing_Rockets();
                 }
                 if (Second_Phase_Timer == 230)
                 {
@@ -896,18 +895,10 @@ namespace Infernus.NPCs
                 {
                     Homing_Rockets();
                 }
-                if (Second_Phase_Timer == 270)
-                {
-                    Heat_Seeking_Bombs();
-                }
                 if (Second_Phase_Timer == 280)
                 {
                     //teleport
                     Second_Phase_Timer = 13001;
-                }
-                if (Second_Phase_Timer == 300)
-                {
-                    Shotgunblast();
                 }
                 if (Second_Phase_Timer == 320)
                 {
@@ -953,20 +944,12 @@ namespace Infernus.NPCs
                     {
                         Teleport_Down_Center();
                     }
-                    Down_Sweep();
+                    // Down_Sweep();
                 }
                 if (Second_Phase_Timer == 420)
                 {
                     // spear dives
                     Second_Phase_Timer = 11001;
-                }
-                if (Second_Phase_Timer == 450)
-                {
-                    Heat_Seeking_Bombs();
-                }
-                if (Second_Phase_Timer == 480)
-                {
-                    Heat_Seeking_Bombs();
                 }
                 if (Second_Phase_Timer == 496)
                 {
@@ -987,14 +970,6 @@ namespace Infernus.NPCs
                 {
                     //Dash begins 3
                     Second_Phase_Timer = 10001;
-                }
-                if (Second_Phase_Timer == 530)
-                {
-                    Heat_Seeking_Bombs();
-                }
-                if (Second_Phase_Timer == 570)
-                {
-                    Shotgunblast();
                 }
                 if (Second_Phase_Timer == 600)
                 {
@@ -1017,10 +992,6 @@ namespace Infernus.NPCs
                     // Sideways dashes + Bullet Hell
                     Second_Phase_Timer = 14001;
                 }
-                if (Second_Phase_Timer == 700)
-                {
-                    Shotgunblast();
-                }
                 if (Second_Phase_Timer == 750)
                 {
                     Dash_Strong();
@@ -1031,7 +1002,7 @@ namespace Infernus.NPCs
                     Dash_Strong();
                     Punch_Extra();
                 }
-                if (Second_Phase_Timer == 840)
+                if (Second_Phase_Timer == 820)
                 {
                     Homing_Rockets();
                 }
@@ -1043,6 +1014,7 @@ namespace Infernus.NPCs
                 #region Stage_2_Boss_Unique_Attacks
                 if (Second_Phase_Timer == 10021)
                 {
+                    is_dashing = true;
                     Dash_Strong();
                 }
                 if (Second_Phase_Timer == 10081)
@@ -1056,10 +1028,12 @@ namespace Infernus.NPCs
                 if (Second_Phase_Timer == 10171)
                 {
                     //Dash ends 3
+                    is_dashing = false;
                     Second_Phase_Timer = 510;
                 }
                 if (Second_Phase_Timer == 15021)
                 {
+                    is_dashing = true;
                     Dash_Strong();
                 }
                 if (Second_Phase_Timer == 15081)
@@ -1072,11 +1046,13 @@ namespace Infernus.NPCs
                 }
                 if (Second_Phase_Timer == 15171)
                 {
+                    is_dashing = false;
                     //Dash ends 1
                     Second_Phase_Timer = 110;
                 }
                 if (Second_Phase_Timer == 16021)
                 {
+                    is_dashing = true;
                     Dash_Strong();
                 }
                 if (Second_Phase_Timer == 16081)
@@ -1090,6 +1066,7 @@ namespace Infernus.NPCs
                 if (Second_Phase_Timer == 16171)
                 {
                     //Dash ends 2
+                    is_dashing = false;
                     Second_Phase_Timer = 390;
                 }
                 if (Second_Phase_Timer == 11001)
@@ -1251,39 +1228,39 @@ namespace Infernus.NPCs
                 }
                 if (Second_Phase_Timer == 12011)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (Second_Phase_Timer == 12021)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (Second_Phase_Timer == 12031)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (Second_Phase_Timer == 12041)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (Second_Phase_Timer == 12051)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (Second_Phase_Timer == 12061)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (Second_Phase_Timer == 12071)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (Second_Phase_Timer == 12081)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (Second_Phase_Timer == 12091)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (Second_Phase_Timer == 12101)
                 {
@@ -1291,39 +1268,39 @@ namespace Infernus.NPCs
                 }
                 if (Second_Phase_Timer == 12111)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (Second_Phase_Timer == 12121)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (Second_Phase_Timer == 12131)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (Second_Phase_Timer == 12141)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (Second_Phase_Timer == 12151)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (Second_Phase_Timer == 12161)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (Second_Phase_Timer == 12171)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (Second_Phase_Timer == 12181)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (Second_Phase_Timer == 12191)
                 {
-                    Homing_Basic_Shot();
+                    Basic_Shot();
                 }
                 if (Second_Phase_Timer == 12201)
                 {
@@ -1379,15 +1356,7 @@ namespace Infernus.NPCs
                 {
                     Teleport_Up_Left();
                 }
-                if (Second_Phase_Timer == 14011)
-                {
-                    Homing_Basic_Shot();
-                }
                 if (Second_Phase_Timer == 14021)
-                {
-                    Homing_Basic_Shot();
-                }
-                if (Second_Phase_Timer == 14031)
                 {
                     Homing_Basic_Shot();
                 }
@@ -1395,15 +1364,7 @@ namespace Infernus.NPCs
                 {
                     Homing_Basic_Shot();
                 }
-                if (Second_Phase_Timer == 14051)
-                {
-                    Homing_Basic_Shot();
-                }
                 if (Second_Phase_Timer == 14061)
-                {
-                    Homing_Basic_Shot();
-                }
-                if (Second_Phase_Timer == 14071)
                 {
                     Homing_Basic_Shot();
                 }
@@ -1411,15 +1372,7 @@ namespace Infernus.NPCs
                 {
                     Teleport_Up_Right();
                 }
-                if (Second_Phase_Timer == 14091)
-                {
-                    Homing_Basic_Shot();
-                }
                 if (Second_Phase_Timer == 14101)
-                {
-                    Homing_Basic_Shot();
-                }
-                if (Second_Phase_Timer == 14111)
                 {
                     Homing_Basic_Shot();
                 }
@@ -1427,15 +1380,7 @@ namespace Infernus.NPCs
                 {
                     Homing_Basic_Shot();
                 }
-                if (Second_Phase_Timer == 14131)
-                {
-                    Homing_Basic_Shot();
-                }
                 if (Second_Phase_Timer == 14141)
-                {
-                    Homing_Basic_Shot();
-                }
-                if (Second_Phase_Timer == 14151)
                 {
                     Homing_Basic_Shot();
                 }
@@ -1443,15 +1388,7 @@ namespace Infernus.NPCs
                 {
                     Teleport_Up_Left();
                 }
-                if (Second_Phase_Timer == 14171)
-                {
-                    Homing_Basic_Shot();
-                }
                 if (Second_Phase_Timer == 14181)
-                {
-                    Homing_Basic_Shot();
-                }
-                if (Second_Phase_Timer == 14191)
                 {
                     Homing_Basic_Shot();
                 }
@@ -1459,15 +1396,7 @@ namespace Infernus.NPCs
                 {
                     Homing_Basic_Shot();
                 }
-                if (Second_Phase_Timer == 14211)
-                {
-                    Homing_Basic_Shot();
-                }
                 if (Second_Phase_Timer == 14221)
-                {
-                    Homing_Basic_Shot();
-                }
-                if (Second_Phase_Timer == 14231)
                 {
                     Homing_Basic_Shot();
                 }
@@ -1649,19 +1578,19 @@ namespace Infernus.NPCs
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.damage = (int)(NPC.damage * 1.08f);
-            NPC.lifeMax = (int)(NPC.lifeMax = 523200 * (int)balance);
+            NPC.lifeMax = (int)(NPC.lifeMax = 273200 * (int)balance);
 
             if (Main.masterMode == true)
             {
-                NPC.lifeMax = (NPC.lifeMax = 573800 * (int)balance);
-                NPC.life = (NPC.lifeMax = 573800 * (int)balance);
+                NPC.lifeMax = (NPC.lifeMax = 313800 * (int)balance);
+                NPC.life = (NPC.lifeMax = 313800 * (int)balance);
                 NPC.damage = ((NPC.damage / 2) * 3);
             }
             if (Main.getGoodWorld == true)
             {
-                NPC.scale = .8f;
-                NPC.lifeMax = (NPC.lifeMax = 623800 * (int)balance);
-                NPC.life = (NPC.lifeMax = 623800 * (int)balance);
+                NPC.scale = .6f;
+                NPC.lifeMax = (NPC.lifeMax = 433800 * (int)balance);
+                NPC.life = (NPC.lifeMax = 433800 * (int)balance);
                 NPC.damage = ((NPC.damage / 10) * 13);
             }
         }
@@ -1711,13 +1640,53 @@ namespace Infernus.NPCs
             player = Main.player[NPC.target];
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                NPC.velocity.X *= 3.2f;
-                NPC.velocity.Y *= 3.2f;
+                NPC.velocity.X *= 2.7f;
+                NPC.velocity.Y *= 2.7f;
                 {
                     float rotation = (float)Math.Atan2(NPC.Center.Y - (player.position.Y + player.height), NPC.Center.X - (player.position.X + player.width));
                     NPC.velocity.X = (float)(Math.Cos(rotation) * 17) * -1;
                     NPC.velocity.Y = (float)(Math.Sin(rotation) * 17) * -1;
                 }
+            }
+            for (int i = 0; i < 30; i++)
+            {
+                var smoke = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
+                smoke.velocity *= 1.4f;
+            }
+
+            // Spawn a bunch of fire dusts.
+            for (int j = 0; j < 20; j++)
+            {
+                var fireDust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.SandstormInABottle, 0f, 0f, 100, default, 3.5f);
+                fireDust.noGravity = true;
+                fireDust.velocity *= 7f;
+                fireDust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.SandstormInABottle, 0f, 0f, 100, default, 1.5f);
+                fireDust.velocity *= 3f;
+            }
+
+            // Spawn a bunch of smoke gores.
+            for (int k = 0; k < 2; k++)
+            {
+                float speedMulti = 0.8f;
+                if (k == 1)
+                {
+                    speedMulti = 1.6f;
+                }
+
+                var smokeGore = Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                smokeGore.velocity *= speedMulti;
+                smokeGore.velocity += Vector2.One;
+                smokeGore = Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                smokeGore.velocity *= speedMulti;
+                smokeGore.velocity.X -= 1.2f;
+                smokeGore.velocity.Y += 1.2f;
+                smokeGore = Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                smokeGore.velocity *= speedMulti;
+                smokeGore.velocity.X += 1.2f;
+                smokeGore.velocity.Y -= 1.2f;
+                smokeGore = Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                smokeGore.velocity *= speedMulti;
+                smokeGore.velocity -= Vector2.One;
             }
         }
         private void Dash_Strong()
@@ -1991,7 +1960,7 @@ namespace Infernus.NPCs
                 for (int i = 0; i < 2; i++)
                 {
                     Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i));
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Holy_Homing_Bomb>(), 29, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Holy_Rockets>(), 29, NPC.whoAmI);
                 }
             }
 

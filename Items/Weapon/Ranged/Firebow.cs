@@ -33,12 +33,39 @@ namespace Infernus.Items.Weapon.Ranged
             Item.shootSpeed = 8f;
             Item.useAmmo = AmmoID.Arrow;
         }
+        public override void UseAnimation(Player player)
+        {
+            for (int k = 0; k < 11; k++)
+            {
+                Vector2 speed = Main.rand.NextVector2Circular(1f, 1f);
+                Dust Sword = Dust.NewDustPerfect(player.Center + speed * 32, DustID.SolarFlare, speed * 3, Scale: 1f);
+                Sword.noGravity = true;
+            }
+        }
+        public override bool CanConsumeAmmo(Item ammo, Player player)
+        {
+            return Main.rand.NextFloat() >= .33f;
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Vector2 offset = new(velocity.X * 3, velocity.Y * 3);
-            position += offset;
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, ProjectileID.Flames, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, ProjectileID.HellfireArrow, damage, knockback, player.whoAmI);
+            Vector2 target = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
+            for (int i = 0; i < 2; i++)
+            {
+                position = player.Center - new Vector2(Main.rand.NextFloat(0) * player.direction, 0f);
+                position.Y -= 0 * i;
+                position.X -= 20 * i;
+                Vector2 heading = target - position;
+
+                heading.Normalize();
+                heading *= velocity.Length();
+                heading.Y += Main.rand.Next(-15, 15) * 0.013f;
+                if (type == ProjectileID.WoodenArrowFriendly)
+                {
+                    type = ModContent.ProjectileType<Projectiles.Raiko_Bow_Arrow>();
+                }
+                Projectile.NewProjectile(source, position, heading, type, damage, knockback, player.whoAmI, 0f, 0);
+            }
+
             return false;
         }
         public override Vector2? HoldoutOffset()

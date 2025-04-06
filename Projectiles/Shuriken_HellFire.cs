@@ -33,23 +33,28 @@ namespace Infernus.Projectiles
             Projectile.localNPCHitCooldown = 16;
             Projectile.extraUpdates = 1;
         }
-
+        int timer;
         public override void AI()
         {
             Projectile.rotation += (float)Projectile.direction * 16;
-
             Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.InfernoFork, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
 
-            float maxDetectRadius = 360f;
-            float projSpeed = 16f;
+            timer++;
+            if (timer >= 16)
+            {
+                float maxDetectRadius = 360f;
+                var inertia = 12f;
 
-            NPC closestNPC = FindClosestNPC(maxDetectRadius);
-            if (closestNPC == null)
-                return;
+                NPC closestNPC = FindClosestNPC(maxDetectRadius);
+                if (closestNPC == null)
+                    return;
 
-            Projectile.velocity = (closestNPC.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * projSpeed;
+                Vector2 direction = closestNPC.Center - Projectile.Center;
+                direction.Normalize();
+                direction *= 16;
+                Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
+            }
 
-            Projectile.velocity.Y += Projectile.ai[0];
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

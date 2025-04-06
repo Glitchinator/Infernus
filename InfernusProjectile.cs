@@ -15,6 +15,8 @@ namespace Infernus
                 projectile.damage = (int)(projectile.damage * 1.4f);
             }
         }
+        /*
+         * just set timeleft during projectile spawn in flarerolver
         public override void SetDefaults(Projectile projectile)
         {
             if (projectile.aiStyle == 33)
@@ -22,6 +24,7 @@ namespace Infernus
                 projectile.timeLeft = 1030;
             }
         }
+        */
         public override void AI(Projectile projectile)
         {
             if(Calypsical.death_aninatiom == true)

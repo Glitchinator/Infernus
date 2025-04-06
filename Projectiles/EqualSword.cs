@@ -52,6 +52,13 @@ namespace Infernus.Projectiles
                 Projectile.velocity = safed_velocity;
             }
         }
+        public override void OnKill(int timeLeft)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                Dust.NewDustPerfect(Projectile.Center, DustID.SandstormInABottle);
+            }
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             Main.instance.LoadProjectile(Projectile.type);

@@ -18,8 +18,8 @@ namespace Infernus.Items.Weapon.Magic
         {
             Item.damage = 9;
             Item.DamageType = DamageClass.Magic;
-            Item.width = 48;
-            Item.height = 48;
+            Item.width = 42;
+            Item.height = 42;
             Item.useAnimation = 38;
             Item.useTime = 38;
             Item.useStyle = ItemUseStyleID.Shoot;

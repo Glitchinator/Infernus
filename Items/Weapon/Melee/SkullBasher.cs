@@ -14,7 +14,7 @@ namespace Infernus.Items.Weapon.Melee
 
         public override void SetDefaults()
         {
-            Item.damage = 48;
+            Item.damage = 52;
             Item.DamageType = DamageClass.Melee;
             Item.width = 38;
             Item.height = 38;
@@ -29,21 +29,21 @@ namespace Infernus.Items.Weapon.Melee
             Item.shoot = ModContent.ProjectileType<Projectiles.SkullBasher>();
             Item.channel = true;
             Item.noUseGraphic = true;
-            Item.shootSpeed = 24f;
+            Item.shootSpeed = 10f;
             Item.autoReuse = true;
         }
         public override void AddRecipes()
         {
             CreateRecipe()
             .AddIngredient(ItemID.Bone, 54)
-            .AddIngredient(ItemID.WoodenHammer, 1)
+            .AddIngredient(ModContent.ItemType<LeadPipe>(), 1)
             .AddIngredient(ItemID.Cobweb, 24)
             .AddTile(TileID.Anvils)
             .Register();
         }
         public override bool CanUseItem(Player player)
         {
-            for (int i = 0; i < 1000; ++i)
+            for (int i = 2; i < 1000; ++i)
             {
                 if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == Item.shoot)
                 {

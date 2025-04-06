@@ -44,7 +44,7 @@ namespace Infernus.Projectiles
                 Sword.noGravity = true;
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item62, Projectile.position);
 

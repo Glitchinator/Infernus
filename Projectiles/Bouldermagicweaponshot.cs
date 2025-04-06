@@ -13,7 +13,7 @@ namespace Infernus.Projectiles
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailingMode[Type] = 0;
-            ProjectileID.Sets.TrailCacheLength[Type] = 5;
+            ProjectileID.Sets.TrailCacheLength[Type] = 4;
         }
         public override void SetDefaults()
         {
@@ -35,14 +35,17 @@ namespace Infernus.Projectiles
             {
                 Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Stone, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
             }
-            float maxDetectRadius = 150f;
-            float projSpeed = 18f;
+            float maxDetectRadius = 180f;
+            var inertia = 10f;
 
             NPC closestNPC = FindClosestNPC(maxDetectRadius);
             if (closestNPC == null)
                 return;
 
-            Projectile.velocity = (closestNPC.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * projSpeed;
+            Vector2 direction = closestNPC.Center - Projectile.Center;
+            direction.Normalize();
+            direction *= 16;
+            Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
 
             Projectile.velocity.Y += Projectile.ai[0];
         }

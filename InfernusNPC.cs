@@ -17,6 +17,7 @@ namespace Infernus
         public static bool Plant_Spawned = false;
 
         public static bool Cursed_Spawned = false;
+        public static bool killed_mech = false;
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
@@ -190,7 +191,7 @@ namespace Infernus
             }
             if (InfernusSystem.Level_systemON == true)
             {
-                if (npc.type == ModContent.NPCType<Chorus_Plant>())
+                if (npc.type == NPCID.Plantera)
                 {
                     npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<Items.Tools.Chorus_Bloom>(), 99);
                 }
@@ -199,6 +200,22 @@ namespace Infernus
                     npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<Items.Tools.Cursed_Soul>(), 99);
                 }
             }
+            /*
+            if (NPC.downedPlantBoss == false)
+            {
+                if (npc.type == NPCID.Plantera)
+                {
+                    if (Main.netMode == NetmodeID.SinglePlayer)
+                    {
+                        Main.NewText("The Armsdealer has something new to sell!", 161, 245, 51);
+                    }
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    {
+                        Main.NewText("The Armsdealer has something new to sell!", 161, 245, 51);
+                    }
+                }
+            }
+            */
         }
     }
 }

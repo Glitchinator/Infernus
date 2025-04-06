@@ -58,6 +58,7 @@ namespace Infernus.NPCs
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.value = 10000;
             NPC.boss = true;
+            NPC.timeLeft = 500;
             Music = MusicLoader.GetMusicSlot("Infernus/Music/Floral_Disruption");
         }
         int timer;
@@ -68,8 +69,9 @@ namespace Infernus.NPCs
             Player player = Main.player[NPC.target];
             NPC.netUpdate = true;
             NPC.TargetClosest(true);
+            NPC.CheckActive();
 
-
+            /*
             if (NPC.target < 0 || NPC.target == 255 || player.dead || !player.active)
             {
                 NPC.TargetClosest(false);
@@ -80,6 +82,7 @@ namespace Infernus.NPCs
                     return;
                 }
             }
+            */
             timer++;
             if (timer == 60)
             {
@@ -171,10 +174,12 @@ namespace Infernus.NPCs
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
+            /*
             if (spawnInfo.Player.ZoneJungle && spawnInfo.Player.ZoneRockLayerHeight && NPC.downedPlantBoss && InfernusNPC.Plant_Spawned == false)
             {
                 return .1f;
             }
+            */
             return 0f;
         }
         private void Spore_Shootgun()

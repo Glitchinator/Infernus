@@ -1,0 +1,6 @@
+C:\Users\logan\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Infernus\obj\Debug\net8.0\Infernus.csproj.AssemblyReference.cache
+C:\Users\logan\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Infernus\obj\Debug\net8.0\Infernus.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\logan\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Infernus\obj\Debug\net8.0\Infernus.AssemblyInfoInputs.cache
+C:\Users\logan\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Infernus\obj\Debug\net8.0\Infernus.AssemblyInfo.cs
+C:\Users\logan\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Infernus\obj\Debug\net8.0\Infernus.csproj.CoreCompileInputs.cache
+C:\Users\logan\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Infernus\obj\Debug\net8.0\Infernus.sourcelink.json

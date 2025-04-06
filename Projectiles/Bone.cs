@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -39,6 +40,28 @@ namespace Infernus.Projectiles
                 Projectile.velocity.Y = 16f;
             }
         }
+        public override void OnSpawn(IEntitySource source)
+        {
+            for (int k = 0; k < 1; k++)
+            {
+                float speedMulti = Main.rand.NextFloat(0.22f);
+
+                Vector2 newVelocity = Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(24));
+
+
+                newVelocity *= speedMulti;
+
+                var smokeGore = Gore.NewGoreDirect(Projectile.GetSource_Death(), Projectile.position, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                smokeGore.velocity = newVelocity;
+                // smokeGore.velocity += Vector2.One;
+
+            }
+            for (int k = 0; k < 8; k++)
+            {
+                Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Blood, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
+            }
+
+        }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (int)(Projectile.damage * 0.85f);
@@ -68,6 +91,13 @@ namespace Infernus.Projectiles
                 Projectile.velocity *= 0.75f;
             }
             return false;
+        }
+        public override void OnKill(int timeLeft)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                Dust.NewDustPerfect(Projectile.Center, DustID.Bone);
+            }
         }
     }
 }

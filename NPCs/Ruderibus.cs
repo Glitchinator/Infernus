@@ -84,7 +84,7 @@ namespace Infernus.NPCs
             else
             {
                 Move(new Vector2(Main.rand.Next(0), -260f));
-            }
+            }/*
             if (Timer == 60)
             {
                 is_above = true;
@@ -111,26 +111,38 @@ namespace Infernus.NPCs
                 SoundEngine.PlaySound(SoundID.Item30, NPC.position);
                 Ice_Cone_Blast();
             }
+            
             if (Timer == 360)
             {
                 SoundEngine.PlaySound(SoundID.Item30, NPC.position);
                 Ice_Cone_Blast();
                 is_above = false;
+                InfernusWorld.Ruderibus_Switch = true;
             }
-            if (Timer == 500)
+            */
+
+            if (Timer == 100)
+            {
+                InfernusWorld.Ruderibus_Switch = true;
+            }
+            if (Timer == 300)
             {
                 InfernusWorld.Ruderibus_Timer = 10000;
                 // Dash1 start
             }
-            if(Timer == 620)
+
+            if(Timer == 500)
             {
                 InfernusWorld.Ruderibus_Switch = true;
+                // Switch to hands timer
             }
-            if (Timer == 720)
+            /*
+            if (Timer == 1020)
             {
                 InfernusWorld.Ruderibus_Timer = 0;
                 InfernusWorld.Ruderibus_Switch = false;
             }
+            */
 
 
 
@@ -156,7 +168,8 @@ namespace Infernus.NPCs
             if (Timer == 10241)
             {
                 //Dash 1 ends
-                InfernusWorld.Ruderibus_Timer = 540;
+                InfernusWorld.Ruderibus_Timer = 301;
+                InfernusWorld.Ruderibus_Switch = false;
                 is_dashing = false;
             }
         }
@@ -356,6 +369,7 @@ namespace Infernus.NPCs
                 {
                     minion.ParentIndex = NPC.whoAmI;
                     minion.PositionIndex = i;
+                    minion.Which_Fist = i;
                 }
 
                 if (Main.netMode == NetmodeID.Server && NPC_ < Main.maxNPCs)

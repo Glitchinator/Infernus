@@ -17,12 +17,12 @@ namespace Infernus.Items.Weapon.HardMode.Magic
 
         public override void SetDefaults()
         {
-            Item.damage = 60;
+            Item.damage = 80;
             Item.DamageType = DamageClass.Magic;
             Item.width = 24;
             Item.height = 56;
-            Item.useTime = 28;
-            Item.useAnimation = 28;
+            Item.useTime = 24;
+            Item.useAnimation = 24;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 5f;
             Item.value = 290000;
@@ -36,6 +36,15 @@ namespace Infernus.Items.Weapon.HardMode.Magic
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-13, 0);
+        }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            Vector2 muzzleOffset = Vector2.Normalize(velocity) * 25f;
+
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position += muzzleOffset;
+            }
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -61,7 +70,7 @@ namespace Infernus.Items.Weapon.HardMode.Magic
                 Vector2 perturbedSpeed = velocity3.RotatedBy(MathHelper.Lerp(-rotation3, rotation3, i));
                 Projectile.NewProjectileDirect(source, position, perturbedSpeed, ModContent.ProjectileType<Tesla>(), damage, knockback, player.whoAmI);
             }
-
+            Projectile.NewProjectileDirect(source, position, velocity * 4, ModContent.ProjectileType<Tesla>(), damage, knockback, player.whoAmI);
             return false;
         }
     }

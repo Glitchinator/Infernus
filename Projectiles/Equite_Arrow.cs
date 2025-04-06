@@ -35,7 +35,7 @@ namespace Infernus.Projectiles
             if (Projectile.ai[0] >= 50f)
             {
                 Projectile.ai[0] = 50f;
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.04f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.1f;
             }
             if (Projectile.velocity.Y > 16f)
             {

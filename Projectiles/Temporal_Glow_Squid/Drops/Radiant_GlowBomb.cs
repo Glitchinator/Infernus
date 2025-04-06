@@ -43,8 +43,8 @@ namespace Infernus.Projectiles.Temporal_Glow_Squid.Drops
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.velocity.Y = 0;
-            Projectile.velocity.X = 0;
+            Projectile.velocity.Y = Projectile.velocity.Y * .70f;
+            Projectile.velocity.X = Projectile.velocity.X * .70f;
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {

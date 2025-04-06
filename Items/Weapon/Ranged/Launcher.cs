@@ -65,6 +65,8 @@ namespace Infernus.Items.Weapon.Ranged
                     Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI);
                 }
                 cycle = 0;
+                // knockback
+                player.velocity += -velocity / 3;
             }
             return false;
         }

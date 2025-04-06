@@ -31,7 +31,7 @@ namespace Infernus.Items.Weapon.Ranged
             Item.UseSound = SoundID.Item34;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.Temporal_Glow_Squid.Drops.Ink_Flamethrower>();
-            Item.shootSpeed = 10f;
+            Item.shootSpeed = 14f;
             Item.useAmmo = AmmoID.Gel;
             Item.consumeAmmoOnFirstShotOnly = true;
         }
@@ -41,7 +41,7 @@ namespace Infernus.Items.Weapon.Ranged
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 velocity *= 1f - Main.rand.NextFloat(0.14f);
 

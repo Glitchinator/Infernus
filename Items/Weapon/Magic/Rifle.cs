@@ -20,8 +20,8 @@ namespace Infernus.Items.Weapon.Magic
         {
             Item.damage = 12;
             Item.DamageType = DamageClass.Magic;
-            Item.width = 50;
-            Item.height = 50;
+            Item.width = 48;
+            Item.height = 48;
             Item.useAnimation = 12;
             Item.useTime = 4;
             Item.reuseDelay = 18;

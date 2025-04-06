@@ -36,7 +36,7 @@ namespace Infernus.Items.Weapon.Ranged
         }
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(-2, 0);
+            return new Vector2(-1, 0);
         }
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {

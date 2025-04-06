@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -28,11 +29,18 @@ namespace Infernus.Projectiles
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 6;
         }
+        public override void OnSpawn(IEntitySource source)
+        {
+            for (int k = 0; k < 8; k++)
+            {
+                Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.JungleGrass, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
+            }
+
+        }
 
         public override void AI()
         {
             Projectile.alpha += 7;
-            Projectile.scale -= .065f;
 
             Projectile.rotation += (float)Projectile.direction * 7;
 
@@ -44,10 +52,11 @@ namespace Infernus.Projectiles
 
 
 
-            if (Main.rand.NextBool(2))
-            {
-                Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.JungleGrass, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
-            }
+            int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.JungleGrass, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
+            Main.dust[dust].noGravity = true;
+            Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.044f;
+            
+
             float maxDetectRadius = 400f;
             var inertia = 12f;
 
@@ -59,8 +68,6 @@ namespace Infernus.Projectiles
             direction.Normalize();
             direction *= 16;
             Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
-
-            Projectile.rotation = Projectile.velocity.ToRotation();
 
             Projectile.velocity.Y += Projectile.ai[0];
         }

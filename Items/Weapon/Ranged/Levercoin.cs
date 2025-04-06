@@ -1,5 +1,7 @@
+using Infernus.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -35,6 +37,7 @@ namespace Infernus.Items.Weapon.Ranged
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            //SoundEngine.PlaySound(SoundID.Item73, position);
             Projectile.NewProjectileDirect(source, position, velocity, ProjectileID.BulletHighVelocity, damage, knockback, player.whoAmI);
 
             return false;

@@ -24,15 +24,14 @@ namespace Infernus.Projectiles
             Projectile.tileCollide = false;
             Projectile.timeLeft = 600;
             Projectile.netImportant = true;
+            Projectile.alpha = 255;
         }
 
         public override void AI()
         {
-            if (Main.rand.NextBool(3))
-            {
-                Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Clentaminator_Red, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
-                Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Firework_Red, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
-            }
+            int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Firework_Red, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
+            Main.dust[dust].noGravity = true;
+            Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.014f;
 
             float maxDetectRadius = 400f;
             var inertia = 12f;

@@ -57,15 +57,16 @@ namespace Infernus.Items.Weapon.Ranged
         {
             if (player.altFunctionUse == 2)
             {
-                Item.damage = 14;
-                Item.useAnimation = 80;
-                Item.useTime = 16;
-                Item.reuseDelay = 1;
-                Item.shootSpeed = 9f;
+                Item.damage = 13;
+                Item.useAnimation = 30;
+                Item.useTime = 6;
+                Item.reuseDelay = 70;
+                Item.shootSpeed = 11f;
                 Item.knockBack = 1f;
             }
             else
             {
+                Item.reuseDelay = 0;
                 SetDefaults();
             }
             return base.CanUseItem(player);
@@ -78,11 +79,13 @@ namespace Infernus.Items.Weapon.Ranged
 
                 newVelocity *= 1f - Main.rand.NextFloat(0.4f);
 
-                Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI);
+                int p = Projectile.NewProjectile(source, position, newVelocity, type, damage, knockback, player.whoAmI);
+                Main.projectile[p].timeLeft = 180;
             }
             else
             {
-                Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
+                int p = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
+                Main.projectile[p].timeLeft = 180;
             }
             return false;
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Infernus.Buffs;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
@@ -17,16 +18,13 @@ namespace Infernus.Projectiles
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Demonite, 2.5f, -2.5f, 0, default, 1.2f);
             }
-            if (Main.rand.Next(3) < 1)
-            {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ProjectileID.TentacleSpike, (int)(Projectile.damage * .60f), 0, Projectile.owner);
-            }
+            target.AddBuff(ModContent.BuffType<Rot_Ball_Demo>(), 240);
         }
         public override void SetDefaults()
         {
             Projectile.netImportant = true;
-            Projectile.width = 26;
-            Projectile.height = 32;
+            Projectile.width = 28;
+            Projectile.height = 28;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.DamageType = DamageClass.Melee;
@@ -91,6 +89,22 @@ namespace Infernus.Projectiles
                 chainCount++;
                 chainLengthRemainingToDraw -= chainSegmentLength;
             }
+
+            Main.instance.LoadProjectile(Projectile.type);
+            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+            SpriteEffects spriteEffects2 = SpriteEffects.None;
+
+            if (Projectile.spriteDirection == -1)
+            {
+                spriteEffects2 = SpriteEffects.FlipHorizontally;
+            }
+            Vector2 drawOrigin2 = new(texture.Width * 0.5f, Projectile.height * 0.5f);
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            {
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin2 + new Vector2(0f, Projectile.gfxOffY);
+                Main.EntitySpriteDraw(texture, drawPos, null, new Color(101, 67, 122, 0) * (.60f - Projectile.alpha / 210f), Projectile.rotation, drawOrigin2, Projectile.scale, spriteEffects2, 0);
+            }
+
             return true;
         }
     }

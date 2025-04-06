@@ -20,7 +20,7 @@ namespace Infernus.Items.Weapon.Magic
             Item.damage = 19;
             Item.DamageType = DamageClass.Magic;
             Item.width = 48;
-            Item.height = 48;
+            Item.height = 46;
             Item.useAnimation = 34;
             Item.useTime = 34;
             Item.useStyle = ItemUseStyleID.Shoot;

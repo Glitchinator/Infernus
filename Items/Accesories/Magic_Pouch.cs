@@ -27,7 +27,8 @@ namespace Infernus.Items.Accesories
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Condensed_Iceicle>(), 1)
+            .AddIngredient(ItemID.Silk, 12)
+            .AddIngredient(ItemID.Sapphire, 3)
             .AddTile(TileID.TinkerersWorkbench)
             .Register();
         }

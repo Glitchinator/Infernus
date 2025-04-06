@@ -1,10 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\tModLoader.targets" />
   <PropertyGroup>
     <AssemblyName>Infernus</AssemblyName>
-    <TargetFramework>net6.0</TargetFramework>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
@@ -17,7 +15,10 @@
     <None Remove="Buffs\Boulder_Buff.png" />
     <None Remove="Buffs\Rage.png" />
     <None Remove="Buffs\Rage_Cooldown.png" />
+    <None Remove="Buffs\Rot_Ball_Crim.png" />
+    <None Remove="Buffs\Rot_Ball_Demo.png" />
     <None Remove="Buffs\Souldrinker_Buff.png" />
+    <None Remove="Gores\Gas.png" />
     <None Remove="icon.png" />
     <None Remove="icon_workshop.png" />
     <None Remove="Items\Accesories\Aeritite_Shield.png" />
@@ -55,6 +56,7 @@
     <None Remove="Items\Armor\Equite_Leggings_Legs.png" />
     <None Remove="Items\BossSummon\Boulder_Bag.png" />
     <None Remove="Items\Materials\Crumbling_Basalt.png" />
+    <None Remove="Items\Materials\Equite_Bar.png" />
     <None Remove="Items\Materials\Gaming.png" />
     <None Remove="Items\Materials\Ruderibus_Shard.png" />
     <None Remove="Items\Materials\Scorched_Sinew.png" />
@@ -83,13 +85,40 @@
     <None Remove="Items\Weapon\HardMode\Accessories\Titanium_Gloves.png" />
     <None Remove="Items\Weapon\HardMode\Magic\Aeritite_Plasma_Cannon.png" />
     <None Remove="Items\Weapon\HardMode\Magic\Ancient_Crest.png" />
+    <None Remove="Items\Weapon\HardMode\Magic\Bouldermagicweapon.png" />
+    <None Remove="Items\Weapon\HardMode\Magic\SkullStorm.png" />
+    <None Remove="Items\Weapon\HardMode\Melee\Frisbe.png" />
+    <None Remove="Items\Weapon\HardMode\Melee\Subslicer.png" />
+    <None Remove="Items\Weapon\HardMode\Ranged\Bog.png" />
+    <None Remove="Items\Weapon\HardMode\Ranged\GolemPistol.png" />
+    <None Remove="Items\Weapon\HardMode\Ranged\MechBow.png" />
+    <None Remove="Items\Weapon\HardMode\Ranged\nailgun.png" />
     <None Remove="Items\Weapon\Magic\AerititeCannon.png" />
+    <None Remove="Items\Weapon\Magic\Buther.png" />
+    <None Remove="Items\Weapon\Magic\CoralStaff.png" />
+    <None Remove="Items\Weapon\Magic\Corrstaff.png" />
+    <None Remove="Items\Weapon\Magic\EqualStaff.png" />
+    <None Remove="Items\Weapon\Magic\Fallen.png" />
+    <None Remove="Items\Weapon\Magic\Flower.png" />
+    <None Remove="Items\Weapon\Magic\Radiant_Staff.png" />
+    <None Remove="Items\Weapon\Magic\Rifle.png" />
+    <None Remove="Items\Weapon\Magic\SkullStaff.png" />
     <None Remove="Items\Weapon\Magic\Solder.png" />
     <None Remove="Items\Weapon\Melee\AerititeSword.png" />
     <None Remove="Items\Weapon\Melee\ChainWhip.png" />
+    <None Remove="Items\Weapon\Melee\EqualBlade.png" />
+    <None Remove="Items\Weapon\Melee\Hatchet.png" />
+    <None Remove="Items\Weapon\Melee\LeadPipe.png" />
+    <None Remove="Items\Weapon\Melee\SkullBasher.png" />
     <None Remove="Items\Weapon\Meteor - Copy.png" />
     <None Remove="Items\Weapon\Ranged\Aerbow.png" />
     <None Remove="Items\Weapon\Ranged\Cement.png" />
+    <None Remove="Items\Weapon\Ranged\Coral.png" />
+    <None Remove="Items\Weapon\Ranged\Equalbow.png" />
+    <None Remove="Items\Weapon\Ranged\Eye_Launcher.png" />
+    <None Remove="Items\Weapon\Ranged\Flarovolver.png" />
+    <None Remove="Items\Weapon\Ranged\July4th.png" />
+    <None Remove="Items\Weapon\Ranged\Launcher.png" />
     <None Remove="Items\Weapon\Ranged\Squid_FlameThrower.png" />
     <None Remove="Items\Weapon\Summon\Minion2.png" />
     <None Remove="Items\Weapon\Summon\Whipaer.png" />
@@ -105,12 +134,15 @@
     <None Remove="Placeable\Ore.png" />
     <None Remove="Placeable\Plant_Box.png" />
     <None Remove="Placeable\Raiko_Box.png" />
+    <None Remove="Placeable\Raiko_Summon_Placeable.png" />
     <None Remove="Placeable\Ruderibus_Box.png" />
     <None Remove="Placeable\Shark_Box.png" />
     <None Remove="Placeable\Squid_Box.png" />
     <None Remove="Projectiles\Aeritite_Arrow.png" />
     <None Remove="Projectiles\Aeritite_Magic_Bomb.png" />
+    <None Remove="Projectiles\Aeritite_Mine.png" />
     <None Remove="Projectiles\Aeritite_Mine_Explosion.png" />
+    <None Remove="Projectiles\A_M.png" />
     <None Remove="Projectiles\Basalt_Arrow.png" />
     <None Remove="Projectiles\Basalt_Proj.png" />
     <None Remove="Projectiles\Basalt_Whip_Proj.png" />
@@ -123,12 +155,17 @@
     <None Remove="Projectiles\Cloud_Knife.png" />
     <None Remove="Projectiles\Cloud_Knife_Prime.png" />
     <None Remove="Projectiles\Cloud_Knife_Proj.png" />
+    <None Remove="Projectiles\Coral.png" />
     <None Remove="Projectiles\Corrupt_Magic.png" />
     <None Remove="Projectiles\EqualSword.png" />
     <None Remove="Projectiles\Equite_Arrow.png" />
     <None Remove="Projectiles\Equite_Leaf.png" />
+    <None Remove="Projectiles\Frisbe.png" />
     <None Remove="Projectiles\Ice_Rain.png" />
+    <None Remove="Projectiles\Ice_Spear.png" />
     <None Remove="Projectiles\Ink_Jet.png" />
+    <None Remove="Projectiles\LeadPipe.png" />
+    <None Remove="Projectiles\LeadPipe_Proj.png" />
     <None Remove="Projectiles\Lectric.png" />
     <None Remove="Projectiles\Lightning.png" />
     <None Remove="Projectiles\Lightning_Boom.png" />
@@ -140,17 +177,23 @@
     <None Remove="Projectiles\Meteor_tracking.png" />
     <None Remove="Projectiles\Meteor_Whetstone_Explosion.png" />
     <None Remove="Projectiles\Minion1_Shot.png" />
+    <None Remove="Projectiles\Molten_Chaingun.png" />
     <None Remove="Projectiles\Phantom.png" />
     <None Remove="Projectiles\Prismatic_Javelin.png" />
     <None Remove="Projectiles\Prismatic_Javelin_Proj.png" />
     <None Remove="Projectiles\Raiko\Boss\Meteor_Heat.png" />
+    <None Remove="Projectiles\Raiko_Bow_Arrow.png" />
     <None Remove="Projectiles\Rocky_Rounds.png" />
     <None Remove="Projectiles\Rocky_rounds_Proj.png" />
     <None Remove="Projectiles\Ruderibus_Rounds.png" />
     <None Remove="Projectiles\Sandstorm_Whip.png" />
     <None Remove="Projectiles\Sea_Star_Lite.png" />
     <None Remove="Projectiles\Shark_Typhoon.png" />
+    <None Remove="Projectiles\SkullBasher.png" />
+    <None Remove="Projectiles\Subslicer_Blade.png" />
     <None Remove="Projectiles\Temporal_Glow_Squid\Boss\Ink_Jet - Copy.png" />
+    <None Remove="Projectiles\Viral.png" />
+    <None Remove="Projectiles\ViralCRIM.png" />
     <None Remove="Tiles\Corrupt_Music_Box.png" />
     <None Remove="Tiles\Corrupt_Music_Box_Highlight.png" />
     <None Remove="Tiles\Equite_Ore_Tile.png" />
@@ -160,6 +203,8 @@
     <None Remove="Tiles\Plant_Music_Box_Highlight.png" />
     <None Remove="Tiles\Raiko_Music_Box.png" />
     <None Remove="Tiles\Raiko_Music_Box_Highlight.png" />
+    <None Remove="Tiles\Raiko_Summon_Tile.png" />
+    <None Remove="Tiles\Raiko_Summon_Tile_Highlight.png" />
     <None Remove="Tiles\Ruderibus_Music_Box.png" />
     <None Remove="Tiles\Ruderibus_Music_Box_Highlight.png" />
     <None Remove="Tiles\Shark_Music_Box.png" />
@@ -170,6 +215,5 @@
     <None Remove="Tiles\Wanderer_Music_Box_Highlight.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
 </Project>
