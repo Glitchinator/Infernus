@@ -1,3 +1,4 @@
+using Infernus.Items.Materials;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Creative;
@@ -26,7 +27,7 @@ namespace Infernus.Items.BossSummon
         }
         public override bool CanUseItem(Player player)
         {
-            return !NPC.AnyNPCs(Mod.Find<ModNPC>("Shark").Type) && (player.ZoneBeach);
+            return !NPC.AnyNPCs(Mod.Find<ModNPC>("Shark").Type) && (player.ZoneDesert);
         }
         public override bool? UseItem(Player player)
         {
@@ -41,10 +42,9 @@ namespace Infernus.Items.BossSummon
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.BeetleHusk, 4)
-            .AddIngredient(ItemID.Grubby, 1)
-            .AddIngredient(ItemID.Buggy, 1)
-            .AddIngredient(ItemID.Sluggy, 1)
+            .AddIngredient(ModContent.ItemType<Sand_Scale>(), 10)
+            .AddIngredient(ItemID.Sandstone, 15)
+            .AddIngredient(ItemID.AntlionMandible, 3)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

@@ -16,12 +16,12 @@ namespace Infernus.Items.Tools
         public static readonly Color RocknStone = new(194, 194, 163);
         public override void SetDefaults()
         {
-            Item.damage = 32;
+            Item.damage = 12;
             Item.DamageType = DamageClass.Melee;
             Item.width = 34;
             Item.height = 34;
-            Item.useTime = 22;
-            Item.useAnimation = 22;
+            Item.useTime = 17;
+            Item.useAnimation = 17;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 3f;
             Item.value = 50000;
@@ -29,21 +29,19 @@ namespace Infernus.Items.Tools
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.axe = 12;
-            Item.pick = 45;
+            Item.pick = 50;
             Item.useTurn = true;
         }
         public override void UpdateInventory(Player player)
         {
             if (Main.hardMode == true)
             {
-                Item.damage = 52;
+                Item.damage = 32;
                 Item.axe = 22;
                 Item.pick = 110;
+                return;
             }
-            else
-            {
-                SetDefaults();
-            }
+            SetDefaults();
         }
         public override bool AltFunctionUse(Player player)
         {
@@ -71,6 +69,8 @@ namespace Infernus.Items.Tools
             }
             else
             {
+                Item.useTime = 17;
+                Item.useAnimation = 17;
                 SetDefaults();
             }
             return base.CanUseItem(player);

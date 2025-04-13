@@ -22,8 +22,8 @@ namespace Infernus.Items.Accesories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.lifeRegen += 1;
-            player.statLifeMax2 += 20;
+            player.lifeRegen += 2;
+            player.statLifeMax2 += 30;
         }
         public override void AddRecipes()
         {

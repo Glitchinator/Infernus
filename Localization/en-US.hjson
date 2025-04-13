@@ -185,6 +185,11 @@ Mods: {
 				DisplayName: Rot_ Ball_ Demo
 				Description: Mods.Infernus.Buffs.Rot_Ball_Demo.Description
 			}
+
+			Equite_Tag_Debuff: {
+				DisplayName: Equite_ Tag_ Debuff
+				Description: Mods.Infernus.Buffs.Equite_Tag_Debuff.Description
+			}
 		}
 
 		Items: {
@@ -308,8 +313,8 @@ Mods: {
 				DisplayName: Band of Terra
 				Tooltip:
 					'''
-					Increased life regen by 1
-					Increases life by 20
+					Increased life regen by 2
+					Increases life by 30
 					'''
 			}
 
@@ -338,11 +343,12 @@ Mods: {
 			Leggings.DisplayName: Aeritite Leggings
 
 			BeetleBait: {
-				DisplayName: Beetle Bait
+				DisplayName: Duststorm Bait
 				Tooltip:
 					'''
+					Food for a hungry beast
 					Summons Serphious
-					Must be in ocean biome
+					Must be in desert biome
 					'''
 			}
 
@@ -1449,10 +1455,11 @@ Mods: {
 				DisplayName: Equite Emblem
 				Tooltip:
 					'''
+					Increases max minions by 1
+					Increases whip range by 10%
 					While wearing the Equite set
-					Increases max mana by 80
-					Increases max minions by 2
-					Increases armor penetration by 1
+					Equite leafs inflict a minion boosting debuff
+					Buff boosts minion damage and knockback and drains enemy life
 					'''
 			}
 
@@ -1733,7 +1740,7 @@ Mods: {
 				Tooltip:
 					'''
 					While above 50% HP, gain 15% increased damage
-					While below 50% HP, gain 12 defense and 10% movement speed
+					While below 50% HP, gain 14 defense, +2 life regen and 10% movement speed
 					'''
 				DisplayName: Ethereal Rune
 			}
@@ -1773,6 +1780,53 @@ Mods: {
 
 			Raiko_Summon_Placeable: {
 				DisplayName: Raiko_ Summon_ Placeable
+				Tooltip: ""
+			}
+
+			Equite_Charm: {
+				DisplayName: Equite Charm
+				Tooltip:
+					'''
+					Decreases mana cost by 9%
+					Increases mana regen by 4
+					While wearing the Equite set
+					Equite leafs will syphon 15 mana from enemies on hit
+					'''
+			}
+
+			Equite_Knuckles: {
+				DisplayName: Equite Knuckles
+				Tooltip:
+					'''
+					Increases melee speed by 11%
+					While wearing the Equite set
+					Equite leafs reduce enemy defense by 1 on hit
+					'''
+			}
+
+			Equite_Quiver: {
+				DisplayName: Equite Quiver
+				Tooltip:
+					'''
+					Ranged attacks go 20% farther
+					Increases ranged crit by 4%
+					While wearing the Equite set
+					Equite leafs burst into slashes on hit
+					'''
+			}
+
+			Boulder_Saddle: {
+				DisplayName: Boulder Saddle
+				Tooltip: "Rock mount stops fall damage or sum"
+			}
+
+			Boulder_Flail: {
+				DisplayName: Cliff Jumper
+				Tooltip: "Throw out multiple flails that fall"
+			}
+
+			Sand_Scale: {
+				DisplayName: Sand Scale
 				Tooltip: ""
 			}
 		}
@@ -1996,6 +2050,8 @@ Mods: {
 			Subslicer_Proj.DisplayName: Subslicer_ Proj
 			LeadPipe.DisplayName: Lead Pipe
 			LeadPipe_Proj.DisplayName: Lead Pipe_ Proj
+			Equite_Leaf_Proj.DisplayName: Equite_ Leaf_ Proj
+			Rock_Flail.DisplayName: Rock_ Flail
 		}
 
 		NPCs: {

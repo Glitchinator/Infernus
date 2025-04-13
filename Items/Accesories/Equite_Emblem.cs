@@ -23,7 +23,12 @@ namespace Infernus.Items.Accesories
         }
         public override void UpdateEquip(Player player)
         {
-            Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Equite_Accessory_Equipped = true;
+            Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Equite_Emblem_Equipped = true;
+        }
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.whipRangeMultiplier += 0.1f;
+            player.maxMinions++;
         }
         public override void AddRecipes()
         {

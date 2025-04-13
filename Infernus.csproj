@@ -25,7 +25,10 @@
     <None Remove="Items\Accesories\Ancient_Whiphead.png" />
     <None Remove="Items\Accesories\Condensed_Iceicle.png" />
     <None Remove="Items\Accesories\Cryo_Lash.png" />
+    <None Remove="Items\Accesories\Equite_Charm.png" />
     <None Remove="Items\Accesories\Equite_Emblem.png" />
+    <None Remove="Items\Accesories\Equite_Knuckles.png" />
+    <None Remove="Items\Accesories\Equite_Quiver.png" />
     <None Remove="Items\Accesories\Frozen_Whiphead.png" />
     <None Remove="Items\Accesories\Ghostly_Edge.png" />
     <None Remove="Items\Accesories\Gleaming_Drillhead.png" />
@@ -59,7 +62,13 @@
     <None Remove="Items\Materials\Equite_Bar.png" />
     <None Remove="Items\Materials\Gaming.png" />
     <None Remove="Items\Materials\Ruderibus_Shard.png" />
+    <None Remove="Items\Materials\Sand_Scale.png" />
     <None Remove="Items\Materials\Scorched_Sinew.png" />
+    <None Remove="Items\Mounts\Boulder_Mount_Back.png" />
+    <None Remove="Items\Mounts\Boulder_Mount_Front.png" />
+    <None Remove="Items\Mounts\Boulder_Saddle.png" />
+    <None Remove="Items\Mounts\Rock_Mount_Back.png" />
+    <None Remove="Items\Mounts\Rock_Mount_Front.png" />
     <None Remove="Items\Tools\Equite_Axmer.png" />
     <None Remove="Items\Tools\Equite_Pickaxe.png" />
     <None Remove="Items\Tools\FishingPole.png" />
@@ -105,6 +114,7 @@
     <None Remove="Items\Weapon\Magic\SkullStaff.png" />
     <None Remove="Items\Weapon\Magic\Solder.png" />
     <None Remove="Items\Weapon\Melee\AerititeSword.png" />
+    <None Remove="Items\Weapon\Melee\Boulder_Flail.png" />
     <None Remove="Items\Weapon\Melee\ChainWhip.png" />
     <None Remove="Items\Weapon\Melee\EqualBlade.png" />
     <None Remove="Items\Weapon\Melee\Hatchet.png" />
@@ -194,6 +204,7 @@
     <None Remove="Projectiles\Temporal_Glow_Squid\Boss\Ink_Jet - Copy.png" />
     <None Remove="Projectiles\Viral.png" />
     <None Remove="Projectiles\ViralCRIM.png" />
+    <None Remove="regicon.png" />
     <None Remove="Tiles\Corrupt_Music_Box.png" />
     <None Remove="Tiles\Corrupt_Music_Box_Highlight.png" />
     <None Remove="Tiles\Equite_Ore_Tile.png" />
@@ -213,7 +224,5 @@
     <None Remove="Tiles\Squid_Music_Box_Highlight.png" />
     <None Remove="Tiles\Wanderer_Music_Box.png" />
     <None Remove="Tiles\Wanderer_Music_Box_Highlight.png" />
-  </ItemGroup>
-  <ItemGroup>
   </ItemGroup>
 </Project>

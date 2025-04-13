@@ -54,6 +54,11 @@ namespace Infernus.Buffs.Whip_Debuffs
                 modifiers.FlatBonusDamage += Whipbuff.TagDamage * projTagMultiplier;
                 modifiers.Knockback += Whipbuff.TagKnockBack * projTagMultiplier;
             }
+            if (npc.HasBuff<Equite_Tag_Debuff>())
+            {
+                modifiers.FlatBonusDamage += Equite_Tag_Debuff.TagDamage * projTagMultiplier;
+                modifiers.Knockback += Equite_Tag_Debuff.TagKnockBack * projTagMultiplier;
+            }
         }
     }
 }

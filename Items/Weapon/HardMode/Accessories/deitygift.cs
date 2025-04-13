@@ -30,7 +30,8 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
             }
             else
             {
-                player.statDefense += 12;
+                player.statDefense += 14;
+                player.lifeRegen += 2;
                 player.moveSpeed += 0.1f;
             }
         }

@@ -18,7 +18,7 @@ namespace Infernus.Buffs
             {
                 npc.lifeRegen = 0;
             }
-            npc.lifeRegen -= 10;
+            npc.lifeRegen -= 6;
 
             if (Main.rand.NextBool(1))
             {

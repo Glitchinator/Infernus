@@ -1,4 +1,4 @@
-displayName = Infernus Mod
+displayName = Infernus Mod Playtest
 author = LogansLowest
 version = 1.6.7
 homepage = https://terrariamods.wiki.gg/wiki/Infernus_Mod

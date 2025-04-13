@@ -91,7 +91,7 @@ namespace Infernus.NPCs
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Materials.Scorched_Sinew>(), 1, 4, 11));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Materials.Scorched_Sinew>(), 1, 0, 2));
             npcLoot.Add(ItemDropRule.Common(ItemID.MilkCarton, 50, 1, 1));
         }
     }

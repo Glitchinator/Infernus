@@ -23,8 +23,6 @@ namespace Infernus
 
         public static int Ruderibus_Timer;
 
-        public static bool Ruderibus_Switch = false;
-
 
         public int Last_Plant_Spawn = 10800; // miniboss natural spawning timer
 

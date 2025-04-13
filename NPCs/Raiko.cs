@@ -64,6 +64,10 @@ namespace Infernus.NPCs
         int Move_Y = -410;
         bool should_move = true;
         int Dust_amount = 6;
+
+        bool Dash_Move = false;
+        bool Dash_Move_2 = false;
+        bool Meteor_Rain_Move = false;
         public override void AI()
         {
             Player player = Main.player[NPC.target];
@@ -102,18 +106,38 @@ namespace Infernus.NPCs
             }
             if (Move_Location == 2)
             {
-                Move_X = -200;
+                Move_X = -350;
                 Move_Y = -200;
             }
             if (Move_Location == 3)
             {
-                Move_X = -200;
+                Move_X = -240;
                 Move_Y = 300;
             }
-            if(Move_Location == 4)
+            if (Move_Location == 4)
+            {
+                Move_X = 500;
+                Move_Y = -200;
+            }
+            if (Move_Location == 5)
+            {
+                Move_X = -400;
+                Move_Y = 400;
+            }
+            if (Meteor_Rain_Move == true)
             {
                 Move_X = 0;
                 Move_Y = -410;
+            }
+            if(Dash_Move == true)
+            {
+                Move_X = 500;
+                Move_Y = 0;
+            }
+            if (Dash_Move_2 == true)
+            {
+                Move_X = -500;
+                Move_Y = 0;
             }
             Timer++;
             {
@@ -241,10 +265,12 @@ namespace Infernus.NPCs
                 {
                     is_dashing = true;
                     looking_at_player = true;
-                    should_move = false;
+                    Dash_Move = true;
                 }
                 if (Timer == 460)
                 {
+                    should_move = false;
+                    Dash_Move = false;
                     looking_at_player = false;
                     SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
                     Dash();
@@ -253,11 +279,14 @@ namespace Infernus.NPCs
                 {
                     is_dashing = true;
                     looking_at_player = true;
-                    should_move = false;
+                    should_move = true;
+                    Dash_Move_2 = true;
                 }
                 if (Timer == 610)
                 {
                     looking_at_player = false;
+                    should_move = false;
+                    Dash_Move_2 = false;
                     SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
                     Dash();
                 }
@@ -282,7 +311,7 @@ namespace Infernus.NPCs
                 if (Timer == 820)
                 {
                     looking_at_player = false;
-                    Move_Location = 4;
+                    Meteor_Rain_Move = true;
                     is_dashing = true;
                 }
                 if (Timer == 860)
@@ -310,6 +339,7 @@ namespace Infernus.NPCs
                     looking_at_player = false;
                     should_move = true;
                     is_dashing = false;
+                    Meteor_Rain_Move = false;
                 }
                 if (Timer == 1260)
                 {
@@ -497,7 +527,7 @@ namespace Infernus.NPCs
             float magnitude = Magnitude(move);
             if ( magnitude <= 80f)
             {
-                Move_Location = Main.rand.Next(4);
+                Move_Location = Main.rand.Next(6);
                 speed = 7f;
             }
             if(Move_Location == Move_Location)

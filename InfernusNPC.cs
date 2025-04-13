@@ -1,4 +1,5 @@
 ﻿using Infernus.Invas;
+using Infernus.Items.Materials;
 using Infernus.Items.Weapon.HardMode.Accessories;
 using Infernus.NPCs;
 using System.Collections.Generic;
@@ -52,6 +53,10 @@ namespace Infernus
             if (npc.type == NPCID.Vampire || npc.type == NPCID.VampireBat)
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Souldrinker>(), 40, 1, 1));
+            }
+            if(npc.type == NPCID.SandShark || npc.type == NPCID.SandsharkCorrupt || npc.type == NPCID.SandsharkCrimson || npc.type == NPCID.SandsharkHallow)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Sand_Scale>(), 6, 1, 3));
             }
         }
         public override void OnSpawn(NPC npc, IEntitySource source)
@@ -200,8 +205,8 @@ namespace Infernus
                     npc.DropItemInstanced(npc.position, npc.Size, ModContent.ItemType<Items.Tools.Cursed_Soul>(), 99);
                 }
             }
-            /*
-            if (NPC.downedPlantBoss == false)
+            
+            if (NPC.downedGolemBoss == false)
             {
                 if (npc.type == NPCID.Plantera)
                 {
@@ -215,7 +220,7 @@ namespace Infernus
                     }
                 }
             }
-            */
+            
         }
     }
 }

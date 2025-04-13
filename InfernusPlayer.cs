@@ -5,6 +5,7 @@ using Infernus.Items.Weapon.HardMode.Accessories;
 using Infernus.Projectiles;
 using Infernus.Projectiles.Temporal_Glow_Squid.Drops;
 using Microsoft.Xna.Framework;
+using Mono.Cecil;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -51,11 +52,17 @@ namespace Infernus
 
         // equite armor variables
         public bool Equite_Equipped = false;
-        public static int Equite_Amount = 0;
-        public int Equite_Regen = 200;
-        public static NPC Equite_target;
+        public static int Max_Equite_Amount = 4;
+        public int Equite_Amount = 0;
+        public int Equite_Regen = 140;
+        public bool Equite_Hit = false;
+        public int Equite_Cooldown = 0;
+        public NPC Equite_Target;
 
-        public bool Equite_Accessory_Equipped = false;
+        public bool Equite_Emblem_Equipped = false;
+        public bool Equite_Charm_Equipped = false;
+        public bool Equite_Knuckles_Equipped = false;
+        public bool Equite_Quiver_Equipped = false;
 
         // Boulder Expert Variable
         public bool Boulder_Equipped = false;
@@ -182,7 +189,7 @@ namespace Infernus
                 Player.AddBuff(ModContent.BuffType<Buffs.Rage>(), 480);
             }
         }
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        public override async void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             int heal = (int)(damageDone * 0.07f);
             if (heal < 1)
@@ -203,10 +210,6 @@ namespace Infernus
                 {
                     Player.AddBuff(ModContent.BuffType<Souldrinker_Buff>(), 120);
                 }
-            }
-            if (Equite_Equipped == true && target.type != NPCID.TargetDummy)
-            {
-                Equite_target = target;
             }
             if (NPC_Iced == true && hit.DamageType == DamageClass.Ranged)
             {
@@ -276,6 +279,21 @@ namespace Infernus
                     Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ModContent.ProjectileType<Meteor_Whetstone_Explosion>(), (int)(damageDone * 0.5f), 0, 0);
                 }
             }
+            if (Equite_Equipped == true && Equite_Amount > 0 && Equite_Cooldown == 0)
+            {
+                if (Equite_Amount > 0)
+                {
+                    Equite_Hit = true;
+                    Equite_Cooldown = 30;
+                    Equite_Target = target;
+                }
+                else 
+                {
+                    Equite_Hit = false;
+                    Equite_Target = null;
+                }
+
+            }
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
@@ -339,6 +357,10 @@ namespace Infernus
             {
                 life_steal_timer--;
             }
+            if(Equite_Cooldown > 0)
+            {
+                Equite_Cooldown--;
+            }
             
             Have_HeartAttack();
             Stress_Buffs();
@@ -352,14 +374,14 @@ namespace Infernus
                 Aeritite_DR = 0.33f;
             }
 
-            if (Equite_Equipped == true && Equite_Accessory_Equipped == true)
+            if (Equite_Equipped == true && Equite_Emblem_Equipped == true)
             {
                 Player.statManaMax2 += 80;
                 Player.maxMinions += 2;
                 Player.GetArmorPenetration(DamageClass.Generic) += 1;
             }
 
-            if(Equite_Amount < 4 && Equite_Equipped == true)
+            if(Equite_Amount < Max_Equite_Amount && Equite_Equipped == true)
             {
                 Equite_Regen--;
             }
@@ -372,9 +394,10 @@ namespace Infernus
                     Dust Sword = Dust.NewDustPerfect(Player.Center + speed * 32, DustID.SandstormInABottle, speed * 3, Scale: 1.4f);
                     Sword.noGravity = true;
                 }
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<Equite_Leaf>(), 75, 5f, Player.whoAmI);
                 Equite_Amount++;
-                Equite_Regen = 200;
+                int i = Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<Equite_Leaf>(), 60, 5f, Player.whoAmI);
+                Main.projectile[i].alpha = Equite_Amount;
+                Equite_Regen = 140;
             }
         }
 
@@ -396,7 +419,10 @@ namespace Infernus
             Aeritite_Equipped = false;
             Equite_Equipped = false;
             NPC_Bleeding = false;
-            Equite_Accessory_Equipped = false;
+            Equite_Emblem_Equipped = false;
+            Equite_Charm_Equipped = false;
+            Equite_Knuckles_Equipped = false;
+            Equite_Quiver_Equipped = false;
             Aeritite_Shield_Equipped = false;
             NPC_Iced = false;
             Quiver_Equipped = false;

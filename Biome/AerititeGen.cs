@@ -16,7 +16,7 @@ namespace Infernus.Biome
 
             for (int i = 0; i < (int)((Main.maxTilesX * Main.maxTilesY) * 4E-05); i++)
             {
-                WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(Main.maxTilesY - 260, Main.maxTilesY - 200), WorldGen.genRand.Next(12, 17), WorldGen.genRand.Next(12, 17), ModContent.TileType<Tiles.Ore>());
+                WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.UnderworldLayer), WorldGen.genRand.Next(9, 13), WorldGen.genRand.Next(9, 13), ModContent.TileType<Tiles.Ore>());
             }
         }
     }

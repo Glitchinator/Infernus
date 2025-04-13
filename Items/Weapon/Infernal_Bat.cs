@@ -23,8 +23,8 @@ namespace Infernus.Items.Weapon
             Item.DamageType = DamageClass.Generic;
             Item.width = 40;
             Item.height = 40;
-            Item.useTime = 14;
-            Item.useAnimation = 14;
+            Item.useTime = 37;
+            Item.useAnimation = 37;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 6.5f;
             Item.value = Item.buyPrice(0, 8, 50, 0);
@@ -33,7 +33,7 @@ namespace Infernus.Items.Weapon
             Item.autoReuse = true;
             Item.holdStyle = ItemHoldStyleID.HoldGuitar;
             Item.ArmorPenetration = 10000;
-            Item.scale = 1.6f;
+            Item.scale = 1f;
         }
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {

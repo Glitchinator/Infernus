@@ -1,4 +1,6 @@
 ﻿using Infernus.Projectiles;
+using Infernus.Projectiles.Temporal_Glow_Squid.Boss;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -18,7 +20,7 @@ namespace Infernus.NPCs
     public class Ruderibus : ModNPC
     {
         private Player player;
-        private float speed;
+        private float speed = 15f;
 
         public override void SetStaticDefaults()
         {
@@ -52,10 +54,21 @@ namespace Infernus.NPCs
 
         int Timer;
         bool is_dashing = false;
-        bool is_above = false;
+        bool is_below = false;
+        bool Check_below = false;
+
+
+
+        int Move_X = 0;
+        int Move_Y = 0;
+        int Move_Location = 0;
+        bool should_move = true;
         public override void AI()
         {
-            InfernusWorld.Ruderibus_Timer++;
+            if (Check_below == false)
+            {
+                InfernusWorld.Ruderibus_Timer++;
+            }
             Timer = InfernusWorld.Ruderibus_Timer;
             Player player = Main.player[NPC.target];
             NPC.netUpdate = true;
@@ -77,76 +90,134 @@ namespace Infernus.NPCs
                 NPC.velocity.X = NPC.velocity.X * 0.988f;
                 NPC.velocity.Y = NPC.velocity.Y * 0.988f;
             }
-            if (is_above == true)
+            if (is_dashing == false)
             {
-                Move(new Vector2((Main.rand.Next(0)), -410f));
+                Move(new Vector2(Move_X, Move_Y));
             }
-            else
+            if (Move_Location == 0)
             {
-                Move(new Vector2(Main.rand.Next(0), -260f));
-            }/*
+                Move_X = 0;
+                Move_Y = -260;
+            }
+            if (Move_Location == 1)
+            {
+                Move_X = 300;
+                Move_Y = -160;
+            }
+            if (Move_Location == 2)
+            {
+                Move_X = -300;
+                Move_Y = -200;
+            }
+            if (is_below == true)
+            {
+                Move_X = 0;
+                Move_Y = 610;
+            }
+            /*
             if (Timer == 60)
             {
                 is_above = true;
                 SoundEngine.PlaySound(SoundID.Item30, NPC.position);
                 Ice_Cone_Blast();
             }
-            if (Timer == 120)
-            {
-                SoundEngine.PlaySound(SoundID.Item30, NPC.position);
-                Ice_Cone_Blast();
-            }
-            if (Timer == 180)
-            {
-                SoundEngine.PlaySound(SoundID.Item30, NPC.position);
-                Ice_Cone_Blast();
-            }
-            if (Timer == 240)
-            {
-                SoundEngine.PlaySound(SoundID.Item30, NPC.position);
-                Ice_Cone_Blast();
-            }
-            if (Timer == 300)
-            {
-                SoundEngine.PlaySound(SoundID.Item30, NPC.position);
-                Ice_Cone_Blast();
-            }
-            
-            if (Timer == 360)
-            {
-                SoundEngine.PlaySound(SoundID.Item30, NPC.position);
-                Ice_Cone_Blast();
-                is_above = false;
-                InfernusWorld.Ruderibus_Switch = true;
-            }
             */
+            if (Timer == 340)
+            {
+                is_dashing = true;
+                SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
+                Dash();
+            }
+            if (Timer == 420)
+            {
+                is_dashing = true;
+                SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
+                Dash();
+            }
+            if (Timer == 500)
+            {
+                is_dashing = true;
+                SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
+                Dash();
+            }
+            if (Timer == 580)
+            {
+                is_dashing = true;
+                SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
+                Dash();
+            }
+            if (Timer == 660)
+            {
+                is_dashing = false;
+                //InfernusWorld.Ruderibus_Switch = false;
+            }
 
-            if (Timer == 100)
+            if(Timer == 960)
             {
-                InfernusWorld.Ruderibus_Switch = true;
-            }
-            if (Timer == 300)
-            {
-                InfernusWorld.Ruderibus_Timer = 10000;
-                // Dash1 start
+                if(is_below == false)
+                {
+                    Check_below = true;
+                }
+                is_below = true;
+                //Timer = 801;
             }
 
-            if(Timer == 500)
+            if(Timer == 1020)
             {
-                InfernusWorld.Ruderibus_Switch = true;
-                // Switch to hands timer
+                is_dashing = true;
+                Strong_Dash();
             }
+            if(Timer == 1140)
+            {
+                is_dashing = false;
+                is_below = false;
+            }
+
+
+            if(Timer == 1900)
+            {
+                if (is_below == false)
+                {
+                    Check_below = true;
+                }
+                is_below = true;
+                // hands start speeding up
+            }
+            if(Timer == 1960)
+            {
+                is_dashing = true;
+                Strong_Dash();
+            }
+            if(Timer == 1970)
+            {
+                Ice_Wall();
+            }
+            if (Timer == 1990)
+            {
+                Ice_Wall();
+            }
+            if (Timer == 2010)
+            {
+                Ice_Wall();
+            }
+            if (Timer == 2040)
+            {
+                is_dashing = false;
+                is_below = false;
+            }
+
+
+
+
+
+
+
             /*
             if (Timer == 1020)
             {
                 InfernusWorld.Ruderibus_Timer = 0;
                 InfernusWorld.Ruderibus_Switch = false;
             }
-            */
-
-
-
-
 
 
             if (Timer == 10001)
@@ -171,6 +242,14 @@ namespace Infernus.NPCs
                 InfernusWorld.Ruderibus_Timer = 301;
                 InfernusWorld.Ruderibus_Switch = false;
                 is_dashing = false;
+            }
+            */
+        }
+        private void Ice_Wall()
+        {
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0f,0f), ModContent.ProjectileType<InkTyphoon>(), 11, NPC.whoAmI);
             }
         }
         private void Dash()
@@ -227,11 +306,64 @@ namespace Infernus.NPCs
                 smokeGore.velocity -= Vector2.One;
             }
         }
+        private void Strong_Dash()
+        {
+            player = Main.player[NPC.target];
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                NPC.velocity.X *= 2.25f;
+                NPC.velocity.Y *= 2.25f;
+                {
+                    float rotation = (float)Math.Atan2((NPC.Center.Y) - (player.position.Y + (player.height)), (NPC.Center.X) - (player.position.X + (player.width)));
+                    NPC.velocity.X = (float)(Math.Cos(rotation) * 21) * -1;
+                    NPC.velocity.Y = (float)(Math.Sin(rotation) * 21) * -1;
+                }
+            }
+            for (int i = 0; i < 30; i++)
+            {
+                var smoke = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
+                smoke.velocity *= 1.4f;
+            }
+
+            // Spawn a bunch of fire dusts.
+            for (int j = 0; j < 20; j++)
+            {
+                var fireDust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.HallowedPlants, 0f, 0f, 100, default, 3.5f);
+                fireDust.noGravity = true;
+                fireDust.velocity *= 7f;
+                fireDust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Glass, 0f, 0f, 100, default, 1.5f);
+                fireDust.velocity *= 3f;
+            }
+
+            // Spawn a bunch of smoke gores.
+            for (int k = 0; k < 2; k++)
+            {
+                float speedMulti = 0.8f;
+                if (k == 1)
+                {
+                    speedMulti = 1.6f;
+                }
+
+                var smokeGore = Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                smokeGore.velocity *= speedMulti;
+                smokeGore.velocity += Vector2.One;
+                smokeGore = Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                smokeGore.velocity *= speedMulti;
+                smokeGore.velocity.X -= 1.2f;
+                smokeGore.velocity.Y += 1.2f;
+                smokeGore = Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                smokeGore.velocity *= speedMulti;
+                smokeGore.velocity.X += 1.2f;
+                smokeGore.velocity.Y -= 1.2f;
+                smokeGore = Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                smokeGore.velocity *= speedMulti;
+                smokeGore.velocity -= Vector2.One;
+            }
+        }
 
         public override void OnKill()
         {
             InfernusSystem.downedRuderibus = true;
-            InfernusWorld.Ruderibus_Switch = false;
             InfernusWorld.Ruderibus_Timer = 0;
 
             if (InfernusSystem.Equite_Generated == false)
@@ -254,13 +386,14 @@ namespace Infernus.NPCs
 
         private void Move(Vector2 offset)
         {
-            if (Timer >= 10000)
+            if (should_move == false)
             {
                 Dust.NewDust(NPC.position + NPC.velocity, NPC.width, NPC.height, DustID.HallowedPlants, NPC.velocity.X * -0.5f, NPC.velocity.Y * -0.5f);
                 Dust.NewDust(NPC.position + NPC.velocity, NPC.width, NPC.height, DustID.ApprenticeStorm, NPC.velocity.X * -0.5f, NPC.velocity.Y * -0.5f);
                 return;
             }
             player = Main.player[NPC.target];
+            /*
             if (is_above == true)
             {
                 speed = 20f;
@@ -273,22 +406,27 @@ namespace Infernus.NPCs
             {
                 speed = 8.6f;
             }
+            */
+
             Vector2 moveTo = player.Center + offset;
             Vector2 move = moveTo - NPC.Center;
             float magnitude = Magnitude(move);
+            if (Move_Location == Move_Location)
+            {
+                speed += 0.1f;
+            }
+            if (magnitude <= 80f)
+            {
+                Move_Location = Main.rand.Next(3);
+                Check_below = false;
+                speed = 15f;
+            }
             if (magnitude > speed)
             {
                 move *= speed / magnitude;
             }
             float turnResistance;
-            if (is_above == true)
-            {
-                turnResistance = 40f;
-            }
-            else
-            {
-                turnResistance = 60f;
-            }
+            turnResistance = 40f;
             move = (NPC.velocity * turnResistance + move) / (turnResistance + 1f);
             magnitude = Magnitude(move);
             if (magnitude > speed)
