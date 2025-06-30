@@ -22,6 +22,7 @@ namespace Infernus.Projectiles
             Projectile.localNPCHitCooldown = 10;
             Projectile.aiStyle = 15;
         }
+        bool hit_tile = false;
         public override bool PreDrawExtras()
         {
             return false;
@@ -30,9 +31,19 @@ namespace Infernus.Projectiles
         {
             if (Main.myPlayer == Projectile.owner && Projectile.ai[0] == 2f && Projectile.ai[1] == 0f)
             {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, Projectile.velocity.X, Projectile.velocity.Y, ModContent.ProjectileType<Light_Proj>(), Projectile.damage, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, Projectile.velocity.X, Projectile.velocity.Y, ModContent.ProjectileType<Light_Proj>(), Projectile.damage, 2, Projectile.owner);
                 Projectile.ai[1]++;
             }
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            if (hit_tile == false)
+            {
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, oldVelocity.X / 2, oldVelocity.Y / 2, ModContent.ProjectileType<Light_Proj>(), Projectile.damage, 2, Projectile.owner);
+                hit_tile = true;
+            }
+            
+            return true;
         }
         public override bool PreDraw(ref Color lightColor)
         {

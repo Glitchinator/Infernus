@@ -20,8 +20,8 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
             Item.DamageType = DamageClass.Ranged;
             Item.width = 60;
             Item.height = 28;
-            Item.useAnimation = 5;
-            Item.useTime = 5;
+            Item.useAnimation = 6;
+            Item.useTime = 6;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 3f;
             Item.value = Item.buyPrice(0, 19, 75, 0);

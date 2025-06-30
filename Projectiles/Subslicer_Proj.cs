@@ -11,12 +11,10 @@ namespace Infernus.Projectiles
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.width = 40;
-            Projectile.height = 40;
+            Projectile.width = 20;
+            Projectile.height = 20;
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.netImportant = true;
-            Projectile.penetrate = 1;
             Projectile.timeLeft = 80;
         }
         public override void SetStaticDefaults()

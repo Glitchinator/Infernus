@@ -18,6 +18,7 @@ namespace Infernus.Projectiles
         }
         public override void AI()
         {
+            var proj_target = Projectile.owner;
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
             if (Main.rand.NextBool(2))
             {

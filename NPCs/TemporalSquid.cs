@@ -3,12 +3,15 @@ using Infernus.Items.Weapon.Melee;
 using Infernus.Projectiles;
 using Infernus.Projectiles.Temporal_Glow_Squid.Boss;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -779,6 +782,49 @@ namespace Infernus.NPCs
                 NPC.life = (int)(NPC.lifeMax = 5650 * (int)balance);
                 NPC.damage = ((NPC.damage / 10) * 13);
             }
+        }
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            if (secondphase)
+                return true;
+            Asset<Texture2D> texture = ModContent.Request<Texture2D>("Infernus/NPCs/Temp_Squid_Glow");
+
+            Rectangle frame;
+
+
+            frame = texture.Frame();
+
+            Vector2 frameOrigin = frame.Size() / 2f;
+            Vector2 offset = new(NPC.width / 2 - frameOrigin.X, NPC.height - frame.Height);
+            Vector2 drawPos = NPC.position - Main.screenPosition + frameOrigin + offset;
+
+            float time = Main.GlobalTimeWrappedHourly;
+            float timer = NPC.activeTime / 240f + time * 0.1f;
+
+            time %= 4f;
+            time /= 2f;
+
+            if (time >= 1f)
+            {
+                time = 2f - time;
+            }
+
+            time = time * 0.5f + 0.5f;
+
+            for (float i = 0f; i < 1f; i += 0.25f)
+            {
+                float radians = (i + timer) * MathHelper.TwoPi;
+
+                spriteBatch.Draw((Texture2D)texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, new Color(215, 245, 245, 50), NPC.rotation, frameOrigin, 1f, SpriteEffects.None, 0);
+            }
+
+            for (float i = 0f; i < 1f; i += 0.34f)
+            {
+                float radians = (i + timer) * MathHelper.TwoPi;
+
+                spriteBatch.Draw((Texture2D)texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(215, 245, 245, 77), NPC.rotation, frameOrigin, 1f, SpriteEffects.None, 0);
+            }
+            return true;
         }
     }
 }

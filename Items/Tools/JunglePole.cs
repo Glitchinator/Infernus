@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -19,7 +20,7 @@ namespace Infernus.Items.Tools
             Item.CloneDefaults(ItemID.SittingDucksFishingRod);
             Item.rare = ItemRarityID.Lime;
             Item.shoot = ProjectileID.BobberWooden;
-            Item.fishingPole = 40;
+            Item.fishingPole = 45;
             Item.shootSpeed = 12f;
         }
         public override void AddRecipes()
@@ -37,8 +38,16 @@ namespace Infernus.Items.Tools
             }
             else
             {
-                Item.fishingPole = 40;
+                Item.fishingPole = 45;
             }
+        }
+        public override void ModifyFishingLine(Projectile bobber, ref Vector2 lineOriginOffset, ref Color lineColor)
+        {
+            // Change these two values in order to change the origin of where the line is being drawn.
+            // This will make it draw 43 pixels right and 28 pixels up from the player's center, while they are looking right and in normal gravity.
+
+            // Thank you example mod
+            lineOriginOffset = new Vector2(43, -28);
         }
     }
 }

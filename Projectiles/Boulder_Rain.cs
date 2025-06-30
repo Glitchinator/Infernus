@@ -6,7 +6,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 namespace Infernus.Projectiles
 {
-
     public class Boulder_Rain : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -22,19 +21,20 @@ namespace Infernus.Projectiles
             Projectile.hostile = true;
             Projectile.netImportant = true;
             Projectile.extraUpdates = 1;
-            Projectile.timeLeft = 400;
+            Projectile.timeLeft = 300;
         }
         public override void AI()
         {
+            if (Projectile.timeLeft == 120)
+            {
+                
+            }
+            else
+            {
+                Projectile.velocity.X = Projectile.velocity.X * 0.9f;
+                Projectile.velocity.Y = Projectile.velocity.Y * 0.9f;
+            }
             Projectile.rotation += (float)Projectile.direction * 7;
-            if (Projectile.velocity.Y > 8.5f)
-            {
-                Projectile.velocity.Y = 8.5f;
-            }
-            if (Projectile.velocity.X > 8.5f)
-            {
-                Projectile.velocity.X = 8.5f;
-            }
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -61,6 +61,7 @@ namespace Infernus.Projectiles
 
             return true;
         }
+        /*
         public override void OnKill(int timeLeft)
         {
             for (int k = 0; k < 9; k++)
@@ -69,7 +70,10 @@ namespace Infernus.Projectiles
                 Dust wand = Dust.NewDustPerfect(Projectile.Center + speed_Dust * 18, DustID.Stone, speed_Dust, 0, default, Scale: 2f);
                 wand.noGravity = true;
             }
-            //Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-5, 6), Main.rand.Next(-5, 6), ModContent.ProjectileType<Boulder_Bolt>(), Projectile.damage,0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, -2.5f, 0, ModContent.ProjectileType<Ice_Bolt_Homing>(), Projectile.damage,0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 2.5f, 3f, ModContent.ProjectileType<Ice_Bolt_Homing>(), Projectile.damage, 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 2.5f, -3f, ModContent.ProjectileType<Ice_Bolt_Homing>(), Projectile.damage, 0, Projectile.owner);
         }
+        */
     }
 }

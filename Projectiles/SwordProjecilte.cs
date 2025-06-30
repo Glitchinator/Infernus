@@ -10,7 +10,6 @@ namespace Infernus.Projectiles
 
     public class SwordProjecilte : ModProjectile
     {
-        int timer;
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
@@ -21,13 +20,11 @@ namespace Infernus.Projectiles
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.width = 40;
-            Projectile.height = 112;
+            Projectile.width = 30;
+            Projectile.height = 70;
             Projectile.penetrate = 3;
-            Projectile.netImportant = true;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 50;
-            Projectile.extraUpdates = 1;
         }
         public override void AI()
         {
@@ -37,8 +34,7 @@ namespace Infernus.Projectiles
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.SandstormInABottle, Projectile.velocity.X * 0.9f, Projectile.velocity.Y * 0.9f);
             }
-            timer++;
-            if (timer >= 10)
+            if (Projectile.timeLeft >= 36)
             {
                 Projectile.tileCollide = true;
             }

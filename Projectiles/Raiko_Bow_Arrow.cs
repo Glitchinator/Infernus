@@ -20,18 +20,16 @@ namespace Infernus.Projectiles
         }
         public override void SetDefaults()
         {
-            AIType = ProjectileID.Bullet;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
-            Projectile.height = 26;
+            Projectile.height = 10;
             Projectile.width = 10;
             Projectile.hostile = false;
             Projectile.timeLeft = 250;
             Projectile.netImportant = true;
-            Projectile.extraUpdates = 1;
             Projectile.penetrate = 2;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 8;
+            Projectile.localNPCHitCooldown = 14;
         }
         public override void AI()
         {
@@ -43,8 +41,8 @@ namespace Infernus.Projectiles
             }
             else
             {
-                Projectile.velocity.X = Projectile.velocity.X * 0.98f;
-                Projectile.velocity.Y = Projectile.velocity.Y * 0.98f;
+                Projectile.velocity.X = Projectile.velocity.X * 0.96f;
+                Projectile.velocity.Y = Projectile.velocity.Y * 0.96f;
             }
 
 
@@ -52,7 +50,7 @@ namespace Infernus.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.OnFire, 300);
+            target.AddBuff(BuffID.OnFire, 120);
 
             for (int k = 0; k < 6; k++)
             {

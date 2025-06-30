@@ -29,20 +29,17 @@ namespace Infernus.Projectiles
         public override void OnSpawn(IEntitySource source)
         {
             SoundEngine.PlaySound(SoundID.Item105, Projectile.position);
-            for (int k = 0; k < 4; k++)
-            {
-                float speedMulti = Main.rand.NextFloat(0.22f);
+            float speedMulti = Main.rand.NextFloat(0.22f);
 
-                Vector2 newVelocity = Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(24));
+            Vector2 newVelocity = Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(24));
 
 
-                newVelocity *= speedMulti;
+            newVelocity *= speedMulti;
 
-                var smokeGore = Gore.NewGoreDirect(Projectile.GetSource_Death(), Projectile.position, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
-                smokeGore.velocity = newVelocity;
-                // smokeGore.velocity += Vector2.One;
+            var smokeGore = Gore.NewGoreDirect(Projectile.GetSource_Death(), Projectile.position, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+            smokeGore.velocity = newVelocity;
+            // smokeGore.velocity += Vector2.One;
 
-            }
             for (int k = 0; k < 5; k++)
             {
                 Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.HallowedPlants, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);

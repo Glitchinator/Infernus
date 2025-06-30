@@ -18,8 +18,8 @@ namespace Infernus.Projectiles
         }
         public override void SetDefaults()
         {
-            Projectile.width = 68;
-            Projectile.height = 66;
+            Projectile.width = 38;
+            Projectile.height = 38;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 300;
@@ -33,6 +33,10 @@ namespace Infernus.Projectiles
         }
         public override void AI()
         {
+            if (Projectile.timeLeft <= 274)
+            {
+                Projectile.tileCollide = true;
+            }
             Projectile.rotation += (float)Projectile.direction * 2;
             Projectile.velocity.X = Projectile.velocity.X * 1.02f;
             Projectile.velocity.Y = Projectile.velocity.Y * 1.02f;
@@ -49,13 +53,13 @@ namespace Infernus.Projectiles
         public override void OnKill(int timeLeft)
         {
 
-            for (int k = 0; k < 17; k++)
+            for (int k = 0; k < 13; k++)
             {
                 Vector2 speed = Main.rand.NextVector2Circular(0.5f, 1f);
                 Dust Sword = Dust.NewDustPerfect(Projectile.Center + speed * 32, DustID.YellowStarDust, speed * 3, Scale: 2f);
                 Sword.noGravity = true;
             }
-            for (int k = 0; k < 16; k++)
+            for (int k = 0; k < 10; k++)
             {
                 Vector2 speed = Main.rand.NextVector2Circular(1f, .5f);
                 Dust Sword = Dust.NewDustPerfect(Projectile.Center + speed * 32, DustID.StarRoyale, speed * 3, Scale: 1.5f);

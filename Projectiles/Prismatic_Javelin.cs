@@ -13,7 +13,7 @@ namespace Infernus.Projectiles
         public override void SetDefaults()
         {
             Projectile.width = 26;
-            Projectile.height = 34;
+            Projectile.height = 26;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Melee;

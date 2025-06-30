@@ -12,7 +12,6 @@ namespace Infernus.Projectiles
 
     public class Magic_Meteor : ModProjectile
     {
-        int timer = 110;
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
@@ -23,13 +22,12 @@ namespace Infernus.Projectiles
             Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.width = 82;
-            Projectile.height = 82;
+            Projectile.width = 50;
+            Projectile.height = 50;
             Projectile.penetrate = -1;
             Projectile.netImportant = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 4000;
-            Projectile.extraUpdates = 1;
+            Projectile.timeLeft = 120;
             Projectile.alpha = 0;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 18;
@@ -47,6 +45,7 @@ namespace Infernus.Projectiles
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item62, Projectile.position);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Magic_Meteor_Explosion>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);
 
             // Resize the projectile again so the explosion dust and gore spawn from the middle.
             // Rocket I: 22, Rocket III: 80, Mini Nuke Rocket: 50
@@ -97,40 +96,27 @@ namespace Infernus.Projectiles
         }
         public override void AI()
         {
-            Projectile.velocity.X = Projectile.velocity.X * .98f;
-            Projectile.velocity.Y = Projectile.velocity.Y * .98f;
+            Projectile.velocity.X = Projectile.velocity.X * .97f;
+            Projectile.velocity.Y = Projectile.velocity.Y * .97f;
 
-            if(Projectile.velocity.X <= 1 && Projectile.velocity.Y <= 1)
-            {
-                timer--;
-                SoundEngine.PlaySound(SoundID.Item47, Projectile.position);
-            }
-            if (timer <= 5)
-            {
-                Projectile.tileCollide = false; // This is important or the explosion will be in the wrong place if the grenade explodes on slopes.
-                Projectile.alpha = 255; // Make the grenade invisible.
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Magic_Meteor_Explosion>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);
-            }
-            if (timer <= 0)
-            {
-                Projectile.Kill();
-            }
-            Projectile.spriteDirection = Projectile.direction = (Projectile.velocity.X > 0).ToDirectionInt();
+            Projectile.spriteDirection = Projectile.direction
+                ;
             Projectile.rotation += 0.2f * (float)Projectile.direction;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.velocity.X = Projectile.velocity.X * .80f;
-            Projectile.velocity.Y = Projectile.velocity.Y * .80f;
-            Projectile.damage = (int)(Projectile.damage * 0.95f);
+            Projectile.velocity.X = Projectile.velocity.X * .60f;
+            Projectile.velocity.Y = Projectile.velocity.Y * .60f;
+            Projectile.damage = (int)(Projectile.damage * 0.9f);
             for (int k = 0; k < 18; k++)
             {
                 Vector2 speed = Main.rand.NextVector2Circular(1f, 1f);
                 Dust Sword = Dust.NewDustPerfect(Projectile.Center + speed * 32, DustID.InfernoFork, speed * 3, Scale: 2f);
                 Sword.noGravity = true;
             }
-            timer -= 4;
+            target.AddBuff(BuffID.OnFire, 120);
+            Projectile.timeLeft -= 4;
         }
         public override bool PreDraw(ref Color lightColor)
         {

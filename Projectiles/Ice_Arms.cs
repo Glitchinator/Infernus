@@ -17,6 +17,7 @@ namespace Infernus.Projectiles
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 4;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
+        float RotationTimer;
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Generic;

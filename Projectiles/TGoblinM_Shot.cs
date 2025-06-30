@@ -20,21 +20,17 @@ namespace Infernus.Projectiles
             AIType = ProjectileID.Bullet;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.friendly = true;
-            Projectile.height = 14;
+            Projectile.height = 8;
             Projectile.width = 8;
             Projectile.hostile = false;
             Projectile.timeLeft = 250;
-            Projectile.netImportant = true;
-            Projectile.extraUpdates = 1;
         }
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 
-            if (Main.rand.NextBool(8))
-            {
-                Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Shadowflame, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
-            }
+            int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.PinkFairy, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
+            Main.dust[dust].noGravity = true;
             float maxDetectRadius = 150f;
             float projSpeed = 18f;
 
@@ -48,7 +44,7 @@ namespace Infernus.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.ShadowFlame, 600);
+            target.AddBuff(BuffID.ShadowFlame, 120);
         }
 
         public NPC FindClosestNPC(float maxDetectDistance)
@@ -88,7 +84,7 @@ namespace Infernus.Projectiles
             for (int k = 0; k < Projectile.oldPos.Length; k++)
             {
                 Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Main.EntitySpriteDraw(texture, drawPos, null, new Color(242, 240, 235, 0) * (.30f - Projectile.alpha / 210f), Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
+                Main.EntitySpriteDraw(texture, drawPos, null, new Color(204, 67, 156, 0) * (.50f - Projectile.alpha / 210f), Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
             }
 
             return true;

@@ -103,7 +103,10 @@ namespace Infernus.Invas
                 // 75% invasion
                 if (Main.invasionSize == 24 && spawned_mini_boss == false)
                 {
-                    NPC.SpawnOnPlayer(player.whoAmI, ModLoader.GetMod("Infernus").Find<ModNPC>("Boulder_Beetle").Type);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        NPC.SpawnOnPlayer(player.whoAmI, ModLoader.GetMod("Infernus").Find<ModNPC>("Boulder_Beetle").Type);
+                    }
                     spawned_mini_boss = true;
                 }
                 if (Main.invasionSize == 26)
@@ -113,7 +116,10 @@ namespace Infernus.Invas
                 // 25% invasion
                 if (Main.invasionSize == 75 && spawned_mini_boss == false)
                 {
-                    NPC.SpawnOnPlayer(player.whoAmI, ModLoader.GetMod("Infernus").Find<ModNPC>("Boulder_Beetle").Type);
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        NPC.SpawnOnPlayer(player.whoAmI, ModLoader.GetMod("Infernus").Find<ModNPC>("Boulder_Beetle").Type);
+                    }
                     spawned_mini_boss = true;
                 }
                 if (Main.invasionSize == 74)
@@ -129,7 +135,10 @@ namespace Infernus.Invas
                     Main.invasionDelay = 0;
                     if (Main.hardMode == true && NPC.downedPlantBoss == true)
                     {
-                        NPC.SpawnOnPlayer(player.whoAmI, ModLoader.GetMod("Infernus").Find<ModNPC>("Boulderminiboss").Type);
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            NPC.SpawnOnPlayer(player.whoAmI, ModLoader.GetMod("Infernus").Find<ModNPC>("Boulderminiboss").Type);
+                        }
                     }
                 }
                 if (Main.invasionX == Main.spawnTileX)

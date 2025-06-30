@@ -25,14 +25,21 @@ namespace Infernus.Tiles
             TileID.Sets.HasOutlines[Type] = true;
             TileID.Sets.DisableSmartCursor[Type] = true;
 
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
-            TileObjectData.newTile.Origin = new Point16(0, 1);
+            DustType = DustID.Meteorite;
+            MinPick = 110;
+
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style3x4);
+            //TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.LavaDeath = false;
             TileObjectData.newTile.DrawYOffset = 2;
-            TileObjectData.newTile.StyleLineSkip = 2;
+            //TileObjectData.newTile.StyleLineSkip = 2;
             TileObjectData.addTile(Type);
 
-            AddMapEntry(new Color(191, 142, 111), Language.GetText("Raiko Summon Place Thingy"));
+            AddMapEntry(new Color(191, 142, 111), Language.GetText("Meteor Alter"));
+        }
+        public override bool CanExplode(int i, int j)
+        {
+            return true;
         }
 
         public override void MouseOver(int i, int j)
@@ -55,17 +62,23 @@ namespace Infernus.Tiles
                 if(player.HasItemInAnyInventory(ModContent.ItemType<Scorched_Sinew>()))
                 {
                     player.ConsumeItem(ModContent.ItemType<Scorched_Sinew>());
-                    SoundEngine.PlaySound(SoundID.ForceRoar, player.position);
+                    SoundEngine.PlaySound(SoundID.NPCHit52, new Vector2(i, j));
+                    for (int k = 0; k < 13; k++)
+                    {
+                        Vector2 speed2 = Main.rand.NextVector2Unit();
+                        Dust wand = Dust.NewDustPerfect(new Vector2(i,j), DustID. SolarFlare, speed2 * 2, Scale: 1f);
+                        wand.noGravity = true;
+                    }
                     if (Main.netMode != NetmodeID.MultiplayerClient)
 
                     {
                         NPC.SpawnOnPlayer(player.whoAmI, Mod.Find<ModNPC>("Raiko").Type);
                     }
                 }
-                else
-                {
-                    Main.NewText("Come back at night and bring some Scorched Sinew", 229, 214, 127);
-                }
+            }
+            else if (Main.dayTime == true)
+            {
+                Main.NewText("The sun shines brighter than the flame, come back at night.", 229, 214, 127);
             }
             return true;
         }

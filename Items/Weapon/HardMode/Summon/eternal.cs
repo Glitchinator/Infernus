@@ -40,6 +40,17 @@ namespace Infernus.Items.Weapon.HardMode.Summon
             player.AddBuff(Item.buffType, 2);
             return true;
         }
+        public override bool CanUseItem(Player player)
+        {
+            for (int i = 1; i < 1000; ++i)
+            {
+                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == Item.shoot)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         public override void AddRecipes()
         {
             CreateRecipe()

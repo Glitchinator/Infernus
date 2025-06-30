@@ -73,6 +73,13 @@ namespace Infernus.Projectiles
                 player.statMana += 15;
             }
         }
+        public override void OnKill(int timeLeft)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                Dust.NewDustPerfect(Projectile.Center, DustID.SandstormInABottle);
+            }
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             Main.instance.LoadProjectile(Projectile.type);
@@ -162,6 +169,7 @@ namespace Infernus.Projectiles
             // if not going after an enemy then just follow the player
             if (shooting == false)
             {
+                Projectile.timeLeft = 250;
                 Player player = Main.player[Projectile.owner];
 
                 Vector2 withplayer = player.Center;
@@ -202,6 +210,8 @@ namespace Infernus.Projectiles
                     Projectile.velocity.Y = -0.01f;
                 }
             }
+            string h = Projectile.timeLeft.ToString();
+            Main.NewText(h, 229, 214, 127);
         }
     }
 }

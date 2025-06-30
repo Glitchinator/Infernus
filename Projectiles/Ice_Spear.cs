@@ -13,7 +13,7 @@ namespace Infernus.Projectiles
         public override void SetDefaults()
         {
             Projectile.width = 20;
-            Projectile.height = 68;
+            Projectile.height = 20;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
@@ -36,15 +36,6 @@ namespace Infernus.Projectiles
             {
                 Projectile.velocity.Y = 16f;
             }
-        }
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            Projectile.Kill();
-        }
-        public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            Projectile.Kill();
-            return false;
         }
         public override void Kill(int timeLeft)
         {

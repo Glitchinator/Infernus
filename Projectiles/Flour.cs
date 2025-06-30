@@ -13,21 +13,20 @@ namespace Infernus.Projectiles
     {
         public override void SetDefaults()
         {
-            Projectile.width = 92;
-            Projectile.height = 102;
+            Projectile.width = 80;
+            Projectile.height = 80;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 300;
-            Projectile.extraUpdates = 1;
             Projectile.tileCollide = false;
             Projectile.netImportant = true;
         }
         public override void AI()
         {
             Projectile.ai[0] += 1f;
-            if (Projectile.ai[0] >= 20f)
+            if (Projectile.ai[0] >= 30f)
             {
-                Projectile.ai[0] = 20f;
+                Projectile.ai[0] = 30f;
                 Projectile.tileCollide = true;
             }
             Projectile.rotation += (float)Projectile.direction * 2;

@@ -10,17 +10,18 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
+            Main.projFrames[Projectile.type] = 3;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
             Main.projPet[Projectile.type] = true;
-            ProjectileID.Sets.MinionSacrificable[Projectile.type] = false;
+            ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public sealed override void SetDefaults()
         {
-            Projectile.width = 28;
+            Projectile.width = 64;
             Projectile.DamageType = DamageClass.Summon;
-            Projectile.height = 60;
+            Projectile.height = 106;
             Projectile.tileCollide = false;
             Projectile.friendly = true;
             Projectile.minion = true;
@@ -39,11 +40,17 @@ namespace Infernus.Projectiles
 
         public override void AI()
         {
-            if (Main.rand.NextBool(2))
+            if (++Projectile.frameCounter >= 11)
             {
-                Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Shadowflame, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
-                Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.PurpleTorch, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= 3)
+                {
+                    Projectile.frame = 0;
+                }
             }
+            int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.PinkFairy, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
+            Main.dust[dust].noGravity = true;
+            Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.014f;
 
             Player player = Main.player[Projectile.owner];
 
@@ -57,9 +64,9 @@ namespace Infernus.Projectiles
             }
 
             Projectile.Center = player.Center;
-            Projectile.position.X = player.position.X - 10;
-            Projectile.position.Y = player.position.Y - 23;
-            Projectile.rotation = player.velocity.X * -0.01f;
+            //Projectile.position.X = player.position.X - (Projectile.width / 2);
+            Projectile.position.Y = Projectile.position.Y - 20;
+            Projectile.rotation = player.velocity.X * -0.02f;
 
 
             float distanceFromTarget = 250f;
@@ -125,8 +132,7 @@ namespace Infernus.Projectiles
                             }
                             shootVel.Normalize();
                             shootVel *= 16;
-                            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X + 40, Projectile.Center.Y, shootVel.X, shootVel.Y, ModContent.ProjectileType<eternalfire>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);
-                            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y + 40, shootVel.X, shootVel.Y, ModContent.ProjectileType<eternalfire>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);
+                            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, shootVel.X, shootVel.Y, ModContent.ProjectileType<TGoblinM_Shot>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);
                             Projectile.ai[1] = 1f;
                         }
                     }

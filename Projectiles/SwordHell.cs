@@ -10,7 +10,6 @@ namespace Infernus.Projectiles
 
     public class SwordHell : ModProjectile
     {
-        int timer;
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
@@ -21,12 +20,10 @@ namespace Infernus.Projectiles
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.width = 40;
-            Projectile.height = 114;
-            Projectile.netImportant = true;
+            Projectile.width = 30;
+            Projectile.height = 70;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 64;
-            Projectile.extraUpdates = 1;
             Projectile.penetrate = 2;
         }
         public override void AI()
@@ -37,14 +34,14 @@ namespace Infernus.Projectiles
             {
                 Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.SolarFlare, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
             }
-            timer++;
-            if (timer >= 10)
+            if (Projectile.timeLeft >= 50)
             {
                 Projectile.tileCollide = true;
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            Projectile.damage = (int)(Projectile.damage * 0.85f);
             Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, Main.rand.Next(-5, 6), Main.rand.Next(-5, -5), ProjectileID.Flames, (int)(damageDone * 1.1f), 0, Projectile.owner);
             Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, Main.rand.Next(-5, 6), Main.rand.Next(-5, -5), ProjectileID.Flames, (int)(damageDone * 1.1f), 0, Projectile.owner);
         }

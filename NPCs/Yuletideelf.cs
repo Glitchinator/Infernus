@@ -57,6 +57,8 @@ namespace Infernus.NPCs
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
+            // yuletide elf aint good
+            return 0f;
             if (ModContent.GetInstance<InfernusConfig>().Disable_Elf == false)
             {
                 return .006f;

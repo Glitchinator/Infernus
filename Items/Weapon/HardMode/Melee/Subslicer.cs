@@ -14,7 +14,7 @@ namespace Infernus.Items.Weapon.HardMode.Melee
 
         public override void SetDefaults()
         {
-            Item.damage = 120;
+            Item.damage = 132;
             Item.DamageType = DamageClass.Melee;
             Item.width = 100;
             Item.height = 100;

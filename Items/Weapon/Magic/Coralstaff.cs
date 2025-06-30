@@ -15,7 +15,7 @@ namespace Infernus.Items.Weapon.Magic
 
         public override void SetDefaults()
         {
-            Item.damage = 18;
+            Item.damage = 16;
             Item.DamageType = DamageClass.Magic;
             Item.width = 34;
             Item.height = 34;

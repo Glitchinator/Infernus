@@ -16,7 +16,7 @@ namespace Infernus.Items.Weapon.Ranged
 
         public override void SetDefaults()
         {
-            Item.damage = 14;
+            Item.damage = 12;
             Item.DamageType = DamageClass.Ranged;
             Item.noMelee = true;
             Item.width = 44;
@@ -30,7 +30,7 @@ namespace Infernus.Items.Weapon.Ranged
             Item.UseSound = SoundID.Item5;
             Item.autoReuse = true;
             Item.shoot = ProjectileID.WoodenArrowFriendly;
-            Item.shootSpeed = 8f;
+            Item.shootSpeed = 7.5f;
             Item.useAmmo = AmmoID.Arrow;
         }
         public override void UseAnimation(Player player)

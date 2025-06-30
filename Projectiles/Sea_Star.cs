@@ -19,8 +19,8 @@ namespace Infernus.Projectiles
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.width = 22;
-            Projectile.height = 24;
+            Projectile.width = 18;
+            Projectile.height = 18;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.netImportant = true;
@@ -28,7 +28,7 @@ namespace Infernus.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 12;
             Projectile.timeLeft = 340;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
             Projectile.extraUpdates = 1;
         }
         public override void AI()

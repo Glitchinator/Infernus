@@ -21,7 +21,7 @@ namespace Infernus.Projectiles
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.ignoreWater = true;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
             Projectile.timeLeft = 600;
             Projectile.netImportant = true;
             Projectile.alpha = 255;

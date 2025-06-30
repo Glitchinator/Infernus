@@ -38,8 +38,8 @@ namespace Infernus.NPCs
             NPC.damage = 34;
             NPC.defense = 16;
             NPC.knockBackResist = 0.0f;
-            NPC.width = 124;
-            NPC.height = 120;
+            NPC.width = 104;
+            NPC.height = 100;
             NPC.aiStyle = -1;
             NPC.noGravity = true;
             NPC.HitSound = SoundID.NPCHit42;
@@ -49,13 +49,15 @@ namespace Infernus.NPCs
             Music = MusicLoader.GetMusicSlot("Infernus/Music/Frigid_Predator");
             NPC.noTileCollide = true;
             NPC.lavaImmune = true;
-            NPC.npcSlots = 6;
+            NPC.npcSlots = 10;
         }
 
         int Timer;
         bool is_dashing = false;
         bool is_below = false;
         bool Check_below = false;
+        bool Spinnn = false;
+        bool Chasing = false;
 
 
 
@@ -73,7 +75,15 @@ namespace Infernus.NPCs
             Player player = Main.player[NPC.target];
             NPC.netUpdate = true;
             NPC.TargetClosest(true);
-            NPC.rotation = NPC.velocity.X * 0.01f;
+
+            if (Spinnn == false)
+            {
+                NPC.rotation = NPC.velocity.X * 0.01f;
+            }
+            else
+            {
+                NPC.rotation = NPC.rotation += 0.2f;
+            }
 
             if (NPC.target < 0 || NPC.target == 255 || player.dead || !player.active)
             {
@@ -97,22 +107,27 @@ namespace Infernus.NPCs
             if (Move_Location == 0)
             {
                 Move_X = 0;
-                Move_Y = -260;
+                Move_Y = -400;
             }
             if (Move_Location == 1)
             {
                 Move_X = 300;
-                Move_Y = -160;
+                Move_Y = -460;
             }
             if (Move_Location == 2)
             {
                 Move_X = -300;
-                Move_Y = -200;
+                Move_Y = -500;
+            }
+            if (Move_Location == 3)
+            {
+                Move_X = 0;
+                Move_Y = 0;
             }
             if (is_below == true)
             {
                 Move_X = 0;
-                Move_Y = 610;
+                Move_Y = 560;
             }
             /*
             if (Timer == 60)
@@ -150,6 +165,7 @@ namespace Infernus.NPCs
             {
                 is_dashing = false;
                 //InfernusWorld.Ruderibus_Switch = false;
+                speed = 8f;
             }
 
             if(Timer == 960)
@@ -171,6 +187,7 @@ namespace Infernus.NPCs
             {
                 is_dashing = false;
                 is_below = false;
+                speed = 8f;
             }
 
 
@@ -204,6 +221,21 @@ namespace Infernus.NPCs
             {
                 is_dashing = false;
                 is_below = false;
+                speed = 8f;
+            }
+
+            if (Timer == 2300)
+            {
+                Spinnn = true;
+                Chasing = true;
+                speed = 8f;
+                Move_Location = 3;
+            }
+            if (Timer == 2700)
+            {
+                Spinnn = false;
+                Chasing = false;
+                Move_Location = 0;
             }
 
 
@@ -247,10 +279,7 @@ namespace Infernus.NPCs
         }
         private void Ice_Wall()
         {
-            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0f,0f), ModContent.ProjectileType<InkTyphoon>(), 11, NPC.whoAmI);
-            }
+            NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Ruderibus_Gas_Mine>(), NPC.whoAmI);
         }
         private void Dash()
         {
@@ -411,15 +440,15 @@ namespace Infernus.NPCs
             Vector2 moveTo = player.Center + offset;
             Vector2 move = moveTo - NPC.Center;
             float magnitude = Magnitude(move);
-            if (Move_Location == Move_Location)
+            if (Move_Location == Move_Location && Chasing == false)
             {
                 speed += 0.1f;
             }
-            if (magnitude <= 80f)
+            if (magnitude <= 80f && Chasing == false)
             {
                 Move_Location = Main.rand.Next(3);
                 Check_below = false;
-                speed = 15f;
+                speed = 8f;
             }
             if (magnitude > speed)
             {

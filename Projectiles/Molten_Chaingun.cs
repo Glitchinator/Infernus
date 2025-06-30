@@ -21,11 +21,11 @@ namespace Infernus.Projectiles
             Projectile.width = 8;
             Projectile.height = 8;
             Projectile.aiStyle = 0;
-            Projectile.DamageType = DamageClass.Magic;
+            Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.ignoreWater = true;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
             Projectile.timeLeft = 600;
             Projectile.netImportant = true;
         }
@@ -79,7 +79,7 @@ namespace Infernus.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.OnFire, 300);
+            target.AddBuff(BuffID.OnFire, 120);
         }
         public override bool PreDraw(ref Color lightColor)
         {

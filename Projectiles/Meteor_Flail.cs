@@ -90,7 +90,7 @@ namespace Infernus.Projectiles
                 */
                 if (Main.myPlayer == Projectile.owner)
                 {
-                    var inertia = 12f;
+                    var inertia = 8f;
                     Vector2 direction = player.Center - Projectile.Center;
                     float dist_check = Magnitude(direction);
 
@@ -113,6 +113,7 @@ namespace Infernus.Projectiles
                         if (retracted == false)
                         {
                             retracting = false;
+                            Projectile.damage = (int)(Projectile.damage * 0.5f);
                         }
                         if(retracted == true)
                         {

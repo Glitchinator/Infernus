@@ -1,4 +1,5 @@
 ﻿using Infernus.Projectiles;
+using Infernus.Projectiles.Raiko.Boss;
 using Infernus.Projectiles.Temporal_Glow_Squid.Boss;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
@@ -8,6 +9,8 @@ using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -40,6 +43,11 @@ namespace Infernus.NPCs
             return ModContent.NPCType<Ruderibus>();
         }
 
+        public static int Life_Type()
+        {
+            return Main.npc[ModContent.NPCType<Ruderibus>()].whoAmI;
+        }
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[Type] = 1;
@@ -48,9 +56,10 @@ namespace Infernus.NPCs
         int Timer;
         int Ice_Shard_Area = 120;
         private Vector2 destination;
-        float inertia = 6;
+        float inertia = 5;
         float speed = 16f;
         bool dashing = false;
+        private Vector2 mub;
 
         private Vector2 Player_Position;
         bool should_explode = false;
@@ -59,6 +68,8 @@ namespace Infernus.NPCs
 
         bool circle_player = false;
 
+        int rand_dist = 24;
+        int randi;
         public override void SetDefaults()
         {
             NPC.width = 34;
@@ -70,18 +81,37 @@ namespace Infernus.NPCs
             NPC.DeathSound = SoundID.NPCDeath44;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
-            NPC.knockBackResist = 0.0f;
+            NPC.knockBackResist = 0.3f;
             NPC.netAlways = true;
             NPC.aiStyle = -1;
+            //NPC.realLife = ParentIndex;
         }
         public override void AI()
         {
+            Vector2 dest = NPC.Center - destination;
+            float diddy = Magnitude(dest);
+            if(diddy  >= 80f && dashing == false)
+            {
+                NPC.color = Color.Red;
+                NPC.damage = 0;
+            }
+            else
+            {
+                NPC.damage = 40;
+                NPC.color = Color.White;
+            }
+
+            Dust.NewDust(destination, 10, 10, DustID.SolarFlare, 0, 0);
+            NPC.realLife = Main.npc[ParentIndex].whoAmI;
             Timer = InfernusWorld.Ruderibus_Timer;
             NPC.netUpdate = true;
-            NPC.TargetClosest(true);
-            NPC.dontTakeDamage = true;
-            NPC.despawnEncouraged = false;
+            NPC.TargetClosest();
+            //NPC.dontTakeDamage = true;
             Player player = Main.player[NPC.target];
+
+            Vector2 pos = player.Center - NPC.Center;
+            var f = pos.ToRotation() + MathHelper.PiOver2;
+            NPC.rotation = NPC.rotation.AngleTowards(f, 0.3f);
 
             if (NPC.target < 0 || NPC.target == 255 || player.dead || !player.active)
             {
@@ -103,6 +133,21 @@ namespace Infernus.NPCs
             {
                 Ice_Shard_Area = 24;
                 circle_player = true;
+                NPC.knockBackResist = 0.0f;
+            }
+            if(Timer == 260)
+            {
+                if (Which_Fist == 0)
+                {
+                    Whoops_Ahh_Pimp_Down_Ahhhh_Pimp_IN_DISTRESS();
+                }
+            }
+            if(Timer == 300)
+            {
+                if (Which_Fist == 0)
+                {
+                    Whoops_Ahh_Pimp_Down_Ahhhh_Pimp_IN_DISTRESS();
+                }
             }
             if (Timer == 340)
             {
@@ -111,46 +156,88 @@ namespace Infernus.NPCs
                 if (Which_Fist == 0)
                 {
                     //Ice_Shard_Area = 0;
-                    NPC.color = Color.Green;
+                    //NPC.color = Color.Green;
                     Dash();
+                    rand_dist = Main.rand.Next(60, 120);
+                    Ice_Shard_Area = rand_dist;
                 }
-                Ice_Shard_Area = 120;
+                if (Which_Fist == 1)
+                {
+                    Whoops_Ahh_Pimp_Down_Ahhhh_Pimp_IN_DISTRESS();
+                }
+                //Ice_Shard_Area = 120;
+            }
+            if (Timer == 380)
+            {
+                if (Which_Fist == 1)
+                {
+                    Whoops_Ahh_Pimp_Down_Ahhhh_Pimp_IN_DISTRESS();
+                }
             }
             if (Timer == 420)
             {
                 if (Which_Fist == 1)
                 {
                     //Ice_Shard_Area = 0;
-                    NPC.color = Color.Blue;
+                    //NPC.color = Color.Blue;
                     Dash();
+                    rand_dist = Main.rand.Next(60, 120);
+                    Ice_Shard_Area = rand_dist;
                 }
-                Ice_Shard_Area = 120;
+                if (Which_Fist == 2)
+                {
+                    Whoops_Ahh_Pimp_Down_Ahhhh_Pimp_IN_DISTRESS();
+                }
+                //Ice_Shard_Area = 120;
+            }
+            if (Timer == 460)
+            {
+                if (Which_Fist == 2)
+                {
+                    Whoops_Ahh_Pimp_Down_Ahhhh_Pimp_IN_DISTRESS();
+                }
             }
             if (Timer == 500)
             {
                 if (Which_Fist == 2)
                 {
                     //Ice_Shard_Area = 0;
-                    NPC.color = Color.Red;
+                    //NPC.color = Color.Red;
                     Dash();
+                    rand_dist = Main.rand.Next(60, 120);
+                    Ice_Shard_Area = rand_dist;
                 }
-                Ice_Shard_Area = 120;
+                if (Which_Fist == 3)
+                {
+                    Whoops_Ahh_Pimp_Down_Ahhhh_Pimp_IN_DISTRESS();
+                }
+                //Ice_Shard_Area = 120;
+            }
+            if (Timer == 540)
+            {
+                if (Which_Fist == 3)
+                {
+                    Whoops_Ahh_Pimp_Down_Ahhhh_Pimp_IN_DISTRESS();
+                }
             }
             if (Timer == 580)
             {
                 if (Which_Fist == 3)
                 {
                     //Ice_Shard_Area = 0;
-                    NPC.color = Color.Yellow;
+                    //NPC.color = Color.Yellow;
                     Dash();
+                    rand_dist = Main.rand.Next(60, 120);
+                    Ice_Shard_Area = rand_dist;
                 }
-                Ice_Shard_Area = 120;
+                //Ice_Shard_Area = 120;
             }
             if(Timer == 660)
             {
-                Ice_Shard_Area = 120;
+                //Ice_Shard_Area = 120;
                 circle_player = false;
                 dashing = false;
+                NPC.knockBackResist = 0.3f;
             }
 
             if(Timer == 960)
@@ -162,11 +249,7 @@ namespace Infernus.NPCs
             {
                 Horizontal_Ice();
             }
-            if (Timer == 1060)
-            {
-                Horizontal_Ice();
-            }
-            if (Timer == 1080)
+            if (Timer == 1070)
             {
                 Horizontal_Ice();
             }
@@ -176,7 +259,27 @@ namespace Infernus.NPCs
             }
             if (Timer == 1140)
             {
-                Ice_Shard_Area = 120;
+                if (Which_Fist == 0)
+                {
+                    rand_dist = Main.rand.Next(60, 120);
+                    Ice_Shard_Area = rand_dist;
+                }
+                if (Which_Fist == 1)
+                {
+                    rand_dist = Main.rand.Next(60, 120);
+                    Ice_Shard_Area = rand_dist;
+                }
+                if (Which_Fist == 2)
+                {
+                    rand_dist = Main.rand.Next(60, 120);
+                    Ice_Shard_Area = rand_dist;
+                }
+                if (Which_Fist == 3)
+                {
+                    rand_dist = Main.rand.Next(60, 120);
+                    Ice_Shard_Area = rand_dist;
+                }
+                //Ice_Shard_Area = 120;
             }
 
             if(Timer == 1420)
@@ -192,7 +295,7 @@ namespace Infernus.NPCs
             if(Timer == 1550)
             {
                 //Ice_Shard_Area = 0;
-                NPC.color = Color.Yellow;
+                //NPC.color = Color.Yellow;
                 Player_Position = player.Center;
                 should_explode = true;
                 Dash();
@@ -207,10 +310,12 @@ namespace Infernus.NPCs
                 NPC.velocity = (NPC.velocity * (inertia2 - 1) + direction) / inertia2;
                 var distancevec2 = NPC.Center - Player_Position;
                 float magnitude = Magnitude(distancevec2);
-                if (magnitude <= 100f)
+                randi = Main.rand.Next(1);
+                if (magnitude <= 40f)
                 {
+                    Whoops_Ahh_Pimp_Down_Ahhhh_Pimp_IN_DISTRESS();
                     //dashing = false;
-                    Ice_Shard_Area = 120;
+                    //Ice_Shard_Area = 120;
                     for (int i = 0; i < 30; i++)
                     {
                         var smoke = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
@@ -254,8 +359,11 @@ namespace Infernus.NPCs
                     Player_Position = Vector2.Zero;
                     should_explode = false;
                     circle_player = false;
+                    NPC.velocity = Vector2.Zero;
                     //dashing = false;
-                    inertia = 6;
+                    inertia = 5;
+                    PunchCameraModifier modifier = new PunchCameraModifier(NPC.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, FullName);
+                    Main.instance.CameraModifiers.Add(modifier);
                 }
             }
             if (Timer == 1600)
@@ -264,7 +372,27 @@ namespace Infernus.NPCs
                 should_explode = false;
                 circle_player = false;
                 dashing = false;
-                inertia = 6;
+                inertia = 5;
+                if (Which_Fist == 0)
+                {
+                    rand_dist = Main.rand.Next(60, 120);
+                    Ice_Shard_Area = rand_dist;
+                }
+                if (Which_Fist == 1)
+                {
+                    rand_dist = Main.rand.Next(60, 120);
+                    Ice_Shard_Area = rand_dist;
+                }
+                if (Which_Fist == 2)
+                {
+                    rand_dist = Main.rand.Next(60, 120);
+                    Ice_Shard_Area = rand_dist;
+                }
+                if (Which_Fist == 3)
+                {
+                    rand_dist = Main.rand.Next(60, 120);
+                    Ice_Shard_Area = rand_dist;
+                }
             }
             if(Timer == 1900)
             {
@@ -273,12 +401,32 @@ namespace Infernus.NPCs
             if(Timer == 2040)
             {
                 //ruderibus done layer ice mines
+                speed_up = false;
             }
-            
+            if (Timer == 2300)
+            {
+                speed_up = true;
+            }
+            if (Timer == 2350 || Timer == 2400 || Timer == 2450 || Timer == 2500 || Timer == 2550 || Timer == 2600 || Timer == 2650)
+            {
+                InkBolt();
+            }
+            if (Timer == 2700)
+            {
+                speed_up = false;
+            }
+            if(Timer == 2701)
+            {
+                InfernusWorld.Ruderibus_Timer = 0;
+            }
+
+            /*
             if(Timer == 2300)
             {
                 dashing = true;
             }
+            */
+            /*
             if(Timer >= 2360 && Timer < 2540)
             {
                 if (Which_Fist == 0)
@@ -320,7 +468,8 @@ namespace Infernus.NPCs
             {
                 InfernusWorld.Ruderibus_Timer = 0;
             }
-            
+            */
+
             /*
             if(Timer == 1060)
             {
@@ -344,6 +493,28 @@ namespace Infernus.NPCs
             {
                 Form_Ice();
             }
+        }
+        private void InkBolt()
+        {
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                player = Main.player[NPC.target];
+                Vector2 velocity = player.Center - NPC.Bottom;
+                float magnitude = Magnitude(velocity);
+                if (magnitude > 0)
+                {
+                    velocity *= 15f / magnitude;
+                }
+                else
+                {
+                    velocity = new Vector2(0f, 4.9f);
+                }
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Bottom, velocity, ModContent.ProjectileType<Ice_Bolt>(), 10, NPC.whoAmI);
+            }
+        }
+        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+        {
+            return false;
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
@@ -386,45 +557,81 @@ namespace Infernus.NPCs
                 NPC.velocity.Y *= 2.25f;
                 {
                     float rotation = (float)Math.Atan2(NPC.Center.Y - (player.position.Y + player.velocity.Y * 10), NPC.Center.X - (player.position.X + player.velocity.X * 10));
-                    if (magnitude > 400f)
+                    if (magnitude >= 700f)
                     {
-                        magnitude = 400f;
+                        magnitude = 700;
                     }
-                    NPC.velocity.X = (float)(Math.Cos(rotation) * 14 * (magnitude / 350)) * -1;
-                    NPC.velocity.Y = (float)(Math.Sin(rotation) * 14 * (magnitude / 350)) * -1;
+                    NPC.velocity.X = (float)(Math.Cos(rotation) * 12 * (magnitude / 200)) * -1;
+                    NPC.velocity.Y = (float)(Math.Sin(rotation) * 12 * (magnitude / 200)) * -1;
                     string i = magnitude.ToString();
                     Main.NewText(i, 229, 214, 127);
                 }
             }
         }
-
-        private void Ice_Wall()
+        private void Meteor_Spawner()
         {
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 player = Main.player[NPC.target];
-                Vector2 velocity = NPC.Center;
+                Vector2 velocity = player.Center - NPC.Bottom;
                 float magnitude = Magnitude(velocity);
                 if (magnitude > 0)
                 {
-                    velocity *= 0f / magnitude;
+                    velocity *= 5f / magnitude;
                 }
                 else
                 {
-                    velocity = new Vector2(0f, 0f);
+                    velocity = new Vector2(0f, 4.9f);
                 }
-                if (Main.rand.NextBool(24))
+                float rotation = MathHelper.ToRadians(10);
+                for (int i = 0; i < 2; i++)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Ice_Wall>(), 11, NPC.whoAmI);
+                    Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(rotation, -rotation, i));
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Meteor_Heat>(), 14, NPC.whoAmI);
+                }
+                float rotation2 = MathHelper.ToRadians(32);
+                for (int i = 0; i < 2; i++)
+                {
+                    Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(rotation2, -rotation2, i));
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Meteor_Heat>(), 14, NPC.whoAmI);
                 }
             }
         }
+
         private void Horizontal_Ice()
         {
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Bottom, new Vector2(10f,0f), ModContent.ProjectileType<InkBolt>(), 10, NPC.whoAmI);
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Bottom, new Vector2(-10f, 0f), ModContent.ProjectileType<InkBolt>(), 10, NPC.whoAmI);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Bottom, new Vector2(10f,0f), ModContent.ProjectileType<Ice_Bolt>(), 10, NPC.whoAmI);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Bottom, new Vector2(-10f, 0f), ModContent.ProjectileType<Ice_Bolt>(), 10, NPC.whoAmI);
+            }
+        }
+        private void Bingo_I_Got_Action()
+        {
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0,-5), ModContent.ProjectileType<InkBolt>(), 8, NPC.whoAmI);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, 5), ModContent.ProjectileType<InkBolt>(), 8, NPC.whoAmI);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(-5, 0), ModContent.ProjectileType<InkBolt>(), 8, NPC.whoAmI);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(5, 0), 0, ModContent.ProjectileType<InkBolt>(), 8, NPC.whoAmI);
+            }
+        }
+        private void Whoops_Ahh_Pimp_Down_Ahhhh_Pimp_IN_DISTRESS()
+        {
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                for (int k = 0; k < 14; k++)
+                {
+                    Vector2 speed = Main.rand.NextVector2Circular(1f, 1f);
+                    Dust wand = Dust.NewDustPerfect(NPC.Center + speed * 22, DustID.HallowedPlants, speed * 2, 0, default, Scale: 2.8f);
+                    wand.noGravity = true;
+                }
+                for (int k = 0; k < 10; k++)
+                {
+                    Vector2 speed = Main.rand.NextVector2Unit();
+                    Dust wand = Dust.NewDustPerfect(NPC.Center + speed * 22, DustID.ApprenticeStorm, speed * 2, 0, default, Scale: 2.8f);
+                    wand.noGravity = true;
+                }
             }
         }
         private static float Magnitude(Vector2 mag)
@@ -450,25 +657,54 @@ namespace Infernus.NPCs
             }
             return false;
         }
+        bool dashed = false;
+        int reset_timer;
+        float lerp = 0f;
         private void Form_Ice()
         {
             Player player = Main.player[NPC.target];
 
             float rad = (float)PositionIndex / 4 * MathHelper.TwoPi;
 
-            float lerp = 0f;
             /*
-            if (dashing == true || speed_up == true)
+            if (dashing == true)
             {
-                lerp += 0.1f;
-                 RotationTimer += 1.6f + lerp;
+                dashed = true;
+            }
+            if (dashing == false && dashed == true)
+            {
+                reset_timer++;
+            }
+            if (reset_timer == 40)
+            {
+                dashed = false;
+                reset_timer = 0;
+            }
+            if (dashed == false)
+            {
+                if (speed_up == true)
+                {
+                    lerp += 0.2f;
+                    RotationTimer += 1.6f + lerp;
+                }
+                else
+                {
+                    RotationTimer += 0.8f;
+                    lerp = 0f;
+                }
+            }
+            */
+            
+            if (speed_up == true)
+            {
+                RotationTimer += 2f;
             }
             else
-            */
             {
                 RotationTimer += 0.8f;
-                lerp = 0f;
             }
+            
+            RotationTimer += 0.8f;
             if (RotationTimer > 360)
             {
                 RotationTimer = 0;
@@ -500,6 +736,7 @@ namespace Infernus.NPCs
             Vector2 toDestination = destination - NPC.Center;
             Vector2 toDestinationNormalized = toDestination.SafeNormalize(Vector2.Zero);
             Vector2 moveTo = toDestinationNormalized * speed;
+            mub = toDestinationNormalized;
             NPC.velocity = (NPC.velocity * (inertia - 1) + moveTo) / inertia;
         }
     }

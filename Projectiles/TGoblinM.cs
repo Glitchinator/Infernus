@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -37,7 +38,6 @@ namespace Infernus.Projectiles
             Projectile.minionSlots = 1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
-            Projectile.extraUpdates = 1;
         }
         public override bool MinionContactDamage()
         {
@@ -49,15 +49,23 @@ namespace Infernus.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.ShadowFlame, 240);
+            target.AddBuff(BuffID.ShadowFlame, 120);
+        }
+        int Dive_Timer;
+        bool Diving = false;
+        int When_Dive;
+        int Dive_Reset;
+        bool Left = false;
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            Left = Main.rand.NextBool();
+            When_Dive = Main.rand.Next(10, 21);
+            Dive_Reset = Main.rand.Next(40, 44);
         }
         public override void AI()
         {
-
-            Player player = Main.player[Projectile.owner];
-            Projectile.spriteDirection = Projectile.direction;
-
-            if (++Projectile.frameCounter >= 16)
+            if (++Projectile.frameCounter >= 11)
             {
                 Projectile.frameCounter = 0;
                 if (++Projectile.frame >= 3)
@@ -66,9 +74,12 @@ namespace Infernus.Projectiles
                 }
             }
 
+            Player player = Main.player[Projectile.owner];
+            Projectile.spriteDirection = Projectile.direction;
+
             Vector2 withplayer = player.Center;
-            withplayer.Y -= 52f;
-            float notamongusX = (15 + Projectile.minionPos * 5) * -player.direction;
+            withplayer.Y -= 48f;
+            float notamongusX = (10 + Projectile.minionPos * 40) * -player.direction;
             withplayer.X += notamongusX;
             Vector2 vectorToplayer = withplayer - Projectile.Center;
             float distanceToplayer = vectorToplayer.Length();
@@ -96,8 +107,18 @@ namespace Infernus.Projectiles
                 float between = Vector2.Distance(npc.Center, Projectile.Center);
                 if (between < 2000f)
                 {
-                    distanceFromTarget = between;
-                    targetCenter = npc.Center;
+
+                    if (Left == true)
+                    {
+                        targetCenter = new Vector2(npc.Center.X + 100, npc.Center.Y);
+                    }
+                    else
+                    {
+                        targetCenter = new Vector2(npc.Center.X - 100, npc.Center.Y);
+                    }
+
+                    float detween = Vector2.Distance(targetCenter, Projectile.Center);
+                    distanceFromTarget = detween;
                     foundTarget = true;
                 }
             }
@@ -115,8 +136,18 @@ namespace Infernus.Projectiles
                         bool closeThroughWall = between < 100f;
                         if (((closest && inRange) || !foundTarget) && (lineOfSight || closeThroughWall))
                         {
-                            distanceFromTarget = between;
-                            targetCenter = npc.Center;
+
+                            if (Left == true)
+                            {
+                                targetCenter = new Vector2(npc.Center.X + 100, npc.Center.Y);
+                            }
+                            else
+                            {
+                                targetCenter = new Vector2(npc.Center.X - 100, npc.Center.Y);
+                            }
+
+                            float detween = Vector2.Distance(targetCenter, Projectile.Center);
+                            distanceFromTarget = detween;
                             foundTarget = true;
                         }
                     }
@@ -124,67 +155,83 @@ namespace Infernus.Projectiles
             }
             Projectile.friendly = foundTarget;
 
-            float speed = 10f;
-            float inertia = 15f;
+
+            float speed = 7f;
+            float inertia = 14f;
 
             if (foundTarget)
             {
-                if (distanceFromTarget > 40f)
+
+                if (distanceFromTarget > 20f && Diving == false)
                 {
                     Vector2 direction = targetCenter - Projectile.Center;
                     direction.Normalize();
                     direction *= speed;
                     Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
                 }
-                if (distanceFromTarget > 150f)
+                else
                 {
-                    if (Projectile.ai[1] > 0f)
+                    Diving = true;
+                }
+                if (Diving == true)
+                {
+                    Projectile.velocity.X = Projectile.velocity.X * 0.97f;
+                    Projectile.velocity.Y = Projectile.velocity.Y * 0.97f;
+
+                    Dive_Timer++;
+                }
+                if (Dive_Timer == When_Dive)
+                {
+                    if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.ai[1] += 1f;
-                        if (Main.rand.NextBool(3))
+                        if (Left == true)
                         {
-                            Projectile.ai[1] += 1f;
+                            Projectile.velocity.Y = 0;
+                            Projectile.velocity.X = -10;
                         }
-                    }
-                    if (Projectile.ai[1] > 60)
-                    {
-                        Projectile.ai[1] = 0f;
-                        Projectile.netUpdate = true;
-                    }
-                    if (Projectile.ai[0] == 0f)
-                    {
-                        if (foundTarget)
+                        else
                         {
-                            if (Projectile.ai[1] == 0f)
-                            {
-                                Projectile.ai[1] = 1f;
-                                if (Main.myPlayer == Projectile.owner)
-                                {
-                                    Vector2 shootVel = targetCenter - Projectile.Center;
-                                    if (shootVel == Vector2.Zero)
-                                    {
-                                        shootVel = new Vector2(0f, 1f);
-                                    }
-                                    shootVel.Normalize();
-                                    shootVel *= 16;
-                                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X + 40, Projectile.Center.Y, shootVel.X, shootVel.Y, ModContent.ProjectileType<TGoblinM_Shot>(), 18, Projectile.knockBack, Main.myPlayer, 0f, 0f);
-                                    Projectile.ai[1] = 1f;
-                                }
-                            }
+                            Projectile.velocity.Y = 0;
+                            Projectile.velocity.X = 10;
                         }
+                        /*
+                        float dive_speed = 18f;
+                        Vector2 VectorToCursor = targetCenter - Projectile.position;
+                        float DistToCursor = VectorToCursor.Length();
+
+                        DistToCursor = dive_speed / DistToCursor;
+                        VectorToCursor *= DistToCursor;
+
+                        Projectile.velocity = VectorToCursor;
+                        */
                     }
+                }
+                if (Dive_Timer > Dive_Reset)
+                {
+                    if (Left == false)
+                    {
+                        Left = true;
+                    }
+                    else
+                    {
+                        Left = false;
+                    }
+                    Diving = false;
+                    Dive_Timer = 0;
                 }
             }
             else
             {
+                Dive_Timer = 0;
+                Diving = false;
                 if (distanceToplayer > 600f)
                 {
-                    speed = 15f;
+                    speed = 12f;
                     inertia = 35f;
                 }
                 else
                 {
-                    speed = 6f;
+                    speed = 7f;
                     inertia = 50f;
                 }
                 if (distanceToplayer > 20f)

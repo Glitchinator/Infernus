@@ -13,6 +13,11 @@ namespace Infernus.Biome
             {
                 tasks.Insert(shiniesIndex + 1, new AerititeGen("Aeritite Ore Pass", 320f));
             }
+            int Raiko_Summon_Tile = tasks.FindIndex(j => j.Name.Equals("Buried Chests"));
+            if (Raiko_Summon_Tile != -1)
+            {
+                tasks.Insert(Raiko_Summon_Tile + 1, new Raiko_Tile_Gen("Raiko Tile Pass", 100f));
+            }
         }
     }
 }

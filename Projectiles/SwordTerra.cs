@@ -10,7 +10,6 @@ namespace Infernus.Projectiles
 
     public class SwordTerra : ModProjectile
     {
-        int timer;
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
@@ -21,14 +20,11 @@ namespace Infernus.Projectiles
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.width = 38;
-            Projectile.height = 112;
-            Projectile.penetrate = 1;
-            Projectile.netImportant = true;
+            Projectile.width = 30;
+            Projectile.height = 70;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 60;
-            Projectile.extraUpdates = 1;
-            Projectile.penetrate = 2;
+            Projectile.timeLeft = 35;
+            Projectile.penetrate = 3;
         }
         public override void AI()
         {
@@ -38,8 +34,7 @@ namespace Infernus.Projectiles
             {
                 Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Gold, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
             }
-            timer++;
-            if (timer >= 10)
+            if (Projectile.timeLeft >= 21)
             {
                 Projectile.tileCollide = true;
             }
@@ -72,6 +67,10 @@ namespace Infernus.Projectiles
                 Dust Sword = Dust.NewDustPerfect(Projectile.Center + speed * 32, DustID.Gold, speed * 3, Scale: 2f);
                 Sword.noGravity = true;
             }
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            Projectile.damage = (int)(Projectile.damage * 0.85f);
         }
     }
 }

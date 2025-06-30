@@ -1,9 +1,11 @@
 ﻿using Infernus.Projectiles.Raiko.Boss;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 using Terraria.ModLoader;
 namespace Infernus.Projectiles
@@ -84,16 +86,30 @@ namespace Infernus.Projectiles
                 smokeGore.velocity *= speedMulti;
                 smokeGore.velocity -= Vector2.One;
             }
-            var i = ModContent.ProjectileType<Meteor_Heat>();
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, -5, i, Projectile.damage, 0, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 5, i, Projectile.damage, 0, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, -5, 0, i, Projectile.damage, 0, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 5, 0, i, Projectile.damage, 0, Projectile.owner);
+            PunchCameraModifier modifier = new PunchCameraModifier(Projectile.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, FullName);
+            Main.instance.CameraModifiers.Add(modifier);
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                var i = ModContent.ProjectileType<Meteor_Heat>();
+                for (int k = 0; k < 24; k++)
+                {
+                    Vector2 speed = Main.rand.NextVector2Circular(1f,1f);
+                    Dust wand = Dust.NewDustPerfect(Projectile.Center + speed * 22, DustID.SolarFlare, speed * 2, 0, default, Scale: 2.8f);
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center + speed * 22, speed * 4, i, Projectile.damage, 0, Projectile.owner);
+                    wand.noGravity = true;
+                }
+                /*
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, -5, i, Projectile.damage, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 5, i, Projectile.damage, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, -5, 0, i, Projectile.damage, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 5, 0, i, Projectile.damage, 0, Projectile.owner);
 
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 5, -5, i, Projectile.damage, 0, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, -5, 5, i, Projectile.damage, 0, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, -5, -5, i, Projectile.damage, 0, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 5, 5, i, Projectile.damage, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 5, -5, i, Projectile.damage, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, -5, 5, i, Projectile.damage, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, -5, -5, i, Projectile.damage, 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 5, 5, i, Projectile.damage, 0, Projectile.owner);
+                */
+            }
         }
         public override bool PreDraw(ref Color lightColor)
         {

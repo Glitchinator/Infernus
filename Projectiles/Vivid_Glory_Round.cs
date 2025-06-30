@@ -15,15 +15,11 @@ namespace Infernus.Projectiles
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 7;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
-            Projectile.CloneDefaults(ProjectileID.Bullet);
-            AIType = ProjectileID.Bullet;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
-            Projectile.height = 34;
-            Projectile.width = 10;
+            Projectile.height = 8;
+            Projectile.width = 8;
             Projectile.hostile = false;
-            Projectile.netImportant = true;
-            Projectile.extraUpdates = 1;
         }
         public override void AI()
         {
@@ -52,8 +48,6 @@ namespace Infernus.Projectiles
             direction.Normalize();
             direction *= 16;
             Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
-
-            Projectile.velocity.Y += Projectile.ai[0];
         }
         public NPC FindClosestNPC(float maxDetectDistance)
         {

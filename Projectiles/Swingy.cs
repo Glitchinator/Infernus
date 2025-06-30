@@ -27,15 +27,18 @@ namespace Infernus.Projectiles
             Projectile.ownerHitCheck = true;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.netImportant = true;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 11;
         }
 
 
-
+        /*
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 9;
             target.immune[Projectile.owner] = 9;
         }
+        */
 
         public override Color? GetAlpha(Color lightColor)
         {

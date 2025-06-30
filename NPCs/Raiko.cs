@@ -67,6 +67,7 @@ namespace Infernus.NPCs
 
         bool Dash_Move = false;
         bool Dash_Move_2 = false;
+        bool Left = false;
         bool Meteor_Rain_Move = false;
         public override void AI()
         {
@@ -76,7 +77,14 @@ namespace Infernus.NPCs
 
             if (looking_at_player == false)
             {
-                NPC.rotation = NPC.velocity.ToRotation();
+                var f = NPC.velocity.ToRotation();
+                NPC.rotation = NPC.rotation.AngleTowards(f, 0.6f); 
+            }
+            else
+            {
+                Vector2 pos = player.Center - NPC.Center;
+                var f = pos.ToRotation();
+                NPC.rotation = NPC.rotation.AngleTowards(f, 0.3f);
             }
 
             if (NPC.target < 0 || NPC.target == 255 || player.dead || !player.active)
@@ -96,33 +104,33 @@ namespace Infernus.NPCs
             Move(new Vector2(Move_X, Move_Y));
             if (Move_Location == 0)
             {
-                Move_X = 200;
-                Move_Y = 400;
+                Move_X = 650;
+                Move_Y = 450;
             }
             if (Move_Location == 1)
             {
-                Move_X = 0;
-                Move_Y = -400;
+                Move_X = 650;
+                Move_Y = -550;
             }
             if (Move_Location == 2)
             {
-                Move_X = -350;
-                Move_Y = -200;
+                Move_X = -450;
+                Move_Y = -350;
             }
             if (Move_Location == 3)
             {
-                Move_X = -240;
-                Move_Y = 300;
+                Move_X = -440;
+                Move_Y = 350;
             }
             if (Move_Location == 4)
             {
-                Move_X = 500;
-                Move_Y = -200;
+                Move_X = 550;
+                Move_Y = -350;
             }
             if (Move_Location == 5)
             {
-                Move_X = -400;
-                Move_Y = 400;
+                Move_X = -450;
+                Move_Y = 450;
             }
             if (Meteor_Rain_Move == true)
             {
@@ -265,12 +273,27 @@ namespace Infernus.NPCs
                 {
                     is_dashing = true;
                     looking_at_player = true;
-                    Dash_Move = true;
+                    Vector2 pos = NPC.Center - player.Center;
+                    if (pos.X <= 0)
+                    {
+                        Dash_Move_2 = true;
+                        Left = true;
+                    }
+                    else
+                    {
+                        Dash_Move = true;
+                        Left = false;
+                    }
+                }
+                if(Timer == 440)
+                {
+                    PreDash();
                 }
                 if (Timer == 460)
                 {
                     should_move = false;
                     Dash_Move = false;
+                    Dash_Move_2 = false;
                     looking_at_player = false;
                     SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
                     Dash();
@@ -280,21 +303,36 @@ namespace Infernus.NPCs
                     is_dashing = true;
                     looking_at_player = true;
                     should_move = true;
-                    Dash_Move_2 = true;
+                    speed = 7f;
+                    Vector2 pos = NPC.Center - player.Center;
+                    if (Left == false)
+                    {
+                        Dash_Move_2 = true;
+                    }
+                    else
+                    {
+                        Dash_Move = true;
+                    }
+                }
+                if (Timer == 590)
+                {
+                    PreDash();
                 }
                 if (Timer == 610)
                 {
                     looking_at_player = false;
                     should_move = false;
                     Dash_Move_2 = false;
+                    Dash_Move = false;
                     SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
                     Dash();
                 }
-                if (Timer == 640)
+                if (Timer == 660)
                 {
                     is_dashing = false;
                     looking_at_player = false;
                     should_move = true;
+                    speed = 5f;
                 }
                 if (Timer == 700)
                 {
@@ -340,6 +378,7 @@ namespace Infernus.NPCs
                     should_move = true;
                     is_dashing = false;
                     Meteor_Rain_Move = false;
+                    speed = 6f;
                 }
                 if (Timer == 1260)
                 {
@@ -413,6 +452,7 @@ namespace Infernus.NPCs
                     looking_at_player = false;
                     should_move = true;
                     is_dashing = false;
+                    speed = 5f;
                 }
                 if(Timer == 1700)
                 {
@@ -522,13 +562,13 @@ namespace Infernus.NPCs
             player = Main.player[NPC.target];
             //speed = 7f;
             Vector2 moveTo = player.Center + offset;
-            Dust.NewDust(moveTo, 10, 10, DustID.SolarFlare, 0, 0);
+            //Dust.NewDust(moveTo, 10, 10, DustID.SolarFlare, 0, 0);
             Vector2 move = moveTo - NPC.Center;
             float magnitude = Magnitude(move);
             if ( magnitude <= 80f)
             {
                 Move_Location = Main.rand.Next(6);
-                speed = 7f;
+                speed = 6f;
             }
             if(Move_Location == Move_Location)
             {
@@ -547,6 +587,20 @@ namespace Infernus.NPCs
             }
             NPC.velocity = move;
         }
+        private void PreDash()
+        {
+            player = Main.player[NPC.target];
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                NPC.velocity.X *= 2.25f;
+                NPC.velocity.Y *= 2.25f;
+                {
+                    float rotation = (float)Math.Atan2(NPC.Center.Y - player.position.Y, NPC.Center.X - player.position.X);
+                    NPC.velocity.X = (float)(Math.Cos(rotation) * 9);
+                    NPC.velocity.Y = (float)(Math.Sin(rotation) * 9);
+                }
+            }
+        }
         private void Dash()
         {
             player = Main.player[NPC.target];
@@ -558,12 +612,12 @@ namespace Infernus.NPCs
                 NPC.velocity.Y *= 2.25f;
                 {
                     float rotation = (float)Math.Atan2(NPC.Center.Y - (player.position.Y + player.velocity.Y * 10), NPC.Center.X - (player.position.X + player.velocity.X * 10));
-                    if (magnitude >= 500f)
+                    if (magnitude >= 700f)
                     {
-                        magnitude = 500;
+                        magnitude = 700;
                     }
-                    NPC.velocity.X = (float)(Math.Cos(rotation) * 14 * (magnitude / 230)) * -1;
-                    NPC.velocity.Y = (float)(Math.Sin(rotation) * 14 * (magnitude / 230)) * -1;
+                    NPC.velocity.X = (float)(Math.Cos(rotation) * 9 * (magnitude / 230)) * -1;
+                    NPC.velocity.Y = (float)(Math.Sin(rotation) * 9 * (magnitude / 230)) * -1;
                     string i = magnitude.ToString();
                     Main.NewText(i, 229, 214, 127);
                 }
@@ -665,14 +719,13 @@ namespace Infernus.NPCs
                 {
                     velocity = new Vector2(0f, 4.9f);
                 }
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Meteor_Heat>(), 14, NPC.whoAmI);
-                float rotation = MathHelper.ToRadians(12);
+                float rotation = MathHelper.ToRadians(10);
                 for (int i = 0; i < 2; i++)
                 {
                     Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(rotation, -rotation, i));
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Meteor_Heat>(), 14, NPC.whoAmI);
                 }
-                float rotation2 = MathHelper.ToRadians(24);
+                float rotation2 = MathHelper.ToRadians(32);
                 for (int i = 0; i < 2; i++)
                 {
                     Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(rotation2, -rotation2, i));

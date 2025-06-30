@@ -190,6 +190,11 @@ Mods: {
 				DisplayName: Equite_ Tag_ Debuff
 				Description: Mods.Infernus.Buffs.Equite_Tag_Debuff.Description
 			}
+
+			Lucky_Flame: {
+				DisplayName: Lucky_ Flame
+				Description: Mods.Infernus.Buffs.Lucky_Flame.Description
+			}
 		}
 
 		Items: {
@@ -869,17 +874,22 @@ Mods: {
 
 			BatStaff: {
 				DisplayName: Bat Staff
-				Tooltip: Summon a bat to attack enemies
+				Tooltip: Summosn a bat to hover above enemies and spit down at them
 			}
 
 			CausticStaff: {
 				DisplayName: Caustic Staff
-				Tooltip: Summon a virus to inflict every debuff known to man. Deals tick damage like a debuff, more summons, more damage
+				Tooltip: Summons a virus that rams enemies and bursts into homing thorns
 			}
 
 			DemonStaff: {
 				DisplayName: Demon Palm
-				Tooltip: Summon a skull to attack enemies
+				Tooltip:
+					'''
+					Summons a demonic skull
+					The skull rotates around the player, dashing into close enemies
+					Fire tridents when enemies are far away
+					'''
 			}
 
 			Drillxwhip: {
@@ -895,12 +905,17 @@ Mods: {
 
 			eternal: {
 				DisplayName: Eternal Point
-				Tooltip: Engulfs you in a raging fire
+				Tooltip:
+					'''
+					Engulfs you in a raging fire
+					The fire burns nearby enemies
+					As well as shooting homing fire bolts at enemies
+					'''
 			}
 
 			GoblinStaff: {
 				DisplayName: Shadowflame Puppet
-				Tooltip: Summons Shadowflame Apparitions to attack enemies
+				Tooltip: Summons Shadowflame Apparitions that fight for you
 			}
 
 			Mecharmr: {
@@ -920,8 +935,8 @@ Mods: {
 			}
 
 			TerraStaff: {
-				DisplayName: Terra Seedler
-				Tooltip: Summon a Terra Seedler to fight for you
+				DisplayName: Seedler Staff
+				Tooltip: Summon a Terra Seedler that dashes into enemies and charges up a powerful blast
 			}
 
 			whiplight: {
@@ -1232,37 +1247,42 @@ Mods: {
 
 			BlizStaff: {
 				DisplayName: Aurora Spear
-				Tooltip: Summons an Aurora shuriken
+				Tooltip: Summons an Aurora shuriken that will explodes into ice spikes
 			}
 
 			bold: {
-				DisplayName: Elemental Staff
-				Tooltip: Summons a vortex to ram enemies
+				DisplayName: Pupa Staff
+				Tooltip: Summons a boulder beetle pupa to fight for you
 			}
 
 			Dunger: {
 				DisplayName: Dunger
-				Tooltip: Summon a bouncing pile of bones
+				Tooltip: Summons a sigil that teleports into enemies and explodes
 			}
 
 			EqualMin: {
 				DisplayName: Equite Beastblade
-				Tooltip: Summons broken knifes to fight for you. Deals tick damage like a debuff, more summons, more damage
+				Tooltip: Summons a equite sword that slashes enemies
 			}
 
 			Minion: {
 				DisplayName: Raiko's Flame
-				Tooltip: Summon a flame that engulfs you, shoots homing flame projectiles, can only summon one
+				Tooltip:
+					'''
+					Summon a flame that engulfs you, damaging nearby enemies
+					The flame periodically shooting homing meteors at enemies
+					You can only summon one
+					'''
 			}
 
 			Minion2: {
 				DisplayName: Aeritite Shell
-				Tooltip: Summons a sentient aeritite meatball
+				Tooltip: Summons aeritite energy that dive bomb enemies
 			}
 
 			Minionshell: {
 				DisplayName: Staff of the Snappers
-				Tooltip: Summon a shell to fight for you
+				Tooltip: Summons shells that rotate around the player and shoot water bolts at enemies
 			}
 
 			Whipaer: {
@@ -1779,8 +1799,8 @@ Mods: {
 			}
 
 			Raiko_Summon_Placeable: {
-				DisplayName: Raiko_ Summon_ Placeable
-				Tooltip: ""
+				DisplayName: Meteor Alter
+				Tooltip: Used to summon Raiko
 			}
 
 			Equite_Charm: {
@@ -1817,17 +1837,37 @@ Mods: {
 
 			Boulder_Saddle: {
 				DisplayName: Boulder Saddle
-				Tooltip: "Rock mount stops fall damage or sum"
+				Tooltip: Rock mount stops fall damage or sum
 			}
 
 			Boulder_Flail: {
 				DisplayName: Cliff Jumper
-				Tooltip: "Throw out multiple flails that fall"
+				Tooltip: Throw out multiple flails that fall
 			}
 
 			Sand_Scale: {
 				DisplayName: Sand Scale
 				Tooltip: ""
+			}
+
+			Ancient_Fishing_Spear: {
+				DisplayName: Ancient Fishing Spear
+				Tooltip:
+					'''
+					Throw a fishing spear that has a chance to catch a fish used for crafting potions
+					The type of fish it catches depends on the biome
+					15% fishing spear power
+					'''
+			}
+
+			Lucky_Candle_Pl: {
+				DisplayName: Lucky Candle
+				Tooltip: gives a luck increasing buff when close enough
+			}
+
+			MissleSilo_Bow: {
+				DisplayName: Hades Volley
+				Tooltip: Shoots out a swarm of rockets that home onto the cursor
 			}
 		}
 
@@ -2052,6 +2092,17 @@ Mods: {
 			LeadPipe_Proj.DisplayName: Lead Pipe_ Proj
 			Equite_Leaf_Proj.DisplayName: Equite_ Leaf_ Proj
 			Rock_Flail.DisplayName: Rock_ Flail
+			Ancient_Fishing_Spear_Proj.DisplayName: Ancient_ Fishing_ Spear_ Proj
+			Ice_Gas.DisplayName: Ice_ Gas
+			Ice_Gas_Large.DisplayName: Ice_ Gas_ Large
+			Ice_Gas_Med.DisplayName: Ice_ Gas_ Med
+			Missle_Bow.DisplayName: Missle_ Bow
+			Bat_Minion_Spit.DisplayName: Bat_ Minion_ Spit
+			Caustic_Thorn.DisplayName: Caustic_ Thorn
+			Coral_Minion_Shot.DisplayName: Coral_ Minion_ Shot
+			Dunger_Exlos.DisplayName: Dunger_ Exlos
+			EqualMinion_Shot.DisplayName: Equal Minion_ Shot
+			Terra_Shot.DisplayName: Terra_ Shot
 		}
 
 		NPCs: {
@@ -2078,6 +2129,7 @@ Mods: {
 			ShellPile.DisplayName: Shell Slime
 			TemporalSquid.DisplayName: Temporal Glow Squid
 			Yuletideelf.DisplayName: Yuletide Elf
+			Ruderibus_Gas_Mine.DisplayName: Icy Gas Mine
 		}
 
 		BossChecklistIntegration: {

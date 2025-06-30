@@ -279,7 +279,7 @@ namespace Infernus
                     Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ModContent.ProjectileType<Meteor_Whetstone_Explosion>(), (int)(damageDone * 0.5f), 0, 0);
                 }
             }
-            if (Equite_Equipped == true && Equite_Amount > 0 && Equite_Cooldown == 0)
+            if (Equite_Equipped == true && Equite_Amount > 0 && Equite_Cooldown == 0 && target.type != NPCID.TargetDummy)
             {
                 if (Equite_Amount > 0)
                 {

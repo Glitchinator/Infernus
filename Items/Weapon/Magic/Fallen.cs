@@ -32,7 +32,7 @@ namespace Infernus.Items.Weapon.Magic
             Item.autoReuse = true;
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<Magic_Meteor>();
-            Item.shootSpeed = 12f;
+            Item.shootSpeed = 7f;
             Item.mana = 10;
         }
         public override void AddRecipes()

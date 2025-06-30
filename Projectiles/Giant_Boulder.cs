@@ -11,11 +11,10 @@ namespace Infernus.Projectiles
 {
     public class Giant_Boulder : ModProjectile
     {
-        int timer;
         public override void SetDefaults()
         {
-            Projectile.width = 78;
-            Projectile.height = 78;
+            Projectile.width = 70;
+            Projectile.height = 70;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
             Projectile.hostile = false;
@@ -28,24 +27,21 @@ namespace Infernus.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             SoundEngine.PlaySound(SoundID.Item70, Projectile.position);
+            Projectile.damage = (int)(Projectile.damage * 0.85f);
         }
 
         public override void AI()
         {
-            timer++;
-            if (timer >= 16)
-            {
-                Projectile.tileCollide = true;
-            }
             if (Main.rand.NextBool(3))
             {
                 Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Stone, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
             }
             Projectile.rotation += 0.2f * (float)Projectile.direction;
             Projectile.ai[0] += 1f;
-            if (Projectile.ai[0] >= 15f)
+            if (Projectile.ai[0] >= 20f)
             {
                 Projectile.ai[0] = 15f;
+                Projectile.tileCollide = true;
                 Projectile.velocity.Y = Projectile.velocity.Y + 0.8f;
             }
             if (Projectile.velocity.Y > 16f)
@@ -55,7 +51,7 @@ namespace Infernus.Projectiles
         }
         public override void OnSpawn(IEntitySource source)
         {
-            for (int k = 0; k < 4; k++)
+            for (int k = 0; k < 3; k++)
             {
                 float speedMulti = Main.rand.NextFloat(0.22f);
 
@@ -64,7 +60,7 @@ namespace Infernus.Projectiles
 
                 newVelocity *= speedMulti;
 
-                var smokeGore = Gore.NewGoreDirect(Projectile.GetSource_Death(), Projectile.position, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                var smokeGore = Gore.NewGoreDirect(Projectile.GetSource_Death(), Projectile.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
                 smokeGore.velocity = newVelocity;
                 // smokeGore.velocity += Vector2.One;
 

@@ -14,14 +14,14 @@ namespace Infernus.Items.Weapon.Melee
 
         public override void SetDefaults()
         {
-            Item.damage = 28;
+            Item.damage = 26;
             Item.DamageType = DamageClass.Melee;
-            Item.width = 30;
-            Item.height = 32;
+            Item.width = 36;
+            Item.height = 38;
             Item.useTime = 28;
             Item.useAnimation = 28;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 5f;
+            Item.knockBack = 6f;
             Item.value = Item.buyPrice(0, 1, 50, 0);
             Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item1;

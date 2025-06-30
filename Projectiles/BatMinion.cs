@@ -32,6 +32,7 @@ namespace Infernus.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
         }
+        int timer;
         public override void AI()
         {
 
@@ -48,8 +49,8 @@ namespace Infernus.Projectiles
             }
 
             Vector2 withplayer = player.Center;
-            withplayer.Y -= 52f;
-            float notamongusX = (5 + Projectile.minionPos * 5) * -player.direction;
+            withplayer.Y -= 48f;
+            float notamongusX = (10 + Projectile.minionPos * 40) * -player.direction;
             withplayer.X += notamongusX;
             Vector2 vectorToplayer = withplayer - Projectile.Center;
             float distanceToplayer = vectorToplayer.Length();
@@ -77,8 +78,9 @@ namespace Infernus.Projectiles
                 float between = Vector2.Distance(npc.Center, Projectile.Center);
                 if (between < 2000f)
                 {
-                    distanceFromTarget = between;
-                    targetCenter = npc.Center;
+                    targetCenter = new Vector2(npc.Center.X, npc.Top.Y - 80);
+                    float detween = Vector2.Distance(targetCenter, Projectile.Center);
+                    distanceFromTarget = detween;
                     foundTarget = true;
                 }
             }
@@ -96,8 +98,9 @@ namespace Infernus.Projectiles
                         bool closeThroughWall = between < 100f;
                         if (((closest && inRange) || !foundTarget) && (lineOfSight || closeThroughWall))
                         {
-                            distanceFromTarget = between;
-                            targetCenter = npc.Center;
+                            targetCenter = new Vector2(npc.Center.X,npc.Top.Y - 80);
+                            float detween = Vector2.Distance(targetCenter, Projectile.Center);
+                            distanceFromTarget = detween;
                             foundTarget = true;
                         }
                     }
@@ -106,17 +109,33 @@ namespace Infernus.Projectiles
             Projectile.friendly = foundTarget;
 
 
-            float speed = 10f;
+            float speed = 17f;
             float inertia = 15f;
 
             if (foundTarget)
             {
-                if (distanceFromTarget > 40f)
+                if (distanceFromTarget > 80f)
                 {
                     Vector2 direction = targetCenter - Projectile.Center;
                     direction.Normalize();
                     direction *= speed;
                     Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
+                }
+                else
+                {
+                    timer++;
+                    if (timer == 30)
+                    {
+                        Vector2 shootVel = targetCenter - Projectile.Center;
+                        if (shootVel == Vector2.Zero)
+                        {
+                            shootVel = new Vector2(0f, 1f);
+                        }
+                        shootVel.Normalize();
+                        shootVel *= 9;
+                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, shootVel.X, shootVel.Y, ModContent.ProjectileType<Bat_Minion_Spit>(), (int)(Projectile.damage * 0.66f), Projectile.knockBack, Main.myPlayer, 0f, Projectile.owner);
+                        timer = 0;
+                    }
                 }
             }
             else
@@ -128,7 +147,7 @@ namespace Infernus.Projectiles
                 }
                 else
                 {
-                    speed = 6f;
+                    speed = 10f;
                     inertia = 50f;
                 }
                 if (distanceToplayer > 20f)

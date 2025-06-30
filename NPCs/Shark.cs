@@ -9,6 +9,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Biomes;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -37,7 +38,7 @@ namespace Infernus.NPCs
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 80650;
+            NPC.lifeMax = 70650;
             NPC.damage = 70;
             NPC.defense = 38;
             NPC.knockBackResist = 0.0f;
@@ -54,17 +55,32 @@ namespace Infernus.NPCs
             Music = MusicLoader.GetMusicSlot("Infernus/Music/Eye_of_the_Ocean");
         }
         int Timer;
-        bool waitingg = true;
-        bool moving = false;
+        //bool waitingg = true;
+        //bool moving = false;
         bool is_dashing = false;
+        int Move_Location = 0;
+        int Move_X = 0;
+        int Move_Y = 0;
+        bool in_position = false;
+        bool check_position = false;
+        bool should_track = false;
+        bool looking_at_player = false;
+        bool once = false;
         public override void AI()
         {
             Player player = Main.player[NPC.target];
             NPC.netUpdate = true;
             NPC.TargetClosest(true);
-            if(Is_Spinning == false)
+            if (looking_at_player == false && Is_Spinning == false)
             {
-                NPC.rotation = NPC.velocity.ToRotation();
+                var f = NPC.velocity.ToRotation();
+                NPC.rotation = NPC.rotation.AngleTowards(f, 0.6f);
+            }
+            if (looking_at_player == true && Is_Spinning == false)
+            {
+                Vector2 pos = player.Center - NPC.Center;
+                var f = pos.ToRotation();
+                NPC.rotation = NPC.rotation.AngleTowards(f, 0.3f);
             }
 
             if (NPC.target < 0 || NPC.target == 255 || player.dead || !player.active)
@@ -77,25 +93,87 @@ namespace Infernus.NPCs
                     return;
                 }
             }
+            string i = speed.ToString();
+            Main.NewText(i, 229, 214, 127);
             if (is_dashing == true)
             {
                 NPC.velocity.X = NPC.velocity.X * 0.988f;
                 NPC.velocity.Y = NPC.velocity.Y * 0.988f;
             }
+            if(should_track == true)
             {
-                if(moving == false)
+                Tracking();
+            }
+            {
+                if(Move_Location == 0)
                 {
-                    Move(new Vector2((Main.rand.Next(0)), 0f));
+                    Move_X = 0;
+                    Move_Y = 0;
                 }
-                if (moving == true && Timer < 8000)
+                if (Move_Location == 1)
                 {
-                    Move(new Vector2((Main.rand.Next(0)), 400f));
+                    Move_X = 0;
+                    Move_Y = 400;
                 }
-                if (moving == true && Timer > 8000)
+                if (Move_Location == 2)
                 {
-                    Move(new Vector2((Main.rand.Next(0)), 800f));
+                    Move_X = 0;
+                    Move_Y = 800;
                 }
-                Timer++;
+                if (Move_Location == 3)
+                {
+                    Move_X = 0;
+                    Move_Y = -700;
+                }
+                if(Move_Location == 4)
+                {
+                    // create own shit
+                }
+                if (Move_Location == 5)
+                {
+                    Move_X = 200;
+                    Move_Y = -400;
+                }
+                if (Move_Location == 6)
+                {
+                    Move_X = -200;
+                    Move_Y = -400;
+                }
+                if (Move_Location == 7)
+                {
+                    Move_X = 000;
+                    Move_Y = -600;
+                }
+                Move(new Vector2(Move_X, Move_Y));
+                if (check_position == false)
+                {
+                    Timer++;
+                }
+                /*
+                if (Timer == 120)
+                {
+                    Move_Location = 5;
+                    check_position = true;
+                }
+                if (Timer == 180)
+                {
+                    Move_Location = 6;
+                    check_position = true;
+                }
+                if (Timer == 240)
+                {
+                    Move_Location = 7;
+                    check_position = true;
+                }
+                if (Timer == 370)
+                {
+                    Move_Location = 0;
+                }
+                if (Timer == 450)
+                {
+
+                }
+                */
                 if (Timer == 120)
                 {
                     // dashes
@@ -110,6 +188,9 @@ namespace Infernus.NPCs
                 {
                     // finish above spin cyclones
                     Is_Spinning = false;
+                    in_position = false;
+                    check_position = false;
+                    Move_Location = 0;
                 }
                 if (Timer == 330)
                 {
@@ -129,21 +210,63 @@ namespace Infernus.NPCs
                     // falling lighting booms moving to top
                     Timer = 8000;
                 }
+                if (Timer == 601)
+                {
+                    Is_Spinning = false;
+                    in_position = false;
+                    check_position = false;
+                    Move_Location = 0;
+                }
                 if(Timer == 720)
                 {
-                    Lightning_Side_Left();
+                    is_dashing = true;
+                    if (player.direction == 1)
+                    {
+                        Lightning_Side_Left();
+                    }
+                    if (player.direction == -1)
+                    {
+                        Lightning_Side_Right();
+                    }
                 }
                 if (Timer == 800)
                 {
-                    Lightning_Side_Right();
+                    Dash();
+                    if (player.direction == 1)
+                    {
+                        Lightning_Side_Left();
+                    }
+                    if (player.direction == -1)
+                    {
+                        Lightning_Side_Right();
+                    }
                 }
                 if (Timer == 880)
                 {
-                    Lightning_Side_Left();
+                    if (player.direction == 1)
+                    {
+                        Lightning_Side_Left();
+                    }
+                    if (player.direction == -1)
+                    {
+                        Lightning_Side_Right();
+                    }
                 }
                 if (Timer == 960)
                 {
-                    Lightning_Side_Right();
+                    Dash();
+                    if (player.direction == 1)
+                    {
+                        Lightning_Side_Left();
+                    }
+                    if (player.direction == -1)
+                    {
+                        Lightning_Side_Right();
+                    }
+                }
+                if(Timer == 1040)
+                {
+                    is_dashing = false;
                 }
                 if (Timer == 1100)
                 {
@@ -152,35 +275,39 @@ namespace Infernus.NPCs
 
                 if (Timer == 7001)
                 {
-                    moving = true;
+                    if (in_position == false)
+                    {
+                        check_position = true;
+                    }
+                    Move_Location = 1;
+                    in_position = true;
                 }
-                if (Timer == 7121)
-                {
-                    waitingg = false;
-                }
-                if(waitingg == false && Timer < 8000)
+                if (in_position = true && check_position == false && Timer == 7002)
                 {
                     Timer = 17000;
-                    waitingg = true;
-                    moving = false;
+                    is_dashing = true;
+                    //waitingg = true;
+                    //moving = false;
                 }
                 if (Timer == 8001)
                 {
-                    moving = true;
+                    if (in_position == false)
+                    {
+                        check_position = true;
+                    }
+                    Move_Location = 2;
+                    in_position = true;
                 }
-                if (Timer == 8121)
-                {
-                    waitingg = false;
-                }
-                if (waitingg == false && Timer > 8000)
+                if (in_position = true && check_position == false && Timer == 8002)
                 {
                     Timer = 11000;
-                    waitingg = true;
-                    moving = false;
+                    //waitingg = true;
+                    //moving = false;
                 }
                 #region First_Phase_Attacks;
                 if (Timer == 10000)
                 {
+                    is_dashing = true;
                     Dash();
                 }
                 if (Timer == 10010)
@@ -230,7 +357,6 @@ namespace Infernus.NPCs
                 if (Timer == 10180)
                 {
                     Dash();
-                    is_dashing = true;
                 }
                 if (Timer == 10190)
                 {
@@ -255,6 +381,7 @@ namespace Infernus.NPCs
                 }
                 if (Timer == 11010)
                 {
+                    is_dashing = true;
                     Dash();
                     if (InfernusSystem.Level_systemON == true)
                     {
@@ -265,12 +392,25 @@ namespace Infernus.NPCs
                 {
                     Lightning_BOOOM();
                 }
-                if (Timer == 11080)
+                if(Timer == 11080)
+                {
+                    is_dashing = false;
+                    if (in_position == false)
+                    {
+                        check_position = true;
+                    }
+                    Move_Location = 2;
+                    in_position = true;
+                }
+                if (Timer == 11081)
                 {
                     Teleport_Up_Center_Lightning();
+                    in_position = false;
+                    check_position = false;
                 }
                 if (Timer == 11090)
                 {
+                    is_dashing = true;
                     Dash();
                     if (InfernusSystem.Level_systemON == true)
                     {
@@ -283,10 +423,23 @@ namespace Infernus.NPCs
                 }
                 if (Timer == 11160)
                 {
+                    is_dashing = false;
+                    if (in_position == false)
+                    {
+                        check_position = true;
+                    }
+                    Move_Location = 2;
+                    in_position = true;
+                }
+                if (Timer == 11161)
+                {
                     Teleport_Up_Center_Lightning();
+                    in_position = false;
+                    check_position = false;
                 }
                 if (Timer == 11170)
                 {
+                    is_dashing = true;
                     Dash();
                     if (InfernusSystem.Level_systemON == true)
                     {
@@ -299,108 +452,188 @@ namespace Infernus.NPCs
                 }
                 if (Timer == 11240)
                 {
-                    Timer = 600;
+                    is_dashing = false;
+                    Move_Location = 0;
+                    Timer = 601;
                 }
                 if (Timer == 12000)
                 {
-                    Spawn_Area = Main.rand.Next(new int[] { 0, 1, 2, 3 });
+                    if (in_position == false)
+                    {
+                        check_position = true;
+                    }
+                    if (once == false)
+                    {
+                        Spawn_Area = Main.rand.Next(new int[] { 0, 1, 2, 3 });
+                        once = true;
+                    }
+                    Move_Location = 4;
                     if (Spawn_Area == 0)
                     {
-                        Teleport_Down_Left();
+                        Move_X = 300;
+                        Move_Y = 400;
                     }
                     if (Spawn_Area == 1)
                     {
-                        Teleport_Up_Right();
+                        Move_X = -300;
+                        Move_Y = 400;
                     }
-                    if (Spawn_Area == 2)
+                    if(Spawn_Area == 2)
                     {
-                        Teleport_Down_Right();
+                        Move_X = 300;
+                        Move_Y = -400;
                     }
-                    if (Spawn_Area == 3)
+                    if(Spawn_Area == 3)
                     {
-                        Teleport_Up_Left();
+                        Move_X = -300;
+                        Move_Y = 400;
                     }
-                    Tracking();
+                    in_position = true;
+                }
+                if (Timer == 12001)
+                {
+                    is_dashing = true;
+                    NPC.velocity.X = 0;
+                    NPC.velocity.Y = 0;
+                    should_track = true;
                     if (InfernusSystem.Level_systemON == true)
                     {
                         Lightning_Slug();
                     }
+                    in_position = false;
+                    looking_at_player = true;
+                    check_position = false;
+                    once = false;
                 }
                 if (Timer == 12030)
                 {
-                    Tracking();
+                    //Tracking();
                 }
                 if (Timer == 12060)
                 {
-                    Tracking();
+                   // Tracking();
                 }
                 if (Timer == 12090)
                 {
+                    should_track = false;
+                    looking_at_player = false;
                     Lightning_Slug();
                     Dash_Flash();
                 }
                 if (Timer == 12120)
                 {
-                    Spawn_Area = Main.rand.Next(new int[] { 0, 1, 2, 3 });
+                    is_dashing = false;
+                    if (in_position == false)
+                    {
+                        check_position = true;
+                    }
+                    if (once == false)
+                    {
+                        Spawn_Area = Main.rand.Next(new int[] { 0, 1, 2, 3 });
+                        once = true;
+                    }
+                    Move_Location = 4;
                     if (Spawn_Area == 0)
                     {
-                        Teleport_Down_Left();
+                        Move_X = 300;
+                        Move_Y = 400;
                     }
                     if (Spawn_Area == 1)
                     {
-                        Teleport_Up_Right();
+                        Move_X = -300;
+                        Move_Y = 400;
                     }
                     if (Spawn_Area == 2)
                     {
-                        Teleport_Down_Right();
+                        Move_X = 300;
+                        Move_Y = -400;
                     }
                     if (Spawn_Area == 3)
                     {
-                        Teleport_Up_Left();
+                        Move_X = -300;
+                        Move_Y = 400;
                     }
-                    Tracking();
+                    in_position = true;
+                }
+                if (Timer == 12121)
+                {
+                    is_dashing = true;
+                    NPC.velocity.X = 0;
+                    NPC.velocity.Y = 0;
+                    should_track = true;
+                    looking_at_player = true;
                     if (InfernusSystem.Level_systemON == true)
                     {
                         Lightning_Slug();
                     }
+                    check_position = false;
+                    in_position = false;
+                    once = false;
                 }
                 if (Timer == 12150)
                 {
-                    Tracking();
+                    //Tracking();
                 }
                 if (Timer == 12180)
                 {
-                    Tracking();
+                    //Tracking();
                 }
                 if (Timer == 12220)
                 {
+                    looking_at_player = false;
+                    should_track = false;
                     Lightning_Slug();
                     Dash_Flash();
                 }
-                if (Timer == 12250)
+                if( Timer == 12250)
                 {
-                    Spawn_Area = Main.rand.Next(new int[] { 0, 1, 2, 3 });
+                    is_dashing = false;
+                    if (in_position == false)
+                    {
+                        check_position = true;
+                    }
+                    if (once == false)
+                    {
+                        Spawn_Area = Main.rand.Next(new int[] { 0, 1, 2, 3 });
+                        once = true;
+                    }
+                    Move_Location = 4;
                     if (Spawn_Area == 0)
                     {
-                        Teleport_Down_Left();
+                        Move_X = 300;
+                        Move_Y = 400;
                     }
                     if (Spawn_Area == 1)
                     {
-                        Teleport_Up_Right();
+                        Move_X = -300;
+                        Move_Y = 400;
                     }
                     if (Spawn_Area == 2)
                     {
-                        Teleport_Down_Right();
+                        Move_X = 300;
+                        Move_Y = -400;
                     }
                     if (Spawn_Area == 3)
                     {
-                        Teleport_Up_Left();
+                        Move_X = -300;
+                        Move_Y = 400;
                     }
-                    Tracking();
+                    in_position = true;
+                }
+                if (Timer == 12251)
+                {
+                    is_dashing = true;
+                    NPC.velocity.X = 0;
+                    NPC.velocity.Y = 0;
+                    should_track = true;
+                    looking_at_player = true;
                     if (InfernusSystem.Level_systemON == true)
                     {
                         Lightning_Slug();
                     }
+                    check_position = false;
+                    in_position = false;
+                    once = false;
                 }
                 if (Timer == 12280)
                 {
@@ -412,11 +645,15 @@ namespace Infernus.NPCs
                 }
                 if (Timer == 12340)
                 {
+                    should_track = false;
+                    looking_at_player = false;
                     Lightning_Slug();
                     Dash_Flash();
                 }
                 if (Timer == 12370)
                 {
+                    is_dashing = false;
+                    Move_Location = 0;
                     Timer = 451;
                 }
                 if (Timer >= 17000)
@@ -437,6 +674,7 @@ namespace Infernus.NPCs
                 }
                 if (Timer == 17350)
                 {
+                    is_dashing = false;
                     Timer = 260;
                 }
                 #endregion
@@ -445,12 +683,12 @@ namespace Infernus.NPCs
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.damage = (int)(NPC.damage * 1.15f);
-            NPC.lifeMax = (int)(NPC.lifeMax = 104000 * (int)balance);
+            NPC.lifeMax = (int)(NPC.lifeMax = 86650 * (int)balance);
 
             if (Main.masterMode == true)
             {
-                NPC.lifeMax = (int)(NPC.lifeMax = 125000 * (int)balance);
-                NPC.life = (int)(NPC.lifeMax = 125000 * (int)balance);
+                NPC.lifeMax = (int)(NPC.lifeMax = 105000 * (int)balance);
+                NPC.life = (int)(NPC.lifeMax = 105000 * (int)balance);
                 NPC.damage = ((NPC.damage / 2) * 3);
             }
             if (Main.getGoodWorld == true)
@@ -572,6 +810,67 @@ namespace Infernus.NPCs
                 }
             }
         }
+        private void Shower()
+        {
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                {
+                    Vector2 velocity = new(0f, -8f);
+                    float magnitude = Magnitude(velocity);
+                    if (magnitude > 0)
+                    {
+                        velocity *= 4.5f / magnitude;
+                    }
+
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Ice_Bolt>(), 18, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Lightning_Tracking>(), 0, NPC.whoAmI);
+                }
+                {
+                    Vector2 velocity = new(4f, 8f);
+                    float magnitude = Magnitude(velocity);
+                    if (magnitude > 0)
+                    {
+                        velocity *= 4.5f / magnitude;
+                    }
+
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Ice_Bolt>(), 18, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Lightning_Tracking>(), 0, NPC.whoAmI);
+                }
+                {
+                    Vector2 velocity = new(-4f, 8f);
+                    float magnitude = Magnitude(velocity);
+                    if (magnitude > 0)
+                    {
+                        velocity *= 4.5f / magnitude;
+                    }
+
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Ice_Bolt>(), 18, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Lightning_Tracking>(), 0, NPC.whoAmI);
+                }
+                {
+                    Vector2 velocity = new(-8f, 8f);
+                    float magnitude = Magnitude(velocity);
+                    if (magnitude > 0)
+                    {
+                        velocity *= 4.5f / magnitude;
+                    }
+
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Ice_Bolt>(), 18, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Lightning_Tracking>(), 0, NPC.whoAmI);
+                }
+                {
+                    Vector2 velocity = new(8f, 8f);
+                    float magnitude = Magnitude(velocity);
+                    if (magnitude > 0)
+                    {
+                        velocity *= 4.5f / magnitude;
+                    }
+
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Ice_Bolt>(), 18, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Lightning_Tracking>(), 0, NPC.whoAmI);
+                }
+            }
+        }
         private void Lightning_BOOOM()
         {
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
@@ -618,6 +917,8 @@ namespace Infernus.NPCs
                 }
             }
             SoundEngine.PlaySound(SoundID.NPCHit53, NPC.position);
+            PunchCameraModifier modifier = new PunchCameraModifier(NPC.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, FullName);
+            Main.instance.CameraModifiers.Add(modifier);
         }
         private void Lightning_Side_Left()
         {
@@ -659,12 +960,23 @@ namespace Infernus.NPCs
         }
         private void Move(Vector2 offset)
         {
-            if (Timer >= 10000)
+            if (is_dashing == true)
             {
                 return;
             }
             player = Main.player[NPC.target];
-            speed = 10.6f;
+            float turnResistance = 36f;
+            if (Move_Location != 0)
+            {
+                speed += 0.2f;
+                turnResistance = 20f;
+            }
+            else
+            {
+                speed = 11.8f;
+                turnResistance = 36f;
+            }
+            /*
             if (Timer >= 7000)
             {
                 speed = 22f;
@@ -677,14 +989,19 @@ namespace Infernus.NPCs
             {
                 speed = 11.8f;
             }
+            */
             Vector2 moveTo = player.Center - offset;
             Vector2 move = moveTo - NPC.Center;
             float magnitude = Magnitude(move);
+            if (magnitude <= 50f)
+            {
+                speed = 11.8f;
+                check_position = false;
+            }
             if (magnitude > speed)
             {
                 move *= speed / magnitude;
             }
-            float turnResistance = 36f;
             move = (NPC.velocity * turnResistance + move) / (turnResistance + 1f);
             magnitude = Magnitude(move);
             if (magnitude > speed)
@@ -699,15 +1016,10 @@ namespace Infernus.NPCs
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 Vector2 velocity = player.Center - NPC.Center;
-                float magnitude = Magnitude(velocity);
-                if (magnitude > 0)
-                {
-                    velocity *= 8f / magnitude;
-                }
-                else
-                {
-                    velocity = new Vector2(0f, 5f);
-                }
+
+                float rotation = (float)Math.Atan2(NPC.Center.Y - (player.position.Y + player.velocity.Y * 10), NPC.Center.X - (player.position.X + player.velocity.X * 10));
+                velocity.X = (float)(Math.Cos(rotation) * 52) * -1;
+                velocity.Y = (float)(Math.Sin(rotation) * 52) * -1;
 
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Lightning_Tracking>(), 0, NPC.whoAmI);
             }

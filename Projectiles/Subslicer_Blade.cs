@@ -11,10 +11,9 @@ namespace Infernus.Projectiles
             Projectile.CloneDefaults(ProjectileID.PaladinsHammerFriendly);
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.height = 34;
-            Projectile.width = 34;
+            Projectile.height = 30;
+            Projectile.width = 30;
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.netImportant = true;
             Projectile.penetrate = -1;
         }
         public override void AI()
@@ -24,9 +23,9 @@ namespace Infernus.Projectiles
                 int d = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Grass, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
                 Main.dust[d].noGravity = true;
             }
-            if(Main.rand.NextBool(8))
+            if(Main.rand.NextBool(14))
             {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Subslicer_Proj>(), 31, 3f, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Subslicer_Proj>(), (int)(Projectile.damage * 0.25f), 3f, Projectile.owner);
             }
         }
     }

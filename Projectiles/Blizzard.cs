@@ -30,6 +30,8 @@ namespace Infernus.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 19;
         }
+        bool close = false;
+        int timer;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int k = 0; k < 14; k++)
@@ -101,21 +103,58 @@ namespace Infernus.Projectiles
             Projectile.friendly = foundTarget;
 
 
-            float speed = 10f;
-            float inertia = 15f;
+            float speed = 14f;
+            float inertia = 10f;
 
             if (foundTarget)
             {
-                if (distanceFromTarget > 40f)
+                if (distanceFromTarget > 80f && close == false)
                 {
                     Vector2 direction = targetCenter - Projectile.Center;
                     direction.Normalize();
                     direction *= speed;
                     Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
                 }
+                else
+                {
+                    close = true;
+                }
+                if(close == true)
+                {
+                    timer++;
+                    Projectile.velocity.Y = Projectile.velocity.Y *= 0.95f;
+                    Projectile.velocity.X = Projectile.velocity.X *= 0.95f;
+                }
+                if (timer == 25)
+                {
+                    for (int k = 0; k < 11; k++)
+                    {
+                        Vector2 speed2 = Main.rand.NextVector2Unit();
+                        Dust wand = Dust.NewDustPerfect(Projectile.Center + speed2 * 16, DustID.HallowedPlants, speed2 * 2, Scale: 1f);
+                        wand.noGravity = true;
+                    }
+                    for (int k = 0; k < 1; k++)
+                    {
+                        int x = Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, 11), ModContent.ProjectileType<Ice_Slash>(), (int)(Projectile.damage * 0.66f), 2f, Projectile.owner);
+                        Main.projectile[x].DamageType = DamageClass.Summon;
+                    }
+                    Vector2 shootVel = targetCenter - Projectile.Center;
+                    if (shootVel == Vector2.Zero)
+                    {
+                        shootVel = new Vector2(0f, 1f);
+                    }
+                    shootVel.Normalize();
+                    shootVel *= 8;
+                    int y = Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, shootVel.X, shootVel.Y, ModContent.ProjectileType<Ice_Slash>(), (int)(Projectile.damage * 0.66f), 2f, Main.myPlayer, 0f, Projectile.owner);
+                    Main.projectile[y].DamageType = DamageClass.Summon;
+                    timer = 0;
+                    close = false;
+                }
             }
             else
             {
+                timer = 0;
+                close = false;
                 if (distanceToplayer > 600f)
                 {
                     speed = 15f;
@@ -123,7 +162,7 @@ namespace Infernus.Projectiles
                 }
                 else
                 {
-                    speed = 6f;
+                    speed = 10f;
                     inertia = 50f;
                 }
                 if (distanceToplayer > 20f)

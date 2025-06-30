@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -67,6 +69,8 @@ namespace Infernus.Items.Weapon.Ranged
                 cycle = 0;
                 // knockback
                 player.velocity += -velocity / 3;
+                PunchCameraModifier modifier = new PunchCameraModifier(player.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, FullName);
+                Main.instance.CameraModifiers.Add(modifier);
             }
             return false;
         }

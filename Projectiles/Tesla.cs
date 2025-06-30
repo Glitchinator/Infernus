@@ -18,7 +18,6 @@ namespace Infernus.Projectiles
             Projectile.hostile = false;
             Projectile.extraUpdates = 75;
             Projectile.timeLeft = 75;
-            Projectile.netImportant = true;
             Projectile.penetrate = 2;
             Projectile.tileCollide = true;
             Projectile.usesLocalNPCImmunity = true;
@@ -44,21 +43,17 @@ namespace Infernus.Projectiles
         }
         public override void OnSpawn(IEntitySource source)
         {
-            for (int k = 0; k < 1; k++)
-            {
-                float speedMulti = Main.rand.NextFloat(0.22f);
+            float speedMulti = Main.rand.NextFloat(0.22f);
 
-                Vector2 newVelocity = Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(24));
+            Vector2 newVelocity = Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(24));
 
 
-                newVelocity *= speedMulti;
+            newVelocity *= speedMulti;
 
-                var smokeGore = Gore.NewGoreDirect(Projectile.GetSource_Death(), Projectile.position, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
-                smokeGore.velocity = newVelocity;
-                // smokeGore.velocity += Vector2.One;
+            var smokeGore = Gore.NewGoreDirect(Projectile.GetSource_Death(), Projectile.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+            smokeGore.velocity = newVelocity;
 
-            }
-            for (int k = 0; k < 8; k++)
+            for (int k = 0; k < 4; k++)
             {
                 Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Electric, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
             }

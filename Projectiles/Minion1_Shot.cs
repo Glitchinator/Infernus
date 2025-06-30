@@ -10,6 +10,7 @@ namespace Infernus.Projectiles
 
     public class Minion1_Shot : ModProjectile
     {
+        public override string Texture => "Infernus/Projectiles/Meteor_Flail";
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailingMode[Type] = 0;
@@ -17,31 +18,27 @@ namespace Infernus.Projectiles
         }
         public override void SetDefaults()
         {
-            AIType = ProjectileID.Bullet;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.friendly = true;
-            Projectile.height = 15;
-            Projectile.width = 7;
+            Projectile.height = 20;
+            Projectile.width = 20;
             Projectile.hostile = false;
             Projectile.minion = true;
             Projectile.minionSlots = 0f;
-            Projectile.timeLeft = 250;
+            Projectile.timeLeft = 200;
             Projectile.netImportant = true;
             Projectile.extraUpdates = 1;
+            Projectile.tileCollide = false;
         }
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            Projectile.rotation += 0.2f * (float)Projectile.direction;
 
-            if (Main.rand.NextBool(4))
-            {
-                for (int k = 0; k < 2; k++)
-                {
-                    Dust Sword = Dust.NewDustPerfect(Projectile.Center, DustID.SolarFlare, Projectile.velocity, 0, default, Scale: 1f);
-                    Sword.noGravity = true;
-                }
-            }
+            int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.InfernoFork, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
+            Main.dust[dust].noGravity = true;
+            Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.014f;
+
             float distanceFromTarget = 250f;
             Vector2 targetCenter = Projectile.position;
             bool foundTarget = false;
@@ -97,7 +94,7 @@ namespace Infernus.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.OnFire, 300);
+            target.AddBuff(BuffID.OnFire, 120);
         }
         public override bool PreDraw(ref Color lightColor)
         {

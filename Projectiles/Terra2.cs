@@ -1,6 +1,7 @@
 ﻿using Infernus.Buffs;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -41,13 +42,26 @@ namespace Infernus.Projectiles
         {
             return false;
         }
+        int Dive_Timer;
+        bool Diving = false;
+        int When_Dive;
+        int Dive_Reset;
+        int Shoot_Time;
+        bool slower = false;
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            When_Dive = Main.rand.Next(10, 21);
+            Dive_Reset = Main.rand.Next(38, 51);
+            Shoot_Time = Main.rand.Next(60, 71);
+        }
         public override void AI()
         {
 
             Player player = Main.player[Projectile.owner];
             Projectile.spriteDirection = Projectile.direction;
 
-            if (++Projectile.frameCounter >= 8)
+            if (++Projectile.frameCounter >= 11)
             {
                 Projectile.frameCounter = 0;
                 if (++Projectile.frame >= 3)
@@ -57,8 +71,8 @@ namespace Infernus.Projectiles
             }
 
             Vector2 withplayer = player.Center;
-            withplayer.Y -= 52f;
-            float notamongusX = (25 + Projectile.minionPos * 5) * -player.direction;
+            withplayer.Y -= 48f;
+            float notamongusX = (10 + Projectile.minionPos * 40) * -player.direction;
             withplayer.X += notamongusX;
             Vector2 vectorToplayer = withplayer - Projectile.Center;
             float distanceToplayer = vectorToplayer.Length();
@@ -114,89 +128,86 @@ namespace Infernus.Projectiles
             }
             Projectile.friendly = foundTarget;
 
-            float speed = 18f;
-            float inertia = 15f;
+
+            float speed = 20f;
+            float inertia = 16f;
 
             if (foundTarget)
             {
-                if (distanceFromTarget > 40f)
+                if (distanceFromTarget > 160f && Diving == false)
                 {
                     Vector2 direction = targetCenter - Projectile.Center;
                     direction.Normalize();
                     direction *= speed;
                     Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
                 }
-                if (distanceFromTarget < 10f)
+                else
                 {
-                    if (Main.rand.NextBool(17))
+                    Diving = true;
+                }
+                if (Diving == true)
+                {
+                    if (slower == false)
                     {
-                        for (int k = 0; k < 38; k++)
-                        {
-                            Vector2 speed_Dust = Main.rand.NextVector2Circular(1f, 1f);
-                            Dust Sword = Dust.NewDustPerfect(Projectile.Center + speed_Dust * 32, DustID.Confetti_Pink, speed_Dust * 3, Scale: 2f);
-                            Sword.noGravity = true;
-                        }
-                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, -5, ModContent.ProjectileType<Terra_2_Shot>(), 28, 0, Projectile.owner);
-                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 5, ModContent.ProjectileType<Terra_2_Shot>(), 28, 0, Projectile.owner);
-                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, -5, 0, ModContent.ProjectileType<Terra_2_Shot>(), 28, 0, Projectile.owner);
-                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 5, 0, ModContent.ProjectileType<Terra_2_Shot>(), 28, 0, Projectile.owner);
+                        Projectile.velocity.X = Projectile.velocity.X * 0.97f;
+                        Projectile.velocity.Y = Projectile.velocity.Y * 0.97f;
+                    }
+                    else
+                    {
+                        Projectile.velocity.X = Projectile.velocity.X * 0.92f;
+                        Projectile.velocity.Y = Projectile.velocity.Y * 0.92f;
+                    }
+
+                    Dive_Timer++;
+                }
+                if (Dive_Timer == When_Dive)
+                {
+                    if (Main.myPlayer == Projectile.owner)
+                    {
+                        float dive_speed = 18f;
+                        Vector2 VectorToCursor = targetCenter - Projectile.position;
+                        float DistToCursor = VectorToCursor.Length();
+
+                        DistToCursor = dive_speed / DistToCursor;
+                        VectorToCursor *= DistToCursor;
+
+                        Projectile.velocity = VectorToCursor;
                     }
                 }
-                if (distanceFromTarget > 150f)
+                if (Dive_Timer == Dive_Reset)
                 {
-                    if (Projectile.ai[1] > 0f)
+                    slower = true;
+                }
+                if (Dive_Timer > Shoot_Time)
+                {
+                    Projectile.velocity = Vector2.Zero;
+                    Vector2 shootVel = targetCenter - Projectile.Center;
+                    if (shootVel == Vector2.Zero)
                     {
-                        Projectile.ai[1] += 1f;
-                        if (Main.rand.NextBool(3))
-                        {
-                            Projectile.ai[1] += 1f;
-                        }
+                        shootVel = new Vector2(0f, 1f);
                     }
-                    if (Projectile.ai[1] > 60)
-                    {
-                        Projectile.ai[1] = 0f;
-                        Projectile.netUpdate = true;
-                    }
-                    if (Projectile.ai[0] == 0f)
-                    {
-                        if (foundTarget)
-                        {
-                            if (Projectile.ai[1] == 0f)
-                            {
-                                Projectile.ai[1] = 1f;
-                                if (Main.myPlayer == Projectile.owner)
-                                {
-                                    Vector2 shootVel = targetCenter - Projectile.Center;
-                                    if (shootVel == Vector2.Zero)
-                                    {
-                                        shootVel = new Vector2(0f, 1f);
-                                    }
-                                    shootVel.Normalize();
-                                    shootVel *= 16;
-                                    for (int k = 0; k < 12; k++)
-                                    {
-                                        Vector2 speed_Dust = Main.rand.NextVector2Circular(.3f, .3f);
-                                        Dust Sword = Dust.NewDustPerfect(Projectile.Center + speed_Dust * 32, DustID.Confetti_Pink, speed_Dust * 3, Scale: 2f);
-                                        Sword.noGravity = true;
-                                    }
-                                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X + 40, Projectile.Center.Y, shootVel.X, shootVel.Y, ModContent.ProjectileType<Terra_2_Shot>(), 38, Projectile.knockBack, Main.myPlayer, 0f, 0f);
-                                    Projectile.ai[1] = 1f;
-                                }
-                            }
-                        }
-                    }
+                    shootVel.Normalize();
+                    shootVel *= 20;
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, shootVel.X, shootVel.Y, ModContent.ProjectileType<Terra_Shot>(), (int)(Projectile.damage * 1.3f), 8f, Main.myPlayer, 0f, Projectile.owner);
+                    Projectile.velocity = new Vector2(-shootVel.X, -shootVel.Y);
+                    Diving = false;
+                    Dive_Timer = 0;
+                    slower = false;
                 }
             }
             else
             {
+                Dive_Timer = 0;
+                Diving = false;
+                slower = false;
                 if (distanceToplayer > 600f)
                 {
-                    speed = 15f;
+                    speed = 12f;
                     inertia = 35f;
                 }
                 else
                 {
-                    speed = 6f;
+                    speed = 7f;
                     inertia = 50f;
                 }
                 if (distanceToplayer > 20f)

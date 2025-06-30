@@ -1,6 +1,8 @@
 ﻿using Infernus.Buffs;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,7 +12,7 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 0;
+            Main.projFrames[Projectile.type] = 3;
             Main.projPet[Projectile.type] = true;
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -30,18 +32,62 @@ namespace Infernus.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
         }
-        public override bool? CanCutTiles()
+        int Dive_Timer;
+        bool Diving = false;
+        int When_Dive;
+        int Dive_Reset;
+        bool exploded = false;
+
+        public override void OnSpawn(IEntitySource source)
         {
-            return false;
+            Projectile.frame = 0;
+            When_Dive = Main.rand.Next(15, 24);
+            Dive_Reset = Main.rand.Next(30, 41);
         }
-        public override bool MinionContactDamage()
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if (exploded == false && Diving == true && Dive_Timer > When_Dive)
+            {
+                for (int k = 0; k < 10; k++)
+                {
+                    Vector2 speed = Main.rand.NextVector2Unit();
+                    Dust wand = Dust.NewDustPerfect(Projectile.Center + speed * 22, DustID.BlueCrystalShard, speed * 2, 0, default, Scale: 2.8f);
+                    wand.noGravity = true;
+                }
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Aeritite_Mine_Explosion>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
+                exploded = true;
+            }
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            if (exploded == false && Diving == true && Dive_Timer > When_Dive)
+            {
+                for (int k = 0; k < 10; k++)
+                {
+                    Vector2 speed = Main.rand.NextVector2Unit();
+                    Dust wand = Dust.NewDustPerfect(Projectile.Center + speed * 22, DustID.BlueCrystalShard, speed * 2, 0, default, Scale: 2.8f);
+                    wand.noGravity = true;
+                }
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Aeritite_Mine_Explosion>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
+                exploded = true;
+            }
             return true;
         }
-
         public override void AI()
         {
+            /*
+            if (++Projectile.frameCounter >= 11)
+            {
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= 3)
+                {
+                    Projectile.frame = 0;
+                }
+            }
+            */
+
             Player player = Main.player[Projectile.owner];
+            //Projectile.spriteDirection = Projectile.direction;
 
             Vector2 withplayer = player.Center;
             withplayer.Y -= 48f;
@@ -63,9 +109,9 @@ namespace Infernus.Projectiles
             {
                 Projectile.timeLeft = 2;
             }
-
             float distanceFromTarget = 250f;
             Vector2 targetCenter = Projectile.position;
+            Vector2 TRUEtargetCenter = Projectile.position;
             bool foundTarget = false;
 
             if (player.HasMinionAttackTargetNPC)
@@ -74,8 +120,10 @@ namespace Infernus.Projectiles
                 float between = Vector2.Distance(npc.Center, Projectile.Center);
                 if (between < 2000f)
                 {
-                    distanceFromTarget = between;
-                    targetCenter = npc.Center;
+                    TRUEtargetCenter = npc.Center;
+                    targetCenter = new Vector2(npc.Center.X, npc.Top.Y - 80);
+                    float detween = Vector2.Distance(targetCenter, Projectile.Center);
+                    distanceFromTarget = detween;
                     foundTarget = true;
                 }
             }
@@ -93,8 +141,10 @@ namespace Infernus.Projectiles
                         bool closeThroughWall = between < 100f;
                         if (((closest && inRange) || !foundTarget) && (lineOfSight || closeThroughWall))
                         {
-                            distanceFromTarget = between;
-                            targetCenter = npc.Center;
+                            TRUEtargetCenter = npc.Center;
+                            targetCenter = new Vector2(npc.Center.X, npc.Top.Y - 80);
+                            float detween = Vector2.Distance(targetCenter, Projectile.Center);
+                            distanceFromTarget = detween;
                             foundTarget = true;
                         }
                     }
@@ -108,16 +158,69 @@ namespace Infernus.Projectiles
 
             if (foundTarget)
             {
-                if (distanceFromTarget > 40f)
+                if (distanceFromTarget > 30f && Diving == false)
                 {
                     Vector2 direction = targetCenter - Projectile.Center;
                     direction.Normalize();
                     direction *= speed;
                     Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
                 }
+                else
+                {
+                    if (Diving == false)
+                    {
+                        for (int k = 0; k < 6; k++)
+                        {
+                            Vector2 speed_Dust = Main.rand.NextVector2Unit();
+                            Dust wand = Dust.NewDustPerfect(Projectile.Center + speed_Dust * 8, DustID.BlueCrystalShard, speed_Dust, 0, default, Scale: 1.3f);
+                            wand.noGravity = true;
+                        }
+                        Projectile.frame = 1;
+                    }
+                    Diving = true;
+                }
+                if (Diving == true)
+                {
+                    int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.BlueCrystalShard, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.014f;
+                    Projectile.velocity.X = Projectile.velocity.X * 0.97f;
+
+                    if (Projectile.velocity.Y > -6)
+                    {
+                        Projectile.velocity.Y -= 0.1f;
+                    }
+                    Dive_Timer++;
+                }
+                if (Dive_Timer == When_Dive)
+                {
+                    Projectile.frame = 2;
+                    if (Main.myPlayer == Projectile.owner)
+                    {
+                        float dive_speed = 18f;
+                        Vector2 VectorToCursor = TRUEtargetCenter - Projectile.position;
+                        float DistToCursor = VectorToCursor.Length();
+
+                        DistToCursor = dive_speed / DistToCursor;
+                        VectorToCursor *= DistToCursor;
+
+                        Projectile.velocity = VectorToCursor;
+                    }
+                }
+                if (Dive_Timer > Dive_Reset)
+                {
+                    Projectile.frame = 0;
+                    Diving = false;
+                    Dive_Timer = 0;
+                    exploded = false;
+                }
             }
             else
             {
+                Projectile.frame = 0;
+                Dive_Timer = 0;
+                Diving = false;
+                exploded = false;
                 if (distanceToplayer > 600f)
                 {
                     speed = 15f;
@@ -140,15 +243,15 @@ namespace Infernus.Projectiles
                     Projectile.velocity.Y = -0.01f;
                 }
             }
-            if (Main.rand.NextBool(11))
-            {
-                for (int k = 0; k < 6; k++)
-                {
-                    Vector2 speed_Dust = Main.rand.NextVector2Unit();
-                    Dust wand = Dust.NewDustPerfect(Projectile.Center + speed_Dust * 8, DustID.BlueCrystalShard, speed_Dust, 0, default, Scale: 1.3f);
-                    wand.noGravity = true;
-                }
-            }
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+        }
+        public override bool? CanCutTiles()
+        {
+            return false;
+        }
+        public override bool MinionContactDamage()
+        {
+            return true;
         }
     }
 }

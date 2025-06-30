@@ -1,6 +1,9 @@
 ﻿using Infernus.Buffs;
+using Infernus.Items.Weapon.Summon;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,6 +14,7 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
+            Main.projFrames[Projectile.type] = 3;
             Main.projPet[Projectile.type] = true;
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -23,7 +27,7 @@ namespace Infernus.Projectiles
             Projectile.DamageType = DamageClass.Summon;
             Projectile.width = 36;
             Projectile.height = 34;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.friendly = true;
             Projectile.minion = true;
             Projectile.minionSlots = 1f;
@@ -31,15 +35,24 @@ namespace Infernus.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
         }
+        bool teleport = false;
+        int timer;
+        float telex;
+        float teley;
+        public override void OnSpawn(IEntitySource source)
+        {
+            Projectile.frame = Main.rand.Next(0, 3);
+        }
         public override void AI()
         {
 
             Player player = Main.player[Projectile.owner];
             Projectile.spriteDirection = Projectile.direction;
+            Projectile.rotation = Projectile.velocity.X * 0.02f;
 
             Vector2 withplayer = player.Center;
-            withplayer.Y -= 52f;
-            float notamongusX = (5 + Projectile.minionPos * 5) * -player.direction;
+            withplayer.Y -= 48f;
+            float notamongusX = (10 + Projectile.minionPos * 40) * -player.direction;
             withplayer.X += notamongusX;
             Vector2 vectorToplayer = withplayer - Projectile.Center;
             float distanceToplayer = vectorToplayer.Length();
@@ -57,7 +70,7 @@ namespace Infernus.Projectiles
             {
                 Projectile.timeLeft = 2;
             }
-            float distanceFromTarget = 250f;
+            float distanceFromTarget = 100f;
             Vector2 targetCenter = Projectile.position;
             bool foundTarget = false;
 
@@ -69,6 +82,8 @@ namespace Infernus.Projectiles
                 {
                     distanceFromTarget = between;
                     targetCenter = npc.Center;
+                    telex = targetCenter.X += Main.rand.Next(0, npc.width);
+                    teley = targetCenter.Y += Main.rand.Next(0, npc.height);
                     foundTarget = true;
                 }
             }
@@ -88,6 +103,8 @@ namespace Infernus.Projectiles
                         {
                             distanceFromTarget = between;
                             targetCenter = npc.Center;
+                            telex = targetCenter.X += Main.rand.Next(0, npc.width);
+                            teley = targetCenter.Y += Main.rand.Next(0, npc.height);
                             foundTarget = true;
                         }
                     }
@@ -101,26 +118,65 @@ namespace Infernus.Projectiles
 
             if (foundTarget)
             {
-                if (distanceFromTarget > 40f)
+                teleport = true;
+                /*
+                if (distanceFromTarget > 200f)
                 {
-                    Vector2 direction = targetCenter - Projectile.Center;
-                    direction.Normalize();
-                    direction *= speed;
-                    Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
+                    teleport = true;
+                    //Vector2 direction = targetCenter - Projectile.Center;
+                    //direction.Normalize();
+                    //direction *= speed;
+                    //Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
                 }
-                if (distanceFromTarget < 10f)
+                */
+                if (teleport == true)
                 {
-                    if (Main.rand.NextBool(22))
+                    timer++;
+                    Projectile.velocity.Y = Projectile.velocity.Y *= 0.95f;
+                    Projectile.velocity.X = Projectile.velocity.X *= 0.95f;
+                }
+                if (timer == 50)
+                {
+                    for (int k = 0; k < 11; k++)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, -5, ProjectileID.Bone, 14, 0, Projectile.owner);
-                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 5, ProjectileID.Bone, 14, 0, Projectile.owner);
-                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, -5, 0, ProjectileID.Bone, 14, 0, Projectile.owner);
-                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 5, 0, ProjectileID.Bone, 14, 0, Projectile.owner);
+                        Vector2 speed2 = Main.rand.NextVector2Unit();
+                        Dust wand = Dust.NewDustPerfect(Projectile.Center + speed2 * 16, DustID.ShadowbeamStaff, speed2 * 2, Scale: 1f);
+                        wand.noGravity = true;
                     }
+                    Vector2 dest = new Vector2(telex, teley);
+                    var destnorm = dest.SafeNormalize(Vector2.UnitY);
+                    Dust.QuickDustLine(Projectile.Center + destnorm * Projectile.width, dest, dest.Length() / 20f, Color.Purple);
+                    Projectile.Center = new Vector2(telex,teley);
+                }
+                if (timer == 73)
+                {
+                    //explode
+                    SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.position);
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Dunger_Exlos>(), (int)(Projectile.damage * 1.4f), 4f, Main.myPlayer, 0f, 0f);
+                    for (int k = 0; k < 27; k++)
+                    {
+                        Vector2 speed2 = Main.rand.NextVector2Circular(2f, 4f);
+                        Dust Sword = Dust.NewDustPerfect(Projectile.Center + speed2 * 32, DustID.ShadowbeamStaff, speed2 * 3, Scale: 2f);
+                        Sword.noGravity = true;
+                    }
+                }    
+                if (timer == 120)
+                {
+                    Projectile.Center = withplayer;
+                    for (int k = 0; k < 5; k++)
+                    {
+                        Vector2 speed2 = Main.rand.NextVector2Unit();
+                        Dust wand = Dust.NewDustPerfect(Projectile.Center + speed2 * 8, DustID.ShadowbeamStaff, speed2 * 2, Scale: 1f);
+                        wand.noGravity = true;
+                    }
+                    teleport = false;
+                    timer = 0;
                 }
             }
             else
             {
+                teleport = false;
+                timer = 0;
                 if (distanceToplayer > 600f)
                 {
                     speed = 15f;
@@ -143,7 +199,6 @@ namespace Infernus.Projectiles
                     Projectile.velocity.Y = -0.01f;
                 }
             }
-            Projectile.rotation += (float)Projectile.direction * 2;
         }
         public override bool MinionContactDamage()
         {

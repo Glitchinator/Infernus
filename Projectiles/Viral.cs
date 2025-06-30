@@ -22,7 +22,6 @@ namespace Infernus.Projectiles
         }
         public override void SetDefaults()
         {
-            Projectile.netImportant = true;
             Projectile.width = 28;
             Projectile.height = 28;
             Projectile.friendly = true;

@@ -32,7 +32,7 @@ namespace Infernus.Projectiles
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailingMode[Type] = 0;
-            ProjectileID.Sets.TrailCacheLength[Type] = 3;
+            ProjectileID.Sets.TrailCacheLength[Type] = 2;
         }
         bool retracting = false;
         bool retracted = false;
@@ -41,11 +41,15 @@ namespace Infernus.Projectiles
         {
             Player player = Main.player[Projectile.owner];
 
+            int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Stone, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
+            Main.dust[dust].noGravity = true;
+            Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.014f;
+
             //Projectile.velocity.Y = Projectile.velocity.Y + 0.44f;
 
             if (Main.myPlayer == Projectile.owner)
             {
-                var inertia = 12f;
+                var inertia = 8f;
                 Vector2 direction = player.Center - Projectile.Center;
                 float dist_check = Magnitude(direction);
 
@@ -77,7 +81,7 @@ namespace Infernus.Projectiles
                     retracting = true;
                     //retracted = true;
                 }
-                if (retracting == true && dist_check >= 1200f)
+                if (retracting == true && dist_check >= 600f)
                 {
                     retracted = true;
                     Speed = 40;
@@ -86,9 +90,9 @@ namespace Infernus.Projectiles
 
             Projectile.ai[1] += 1f;
 
-            int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.InfernoFork, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
-            Main.dust[dust].noGravity = true;
-            Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.014f;
+            //int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Stone, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
+            //Main.dust[dust].noGravity = true;
+            //Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.014f;
         }
         private static float Magnitude(Vector2 mag)
         {
@@ -108,7 +112,7 @@ namespace Infernus.Projectiles
             SoundEngine.PlaySound(SoundID.Item70, Projectile.position);
             for (int k = 0; k < 20; k++)
             {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.SolarFlare, 2.5f, -2.5f, 0, default, 1.2f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Stone, 2.5f, -2.5f, 0, default, 1.2f);
             }
             if (Projectile.velocity.Y != oldVelocity.Y)
             {
@@ -123,7 +127,7 @@ namespace Infernus.Projectiles
         {
             Vector2 playerArmPosition = Main.GetPlayerArmPosition(Projectile);
 
-            Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Infernus/Projectiles/Meteor_Flail_Chain");
+            Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Infernus/Projectiles/Rock_Flail_Chain");
 
             Rectangle? chainSourceRectangle = null;
             float chainHeightAdjustment = 0f;
@@ -162,35 +166,15 @@ namespace Infernus.Projectiles
             for (int k = 0; k < Projectile.oldPos.Length; k++)
             {
                 Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Main.EntitySpriteDraw(texture, drawPos, null, new Color(242, 154, 22, 0) * (.70f - Projectile.alpha / 210f), Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
+                Main.EntitySpriteDraw(texture, drawPos, null, new Color(128, 132, 138, 0) * (.70f - Projectile.alpha / 210f), Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
             }
             return true;
-        }
-
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            SoundEngine.PlaySound(SoundID.Item70, Projectile.position);
-            for (int k = 0; k < 20; k++)
-            {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.SolarFlare, 2.5f, -2.5f, 0, default, 1.2f);
-            }
-            if (Main.rand.NextBool(2))
-            {
-                target.AddBuff(BuffID.OnFire, 300);
-            }
-        }
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
-        {
-            if (Main.rand.NextBool(4))
-            {
-                target.AddBuff(BuffID.OnFire, 180, quiet: false);
-            }
         }
         public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 8; i++)
             {
-                Dust.NewDustPerfect(Projectile.Center, DustID.SolarFlare);
+                Dust.NewDustPerfect(Projectile.Center, DustID.Stone);
             }
         }
     }

@@ -35,7 +35,7 @@ namespace Infernus.NPCs
 
         public static int BodyType()
         {
-            return ModContent.NPCType<Chorus_Plant>();
+            return ModContent.NPCType<Boulderminiboss>();
         }
 
         public override void SetStaticDefaults()
@@ -44,18 +44,18 @@ namespace Infernus.NPCs
             NPCID.Sets.BossBestiaryPriority.Add(Type);
         }
         int Timer;
-        int Ice_Shard_Area = 50;
+        int Ice_Shard_Area = 3;
         private Vector2 destination;
         float inertia = 6;
         float speed = 12f;
 
         public override void SetDefaults()
         {
-            NPC.width = 34;
-            NPC.height = 38;
-            NPC.damage = 60;
+            NPC.width = 40;
+            NPC.height = 40;
+            NPC.damage = 0;
             NPC.defense = 32;
-            NPC.lifeMax = 8000;
+            NPC.lifeMax = 6000;
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.noGravity = true;
@@ -67,7 +67,9 @@ namespace Infernus.NPCs
         }
         public override void AI()
         {
-            
+            Vector2 diddy = Main.npc[ParentIndex].Center - NPC.Center;
+            var f = diddy.ToRotation();
+            NPC.rotation = NPC.rotation.AngleTowards(f, .1f);
 
             Player player = Main.player[NPC.target];
             NPC.netUpdate = true;
@@ -90,8 +92,18 @@ namespace Infernus.NPCs
             {
                 return;
             }
-            Timer++;
-            if(Timer == 90)
+            Timer = InfernusWorld.Boulder_Boss_Timer;
+            if (Timer == 90)
+            {
+                Shoot_Projectile_Random();
+                Timer = 0;
+            }
+            if (Timer == 180)
+            {
+                Shoot_Projectile_Random();
+                Timer = 0;
+            }
+            if (Timer == 270)
             {
                 Shoot_Projectile_Random();
                 Timer = 0;
@@ -100,44 +112,14 @@ namespace Infernus.NPCs
         }
         public override void OnSpawn(IEntitySource source)
         {
-            NPC.lifeMax = 8000;
-            NPC.life = 8000;
-        }
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Infernus/NPCs/Chorus_Plant_Arm_Sprite");
-
-            Rectangle? chainSourceRectangle = null;
-
-            Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
-            Vector2 chainDrawPosition = NPC.Bottom;
-            Vector2 vectorFromProjectileToPlayerArms = Main.npc[ParentIndex].Bottom.MoveTowards(chainDrawPosition, 0f) - chainDrawPosition;
-            Vector2 unitVectorFromProjectileToPlayerArms = vectorFromProjectileToPlayerArms.SafeNormalize(Vector2.Zero);
-            float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height());
-            if (chainSegmentLength == 0)
-            {
-                chainSegmentLength = 10;
-            }
-            float chainRotation = unitVectorFromProjectileToPlayerArms.ToRotation() + MathHelper.PiOver2;
-            int chainCount = 0;
-            float chainLengthRemainingToDraw = vectorFromProjectileToPlayerArms.Length() + chainSegmentLength;
-
-            while (chainLengthRemainingToDraw > 0f)
-            {
-                var chainTextureToDraw = chainTexture;
-                Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, drawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
-                chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
-                chainCount++;
-                chainLengthRemainingToDraw -= chainSegmentLength;
-            }
-            return true;
+            NPC.lifeMax = 6000;
+            NPC.life = 6000;
         }
         private void Shoot_Projectile_Random()
         {
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 player = Main.player[NPC.target];
-                var type = Main.rand.Next(new int[] { ModContent.ProjectileType<Petal_Rocket>(), ModContent.ProjectileType<Petal_Ball>(), ModContent.ProjectileType<Petal_Bullet>() });
                 Vector2 velocity = player.Center - NPC.Center;
                 float magnitude = Magnitude(velocity);
                 if (magnitude > 0)
@@ -149,10 +131,8 @@ namespace Infernus.NPCs
                     velocity = new Vector2(0f, 9f);
                 }
 
-                if (Main.rand.Next(3) < 1)
-                {
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, type, 24, NPC.whoAmI);
-                }
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Boulder_Rain>(), 24, NPC.whoAmI);
+
                 SoundEngine.PlaySound(SoundID.Item20, NPC.position);
             }
         }
@@ -179,7 +159,7 @@ namespace Infernus.NPCs
         {
             Player player = Main.player[NPC.target];
 
-            float rad = (float)PositionIndex / 4 * MathHelper.TwoPi;
+            float rad = (float)PositionIndex / 3 * MathHelper.TwoPi;
 
             RotationTimer += 0.8f;
             if (RotationTimer > 360)
@@ -211,7 +191,7 @@ namespace Infernus.NPCs
         }
         public override void OnKill()
         {
-            Chorus_Plant.Arms_Left -= 1;
+            Main.npc[ParentIndex].alpha--;
         }
     }
 }

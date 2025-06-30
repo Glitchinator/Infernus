@@ -17,12 +17,10 @@ namespace Infernus.Projectiles
         }
         public override void SetDefaults()
         {
-            Projectile.CloneDefaults(ProjectileID.Bullet);
-            AIType = ProjectileID.Bullet;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
-            Projectile.height = 18;
-            Projectile.width = 8;
+            Projectile.height = 10;
+            Projectile.width = 10;
             Projectile.hostile = false;
             Projectile.netImportant = true;
         }
@@ -36,7 +34,7 @@ namespace Infernus.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.OnFire, 180); // adds for 3 seconds, I need to get better at debuffs and timing them.
+            target.AddBuff(BuffID.OnFire, 120);
         }
         public override bool PreDraw(ref Color lightColor)
         {
