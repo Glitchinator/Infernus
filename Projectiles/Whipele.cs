@@ -32,11 +32,9 @@ namespace Infernus.Projectiles
         {
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
             target.AddBuff(ModContent.BuffType<elewhipbuff>(), 300);
+            Projectile.damage = (int)(Projectile.damage * 0.85f);
 
-            if (Main.rand.NextBool(2))
-            {
-                target.AddBuff(BuffID.Frostburn2, 300);
-            }
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, Main.rand.Next(-3, 3), Main.rand.Next(-3, 3), ModContent.ProjectileType<whipe_ele_shot>(), (int)(Projectile.damage * 0.8f), 0, Projectile.owner);
         }
 
         public override bool PreDraw(ref Color lightColor)

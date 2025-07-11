@@ -18,19 +18,9 @@ namespace Infernus.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (target.type != NPCID.TargetDummy)
-            {
-                {
-                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Right.X, target.Right.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, -5), ModContent.ProjectileType<BoulderMini>(), (int)(damageDone * .60f), 0, Projectile.owner);
-                }
-            }
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
             target.AddBuff(ModContent.BuffType<rockywhipbuff>(), 300);
-
-            if (Main.rand.NextBool(2))
-            {
-                target.AddBuff(BuffID.Venom, 300);
-            }
+            Projectile.damage = (int)(Projectile.damage * 0.85f);
         }
 
 

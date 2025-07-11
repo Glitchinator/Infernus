@@ -194,13 +194,6 @@ namespace Infernus.Projectiles
                 }
             }
         }
-        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
-        {
-            if (Dive_Timer > When_Dive)
-            {
-                modifiers.SourceDamage *= 2.4f;
-            }
-        }
         public override bool? CanCutTiles()
         {
             return false;

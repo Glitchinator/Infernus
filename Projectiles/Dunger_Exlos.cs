@@ -13,6 +13,11 @@ namespace Infernus.Projectiles
     public class Dunger_Exlos : ModProjectile
     {
         public override string Texture => "Infernus/Items/Weapon/Melee/Hatchet";
+
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
+        }
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Summon;
@@ -28,11 +33,14 @@ namespace Infernus.Projectiles
             Projectile.alpha = 255;
             Projectile.damage = 22;
             Projectile.knockBack = 4f;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 30;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.ShadowFlame, 60);
+            Projectile.damage = (int)(Projectile.damage * 0.9f);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Infernus.Placeable;
+﻿using Infernus.Items.Weapon.Summon;
+using Infernus.Placeable;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -165,6 +166,11 @@ namespace Infernus.NPCs
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.StoneBlock, 4, 4, 6));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Rock>(), 1, 11, 26));
+
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<bold>(), 10));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Mounts.Boulder_Saddle>(), 10));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.Melee.Boulder_Flail>(), 10));
+
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.Ranged.July4th>(), 400, 1, 1));
             LeadingConditionRule in_hardmode = new LeadingConditionRule(new Conditions.IsHardmode());
 

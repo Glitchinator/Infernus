@@ -195,6 +195,51 @@ Mods: {
 				DisplayName: Lucky_ Flame
 				Description: Mods.Infernus.Buffs.Lucky_Flame.Description
 			}
+
+			Aeritite_Whip_Buff: {
+				DisplayName: Aeritite_ Whip_ Buff
+				Description: Mods.Infernus.Buffs.Aeritite_Whip_Buff.Description
+			}
+
+			Ice_Whip_Cooldown: {
+				DisplayName: Ice_ Whip_ Cooldown
+				Description: Mods.Infernus.Buffs.Ice_Whip_Cooldown.Description
+			}
+
+			Rock_Whip_Cooldown: {
+				DisplayName: Rock_ Whip_ Cooldown
+				Description: Mods.Infernus.Buffs.Rock_Whip_Cooldown.Description
+			}
+
+			Squid_Fishbowl_Buff: {
+				DisplayName: Squid_ Fishbowl_ Buff
+				Description: Mods.Infernus.Buffs.Squid_Fishbowl_Buff.Description
+			}
+
+			Ancient_Whiphead: {
+				DisplayName: Ancient_ Whiphead
+				Description: Mods.Infernus.Buffs.Ancient_Whiphead.Description
+			}
+
+			Basalt_Whiphead: {
+				DisplayName: Basalt_ Whiphead
+				Description: Mods.Infernus.Buffs.Basalt_Whiphead.Description
+			}
+
+			Gem_Whip_Cooldown: {
+				DisplayName: Gem_ Whip_ Cooldown
+				Description: Mods.Infernus.Buffs.Gem_Whip_Cooldown.Description
+			}
+
+			Radiant_Squid_Buff: {
+				DisplayName: Radiant_ Squid_ Buff
+				Description: Mods.Infernus.Buffs.Radiant_Squid_Buff.Description
+			}
+
+			Cryo_Buff: {
+				DisplayName: Cryo_ Buff
+				Description: Mods.Infernus.Buffs.Cryo_Buff.Description
+			}
 		}
 
 		Items: {
@@ -298,8 +343,9 @@ Mods: {
 				DisplayName: Radiant Squid Heart
 				Tooltip:
 					'''
-					whips have a 10% chance to mind rupture enemies
-					Mind rupture hits deal 65% increased damage
+					whips have a 17% chance to mind rupture enemies
+					Mind rupture hits deal 110% increased damage
+					Minions hitting a mind ruptured enemy have a 10% innate chance to crit for 5 seconds
 					Psyker Psykinetic
 					'''
 			}
@@ -348,12 +394,12 @@ Mods: {
 			Leggings.DisplayName: Aeritite Leggings
 
 			BeetleBait: {
-				DisplayName: Duststorm Bait
+				DisplayName: Storm Bait
 				Tooltip:
 					'''
 					Food for a hungry beast
 					Summons Serphious
-					Must be in desert biome
+					Must be in ocean biome
 					'''
 			}
 
@@ -364,11 +410,7 @@ Mods: {
 
 			Boss1sum: {
 				DisplayName: Meteor Shard
-				Tooltip:
-					'''
-					Summons Raiko
-					Must be night
-					'''
+				Tooltip: Points in the direction of the Meteor Alter
 			}
 
 			BossSummon: {
@@ -708,7 +750,13 @@ Mods: {
 
 			lumiken: {
 				DisplayName: Cosmic Three
-				Tooltip: Throws three different shurikens.
+				Tooltip:
+					'''
+					Throw out a random spread of different shurikens
+					5 Stardust shurikens which home
+					3 Solarflare shurikens which home and explode
+					1 Nebula shuriken which homes and explodes into a black hole
+					'''
 			}
 
 			nebula.DisplayName: Nebulation
@@ -817,7 +865,7 @@ Mods: {
 
 			GolemPistol: {
 				DisplayName: Solar Pistol
-				Tooltip: Shoot two piercing exploding bullets that gain velocity
+				Tooltip: Shoot piercing exploding bullets that gain velocity
 			}
 
 			Lightning_Daggers: {
@@ -893,13 +941,13 @@ Mods: {
 			}
 
 			Drillxwhip: {
-				DisplayName: Giant's Drill
+				DisplayName: Giant Drill
 				Tooltip:
 					'''
-					Belonged to Drill-X
-					 Your minions will attack struck foes
-					 + Explosions
-					 + 14 summon tag damage
+					7 summon tag damage
+					enemies explode on whip strikes
+					Your minions will attack struck foes
+					"Ill knock you forward and back, with a robo attack, cause your messing with the wrong machine!"
 					'''
 			}
 
@@ -907,9 +955,9 @@ Mods: {
 				DisplayName: Eternal Point
 				Tooltip:
 					'''
-					Engulfs you in a raging fire
-					The fire burns nearby enemies
+					Engulfs you in a raging fire, the fire burns nearby enemies
 					As well as shooting homing fire bolts at enemies
+					You can only summon one
 					'''
 			}
 
@@ -943,9 +991,9 @@ Mods: {
 				DisplayName: Volt Conductor
 				Tooltip:
 					'''
+					7 summon tag damage
+					Chains lightning on whip strikes
 					Your minions will attack struck foes
-					 Minions have a chance to rain lightning on hit
-					 + 12 summon tag damage
 					'''
 			}
 
@@ -953,9 +1001,9 @@ Mods: {
 				DisplayName: Rumble Crunch
 				Tooltip:
 					'''
+					6 summon tag damage
+					Boulders explodes from enemies hit by minions
 					Your minions will attack struck foes
-					 + Venom and boulders
-					 + 10 summon tag damage
 					'''
 			}
 
@@ -1116,7 +1164,10 @@ Mods: {
 				Tooltip: Throw a heavy hammer that crushes foes
 			}
 
-			Starfish_yoyo.DisplayName: Star-yo
+			Starfish_yoyo: {
+				DisplayName: Star-yo
+				Tooltip: Shoots water at nearby enemies
+			}
 
 			Swingy: {
 				DisplayName: Smoldered Sword
@@ -1282,15 +1333,20 @@ Mods: {
 
 			Minionshell: {
 				DisplayName: Staff of the Snappers
-				Tooltip: Summons shells that rotate around the player and shoot water bolts at enemies
+				Tooltip:
+					'''
+					Summons shells that rotate around the player and shoot water bolts at enemies
+					Summons 2 for the cost of one minion slot
+					'''
 			}
 
 			Whipaer: {
 				DisplayName: Aeritite Whip
 				Tooltip:
 					'''
+					5 summon tag damage
+					After hitting an enemy you gain increased whip range
 					Your minions will attack struck foes
-					 + 4 summon tag damage
 					'''
 			}
 
@@ -1298,8 +1354,9 @@ Mods: {
 				DisplayName: Gem Tremor
 				Tooltip:
 					'''
+					5 summon tag damage
+					Gems erupt from the enemy on minion hit
 					Your minions will attack struck foes
-					 + 5 summon tag damage
 					'''
 			}
 
@@ -1307,9 +1364,9 @@ Mods: {
 				DisplayName: Iceicle Snap
 				Tooltip:
 					'''
+					6 summon tag damage
+					Ice explodes from enemies hit by minions
 					Your minions will attack struck foes
-					 + Frostburn
-					 + 7 summon tag damage
 					'''
 			}
 
@@ -1475,9 +1532,9 @@ Mods: {
 				DisplayName: Equite Emblem
 				Tooltip:
 					'''
-					Increases max minions by 1
 					Increases whip range by 10%
 					While wearing the Equite set
+					Increases max minions by 2
 					Equite leafs inflict a minion boosting debuff
 					Buff boosts minion damage and knockback and drains enemy life
 					'''
@@ -1485,7 +1542,7 @@ Mods: {
 
 			Scorched_Sinew: {
 				DisplayName: Scorched Sinew
-				Tooltip: ""
+				Tooltip: Sacrifice at the Meteor Alter to summo-n-*-
 			}
 
 			Equite_Pickaxe: {
@@ -1647,33 +1704,37 @@ Mods: {
 
 			Hallowed_Chain: {
 				DisplayName: Hallowed Chain
-				Tooltip: Increases whip speed by 22%
+				Tooltip: Increases whip speed by 18%
 			}
 
 			Elemental_Lash: {
-				DisplayName: Elemental Lash
+				DisplayName: Unchained Scarab
 				Tooltip:
 					'''
-					Increases whip range by 11%
-					Increases whip speed by 18%
-					Increases whip damage by 15%
-					Whips have a 33% chance to inflict a random debuff on hit
+					Increases your max number of minions by 1
+					Increases whip speed by 14%
+					Increases summon damage by 18%
+					Increases the knockback of your minions
 					'''
 			}
 
 			Hallowed_Lash: {
-				DisplayName: Hallowed Lash
+				DisplayName: Prometheus Beetle
 				Tooltip:
 					'''
-					Increases whip range by 11%
-					Increases whip speed by 18%
-					Whips have a 33% chance to inflict frostburn on hit
+					Increases whip speed by 14%
+					Increases summon damage by 10%
+					Increases the knockback of your minions
 					'''
 			}
 
 			Basalt_Whiphead: {
 				DisplayName: Basalt Whiphead
-				Tooltip: Whips rain down basalt fragments on hit
+				Tooltip:
+					'''
+					2 extra summon tag damage
+					Whips rain down basalt fragments on hit
+					'''
 			}
 
 			Effigy_of_might: {
@@ -1695,9 +1756,9 @@ Mods: {
 			Lacerator_Whiphead: {
 				Tooltip:
 					'''
+					4 extra summon tag damage
 					Whips rain down basalt fragments on hit
-					Whips have a 20% chance to create a bouncing bone on hit
-					Whips have a 33% chance to create a sandstorm on hit
+					Whips have a 20% chance to create a sandstorm on hit
 					'''
 				DisplayName: Lacerator Whiphead
 			}
@@ -1705,8 +1766,8 @@ Mods: {
 			Defiled_Whiphead: {
 				Tooltip:
 					'''
-					Whips have a 20% chance to create a bouncing bone on hit
-					Whips have a 33% chance to create a sandstorm on hit
+					2 extra summon tag damage
+					Whips have a 20% chance to create a sandstorm on hit
 					'''
 				DisplayName: Defiled Whiphead
 			}
@@ -1722,7 +1783,7 @@ Mods: {
 			}
 
 			Ancient_Whiphead: {
-				Tooltip: Whips have a 20% chance to create a bouncing bone on hit
+				Tooltip: 2 extra summon tag damage
 				DisplayName: Ancient Whiphead
 			}
 
@@ -1837,7 +1898,12 @@ Mods: {
 
 			Boulder_Saddle: {
 				DisplayName: Boulder Saddle
-				Tooltip: Rock mount stops fall damage or sum
+				Tooltip:
+					'''
+					Summons a boulder mount
+					Fall damage is nullified while riding the boulder
+					Bluegigi
+					'''
 			}
 
 			Boulder_Flail: {
@@ -1868,6 +1934,32 @@ Mods: {
 			MissleSilo_Bow: {
 				DisplayName: Hades Volley
 				Tooltip: Shoots out a swarm of rockets that home onto the cursor
+			}
+
+			Meteor_Sentry: {
+				DisplayName: Meteor Sentry
+				Tooltip: Rains meteors from above
+			}
+
+			Squid_Fishbowl: {
+				DisplayName: Squid in a Fishbowl
+				Tooltip:
+					'''
+					Summons a squid in a fishbowl
+					The squid spawns ink vortexes on enemies
+					Can only summon one
+					'''
+			}
+
+			Cryo_Gauntlet: {
+				DisplayName: Cryo Gauntlet
+				Tooltip:
+					'''
+					Increases whip range by 11%
+					Increases melee speed by 10%
+					Whips have a 33% chance to inflict frostburn on hit
+					Whips have a 20% chance to gain a speed buff on hit
+					'''
 			}
 		}
 
@@ -2103,6 +2195,22 @@ Mods: {
 			Dunger_Exlos.DisplayName: Dunger_ Exlos
 			EqualMinion_Shot.DisplayName: Equal Minion_ Shot
 			Terra_Shot.DisplayName: Terra_ Shot
+			honey_exlos.DisplayName: honey_exlos
+			whip_ele_lightning.DisplayName: whip_ele_lightning
+			A_Ray_exlos.DisplayName: A_ Ray_exlos
+			whip_drill_exlos.DisplayName: whip_drill_exlos
+			Meteor_Alter_Replica.DisplayName: Meteor_ Alter_ Replica
+			Squid_In_Fishbowl.DisplayName: Squid_ In_ Fishbowl
+			Squid_proj.DisplayName: Squid_proj
+			whipe_ele_shot.DisplayName: whipe_ele_shot
+			BoulderMini_Summon.DisplayName: Boulder Mini_ Summon
+			DemonHand_Shot.DisplayName: Demon Hand_ Shot
+			Ice_Slash_Summon.DisplayName: Ice_ Slash_ Summon
+			Raiko_Locator.DisplayName: Raiko_ Locator
+			Raiko_Loc.DisplayName: Raiko_ Loc
+			Lighning_Dagger_exlos.DisplayName: Lighning_ Dagger_exlos
+			Whip_Gem_proj.DisplayName: Whip_ Gem_proj
+			Aeritite_Minion_Explosion.DisplayName: Aeritite_ Minion_ Explosion
 		}
 
 		NPCs: {

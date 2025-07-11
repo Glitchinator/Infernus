@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Infernus.Items.Materials;
+using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -30,5 +31,15 @@ namespace Infernus.Placeable
 
             Item.createTile = TileType<Tiles.Lucky_Flame_Tile>();
         }
+        /*
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<Scorched_Sinew>(), 8)
+            .AddIngredient(ItemID.Candle, 1)
+            .AddTile(TileID.Furnaces)
+            .Register();
+        }
+        */
     }
 }

@@ -24,7 +24,7 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.22f;
+            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.18f;
         }
         public override void AddRecipes()
         {

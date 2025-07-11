@@ -15,6 +15,7 @@ namespace Infernus.Projectiles
         {
             ProjectileID.Sets.TrailingMode[Type] = 0;
             ProjectileID.Sets.TrailCacheLength[Type] = 7;
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
         public override void SetDefaults()
         {
@@ -28,7 +29,15 @@ namespace Infernus.Projectiles
             Projectile.timeLeft = 200;
             Projectile.netImportant = true;
             Projectile.extraUpdates = 1;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
+        }
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            width = 5;
+            height = 5;
+            fallThrough = true;
+
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
         public override void AI()
         {
@@ -94,7 +103,7 @@ namespace Infernus.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.OnFire, 120);
+            target.AddBuff(BuffID.OnFire, 60);
         }
         public override bool PreDraw(ref Color lightColor)
         {

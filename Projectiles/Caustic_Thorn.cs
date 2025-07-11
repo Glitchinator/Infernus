@@ -11,6 +11,10 @@ namespace Infernus.Projectiles
 
     public class Caustic_Thorn : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
+        }
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Summon;

@@ -18,11 +18,13 @@ namespace Infernus.Projectiles
         {
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
-            Projectile.height = 26;
-            Projectile.width = 26;
+            Projectile.height = 32;
+            Projectile.width = 32;
             Projectile.hostile = false;
             Projectile.netImportant = true;
             Projectile.penetrate = 2;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 20;
         }
         public override void AI()
         {
@@ -37,6 +39,14 @@ namespace Infernus.Projectiles
             {
                 Projectile.velocity.Y = 16f;
             }
+        }
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            width = 20;
+            height = 20;
+            fallThrough = true;
+
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

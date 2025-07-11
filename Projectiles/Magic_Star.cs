@@ -18,25 +18,29 @@ namespace Infernus.Projectiles
         }
         public override void SetDefaults()
         {
-            Projectile.width = 38;
-            Projectile.height = 38;
+            Projectile.width = 66;
+            Projectile.height = 66;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 300;
             Projectile.extraUpdates = 1;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
             Projectile.netImportant = true;
             Projectile.alpha = 145;
             Projectile.penetrate = 3;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 36;
         }
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            width = 14;
+            height = 14;
+            fallThrough = true;
+
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+        }
         public override void AI()
         {
-            if (Projectile.timeLeft <= 274)
-            {
-                Projectile.tileCollide = true;
-            }
             Projectile.rotation += (float)Projectile.direction * 2;
             Projectile.velocity.X = Projectile.velocity.X * 1.02f;
             Projectile.velocity.Y = Projectile.velocity.Y * 1.02f;

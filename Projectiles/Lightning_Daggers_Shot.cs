@@ -20,9 +20,9 @@ namespace Infernus.Projectiles
         }
         public override void SetDefaults()
         {
-            AIType = ProjectileID.Bullet;
+            Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
-            Projectile.height = 28;
+            Projectile.height = 10;
             Projectile.width = 10;
             Projectile.hostile = false;
             Projectile.timeLeft = 340;
@@ -61,7 +61,7 @@ namespace Infernus.Projectiles
         }
         public override void OnKill(int timeLeft)
         {
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Lightning_Explosion_Small>(), Projectile.damage / 2, 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Lighning_Dagger_exlos>(), (int)(Projectile.damage * 0.45f), 0, Projectile.owner);
             Dust.NewDustPerfect((Projectile.Bottom + new Vector2(0, -45)) + Main.rand.NextVector2Unit((float)MathHelper.Pi / 4, (float)MathHelper.Pi / 2) * Main.rand.NextFloat(), DustID.Flare_Blue);
         }
     }

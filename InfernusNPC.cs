@@ -54,10 +54,6 @@ namespace Infernus
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Souldrinker>(), 40, 1, 1));
             }
-            if(npc.type == NPCID.SandShark || npc.type == NPCID.SandsharkCorrupt || npc.type == NPCID.SandsharkCrimson || npc.type == NPCID.SandsharkHallow)
-            {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Sand_Scale>(), 6, 1, 3));
-            }
         }
         public override void OnSpawn(NPC npc, IEntitySource source)
         {

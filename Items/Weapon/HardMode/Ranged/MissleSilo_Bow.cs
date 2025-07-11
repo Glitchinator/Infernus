@@ -16,7 +16,7 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
 
         public override void SetDefaults()
         {
-            Item.damage = 24;
+            Item.damage = 50;
             Item.DamageType = DamageClass.Ranged;
             Item.noMelee = true;
             Item.width = 44;
@@ -24,9 +24,9 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
             Item.useTime = 15;
             Item.useAnimation = 15;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 1.5f;
-            Item.value = Item.buyPrice(0, 6, 50, 0);
-            Item.rare = ItemRarityID.Blue;
+            Item.knockBack = 3f;
+            Item.value = Item.buyPrice(0, 23, 50, 0);
+            Item.rare = ItemRarityID.Lime;
             Item.UseSound = SoundID.Item5;
             Item.autoReuse = true;
             Item.shoot = ProjectileID.WoodenArrowFriendly;
@@ -76,8 +76,8 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<Weapon.Ranged.Firebow>(), 1)
-            .AddIngredient(ItemID.IllegalGunParts, 2)
-            .AddIngredient(ItemID.FragmentVortex, 12)
+            .AddIngredient(ItemID.IllegalGunParts, 1)
+            .AddIngredient(ItemID.SpectreBar, 6)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

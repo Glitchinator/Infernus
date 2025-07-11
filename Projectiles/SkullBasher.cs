@@ -1,6 +1,7 @@
 ﻿using Infernus.Items.Materials;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -20,9 +21,8 @@ namespace Infernus.Projectiles
             Projectile.width = 34;
             Projectile.height = 34;
             Projectile.timeLeft = 240;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
         }
-        bool hit = false;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int k = 0; k < 16; k++)
@@ -31,43 +31,79 @@ namespace Infernus.Projectiles
                 Dust wand = Dust.NewDustPerfect(Projectile.Center + speed2 * 20, DustID.Blood, speed2 * 2, Scale: 1.7f);
                 wand.noGravity = true;
             }
-            Projectile.damage = (int)(Projectile.damage * 0.95f);
+            Projectile.damage = (int)(Projectile.damage * 0.75f);
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            Projectile.aiStyle = ProjAIStyleID.Boomerang;
-            hit = true;
+            retracted = true;
             return false;
         }
-        int timer;
+        //int timer;
+        //bool retracting = false;
+        bool retracted = false;
+        int Speed = 24;
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            width = 18;
+            height = 18;
+            fallThrough = true;
+
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+        }
         public override void AI()
         {
-            timer++;
-            if (timer == 9)
-            {
-                Projectile.tileCollide = true;
-            }
+            Player player = Main.player[Projectile.owner];
             Projectile.rotation += 0.2f * (float)Projectile.direction;
+
+            int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Stone, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
+            Main.dust[dust].noGravity = true;
+            Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.014f;
+
             Projectile.ai[0] += 1f;
-            if (hit == false)
+            if (Projectile.ai[0] >= 12f)
             {
-                Projectile.ai[0] += 1f;
-                if (Projectile.ai[0] >= 23f)
+                Projectile.ai[0] = 12f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.7f;
+            }
+
+
+
+            if (Main.myPlayer == Projectile.owner)
+            {
+                var inertia = 8f;
+                Vector2 direction = player.Center - Projectile.Center;
+                float dist_check = Magnitude(direction);
+
+                if (player.dead || !player.active)
                 {
-                    Projectile.ai[0] = 23f;
-                    Projectile.velocity.Y = Projectile.velocity.Y + 0.7f;
+                    return;
                 }
-                if (Projectile.velocity.Y > 22f)
+                if (retracted == true)
                 {
-                    Projectile.velocity.Y = 22f;
+                    Projectile.tileCollide = false;
+                    direction.Normalize();
+                    direction *= Speed;
+                    Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
+
+                }
+                if (dist_check <= 40f)
+                {
+                    if (retracted == true)
+                    {
+                        Projectile.Kill();
+                    }
+                }
+                if (retracted == false && dist_check >= 300f)
+                {
+                    retracted = true;
+                    Speed = 34;
+                    //retracted = true;
                 }
             }
-            if (Main.rand.NextBool(3))
-            {
-                int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Bone, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.014f;
-            }
+        }
+        private static float Magnitude(Vector2 mag)
+        {
+            return (float)Math.Sqrt(mag.X * mag.X + mag.Y * mag.Y);
         }
         public override void OnKill(int timeLeft)
         {

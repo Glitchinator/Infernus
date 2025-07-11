@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 namespace Infernus.Projectiles
@@ -11,10 +12,18 @@ namespace Infernus.Projectiles
             Projectile.CloneDefaults(ProjectileID.PaladinsHammerFriendly);
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.height = 30;
-            Projectile.width = 30;
+            Projectile.height = 50;
+            Projectile.width = 50;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.penetrate = -1;
+        }
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            width = 18;
+            height = 18;
+            fallThrough = true;
+
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
         public override void AI()
         {

@@ -62,21 +62,7 @@ namespace Infernus.Projectiles
         }
         public override void OnSpawn(IEntitySource source)
         {
-            for (int k = 0; k < 4; k++)
-            {
-                float speedMulti = Main.rand.NextFloat(0.22f);
-
-                Vector2 newVelocity = Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(24));
-
-
-                newVelocity *= speedMulti;
-
-                var smokeGore = Gore.NewGoreDirect(Projectile.GetSource_Death(), Projectile.position, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
-                smokeGore.velocity = newVelocity;
-                // smokeGore.velocity += Vector2.One;
-
-            }
-            for (int k = 0; k < 8; k++)
+            for (int k = 0; k < 14; k++)
             {
                 Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.LifeDrain, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, 0,default, 2f);
             }

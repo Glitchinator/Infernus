@@ -29,7 +29,7 @@ namespace Infernus.Items.Weapon.Melee
             Item.shoot = ModContent.ProjectileType<Projectiles.SkullBasher>();
             Item.channel = true;
             Item.noUseGraphic = true;
-            Item.shootSpeed = 10f;
+            Item.shootSpeed = 14f;
             Item.autoReuse = true;
         }
         public override void AddRecipes()
@@ -43,7 +43,7 @@ namespace Infernus.Items.Weapon.Melee
         }
         public override bool CanUseItem(Player player)
         {
-            for (int i = 2; i < 1000; ++i)
+            for (int i = 1; i < 1000; ++i)
             {
                 if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == Item.shoot)
                 {

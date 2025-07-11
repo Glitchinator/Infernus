@@ -15,8 +15,8 @@ namespace Infernus.Items.Accesories
         }
         public override void SetDefaults()
         {
-            Item.width = 34;
-            Item.height = 38;
+            Item.width = 54;
+            Item.height = 50;
             Item.accessory = true;
             Item.value = 45000;
             Item.rare = ItemRarityID.Orange;
@@ -34,6 +34,7 @@ namespace Infernus.Items.Accesories
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<Equite_Bar>(), 8)
+            .AddIngredient(ModContent.ItemType<Quiver>(), 1)
             .AddTile(TileID.Anvils)
             .Register();
         }

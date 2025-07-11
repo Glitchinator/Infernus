@@ -210,8 +210,6 @@ namespace Infernus.Projectiles
                     Projectile.velocity.Y = -0.01f;
                 }
             }
-            string h = Projectile.timeLeft.ToString();
-            Main.NewText(h, 229, 214, 127);
         }
     }
 }

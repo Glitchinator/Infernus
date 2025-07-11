@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Infernus.Items.Materials;
+using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -29,6 +30,15 @@ namespace Infernus.Placeable
             Item.maxStack = 999;
 
             Item.createTile = TileType<Tiles.Raiko_Summon_Tile>();
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<Scorched_Sinew>(), 12)
+            .AddIngredient(ModContent.ItemType<Hot>(), 8)
+            .AddTile(TileID.Furnaces)
+            .Register();
         }
     }
 }

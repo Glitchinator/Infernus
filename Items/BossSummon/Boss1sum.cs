@@ -1,5 +1,9 @@
+using Infernus.Projectiles;
+using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,24 +23,19 @@ namespace Infernus.Items.BossSummon
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.noUseGraphic = true;
             Item.value = 0;
             Item.rare = ItemRarityID.Blue;
-            Item.consumable = true;
-            Item.maxStack = 20;
+            //Item.consumable = true;
+            Item.shootSpeed = 1f;
+            Item.shoot = ModContent.ProjectileType<Raiko_Loc>();
         }
-        public override bool CanUseItem(Player player)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            return !NPC.AnyNPCs(Mod.Find<ModNPC>("Raiko").Type) && (Main.dayTime == false);
-        }
-        public override bool? UseItem(Player player)
-        {
-            SoundEngine.PlaySound(SoundID.ForceRoar, player.position);
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+            Vector2 vec = new(InfernusWorld.Raiko_Alter_X, InfernusWorld.Raiko_Alter_Y);
 
-            {
-                NPC.SpawnOnPlayer(player.whoAmI, Mod.Find<ModNPC>("Raiko").Type);
-            }
-            return true;
+            Projectile.NewProjectileDirect(source, position, (vec - position).SafeNormalize(Vector2.Zero) * 2f, type, damage, knockback, player.whoAmI);
+            return false;
         }
         public override void AddRecipes()
         {

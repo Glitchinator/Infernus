@@ -20,10 +20,10 @@ namespace Infernus.Projectiles
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.width = 30;
-            Projectile.height = 70;
+            Projectile.width = 40;
+            Projectile.height = 112;
             Projectile.penetrate = 3;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
             Projectile.timeLeft = 50;
         }
         public override void AI()
@@ -34,16 +34,20 @@ namespace Infernus.Projectiles
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.SandstormInABottle, Projectile.velocity.X * 0.9f, Projectile.velocity.Y * 0.9f);
             }
-            if (Projectile.timeLeft >= 36)
-            {
-                Projectile.tileCollide = true;
-            }
+        }
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            width = 10;
+            height = 10;
+            fallThrough = true;
+
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ProjectileID.DaybreakExplosion, (int)(Projectile.damage * 1.20f), 0, Projectile.owner);
-            Projectile.damage = (int)(Projectile.damage * 0.9f);
+            Projectile.damage = (int)(Projectile.damage * 0.85f);
         }
         public override bool PreDraw(ref Color lightColor)
         {

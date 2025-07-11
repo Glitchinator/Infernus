@@ -20,13 +20,9 @@ namespace Infernus.Projectiles
         {
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
             target.AddBuff(ModContent.BuffType<drillwhipbuff>(), 300);
+            Projectile.damage = (int)(Projectile.damage * 0.85f);
 
-            if (Main.rand.NextBool(2))
-            {
-                target.AddBuff(BuffID.OnFire3, 300);
-            }
-
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ProjectileID.DD2ExplosiveTrapT3Explosion, (int)(Projectile.damage * 0.35f), 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center, Vector2.Zero, ModContent.ProjectileType<whip_drill_exlos>(), (int)(Projectile.damage * 1.1f), 4f, Projectile.owner);
         }
 
         public override void SetDefaults()

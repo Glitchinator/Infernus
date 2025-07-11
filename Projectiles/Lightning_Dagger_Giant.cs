@@ -20,19 +20,27 @@ namespace Infernus.Projectiles
         }
         public override void SetDefaults()
         {
-            AIType = ProjectileID.Bullet;
+            Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
-            Projectile.height = 84;
-            Projectile.width = 30;
+            Projectile.height = 20;
+            Projectile.width = 20;
             Projectile.hostile = false;
             Projectile.timeLeft = 340;
             Projectile.netImportant = true;
             Projectile.extraUpdates = 1;
             Projectile.ignoreWater = true;
-            Projectile.tileCollide = false;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 4;
+            Projectile.tileCollide = true;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 10;
             Projectile.penetrate = 5;
+        }
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            width = 10;
+            height = 10;
+            fallThrough = true;
+
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
         public override void AI()
         {
@@ -63,18 +71,12 @@ namespace Infernus.Projectiles
         }
         public override void OnKill(int timeLeft)
         {
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Lightning_Explosion>(), Projectile.damage / 2, 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Lighning_Dagger_exlos>(), (int)(Projectile.damage * 0.7f), 4f, Projectile.owner);
             Dust.NewDustPerfect((Projectile.Bottom + new Vector2(0, -45)) + Main.rand.NextVector2Unit((float)MathHelper.Pi / 4, (float)MathHelper.Pi / 2) * Main.rand.NextFloat(), DustID.Flare_Blue);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            for (int k = 0; k < 7; k++)
-            {
-                Vector2 speed2 = Main.rand.NextVector2Unit();
-                Dust wand = Dust.NewDustPerfect(Projectile.Center + speed2 * 48, DustID.Electric, speed2 * 2, Scale: 1.4f);
-                wand.noGravity = true;
-            }
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Lightning_Explosion_Small>(), Projectile.damage / 2, 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Lighning_Dagger_exlos>(), (int)(Projectile.damage * 0.4f), 2f, Projectile.owner);
         }
     }
 }

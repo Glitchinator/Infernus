@@ -24,19 +24,15 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.18f;
-            player.whipRangeMultiplier += 0.11f;
-        }
-        public override void UpdateEquip(Player player)
-        {
-            Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Ice_Whiphead = true;
+            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.14f;
+            player.GetDamage(DamageClass.Summon) += .10f;
+            player.GetKnockback(DamageClass.Summon) += .12f;
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Cryo_Lash>(), 1)
             .AddIngredient(ModContent.ItemType<Hallowed_Chain>(), 1)
-            .AddIngredient(ModContent.ItemType<Crumbling_Basalt>(), 8)
+            .AddIngredient(ItemID.HerculesBeetle)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

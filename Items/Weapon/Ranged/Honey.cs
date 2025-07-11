@@ -35,9 +35,8 @@ namespace Infernus.Items.Weapon.Ranged
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<Cement>(), 1)
-            .AddIngredient(ItemID.HoneyComb, 1)
-            .AddIngredient(ItemID.Grenade, 60)
-            .AddIngredient(ItemID.Stinger, 6)
+            .AddIngredient(ItemID.BeeWax, 12)
+            .AddIngredient(ItemID.Stinger, 5)
             .AddTile(TileID.Anvils)
             .Register();
         }

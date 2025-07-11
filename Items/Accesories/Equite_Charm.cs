@@ -34,6 +34,7 @@ namespace Infernus.Items.Accesories
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<Equite_Bar>(), 8)
+            .AddIngredient(ItemID.NaturesGift)
             .AddTile(TileID.Anvils)
             .Register();
         }

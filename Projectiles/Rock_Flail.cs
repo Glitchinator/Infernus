@@ -37,6 +37,14 @@ namespace Infernus.Projectiles
         bool retracting = false;
         bool retracted = false;
         int Speed = 24;
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            width = 18;
+            height = 18;
+            fallThrough = true;
+
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+        }
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];

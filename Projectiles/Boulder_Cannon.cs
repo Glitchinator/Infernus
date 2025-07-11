@@ -74,6 +74,14 @@ namespace Infernus.Projectiles
                 SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest
             });
         }
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            width = 20;
+            height = 20;
+            fallThrough = true;
+
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+        }
         public override void OnSpawn(IEntitySource source)
         {
             for (int k = 0; k < 3; k++)

@@ -15,28 +15,25 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
 
         public override void SetDefaults()
         {
-            Item.width = 40;
-            Item.height = 48;
+            Item.width = 26;
+            Item.height = 32;
             Item.value = Item.buyPrice(0, 24, 50, 0);
             Item.rare = ItemRarityID.Cyan;
             Item.accessory = true;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.18f;
-            player.whipRangeMultiplier += 0.11f;
-            player.GetDamage(DamageClass.SummonMeleeSpeed) += .15f;
-        }
-        public override void UpdateEquip(Player player)
-        {
-            Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Elemental_Whiphead = true;
+            player.maxMinions++;
+            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.14f;
+            player.GetDamage(DamageClass.Summon) += .18f;
+            player.GetKnockback(DamageClass.Summon) += .12f;
         }
         public override void AddRecipes()
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<Hallowed_Lash>(), 1)
-            .AddIngredient(ItemID.AvengerEmblem, 1)
-            .AddIngredient(ItemID.FragmentStardust, 4)
+            .AddIngredient(ModContent.ItemType<CHARD>(), 1)
+            .AddRecipeGroup(RecipeGroupID.Fragment, 6)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

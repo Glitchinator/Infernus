@@ -1,6 +1,7 @@
 using Infernus.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,7 +24,7 @@ namespace Infernus.Items.Weapon.HardMode.Magic
             Item.useTime = 38;
             Item.useAnimation = 38;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 6f;
+            Item.knockBack = 2f;
             Item.value = 150000;
             Item.rare = ItemRarityID.LightRed;
             Item.UseSound = SoundID.Item20;
@@ -31,7 +32,7 @@ namespace Infernus.Items.Weapon.HardMode.Magic
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<Gas>();
             Item.noUseGraphic = false;
-            Item.shootSpeed = 22f;
+            Item.shootSpeed = 7f;
             Item.mana = 14;
         }
         public override Vector2? HoldoutOffset()
@@ -46,6 +47,17 @@ namespace Infernus.Items.Weapon.HardMode.Magic
             {
                 position += muzzleOffset;
             }
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
+                newVelocity *= 1f - Main.rand.NextFloat(0.5f);
+
+                Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI);
+            }
+            return false;
         }
         public override void AddRecipes()
         {

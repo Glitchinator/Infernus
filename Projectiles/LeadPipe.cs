@@ -7,6 +7,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ReLogic.Content;
+using System;
 namespace Infernus.Projectiles
 {
 
@@ -19,13 +20,11 @@ namespace Infernus.Projectiles
             Projectile.hostile = false;
             Projectile.penetrate = -1;
             Projectile.netImportant = true;
-            Projectile.width = 50;
-            Projectile.height = 50;
+            Projectile.width = 54;
+            Projectile.height = 54;
             Projectile.timeLeft = 240;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
         }
-        int timer;
-        bool hit = false;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Poisoned, 120);
@@ -33,45 +32,79 @@ namespace Infernus.Projectiles
             {
                 Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, 11), ModContent.ProjectileType<LeadPipe_Proj>(), (int)(Projectile.damage * 0.30f), 1f, Projectile.owner);
             }
-            Projectile.damage = (int)(Projectile.damage * 0.95f);
+            Projectile.damage = (int)(Projectile.damage * 0.75f);
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            for (int i = 0; i < 3; i++)
-            {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, 11), ModContent.ProjectileType<LeadPipe_Proj>(), (int)(Projectile.damage * 0.50f), 1f, Projectile.owner);
-            }
-            Projectile.aiStyle = ProjAIStyleID.Boomerang;
-            hit = true;
+            retracted = true;
             return false;
+        }
+        //int timer;
+        //bool retracting = false;
+        bool retracted = false;
+        int Speed = 24;
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            width = 18;
+            height = 18;
+            fallThrough = true;
+
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
         public override void AI()
         {
-            timer++;
-            if (timer == 9)
+            Player player = Main.player[Projectile.owner];
+            Projectile.rotation += 0.2f * (float)Projectile.direction;
+
+            int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Iron, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
+            Main.dust[dust].noGravity = true;
+            Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.014f;
+
+            Projectile.ai[0] += 1f;
+            if (Projectile.ai[0] >= 8f)
             {
-                Projectile.tileCollide = true;
+                Projectile.ai[0] = 8f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.5f;
             }
-            Projectile.rotation += 0.8f * (float)Projectile.direction;
-            if (hit == false)
+
+
+
+            if (Main.myPlayer == Projectile.owner)
             {
-                Projectile.ai[0] += 1f;
-                if (Projectile.ai[0] >= 23f)
+                var inertia = 8f;
+                Vector2 direction = player.Center - Projectile.Center;
+                float dist_check = Magnitude(direction);
+
+                if (player.dead || !player.active)
                 {
-                    Projectile.ai[0] = 23f;
-                    Projectile.velocity.Y = Projectile.velocity.Y + 0.7f;
+                    return;
                 }
-                if (Projectile.velocity.Y > 22f)
+                if (retracted == true)
                 {
-                    Projectile.velocity.Y = 22f;
+                    Projectile.tileCollide = false;
+                    direction.Normalize();
+                    direction *= Speed;
+                    Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
+
+                }
+                if (dist_check <= 40f)
+                {
+                    if (retracted == true)
+                    {
+                        Projectile.Kill();
+                    }
+                }
+                if (retracted == false && dist_check >= 260f)
+                {
+                    retracted = true;
+                    Speed = 34;
+                    //retracted = true;
                 }
             }
-            if (Main.rand.NextBool(3))
-            {
-                int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Iron, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.014f;
-            }
+        }
+        private static float Magnitude(Vector2 mag)
+        {
+            return (float)Math.Sqrt(mag.X * mag.X + mag.Y * mag.Y);
         }
         public override void OnKill(int timeLeft)
         {

@@ -15,10 +15,10 @@ namespace Infernus.Items.Weapon.Summon
 
         public override void SetDefaults()
         {
-            Item.DefaultToWhip(ModContent.ProjectileType<Whip>(), 16, 3, 4);
+            Item.DefaultToWhip(ModContent.ProjectileType<Whip>(), 20, 3, 3.4f);
             Item.value = Item.buyPrice(0, 4, 50, 0);
 
-            Item.shootSpeed = 3;
+            //Item.shootSpeed = 3;
             Item.rare = ItemRarityID.Blue;
         }
         public override void AddRecipes()

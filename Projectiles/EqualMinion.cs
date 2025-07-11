@@ -28,6 +28,9 @@ namespace Infernus.Projectiles
             Projectile.minion = true;
             Projectile.minionSlots = 1f;
             Projectile.penetrate = -1;
+            Projectile.extraUpdates = 1;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 42;
         }
         public override bool? CanCutTiles()
         {
@@ -48,7 +51,7 @@ namespace Infernus.Projectiles
         public override void OnSpawn(IEntitySource source)
         {
             When_Dive = Main.rand.Next(10, 12);
-            Dive_Reset = Main.rand.Next(19, 22);
+            Dive_Reset = Main.rand.Next(21, 26);
             combo_dist = 160f; 
         }
         public override void AI()
@@ -162,7 +165,7 @@ namespace Infernus.Projectiles
                         }
                         shootVel.Normalize();
                         shootVel *= 16;
-                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, shootVel.X, shootVel.Y, ModContent.ProjectileType<EqualMinion_Shot>(), (int)(Projectile.damage * 0.66f), 3f, Main.myPlayer, 0f, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, shootVel.X, shootVel.Y, ModContent.ProjectileType<EqualMinion_Shot>(), (int)(Projectile.damage * 0.25f), 1f, Main.myPlayer, 0f, Projectile.owner);
                     }
                     combo += 1;
                     if (combo == 3)

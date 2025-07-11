@@ -54,7 +54,7 @@ namespace Infernus.Projectiles
                     Dust wand = Dust.NewDustPerfect(Projectile.Center + speed * 22, DustID.BlueCrystalShard, speed * 2, 0, default, Scale: 2.8f);
                     wand.noGravity = true;
                 }
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Aeritite_Mine_Explosion>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Aeritite_Minion_Explosion>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
                 exploded = true;
             }
         }
@@ -68,7 +68,7 @@ namespace Infernus.Projectiles
                     Dust wand = Dust.NewDustPerfect(Projectile.Center + speed * 22, DustID.BlueCrystalShard, speed * 2, 0, default, Scale: 2.8f);
                     wand.noGravity = true;
                 }
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Aeritite_Mine_Explosion>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Aeritite_Minion_Explosion>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
                 exploded = true;
             }
             return true;

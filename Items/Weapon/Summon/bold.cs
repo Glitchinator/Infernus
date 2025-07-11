@@ -19,11 +19,11 @@ namespace Infernus.Items.Weapon.Summon
 
         public override void SetDefaults()
         {
-            Item.damage = 14;
+            Item.damage = 19;
             Item.DamageType = DamageClass.Summon;
             Item.mana = 7;
             Item.width = 46;
-            Item.height = 46;
+            Item.height = 40;
             Item.useTime = 36;
             Item.useAnimation = 36;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -42,6 +42,7 @@ namespace Infernus.Items.Weapon.Summon
             Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
             return false;
         }
+        /*
         public override void AddRecipes()
         {
             CreateRecipe()
@@ -54,5 +55,6 @@ namespace Infernus.Items.Weapon.Summon
             .AddTile(TileID.Anvils)
             .Register();
         }
+        */
     }
 }

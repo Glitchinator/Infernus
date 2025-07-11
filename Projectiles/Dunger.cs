@@ -32,8 +32,8 @@ namespace Infernus.Projectiles
             Projectile.minion = true;
             Projectile.minionSlots = 1f;
             Projectile.penetrate = -1;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 20;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 22;
         }
         bool teleport = false;
         int timer;
@@ -152,7 +152,7 @@ namespace Infernus.Projectiles
                 {
                     //explode
                     SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.position);
-                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Dunger_Exlos>(), (int)(Projectile.damage * 1.4f), 4f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Dunger_Exlos>(), (int)(Projectile.damage * 0.7f), 4f, Main.myPlayer, 0f, 0f);
                     for (int k = 0; k < 27; k++)
                     {
                         Vector2 speed2 = Main.rand.NextVector2Circular(2f, 4f);

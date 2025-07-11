@@ -17,13 +17,21 @@ namespace Infernus.Projectiles
             Projectile.aiStyle = 0;
             Projectile.width = 12;
             Projectile.height = 28;
-            Projectile.friendly = true;
+            Projectile.friendly = false;
             Projectile.hostile = false;
             Projectile.timeLeft = 60;
             Projectile.netImportant = true;
         }
         public override void AI()
         {
+            if (Projectile.ai[0] > 0)
+            {
+                Projectile.ai[0]--;
+            }
+            if (Projectile.ai[0] <= 0)
+            {
+                Projectile.friendly = true;
+            }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
         public override void OnSpawn(IEntitySource source)

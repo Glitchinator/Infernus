@@ -110,7 +110,7 @@ namespace Infernus.Projectiles
                     Projectile.ai[1] += 1f;
                 }
             }
-            if (Projectile.ai[1] > 45)
+            if (Projectile.ai[1] > 60)
             {
                 Projectile.ai[1] = 0f;
                 Projectile.netUpdate = true;

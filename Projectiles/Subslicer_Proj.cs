@@ -11,8 +11,8 @@ namespace Infernus.Projectiles
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.width = 20;
-            Projectile.height = 20;
+            Projectile.width = 52;
+            Projectile.height = 52;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.timeLeft = 80;
@@ -23,6 +23,14 @@ namespace Infernus.Projectiles
             ProjectileID.Sets.TrailCacheLength[Type] = 3;
 
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+        }
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            width = 18;
+            height = 18;
+            fallThrough = true;
+
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
         public override void AI()
         {

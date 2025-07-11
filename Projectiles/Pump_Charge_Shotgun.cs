@@ -59,7 +59,8 @@ namespace Infernus.Projectiles
                 Dust wand = Dust.NewDustPerfect(Projectile.Center + speed * 46, DustID.SolarFlare, speed * 2, Scale: 1.8f);
                 wand.noGravity = true;
             }
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Pump_Explosion>(), Projectile.damage, 0, Projectile.owner);
+            int y = Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<A_Ray_exlos>(), Projectile.damage, 0, Projectile.owner);
+            Main.projectile[y].DamageType = DamageClass.Ranged;
             SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.position);
         }
         public override bool PreDraw(ref Color lightColor)

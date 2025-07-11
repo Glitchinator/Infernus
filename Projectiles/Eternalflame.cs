@@ -125,14 +125,8 @@ namespace Infernus.Projectiles
                         Projectile.ai[1] = 1f;
                         if (Main.myPlayer == Projectile.owner)
                         {
-                            Vector2 shootVel = targetCenter - Projectile.Center;
-                            if (shootVel == Vector2.Zero)
-                            {
-                                shootVel = new Vector2(0f, 1f);
-                            }
-                            shootVel.Normalize();
-                            shootVel *= 16;
-                            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, shootVel.X, shootVel.Y, ModContent.ProjectileType<TGoblinM_Shot>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);
+
+                            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Top, new Vector2(Main.rand.Next(-5,5), -5), ModContent.ProjectileType<TGoblinM_Shot>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);
                             Projectile.ai[1] = 1f;
                         }
                     }

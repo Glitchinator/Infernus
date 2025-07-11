@@ -27,7 +27,7 @@ namespace Infernus.Items.BossSummon
         }
         public override bool CanUseItem(Player player)
         {
-            return !NPC.AnyNPCs(Mod.Find<ModNPC>("Shark").Type) && (player.ZoneDesert);
+            return !NPC.AnyNPCs(Mod.Find<ModNPC>("Shark").Type) && (player.ZoneBeach);
         }
         public override bool? UseItem(Player player)
         {
@@ -42,9 +42,8 @@ namespace Infernus.Items.BossSummon
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Sand_Scale>(), 10)
-            .AddIngredient(ItemID.Sandstone, 15)
-            .AddIngredient(ItemID.AntlionMandible, 3)
+            .AddIngredient(ItemID.SharkFin, 1)
+            .AddIngredient(ItemID.SandBlock, 16)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

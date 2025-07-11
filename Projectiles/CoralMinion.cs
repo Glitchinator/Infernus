@@ -32,7 +32,7 @@ namespace Infernus.Projectiles
             Projectile.tileCollide = false;
             Projectile.friendly = true;
             Projectile.minion = true;
-            Projectile.minionSlots = 1f;
+            Projectile.minionSlots = 0.5f;
             Projectile.penetrate = -1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;

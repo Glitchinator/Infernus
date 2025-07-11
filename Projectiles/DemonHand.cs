@@ -46,7 +46,7 @@ namespace Infernus.Projectiles
         private Vector2 npcspeed;
         public override void OnSpawn(IEntitySource source)
         {
-            rand_dist = Main.rand.Next(30, 120);
+            rand_dist = Main.rand.Next(15, 50);
             rand_shoot_time = Main.rand.Next(45, 55);
             rand_speed = Main.rand.NextFloat(1.5f, 3f);
             dash_cooldown = rand_shoot_time + 16;
@@ -197,9 +197,7 @@ namespace Infernus.Projectiles
                         }
                         shootVel.Normalize();
                         shootVel *= 18;
-                        int h = Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, shootVel.X,shootVel.Y, ProjectileID.UnholyTridentFriendly, (int)(Projectile.damage * 0.66f), 3f, Main.myPlayer, 0f, Projectile.owner);
-                        Main.projectile[h].DamageType = DamageClass.Summon;
-                        Main.projectile[h].penetrate = 1;
+                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, shootVel.X,shootVel.Y, ModContent.ProjectileType<DemonHand_Shot>(), (int)(Projectile.damage * 0.66f), 3f, Main.myPlayer, 0f, Projectile.owner);
                         timer = 0;
                         dashing = false;
                     }

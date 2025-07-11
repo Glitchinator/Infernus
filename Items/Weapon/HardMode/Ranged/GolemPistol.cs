@@ -17,7 +17,7 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
 
         public override void SetDefaults()
         {
-            Item.damage = 44;
+            Item.damage = 52;
             Item.DamageType = DamageClass.Ranged;
             Item.noMelee = true;
             Item.width = 48;
@@ -40,12 +40,9 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            for (int i = 0; i < 2; i++)
-            {
-                Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(1));
+            Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(3));
 
-                Projectile.NewProjectileDirect(source, position, newVelocity, ModContent.ProjectileType<Bullet_Rocket_Prime>(), damage, knockback, player.whoAmI);
-            }
+            Projectile.NewProjectileDirect(source, position, newVelocity, ModContent.ProjectileType<Bullet_Rocket_Prime>(), damage, knockback, player.whoAmI);
             return false;
         }
         public override void AddRecipes()

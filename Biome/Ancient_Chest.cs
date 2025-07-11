@@ -12,6 +12,7 @@ namespace Infernus.Biome
 {
     public class Ancient_Chest : ModSystem
     {
+        int rand_num;
         // We use PostWorldGen for this because we want to ensure that all chests have been placed before adding items.
         public override void PostWorldGen()
         {
@@ -22,7 +23,7 @@ namespace Infernus.Biome
             //int itemsToPlaceInFrozenChestsChoice = 0;
             // Rather than place items in each chest, we'll place up to 6 items (2 of each). 
             int itemsPlaced = 0;
-            int maxItems = 11;
+            int maxItems = 100;
             // Loop over all the chests
             for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++)
             {
@@ -38,16 +39,17 @@ namespace Infernus.Biome
                 {
                     // We have found a Frozen Chest
                     // If we don't want to add one of the items to every Frozen Chest, we can randomly skip this chest with a 33% chance.
-                    if (WorldGen.genRand.NextBool(1))
-                       continue;
+                    //if (WorldGen.genRand.NextBool(2))
+                     //  continue;
                     // Next we need to find the first empty slot for our item
                     for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
                     {
                         if (chest.item[inventoryIndex].type == ItemID.None)
                         {
+                            rand_num = Main.rand.Next(17, 42);
                             // Place the item
                             chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<Ancient_Fishing_Spear>());
-                            chest.item[inventoryIndex].stack = 69;//itemsToPlaceInFrozenChests[itemsToPlaceInFrozenChestsChoice]);
+                            chest.item[inventoryIndex].stack = rand_num;//itemsToPlaceInFrozenChests[itemsToPlaceInFrozenChestsChoice]);
                             // Decide on the next item that will be placed.
                             //itemsToPlaceInFrozenChestsChoice = (itemsToPlaceInFrozenChestsChoice + 1) % itemsToPlaceInFrozenChests.Length;
                             // Alternate approach: Random instead of cyclical: chest.item[inventoryIndex].SetDefaults(WorldGen.genRand.Next(itemsToPlaceInFrozenChests));

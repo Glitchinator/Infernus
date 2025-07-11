@@ -13,26 +13,36 @@ namespace Infernus.Projectiles
     {
         public override void SetDefaults()
         {
-            Projectile.width = 80;
-            Projectile.height = 80;
+            Projectile.width = 90;
+            Projectile.height = 90;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 300;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
             Projectile.netImportant = true;
         }
         public override void AI()
         {
+            /* this syncs ulike int timer
             Projectile.ai[0] += 1f;
             if (Projectile.ai[0] >= 30f)
             {
                 Projectile.ai[0] = 30f;
                 Projectile.tileCollide = true;
             }
+            */
             Projectile.rotation += (float)Projectile.direction * 2;
             Projectile.velocity.X = Projectile.velocity.X * 1.02f;
             Projectile.velocity.Y = Projectile.velocity.Y * 1.02f;
             Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.CrystalSerpent_Pink, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
+        }
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            width = 18;
+            height = 18;
+            fallThrough = true;
+
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
         public override void OnKill(int timeLeft)
         {

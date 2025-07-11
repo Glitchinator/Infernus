@@ -22,12 +22,12 @@ namespace Infernus.Projectiles
             Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.width = 50;
-            Projectile.height = 50;
+            Projectile.width = 82;
+            Projectile.height = 82;
             Projectile.penetrate = -1;
             Projectile.netImportant = true;
-            Projectile.tileCollide = false;
-            Projectile.timeLeft = 120;
+            Projectile.tileCollide = true;
+            Projectile.timeLeft = 100;
             Projectile.alpha = 0;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 18;
@@ -41,6 +41,14 @@ namespace Infernus.Projectiles
                 Dust Sword = Dust.NewDustPerfect(Projectile.Center + speed * 32, DustID.InfernoFork, speed * 3, Scale: 2f);
                 Sword.noGravity = true;
             }
+        }
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            width = 18;
+            height = 18;
+            fallThrough = true;
+
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
         public override void OnKill(int timeLeft)
         {
@@ -99,8 +107,7 @@ namespace Infernus.Projectiles
             Projectile.velocity.X = Projectile.velocity.X * .97f;
             Projectile.velocity.Y = Projectile.velocity.Y * .97f;
 
-            Projectile.spriteDirection = Projectile.direction
-                ;
+            Projectile.spriteDirection = Projectile.direction;
             Projectile.rotation += 0.2f * (float)Projectile.direction;
         }
 

@@ -26,9 +26,9 @@ namespace Infernus.Projectiles
             Projectile.timeLeft = 250;
             Projectile.netImportant = true;
             Projectile.extraUpdates = 1;
-            Projectile.penetrate = 5;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 11;
+            Projectile.penetrate = 3;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 11;
         }
         public override void AI()
         {
@@ -38,14 +38,11 @@ namespace Infernus.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.OnFire3, 500);
+            target.AddBuff(BuffID.OnFire3, 180);
 
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Bullet_Explosion>(), Projectile.damage, 0, Projectile.owner);
-
-            for (int k = 0; k < 20; k++)
-            {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.InfernoFork, 2.5f, -2.5f, 0, default, 1.2f);
-            }
+            int y = Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<A_Ray_exlos>(), Projectile.damage, 0, Projectile.owner);
+            Main.projectile[y].DamageType = DamageClass.Ranged;
+            Projectile.damage = (int)(Projectile.damage * 0.85f);
         }
         public override bool PreDraw(ref Color lightColor)
         {

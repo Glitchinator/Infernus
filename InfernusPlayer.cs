@@ -1,4 +1,5 @@
 ﻿using Infernus.Buffs;
+using Infernus.Buffs.Whip_Debuffs;
 using Infernus.Items.Accesories;
 using Infernus.Items.Materials;
 using Infernus.Items.Weapon.HardMode.Accessories;
@@ -12,6 +13,7 @@ using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
@@ -96,7 +98,6 @@ namespace Infernus
 
         // whip heads
         public bool Ice_Whiphead = false;
-        public bool Elemental_Whiphead = false;
         public bool Basalt_Whiphead = false;
         public bool Defiled_Whiphead = false;
         public bool Ancient_Whiphead = false;
@@ -118,6 +119,9 @@ namespace Infernus
         // Magic Pouch
         public bool Magic_Pouch = false;
 
+        // cryo Gauntlet
+        public bool Cryo_Gauntlet = false;
+
         public override void ModifyNursePrice(NPC nurse, int health, bool removeDebuffs, ref int price)
         {
             if (Player.statLife < Player.statLifeMax)
@@ -133,9 +137,9 @@ namespace Infernus
             {
                 Main.NewText("Welcome to Infernus Mod! If you have any questions the Discord is the place to ask." + "\nYou are playing on Infernus V1.6.7", GainXP_Resource);
             }
-            if (Main.netMode == NetmodeID.MultiplayerClient)
+            if (Main.netMode == NetmodeID.Server)
             {
-                Main.NewText("Welcome to Infernus Mod! If you have any questions the Discord is the place to ask." + "\nYou are playing on Infernus V1.6.7", GainXP_Resource);
+                ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Welcome to Infernus Mod! If you have any questions the Discord is the place to ask." + "\nYou are playing on Infernus V1.6.7"), GainXP_Resource, Player.whoAmI);
             }
         }
 
@@ -229,28 +233,14 @@ namespace Infernus
                     Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, -5), ModContent.ProjectileType<Projectiles.Lectric>(), (int)(damageDone * 1.15f), 0, 0);
                 }
             }
-            if (Elemental_Whiphead == true && hit.DamageType == DamageClass.SummonMeleeSpeed)
-            {
-                if (Main.rand.Next(3) < 1)
-                {
-                    target.AddBuff(BuffID.Frostburn2, 120);
-                }
-                if (Main.rand.Next(3) < 1)
-                {
-                    target.AddBuff(BuffID.OnFire3, 120);
-                }
-                if (Main.rand.Next(3) < 1)
-                {
-                    target.AddBuff(BuffID.Venom, 120);
-                }
-            }
             if (Basalt_Whiphead == true && hit.DamageType == DamageClass.SummonMeleeSpeed)
             {
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y / 1.35f, Main.rand.Next(-2, 3), Main.rand.Next(-2, 2), ModContent.ProjectileType<Basalt_Whip_Proj>(), (int)(damageDone * 0.5f), 0, 0);
                 }
             }
+            /*
             if (Ancient_Whiphead == true && hit.DamageType == DamageClass.SummonMeleeSpeed)
             {
                 if (Main.rand.Next(5) < 1)
@@ -258,9 +248,10 @@ namespace Infernus
                     Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, Main.rand.Next(-2, 3), Main.rand.Next(-2, -2), ModContent.ProjectileType<Bone_Whip>(), (int)(damageDone * 0.5f), 0, 0);
                 }
             }
+            */
             if (Defiled_Whiphead == true && hit.DamageType == DamageClass.SummonMeleeSpeed)
             {
-                if (Main.rand.Next(3) < 1)
+                if (Main.rand.Next(5) < 1)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ModContent.ProjectileType<Sandstorm_Whip>(), (int)(damageDone * 0.6f), 0, 0);
                 }
@@ -294,6 +285,13 @@ namespace Infernus
                 }
 
             }
+            if (Cryo_Gauntlet == true && hit.DamageType == DamageClass.SummonMeleeSpeed)
+            {
+                if (Main.rand.Next(5) < 1)
+                {
+                    Player.AddBuff(ModContent.BuffType<Cryo_Buff>(), 180);
+                }
+            }
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
@@ -306,17 +304,27 @@ namespace Infernus
             {
                 target.AddBuff(ModContent.BuffType<Buffs.Bleeding_Debuff>(), 180);
             }
+            if (Ancient_Whiphead == true && modifiers.DamageType == DamageClass.SummonMeleeSpeed)
+            {
+                target.AddBuff(ModContent.BuffType<Buffs.Whip_Debuffs.Ancient_Whiphead>(), 300);
+            }
+            if (Basalt_Whiphead == true && modifiers.DamageType == DamageClass.SummonMeleeSpeed)
+            {
+                target.AddBuff(ModContent.BuffType<Buffs.Whip_Debuffs.Basalt_Whiphead>(), 300);
+            }
             if (Squid_Heart == true && modifiers.DamageType == DamageClass.SummonMeleeSpeed)
             {
-                if (Main.rand.Next(10) < 1)
+                if (Main.rand.Next(6) < 1)
                 {
-                    for (int k = 0; k < 13; k++)
+                    for (int k = 0; k < 19; k++)
                     {
-                        Vector2 speed = Main.rand.NextVector2Circular(0.5f, 1f);
-                        Dust Sword = Dust.NewDustPerfect(target.Center + speed * 32, DustID.Vortex, speed * 3, Scale: 2f);
+                        Vector2 speed = Main.rand.NextVector2Circular(1f, 2f);
+                        Dust Sword = Dust.NewDustPerfect(target.Center + speed * 32, DustID.Vortex, speed * 9, Scale: 3f);
                         Sword.noGravity = true;
                     }
-                    modifiers.SourceDamage *= 1.65f;
+                    modifiers.SourceDamage *= 2.1f;
+                    target.AddBuff(ModContent.BuffType<Radiant_Squid_Buff>(), 300);
+                    SoundEngine.PlaySound(SoundID.Item110, target.position);
                 }
             }
         }
@@ -376,9 +384,7 @@ namespace Infernus
 
             if (Equite_Equipped == true && Equite_Emblem_Equipped == true)
             {
-                Player.statManaMax2 += 80;
                 Player.maxMinions += 2;
-                Player.GetArmorPenetration(DamageClass.Generic) += 1;
             }
 
             if(Equite_Amount < Max_Equite_Amount && Equite_Equipped == true)
@@ -429,7 +435,6 @@ namespace Infernus
             Meteor_Whetstone = false;
             Squid_Heart = false;
             Ice_Whiphead = false;
-            Elemental_Whiphead = false;
             Basalt_Whiphead = false;
             Defiled_Whiphead = false;
             Ancient_Whiphead = false;
@@ -439,6 +444,7 @@ namespace Infernus
             Phantom_Blade = false;
             Rage = false;
             Magic_Pouch = false;
+            Cryo_Gauntlet = false;
 
             if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[DashRight] < 15)
             {

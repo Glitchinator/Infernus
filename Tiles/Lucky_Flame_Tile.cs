@@ -34,16 +34,27 @@ namespace Infernus.Tiles
             dust.velocity.Y -= 0.5f + Main.rand.Next(10) * 0.1f;
             dust.fadeIn = 0.5f + Main.rand.Next(10) * 0.1f;
             // HasCampfire is a gameplay effect, so we don't run the code if closer is true.
+            if (closer)
+            {
+                return;
+            }
             Player player = Main.LocalPlayer;
+            if (Main.tile[i, j].TileFrameY < 36)
+            {
+                player.AddBuff(ModContent.BuffType<Buffs.Lucky_Flame>(), 10);
+            }
+            else
+            {
+                player.ClearBuff(ModContent.BuffType<Buffs.Lucky_Flame>());
+            }
+            /*
             if (Main.tile[i, j].TileFrameY < 36)
             {
                 player.AddBuff(ModContent.BuffType<Buffs.Lucky_Flame>(), 3);
                 player.buffTime[player.FindBuffIndex(ModContent.BuffType<Buffs.Lucky_Flame>())] = 3;
             }
-            if (closer)
-            {
-                return;
-            }
+
+            */
         }
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

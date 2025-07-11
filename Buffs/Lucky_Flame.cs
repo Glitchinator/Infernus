@@ -14,6 +14,7 @@ namespace Infernus.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             player.luck += 0.15f;
+            player.buffTime[buffIndex] = 10;
         }
     }
 }

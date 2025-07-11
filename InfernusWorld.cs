@@ -16,6 +16,7 @@ namespace Infernus
 {
     public class InfernusWorld : ModSystem
     {
+
         public static bool BoulderInvasionUp = false;
         public static bool downedBoulderInvasion = false;
 
@@ -24,6 +25,10 @@ namespace Infernus
         public static int Ruderibus_Timer;
 
         public static int Boulder_Boss_Timer;
+
+        public static int Raiko_Alter_X = 0;
+
+        public static int Raiko_Alter_Y = 0;
 
 
         public int Last_Plant_Spawn = 10800; // miniboss natural spawning timer
@@ -69,12 +74,23 @@ namespace Infernus
             Main.invasionSize = 0;
             BoulderInvasionUp = false;
             downedBoulderInvasion = false;
+            Raiko_Alter_X = 0;
+            Raiko_Alter_Y = 0;
         }
 
         public override void SaveWorldData(TagCompound tag)
         {
             var downed = new List<string>();
             if (downedBoulderInvasion) downed.Add("BoulderInvasion");
+
+            if (Raiko_Alter_X != 0)
+            {
+                tag["Raiko_Alter_X"] = Raiko_Alter_X;
+            }
+            if (Raiko_Alter_Y != 0)
+            {
+                tag["Raiko_Alter_Y"] = Raiko_Alter_Y;
+            }
 
             new TagCompound {
                 {"downed", downed}
@@ -85,6 +101,8 @@ namespace Infernus
         {
             var downed = tag.GetList<string>("downed");
             downedBoulderInvasion = downed.Contains("BoulderInvasion");
+            Raiko_Alter_X = tag.GetInt("Raiko_Alter_X");
+            Raiko_Alter_Y = tag.GetInt("Raiko_Alter_Y");
         }
 
         public override void NetSend(BinaryWriter writer)

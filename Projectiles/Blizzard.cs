@@ -27,8 +27,8 @@ namespace Infernus.Projectiles
             Projectile.minion = true;
             Projectile.minionSlots = 1f;
             Projectile.penetrate = -1;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 19;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 18;
         }
         bool close = false;
         int timer;
@@ -125,7 +125,7 @@ namespace Infernus.Projectiles
                     Projectile.velocity.Y = Projectile.velocity.Y *= 0.95f;
                     Projectile.velocity.X = Projectile.velocity.X *= 0.95f;
                 }
-                if (timer == 25)
+                if (timer == 55)
                 {
                     for (int k = 0; k < 11; k++)
                     {
@@ -135,8 +135,7 @@ namespace Infernus.Projectiles
                     }
                     for (int k = 0; k < 1; k++)
                     {
-                        int x = Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, 11), ModContent.ProjectileType<Ice_Slash>(), (int)(Projectile.damage * 0.66f), 2f, Projectile.owner);
-                        Main.projectile[x].DamageType = DamageClass.Summon;
+                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, 11), ModContent.ProjectileType<Ice_Slash_Summon>(), (int)(Projectile.damage * 0.5f), 2f, Projectile.owner);
                     }
                     Vector2 shootVel = targetCenter - Projectile.Center;
                     if (shootVel == Vector2.Zero)
@@ -145,8 +144,7 @@ namespace Infernus.Projectiles
                     }
                     shootVel.Normalize();
                     shootVel *= 8;
-                    int y = Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, shootVel.X, shootVel.Y, ModContent.ProjectileType<Ice_Slash>(), (int)(Projectile.damage * 0.66f), 2f, Main.myPlayer, 0f, Projectile.owner);
-                    Main.projectile[y].DamageType = DamageClass.Summon;
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, shootVel.X, shootVel.Y, ModContent.ProjectileType<Ice_Slash_Summon>(), (int)(Projectile.damage * 0.5f), 2f, Main.myPlayer, 0f, Projectile.owner);
                     timer = 0;
                     close = false;
                 }

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.GameContent.Drawing;
 using Terraria.GameContent.ObjectInteractions;
@@ -61,24 +62,45 @@ namespace Infernus.Tiles
                 Player player = Main.LocalPlayer;
                 if(player.HasItemInAnyInventory(ModContent.ItemType<Scorched_Sinew>()))
                 {
+                    Point p = new Point(i, j);
+                    Vector2 g = p.ToWorldCoordinates();
                     player.ConsumeItem(ModContent.ItemType<Scorched_Sinew>());
-                    SoundEngine.PlaySound(SoundID.NPCHit52, new Vector2(i, j));
-                    for (int k = 0; k < 13; k++)
+                    for (int k = 0; k < 26; k++)
                     {
                         Vector2 speed2 = Main.rand.NextVector2Unit();
-                        Dust wand = Dust.NewDustPerfect(new Vector2(i,j), DustID. SolarFlare, speed2 * 2, Scale: 1f);
+                        Dust wand = Dust.NewDustPerfect(g, DustID. SolarFlare, speed2 * 16, Scale: 1.3f);
                         wand.noGravity = true;
                     }
+                    SoundEngine.PlaySound(SoundID.NPCHit52, g);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
 
                     {
                         NPC.SpawnOnPlayer(player.whoAmI, Mod.Find<ModNPC>("Raiko").Type);
                     }
                 }
+                else
+                {
+                    if (Main.netMode == NetmodeID.SinglePlayer)
+                    {
+                        Main.NewText("Bring an offering to summon the meteor", 239, 106, 15);
+                    }
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Bring an offering to summon the meteor"), new(239, 106, 15), player.whoAmI);
+                    }
+                }
             }
             else if (Main.dayTime == true)
             {
-                Main.NewText("The sun shines brighter than the flame, come back at night.", 229, 214, 127);
+                Player player = Main.LocalPlayer;
+                if (Main.netMode == NetmodeID.SinglePlayer)
+                {
+                    Main.NewText("The sun shines brighter than the flame, come back at night.", 239, 106, 15);
+                }
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("The sun shines brighter than the flame, come back at night."), new(239, 106, 15), player.whoAmI);
+                }
             }
             return true;
         }

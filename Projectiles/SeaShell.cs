@@ -10,7 +10,6 @@ namespace Infernus.Projectiles
 
     public class SeaShell : ModProjectile
     {
-        int timer;
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailingMode[Type] = 0;
@@ -30,17 +29,24 @@ namespace Infernus.Projectiles
         }
         public override void AI()
         {
-            timer++;
             Projectile.rotation += (float)Projectile.direction * 8;
 
             Projectile.velocity.Y = Projectile.velocity.Y + 0.15f;
 
-            if(timer <= 50)
+            Projectile.ai[0] += 1f;
+
+            if (Projectile.ai[0] <= 50f)
             {
                 if (Main.rand.NextBool(7))
                 {
-                    int a = Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<SeaShell_Fragments>(), (int)(Projectile.damage * .45f), 0, Projectile.owner);
-                    Main.projectile[a].timeLeft = 100;
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<SeaShell_Fragments>(), (int)(Projectile.damage * .45f), 0, Projectile.owner);
+                }
+            }
+            else
+            {
+                if (Main.rand.NextBool(14))
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<SeaShell_Fragments>(), (int)(Projectile.damage * .85f), 0, Projectile.owner);
                 }
             }
         }

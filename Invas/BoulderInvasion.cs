@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -73,11 +74,25 @@ namespace Infernus.Invas
         {
             if (Main.invasionX == Main.spawnTileX && Main.invasionSize !<= 0)
             {
-                Main.NewText("An onslaught of rock and earth approaches from the west.", 207, 196, 162);
+                if (Main.netMode == NetmodeID.SinglePlayer)
+                {
+                    Main.NewText("An onslaught of rock and earth approaches from the west.", 207, 196, 162);
+                }
+                if(Main.netMode == NetmodeID.Server)
+                {
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("An onslaught of rock and earth approaches from the west."), new(207, 196, 162), -1);
+                }
             }
             if (Main.invasionSize <= 0)
             {
-                Main.NewText("The boulders leave, tunneling back into the ground.", 207, 196, 162);
+                if (Main.netMode == NetmodeID.SinglePlayer)
+                {
+                    Main.NewText("The boulders leave, tunneling back into the ground.", 207, 196, 162);
+                }
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The boulders leave, tunneling back into the ground."), new(207, 196, 162), -1);
+                }
 
                 if (Main.hardMode == true)
                 {

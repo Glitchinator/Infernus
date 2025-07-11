@@ -11,6 +11,11 @@ namespace Infernus.Projectiles
     public class Coral_Minion_Shot : ModProjectile
     {
         public override string Texture => "Infernus/Items/Weapon/Melee/Hatchet";
+
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
+        }
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Summon;

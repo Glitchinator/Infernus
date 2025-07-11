@@ -25,12 +25,5 @@ namespace Infernus.Items.Mounts
             Item.noMelee = true;
             Item.mountType = ModContent.MountType<Rock_Mount>();
         }
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Materials.Gaming>(), 24)
-            .AddTile(TileID.Anvils)
-            .Register();
-        }
     }
 }

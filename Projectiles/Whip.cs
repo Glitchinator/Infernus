@@ -1,4 +1,5 @@
-﻿using Infernus.Buffs.Whip_Debuffs;
+﻿using Infernus.Buffs;
+using Infernus.Buffs.Whip_Debuffs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -32,6 +33,8 @@ namespace Infernus.Projectiles
         {
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
             target.AddBuff(ModContent.BuffType<aerwhipbuff>(), 300);
+            Main.player[Projectile.owner].AddBuff(ModContent.BuffType<Aeritite_Whip_Buff>(), 180);
+            Projectile.damage = (int)(Projectile.damage * 0.85f);
         }
 
         public override bool PreDraw(ref Color lightColor)

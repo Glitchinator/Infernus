@@ -33,11 +33,7 @@ namespace Infernus.Projectiles
         {
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
             target.AddBuff(ModContent.BuffType<icewhipbuff>(), 300);
-
-            if (Main.rand.NextBool(2))
-            {
-                target.AddBuff(BuffID.Frostburn, 300);
-            }
+            Projectile.damage = (int)(Projectile.damage * 0.85f);
         }
 
         public override bool PreDraw(ref Color lightColor)

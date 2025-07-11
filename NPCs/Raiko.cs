@@ -9,11 +9,13 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace Infernus.NPCs
@@ -562,7 +564,6 @@ namespace Infernus.NPCs
             player = Main.player[NPC.target];
             //speed = 7f;
             Vector2 moveTo = player.Center + offset;
-            //Dust.NewDust(moveTo, 10, 10, DustID.SolarFlare, 0, 0);
             Vector2 move = moveTo - NPC.Center;
             float magnitude = Magnitude(move);
             if ( magnitude <= 80f)
@@ -618,8 +619,6 @@ namespace Infernus.NPCs
                     }
                     NPC.velocity.X = (float)(Math.Cos(rotation) * 9 * (magnitude / 230)) * -1;
                     NPC.velocity.Y = (float)(Math.Sin(rotation) * 9 * (magnitude / 230)) * -1;
-                    string i = magnitude.ToString();
-                    Main.NewText(i, 229, 214, 127);
                 }
             }
             for (int i = 0; i < 30; i++)
@@ -783,9 +782,9 @@ namespace Infernus.NPCs
                 {
                     Main.NewText("Meteors storm the upper atmosphere. Burning before they touch ground, such a sight to see.", 239, 106, 15);
                 }
-                if (Main.netMode == NetmodeID.MultiplayerClient)
+                if (Main.netMode == NetmodeID.Server)
                 {
-                    Main.NewText("Meteors storm the upper atmosphere. Burning before they touch ground, such a sight to see.", 239, 106, 15);
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Meteors storm the upper atmosphere. Burning before they touch ground, such a sight to see."), new(239, 106, 15), -1);
                 }
             }
 

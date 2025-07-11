@@ -4,12 +4,15 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 using Conditions = Terraria.GameContent.ItemDropRules.Conditions;
@@ -397,19 +400,26 @@ namespace Infernus.NPCs
 
             if (InfernusSystem.Equite_Generated == false)
             {
-                if (Main.netMode == NetmodeID.SinglePlayer)
-                {
-                    Main.NewText("Equite has been generated in your caves!", 229, 214, 127);
-                }
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
-                    Main.NewText("Equite has been generated in your caves!", 229, 214, 127);
+                    return;
                 }
-                for (int i = 0; i < (int)((Main.maxTilesX * Main.maxTilesY) * 1E-04); i++)
+                ThreadPool.QueueUserWorkItem(_ =>
                 {
-                    WorldGen.OreRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.UnderworldLayer), WorldGen.genRand.Next(5, 9), WorldGen.genRand.Next(5, 9), (ushort)ModContent.TileType<Tiles.Equite_Ore_Tile>());
-                }
-                InfernusSystem.Equite_Generated = true;
+                    if (Main.netMode == NetmodeID.SinglePlayer)
+                    {
+                        Main.NewText("Equite has been generated in your caves!", 229, 214, 127);
+                    }
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Equite has been generated in your caves!"), new(229, 214, 127), -1);
+                    }
+                    for (int i = 0; i < (int)((Main.maxTilesX * Main.maxTilesY) * 1E-04); i++)
+                    {
+                        WorldGen.OreRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)GenVars.rockLayer, Main.UnderworldLayer), WorldGen.genRand.Next(5, 9), WorldGen.genRand.Next(5, 9), (ushort)ModContent.TileType<Tiles.Equite_Ore_Tile>());
+                    }
+                    InfernusSystem.Equite_Generated = true;
+                });
             }
         }
 

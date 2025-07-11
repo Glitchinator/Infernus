@@ -36,13 +36,13 @@ namespace Infernus.Projectiles
             time--;
             if (time <= 0)
             {
-                Projectile.velocity.X = Projectile.velocity.X * 1.06f;
-                Projectile.velocity.Y = Projectile.velocity.Y * 1.06f;
+                Projectile.velocity.X = Projectile.velocity.X * 1.1f;
+                Projectile.velocity.Y = Projectile.velocity.Y * 1.1f;
             }
             else
             {
-                Projectile.velocity.X = Projectile.velocity.X * 0.96f;
-                Projectile.velocity.Y = Projectile.velocity.Y * 0.96f;
+                Projectile.velocity.X = Projectile.velocity.X * 0.94f;
+                Projectile.velocity.Y = Projectile.velocity.Y * 0.94f;
             }
 
 

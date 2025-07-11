@@ -13,8 +13,8 @@ namespace Infernus.Projectiles
     {
         public override void SetDefaults()
         {
-            Projectile.width = 70;
-            Projectile.height = 70;
+            Projectile.width = 82;
+            Projectile.height = 82;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.friendly = true;
             Projectile.hostile = false;
@@ -29,6 +29,14 @@ namespace Infernus.Projectiles
             SoundEngine.PlaySound(SoundID.Item70, Projectile.position);
             Projectile.damage = (int)(Projectile.damage * 0.85f);
         }
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            width = 50;
+            height = 50;
+            fallThrough = true;
+
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+        }
 
         public override void AI()
         {
@@ -40,18 +48,14 @@ namespace Infernus.Projectiles
             Projectile.ai[0] += 1f;
             if (Projectile.ai[0] >= 20f)
             {
-                Projectile.ai[0] = 15f;
+                Projectile.ai[0] = 20f;
                 Projectile.tileCollide = true;
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.8f;
-            }
-            if (Projectile.velocity.Y > 16f)
-            {
-                Projectile.velocity.Y = 16f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.7f;
             }
         }
         public override void OnSpawn(IEntitySource source)
         {
-            for (int k = 0; k < 3; k++)
+            for (int k = 0; k < 2; k++)
             {
                 float speedMulti = Main.rand.NextFloat(0.22f);
 

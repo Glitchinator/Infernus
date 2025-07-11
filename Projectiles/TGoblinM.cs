@@ -38,6 +38,7 @@ namespace Infernus.Projectiles
             Projectile.minionSlots = 1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
+            Projectile.extraUpdates = 1;
         }
         public override bool MinionContactDamage()
         {

@@ -91,17 +91,14 @@ namespace Infernus.NPCs
             Vector2 dest = NPC.Center - destination;
             float diddy = Magnitude(dest);
             if(diddy  >= 80f && dashing == false)
-            {
-                NPC.color = Color.Red;
+            {;
                 NPC.damage = 0;
             }
             else
             {
                 NPC.damage = 40;
-                NPC.color = Color.White;
             }
 
-            Dust.NewDust(destination, 10, 10, DustID.SolarFlare, 0, 0);
             NPC.realLife = Main.npc[ParentIndex].whoAmI;
             Timer = InfernusWorld.Ruderibus_Timer;
             NPC.netUpdate = true;
@@ -563,8 +560,6 @@ namespace Infernus.NPCs
                     }
                     NPC.velocity.X = (float)(Math.Cos(rotation) * 12 * (magnitude / 200)) * -1;
                     NPC.velocity.Y = (float)(Math.Sin(rotation) * 12 * (magnitude / 200)) * -1;
-                    string i = magnitude.ToString();
-                    Main.NewText(i, 229, 214, 127);
                 }
             }
         }

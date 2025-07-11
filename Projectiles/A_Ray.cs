@@ -20,7 +20,6 @@ namespace Infernus.Projectiles
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
         }
-        int timer;
         public override void AI()
         {
             Projectile.localAI[0] += 1f;
@@ -38,33 +37,22 @@ namespace Infernus.Projectiles
                     Main.dust[dust].velocity *= 0.2f;
                 }
             }
-            timer++;
-            if (timer == 20)
+            Projectile.ai[1] += 1f;
+            if (Projectile.ai[1] >= 20f)
             {
                 Projectile.tileCollide = true;
+                Projectile.ai[1] = 20f;
             }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ProjectileID.SolarWhipSwordExplosion, Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);
-            for (int k = 0; k < 34; k++)
-            {
-                Vector2 speed = Main.rand.NextVector2Unit();
-                Dust wand = Dust.NewDustPerfect(Projectile.Center + speed * 32, DustID.SolarFlare, speed * 2, Scale: 2.5f);
-                wand.noGravity = true;
-            }
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<A_Ray_exlos>(), (int)(Projectile.damage * 1.1f), 4f, Projectile.owner);
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            for (int k = 0; k < 34; k++)
-            {
-                Vector2 speed = Main.rand.NextVector2Unit();
-                Dust wand = Dust.NewDustPerfect(Projectile.Center + speed * 32, DustID.SolarFlare, speed * 2, Scale: 2.5f);
-                wand.noGravity = true;
-            }
-            Projectile.Kill();
-            return false;
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<A_Ray_exlos>(), (int)(Projectile.damage * 1.1f), 4f, Projectile.owner);
+            return true;
         }
     }
 }

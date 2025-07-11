@@ -19,7 +19,7 @@ namespace Infernus.Items.Accesories
             Item.height = 46;
             Item.accessory = true;
             Item.value = 45000;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.Green;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -34,7 +34,6 @@ namespace Infernus.Items.Accesories
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<Thorny_Extension>(), 1)
             .AddIngredient(ModContent.ItemType<Frozen_Whiphead>(), 1)
-            .AddIngredient(ModContent.ItemType<IceSpikes>(), 8)
             .AddTile(TileID.TinkerersWorkbench)
             .Register();
         }

@@ -32,6 +32,7 @@ namespace Infernus.Projectiles
         {
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
             target.AddBuff(ModContent.BuffType<gemwhipbuff>(), 300);
+            Projectile.damage = (int)(Projectile.damage * 0.85f);
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -61,7 +62,7 @@ namespace Infernus.Projectiles
                     float t = Timer / timeToFlyOut;
                     scale = MathHelper.Lerp(0.55f, 1.55f, Utils.GetLerpValue(0.15f, 0.75f, t, true) * Utils.GetLerpValue(0.95f, 0.75f, t, true));
 
-                    if (Main.rand.NextBool(1))
+                    if (Main.rand.NextBool(2))
                     {
                         int whip = Dust.NewDust(pos, Projectile.width, Projectile.height, Main.rand.Next(new int[] { DustID.Firework_Blue, DustID.Firework_Green, DustID.Firework_Yellow, DustID.Firework_Red }), Projectile.velocity.X, Projectile.velocity.Y);
                         Main.dust[whip].noGravity = true;

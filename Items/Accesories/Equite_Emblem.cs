@@ -15,8 +15,8 @@ namespace Infernus.Items.Accesories
         }
         public override void SetDefaults()
         {
-            Item.width = 34;
-            Item.height = 38;
+            Item.width = 32;
+            Item.height = 28;
             Item.accessory = true;
             Item.value = 45000;
             Item.rare = ItemRarityID.Orange;
@@ -28,12 +28,12 @@ namespace Infernus.Items.Accesories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.whipRangeMultiplier += 0.1f;
-            player.maxMinions++;
         }
         public override void AddRecipes()
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<Equite_Bar>(), 8)
+            .AddIngredient(ItemID.PygmyNecklace)
             .AddTile(TileID.Anvils)
             .Register();
         }

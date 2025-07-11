@@ -19,18 +19,19 @@ namespace Infernus.Items.Weapon.Summon
 
         public override void SetDefaults()
         {
-            Item.damage = 16;
+            Item.damage = 12;
             Item.DamageType = DamageClass.Summon;
             Item.mana = 10;
-            Item.width = 44;
-            Item.height = 44;
+            Item.width = 52;
+            Item.height = 60;
             Item.useTime = 36;
             Item.useAnimation = 36;
-            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useStyle = ItemUseStyleID.HoldUp;
             Item.noMelee = true;
             Item.knockBack = 2f;
             Item.value = Item.buyPrice(0, 8, 50, 0);
             Item.rare = ItemRarityID.Orange;
+            Item.noUseGraphic = true;
             Item.UseSound = SoundID.Item96;
             Item.shoot = ModContent.ProjectileType<Projectiles.EqualMinion>();
             Item.buffType = ModContent.BuffType<EqualBuff>();

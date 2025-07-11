@@ -15,6 +15,7 @@ namespace Infernus.Projectiles
         {
             ProjectileID.Sets.TrailingMode[Type] = 0;
             ProjectileID.Sets.TrailCacheLength[Type] = 5;
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
         }
         public override bool PreDraw(ref Color lightColor)
         {

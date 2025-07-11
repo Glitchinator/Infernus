@@ -15,15 +15,16 @@ namespace Infernus.Items.Weapon.Summon
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true;
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            ItemID.Sets.StaffMinionSlotsRequired[Item.type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 14;
+            Item.damage = 16;
             Item.DamageType = DamageClass.Summon;
             Item.mana = 10;
-            Item.width = 50;
-            Item.height = 50;
+            Item.width = 36;
+            Item.height = 40;
             Item.useTime = 36;
             Item.useAnimation = 36;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -40,6 +41,7 @@ namespace Infernus.Items.Weapon.Summon
             player.AddBuff(Item.buffType, 2);
             position = Main.MouseWorld;
             Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
+            Projectile.NewProjectileDirect(source, player.position, velocity, type, damage, knockback, player.whoAmI);
             return false;
         }
 

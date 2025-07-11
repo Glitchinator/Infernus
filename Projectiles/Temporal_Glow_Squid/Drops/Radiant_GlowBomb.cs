@@ -12,13 +12,13 @@ namespace Infernus.Projectiles.Temporal_Glow_Squid.Drops
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailingMode[Type] = 0;
-            ProjectileID.Sets.TrailCacheLength[Type] = 6;
+            ProjectileID.Sets.TrailCacheLength[Type] = 4;
         }
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.width = 94;
-            Projectile.height = 98;
+            Projectile.width = 100;
+            Projectile.height = 100;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.netImportant = true;
@@ -26,10 +26,10 @@ namespace Infernus.Projectiles.Temporal_Glow_Squid.Drops
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 7;
             Projectile.timeLeft = 340;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
 
-            DrawOffsetX = -10;
-            DrawOriginOffsetY = -10;
+            //DrawOffsetX = -10;
+            //DrawOriginOffsetY = -10;
         }
         public override void AI()
         {
@@ -40,6 +40,14 @@ namespace Infernus.Projectiles.Temporal_Glow_Squid.Drops
             Projectile.velocity.X = Projectile.velocity.X * .97f;
             Projectile.velocity.Y = Projectile.velocity.Y * .97f;
             Projectile.rotation += (float)Projectile.direction * 7;
+        }
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            width = 20;
+            height = 20;
+            fallThrough = true;
+
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

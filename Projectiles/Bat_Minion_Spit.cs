@@ -12,6 +12,11 @@ namespace Infernus.Projectiles
     public class Bat_Minion_Spit : ModProjectile
     {
         public override string Texture => "Infernus/Items/Weapon/Melee/Hatchet";
+
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.MinionShot[Projectile.type] = true;
+        }
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Summon;

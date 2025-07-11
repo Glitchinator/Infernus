@@ -7,11 +7,13 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace Infernus.NPCs
@@ -387,9 +389,9 @@ namespace Infernus.NPCs
                     {
                         Main.NewText("You can disable dialogue in the configs.", Dialogue_Skip);
                     }
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    if (Main.netMode == NetmodeID.Server)
                     {
-                        Main.NewText("You can disable dialogue in the configs.", Dialogue_Skip);
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("You can disable dialogue in the configs."), Dialogue_Skip, -1);
                     }
                 }
                 if (First_Phase_Timer == 20050)
@@ -398,9 +400,9 @@ namespace Infernus.NPCs
                     {
                         Main.NewText("A traveler? Hmm... Indeed. One with bloodsoaken hands.", Calypsical_Voice);
                     }
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    if (Main.netMode == NetmodeID.Server)
                     {
-                        Main.NewText("A traveler? Hmm... Indeed. One with bloodsoaken hands.", Calypsical_Voice);
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("A traveler? Hmm... Indeed. One with bloodsoaken hands."), Calypsical_Voice, -1);
                     }
                 }
                 if (First_Phase_Timer == 20320)
@@ -409,9 +411,9 @@ namespace Infernus.NPCs
                     {
                         Main.NewText("I have slept long enough, the kingdom of heaven is destroyed.", Calypsical_Voice);
                     }
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    if (Main.netMode == NetmodeID.Server)
                     {
-                        Main.NewText("I have slept long enough, the kingdom of heaven is destroyed.", Calypsical_Voice);
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("I have slept long enough, the kingdom of heaven is destroyed."), Calypsical_Voice, -1);
                     }
                 }
                 if (First_Phase_Timer == 20700)
@@ -420,9 +422,9 @@ namespace Infernus.NPCs
                     {
                         Main.NewText("For you, Child of Man. You have traded blood for gain.", Calypsical_Voice);
                     }
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    if (Main.netMode == NetmodeID.Server)
                     {
-                        Main.NewText("For you, Child of Man. You have traded blood for gain.", Calypsical_Voice);
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("For you, Child of Man. You have traded blood for gain."), Calypsical_Voice, -1);
                     }
                 }
                 if (First_Phase_Timer == 20800)
@@ -431,9 +433,9 @@ namespace Infernus.NPCs
                     {
                         Main.NewText("The blood of a thousand lives stains your hands.", Calypsical_Voice);
                     }
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    if (Main.netMode == NetmodeID.Server)
                     {
-                        Main.NewText("The blood of a thousand lives stains your hands.", Calypsical_Voice);
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The blood of a thousand lives stains your hands."), Calypsical_Voice, -1);
                     }
                 }
                 if (First_Phase_Timer == 21300)
@@ -442,9 +444,9 @@ namespace Infernus.NPCs
                     {
                         Main.NewText("And I can't allow you to continue without punishment.", Calypsical_Voice);
                     }
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    if (Main.netMode == NetmodeID.Server)
                     {
-                        Main.NewText("And I can't allow you to continue without punishment.", Calypsical_Voice);
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("And I can't allow you to continue without punishment."), Calypsical_Voice, -1);
                     }
                 }
                 if (First_Phase_Timer == 21500)
@@ -453,9 +455,9 @@ namespace Infernus.NPCs
                     {
                         Main.NewText("So. Come forth, weapon. And...", Calypsical_Voice);
                     }
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    if (Main.netMode == NetmodeID.Server)
                     {
-                        Main.NewText("So. Come forth, weapon. And...", Calypsical_Voice);
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("So. Come forth, weapon. And..."), Calypsical_Voice, -1);
                     }
                 }
                 if (First_Phase_Timer == 21650)
@@ -464,9 +466,9 @@ namespace Infernus.NPCs
                     {
                         Main.NewText("DIE", Calypsical_Voice);
                     }
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    if (Main.netMode == NetmodeID.Server)
                     {
-                        Main.NewText("DIE", Calypsical_Voice);
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("DIE"), Calypsical_Voice, -1);
                     }
 
                     for (int k = 0; k < 40; k++)
@@ -845,9 +847,9 @@ namespace Infernus.NPCs
                     {
                         Main.NewText("Keep them coming!", Calypsical_Voice);
                     }
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    if (Main.netMode == NetmodeID.Server)
                     {
-                        Main.NewText("Keep them coming!", Calypsical_Voice);
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Keep them coming!"), Calypsical_Voice, -1);
                     }
                 }
 
@@ -1492,9 +1494,9 @@ namespace Infernus.NPCs
                     {
                         Main.NewText("And so concludes the life of King Calypsical.", Calypsical_Voice);
                     }
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    if (Main.netMode == NetmodeID.Server)
                     {
-                        Main.NewText("And so concludes the life of King Calypsical.", Calypsical_Voice);
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("And so concludes the life of King Calypsical."), Calypsical_Voice, -1);
                     }
                 }
                 if (Dead_Phase_Timer >= 700)
@@ -1510,9 +1512,9 @@ namespace Infernus.NPCs
                     {
                         Main.NewText("I have failed you, my children. To bring peace, and order back to this realm.", Calypsical_Voice);
                     }
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    if (Main.netMode == NetmodeID.Server)
                     {
-                        Main.NewText("I have failed you, my children. To bring peace, and order back to this realm.", Calypsical_Voice);
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("I have failed you, my children. To bring peace, and order back to this realm."), Calypsical_Voice, -1);
                     }
                 }
                 if (Dead_Phase_Timer == 1000)
@@ -1521,9 +1523,9 @@ namespace Infernus.NPCs
                     {
                         Main.NewText("But for those like you who kill. Judgement is on the other side. And they will not be so merciful.", Calypsical_Voice);
                     }
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    if (Main.netMode == NetmodeID.Server)
                     {
-                        Main.NewText("But for those like you who kill. Judgement is on the other side. And they will not be so merciful.", Calypsical_Voice);
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("But for those like you who kill. Judgement is on the other side. And they will not be so merciful."), Calypsical_Voice, -1);
                     }
                 }
                 if (Dead_Phase_Timer >= 1100)
@@ -1539,9 +1541,9 @@ namespace Infernus.NPCs
                     {
                         Main.NewText("While in death, I look back on my legacy. And I regret nothing I have done for this world.", Calypsical_Voice);
                     }
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    if (Main.netMode == NetmodeID.Server)
                     {
-                        Main.NewText("While in death, I look back on my legacy. And I regret nothing I have done for this world.", Calypsical_Voice);
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("While in death, I look back on my legacy. And I regret nothing I have done for this world."), Calypsical_Voice, -1);
                     }
                 }
                 if (Dead_Phase_Timer == 1300)
@@ -2099,9 +2101,9 @@ namespace Infernus.NPCs
                 {
                     Main.NewText("You hear the Infernheads rejoice", InfernusPlayer.GainXP_Resource);
                 }
-                if (Main.netMode == NetmodeID.MultiplayerClient)
+                if (Main.netMode == NetmodeID.Server)
                 {
-                    Main.NewText("You hear the Infernheads rejoice", InfernusPlayer.GainXP_Resource);
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("You hear the Infernheads rejoice"), InfernusPlayer.GainXP_Resource, -1);
                 }
             }
             if (Main.netMode == NetmodeID.Server)
