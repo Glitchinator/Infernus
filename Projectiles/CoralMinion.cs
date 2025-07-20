@@ -35,7 +35,7 @@ namespace Infernus.Projectiles
             Projectile.minionSlots = 0.5f;
             Projectile.penetrate = -1;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 20;
+            Projectile.localNPCHitCooldown = 22;
         }
         float RotationTimer;
         int rand_dist;
@@ -48,7 +48,7 @@ namespace Infernus.Projectiles
         public override void OnSpawn(IEntitySource source)
         {
             rand_dist = Main.rand.Next(20, 80);
-            rand_shoot_time = Main.rand.Next(35, 55);
+            rand_shoot_time = Main.rand.Next(30, 60);
             rand_speed = Main.rand.NextFloat(1.5f,3f);
         }
         public override void AI()

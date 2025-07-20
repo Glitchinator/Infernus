@@ -506,7 +506,7 @@ namespace Infernus.NPCs
                 {
                     velocity = new Vector2(0f, 4.9f);
                 }
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Bottom, velocity, ModContent.ProjectileType<Ice_Bolt>(), 10, NPC.whoAmI);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Bottom, velocity, ModContent.ProjectileType<Ice_Bolt>(), 16, NPC.whoAmI);
             }
         }
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
@@ -563,52 +563,13 @@ namespace Infernus.NPCs
                 }
             }
         }
-        private void Meteor_Spawner()
-        {
-            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                player = Main.player[NPC.target];
-                Vector2 velocity = player.Center - NPC.Bottom;
-                float magnitude = Magnitude(velocity);
-                if (magnitude > 0)
-                {
-                    velocity *= 5f / magnitude;
-                }
-                else
-                {
-                    velocity = new Vector2(0f, 4.9f);
-                }
-                float rotation = MathHelper.ToRadians(10);
-                for (int i = 0; i < 2; i++)
-                {
-                    Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(rotation, -rotation, i));
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Meteor_Heat>(), 14, NPC.whoAmI);
-                }
-                float rotation2 = MathHelper.ToRadians(32);
-                for (int i = 0; i < 2; i++)
-                {
-                    Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(rotation2, -rotation2, i));
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Meteor_Heat>(), 14, NPC.whoAmI);
-                }
-            }
-        }
 
         private void Horizontal_Ice()
         {
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Bottom, new Vector2(10f,0f), ModContent.ProjectileType<Ice_Bolt>(), 10, NPC.whoAmI);
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Bottom, new Vector2(-10f, 0f), ModContent.ProjectileType<Ice_Bolt>(), 10, NPC.whoAmI);
-            }
-        }
-        private void Bingo_I_Got_Action()
-        {
-            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0,-5), ModContent.ProjectileType<InkBolt>(), 8, NPC.whoAmI);
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, 5), ModContent.ProjectileType<InkBolt>(), 8, NPC.whoAmI);
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(-5, 0), ModContent.ProjectileType<InkBolt>(), 8, NPC.whoAmI);
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(5, 0), 0, ModContent.ProjectileType<InkBolt>(), 8, NPC.whoAmI);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Bottom, new Vector2(10f,0f), ModContent.ProjectileType<Ice_Bolt>(), 15, NPC.whoAmI);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Bottom, new Vector2(-10f, 0f), ModContent.ProjectileType<Ice_Bolt>(), 15, NPC.whoAmI);
             }
         }
         private void Whoops_Ahh_Pimp_Down_Ahhhh_Pimp_IN_DISTRESS()

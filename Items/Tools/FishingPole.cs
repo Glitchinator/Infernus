@@ -20,7 +20,7 @@ namespace Infernus.Items.Tools
             Item.rare = ItemRarityID.Blue;
             Item.CloneDefaults(ItemID.ScarabFishingRod);
             Item.shoot = ProjectileID.BobberMechanics;
-            Item.fishingPole = 20;
+            Item.fishingPole = 25;
             Item.shootSpeed = 10f;
         }
         public override void AddRecipes()

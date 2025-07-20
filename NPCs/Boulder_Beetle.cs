@@ -1,4 +1,7 @@
-﻿using Infernus.Items.Weapon.Summon;
+﻿using Infernus.Items.Mounts;
+using Infernus.Items.Tools;
+using Infernus.Items.Weapon.Melee;
+using Infernus.Items.Weapon.Summon;
 using Infernus.Placeable;
 using Microsoft.Xna.Framework;
 using System;
@@ -24,10 +27,10 @@ namespace Infernus.NPCs
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 2160;
+            NPC.lifeMax = 4160;
             NPC.damage = 68;
             NPC.defense = 20;
-            NPC.knockBackResist = 0.2f;
+            NPC.knockBackResist = 0.0f;
             NPC.width = 50;
             NPC.height = 26;
             NPC.aiStyle = 3;
@@ -45,19 +48,74 @@ namespace Infernus.NPCs
         int timer;
         public override void AI()
         {
+            Player player = Main.player[NPC.target];
+            NPC.netUpdate = true;
+            NPC.TargetClosest();
+
+            if (NPC.target < 0 || NPC.target == 255 || player.dead || !player.active)
+            {
+                NPC.TargetClosest();
+                NPC.velocity.Y = NPC.velocity.Y + .3f;
+                if (NPC.timeLeft > 20)
+                {
+                    NPC.timeLeft = 20;
+                    return;
+                }
+            }
+
             timer++;
 
             if (timer == 250)
             {
                 timer = 5000;
             }
+            if (timer == 399)
+            {
+                NPC.aiStyle = -1;
+                AIType = 0;
+                NPC.velocity.X = 0;
+                NPC.velocity.Y = 0;
+                NPC.noGravity = true;
+            }
             if (timer == 400)
             {
                 SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
                 Dash();
             }
-            if (timer == 500)
+            if (timer == 420)
             {
+                NPC.noGravity = false;
+            }
+            if (timer == 459)
+            {
+                NPC.noGravity = true;
+            }
+            if(timer == 460)
+            {
+                SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
+                Dash();
+            }
+            if (timer == 480)
+            {
+                NPC.noGravity = false;
+            }
+            if (timer == 519)
+            {
+                NPC.noGravity = true;
+            }
+            if (timer == 520)
+            {
+                SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
+                Dash();
+            }
+            if (timer == 540)
+            {
+                NPC.noGravity = false;
+            }
+            if (timer == 600)
+            {
+                NPC.aiStyle = 3;
+                AIType = NPCID.AnomuraFungus;
                 timer = 0;
             }
 
@@ -66,10 +124,13 @@ namespace Infernus.NPCs
                 NPC.velocity.X = 0;
                 NPC.velocity.Y = 0;
             }
-            if (timer == 5061)
+            if (timer == 5026 || timer == 5051 || timer ==5076 || timer == 5101|| timer == 5126)
             {
                 SoundEngine.PlaySound(SoundID.Item42, NPC.position);
                 Shoot();
+            }
+            if (timer == 5160)
+            {
                 timer = 260;
             }
         }
@@ -138,7 +199,7 @@ namespace Infernus.NPCs
                 float magnitude = Magnitude(velocity);
                 if (magnitude > 0)
                 {
-                    velocity *= 6f / magnitude;
+                    velocity *= 9f / magnitude;
                 }
                 else
                 {
@@ -167,9 +228,9 @@ namespace Infernus.NPCs
             npcLoot.Add(ItemDropRule.Common(ItemID.StoneBlock, 4, 4, 6));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Rock>(), 1, 11, 26));
 
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<bold>(), 10));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Mounts.Boulder_Saddle>(), 10));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.Melee.Boulder_Flail>(), 10));
+            int[] Which_One = [ModContent.ItemType<bold>(), ModContent.ItemType<Boulder_Saddle>(), ModContent.ItemType<Boulder_Flail>()];
+
+            npcLoot.Add(ItemDropRule.OneFromOptions(1, Which_One));
 
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.Ranged.July4th>(), 400, 1, 1));
             LeadingConditionRule in_hardmode = new LeadingConditionRule(new Conditions.IsHardmode());

@@ -10,7 +10,6 @@ namespace Infernus.Projectiles
 
     public class Ruderibus_Rounds : ModProjectile
     {
-        public bool hit3 = false;
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.Bullet);
@@ -19,11 +18,15 @@ namespace Infernus.Projectiles
             Projectile.netImportant = true;
             Projectile.timeLeft = 400;
             Projectile.penetrate = 2;
+            Projectile.alpha = 255;
         }
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation();
-            if (Projectile.timeLeft <= 120)
+            if (Projectile.alpha > 0)
+            {
+                Projectile.alpha -= 7;
+            }
+            if (Projectile.timeLeft <= 40)
             {
                 Projectile.velocity.X = Projectile.velocity.X * .75f;
                 Projectile.velocity.Y = Projectile.velocity.Y * .75f;
@@ -33,23 +36,11 @@ namespace Infernus.Projectiles
         {
             Projectile.friendly = false;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 120;
-            hit3 = true;
+            Projectile.timeLeft = 40;
         }
         public override void OnKill(int timeLeft)
         {
-            if(hit3 == true)
-            {
-                SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
-                for (int k = 0; k < 7; k++)
-                {
-                    Vector2 speed = Main.rand.NextVector2Unit();
-                    Dust wand = Dust.NewDustPerfect(Projectile.Center + speed * 12, DustID.HallowedPlants, speed * 2, 0, default, Scale: 1.3f);
-                    wand.noGravity = true;
-                }
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, Projectile.velocity.X, Projectile.velocity.X, ModContent.ProjectileType<Aeritite_Mine_Explosion>(), (int)(Projectile.damage * .3f), 0, Projectile.owner);
-
-            }
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Ruderibus_Round_exlos>(), (int)(Projectile.damage * .25f), 4f, Projectile.owner);
         }
     }
 }

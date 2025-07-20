@@ -1,5 +1,4 @@
-Projectiles: {
-}
+Projectiles.Iceicle_Necklace_Shot.DisplayName: Iceicle_ Necklace_ Shot
 
 NPCs: {
 	Ruderibus.BossChecklistIntegration.SpawnInfo: While in the snow biome, use [i:5574].
@@ -585,6 +584,129 @@ Items: {
 
 	ThickBoulder: {
 	}
+
+	Ammo_Pouch: {
+		DisplayName: Ammo Pouch
+		Tooltip: 12.5% chance to not consume ammo
+	}
+
+	Bayonett: {
+		DisplayName: Bayonett
+		Tooltip:
+			'''
+			Increases ranged damage the closer you are to an enemy
+			Max damage increase is 15%
+			'''
+	}
+
+	Bone_Bracer: {
+		DisplayName: Bone Bracer
+		Tooltip:
+			'''
+			Increases melee attack speed by 6%
+			Increases melee damage by 6%
+			'''
+	}
+
+	Burning_Grasp: {
+		DisplayName: Burning Grasp
+		Tooltip:
+			'''
+			Ranged attacks shoot a hellfire blast
+			2 second cooldown between blasts
+			'''
+	}
+
+	Chiseled_Arrowhead: {
+		DisplayName: Chiseled Arrowhead
+		Tooltip:
+			'''
+			Increases ranged armor penetration by 4
+			Increases ranged crit chance by 4%
+			'''
+	}
+
+	Enchanted_Femur: {
+		DisplayName: Enchanted Femur
+		Tooltip:
+			'''
+			Taking damage releases an elemental blast
+			4 second cooldown
+			'''
+	}
+
+	Iceicle_Necklace: {
+		DisplayName: Iceicle Necklace
+		Tooltip:
+			'''
+			Ranged attacks shoot a piercing iceicle
+			2 second cooldown between iceicles
+			'''
+	}
+
+	Ink_Cartridge: {
+		DisplayName: Ink Cartridge
+		Tooltip:
+			'''
+			Increases ranged attack speed by 7%
+			Ranged attacks have a chance to shoot ink
+			'''
+	}
+
+	Meteor_Core: {
+		DisplayName: Meteor Core
+		Tooltip: Taking damage boosts the players melee stats
+	}
+
+	Ocean_Crest: {
+		DisplayName: Ocean Crest
+		Tooltip: Increases magic crit chance by 7%
+	}
+
+	Plasma_Splash: {
+		DisplayName: Plasma Splash
+		Tooltip:
+			'''
+			Increases ranged crit chance by 6%
+			Ranged crits release homing souls
+			'''
+	}
+
+	Squid_Scroll: {
+		DisplayName: Squid Scroll
+		Tooltip:
+			'''
+			Hitting enemies has a chance to create ink pickups on impact
+			Collecting 10 ink allows the player to summon a ink vortex
+			Summon the vortex by drinking a mana potion
+			The vortex gives a mana power boosting buff when the player touches it
+			'''
+	}
+
+	Undying_Ember: {
+		DisplayName: Undying Ember
+		Tooltip: 15% reduced mana usage
+	}
+
+	Cursed_Bayonett: {
+		DisplayName: Cursed Bayonett
+		Tooltip:
+			'''
+			Reduces max life by 80
+			Increases ranged damage the closer you are to an enemy
+			Max damage increase is 25%
+			'''
+	}
+
+	Hunters_Cloak: {
+		DisplayName: Hunters Cloak
+		Tooltip:
+			'''
+			Increases ranged damage by 8%
+			12.5% chance to not consume ammo
+			Ranged attacks go 20% farther
+			'''
+	}
 }
 
 Buffs: {
@@ -670,5 +792,10 @@ Buffs: {
 	}
 
 	AerBuff: {
+	}
+
+	Meteor_Core_Buff: {
+		DisplayName: Meteor_ Core_ Buff
+		Description: Mods.Infernus.Buffs.Meteor_Core_Buff.Description
 	}
 }

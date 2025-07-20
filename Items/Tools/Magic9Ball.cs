@@ -26,6 +26,7 @@ namespace Infernus.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe()
+            .AddTile(TileID.DemonAltar)
             .Register();
         }
         public override bool? UseItem(Player player)

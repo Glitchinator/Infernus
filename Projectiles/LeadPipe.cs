@@ -24,6 +24,7 @@ namespace Infernus.Projectiles
             Projectile.height = 54;
             Projectile.timeLeft = 240;
             Projectile.tileCollide = true;
+            Projectile.ownerHitCheck = true;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

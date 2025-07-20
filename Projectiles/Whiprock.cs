@@ -20,6 +20,7 @@ namespace Infernus.Projectiles
         {
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
             target.AddBuff(ModContent.BuffType<rockywhipbuff>(), 300);
+            target.AddBuff(ModContent.BuffType<Rock_Whip_Cooldown>(), 300);
             Projectile.damage = (int)(Projectile.damage * 0.85f);
         }
 

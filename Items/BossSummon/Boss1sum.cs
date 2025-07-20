@@ -34,7 +34,10 @@ namespace Infernus.Items.BossSummon
         {
             Vector2 vec = new(InfernusWorld.Raiko_Alter_X, InfernusWorld.Raiko_Alter_Y);
 
-            Projectile.NewProjectileDirect(source, position, (vec - position).SafeNormalize(Vector2.Zero) * 2f, type, damage, knockback, player.whoAmI);
+            if (vec.X != 0 && vec.Y != 0)
+            {
+                Projectile.NewProjectileDirect(source, position, (vec - position).SafeNormalize(Vector2.Zero) * 2f, type, damage, knockback, player.whoAmI);
+            }
             return false;
         }
         public override void AddRecipes()

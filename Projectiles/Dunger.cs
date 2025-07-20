@@ -39,9 +39,15 @@ namespace Infernus.Projectiles
         int timer;
         float telex;
         float teley;
+        int rand_tele;
+        int rand_explode;
+        int rand_return;
         public override void OnSpawn(IEntitySource source)
         {
             Projectile.frame = Main.rand.Next(0, 3);
+            rand_tele = Main.rand.Next(40, 55);
+            rand_explode = Main.rand.Next(70, 90);
+            rand_return = Main.rand.Next(120, 150);
         }
         public override void AI()
         {
@@ -135,7 +141,7 @@ namespace Infernus.Projectiles
                     Projectile.velocity.Y = Projectile.velocity.Y *= 0.95f;
                     Projectile.velocity.X = Projectile.velocity.X *= 0.95f;
                 }
-                if (timer == 50)
+                if (timer == rand_tele)
                 {
                     for (int k = 0; k < 11; k++)
                     {
@@ -148,19 +154,13 @@ namespace Infernus.Projectiles
                     Dust.QuickDustLine(Projectile.Center + destnorm * Projectile.width, dest, dest.Length() / 20f, Color.Purple);
                     Projectile.Center = new Vector2(telex,teley);
                 }
-                if (timer == 73)
+                if (timer == rand_explode)
                 {
                     //explode
                     SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.position);
-                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Dunger_Exlos>(), (int)(Projectile.damage * 0.7f), 4f, Main.myPlayer, 0f, 0f);
-                    for (int k = 0; k < 27; k++)
-                    {
-                        Vector2 speed2 = Main.rand.NextVector2Circular(2f, 4f);
-                        Dust Sword = Dust.NewDustPerfect(Projectile.Center + speed2 * 32, DustID.ShadowbeamStaff, speed2 * 3, Scale: 2f);
-                        Sword.noGravity = true;
-                    }
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Dunger_Exlos>(), Projectile.damage, 4f, Main.myPlayer, 0f, 0f);
                 }    
-                if (timer == 120)
+                if (timer == rand_return)
                 {
                     Projectile.Center = withplayer;
                     for (int k = 0; k < 5; k++)
@@ -202,7 +202,7 @@ namespace Infernus.Projectiles
         }
         public override bool MinionContactDamage()
         {
-            return true;
+            return false;
         }
         public override bool? CanCutTiles()
         {

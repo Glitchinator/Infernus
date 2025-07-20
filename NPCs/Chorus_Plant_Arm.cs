@@ -44,10 +44,13 @@ namespace Infernus.NPCs
             NPCID.Sets.BossBestiaryPriority.Add(Type);
         }
         int Timer;
+        int saved_timer;
+        bool save_time;
         int Ice_Shard_Area = 3;
         private Vector2 destination;
-        float inertia = 6;
-        float speed = 12f;
+        float inertia = 3;
+        float speed = 15f;
+        bool dashing = false;
 
         public override void SetDefaults()
         {
@@ -67,9 +70,6 @@ namespace Infernus.NPCs
         }
         public override void AI()
         {
-            Vector2 diddy = Main.npc[ParentIndex].Center - NPC.Center;
-            var f = diddy.ToRotation();
-            NPC.rotation = NPC.rotation.AngleTowards(f, .1f);
 
             Player player = Main.player[NPC.target];
             NPC.netUpdate = true;
@@ -92,9 +92,35 @@ namespace Infernus.NPCs
             {
                 return;
             }
+            Vector2 dest = NPC.Center - destination;
+            float gj = Magnitude(dest);
+            string h = gj.ToString();
+            Main.NewText(h, 229, 214, 127);
+            if (gj > 80f)
+            {
+                if (dashing == true)
+                {
+                    if (save_time == false)
+                    {
+                        saved_timer = InfernusWorld.Boulder_Boss_Timer;
+                        save_time = true;
+                    }
+                    InfernusWorld.Boulder_Boss_Timer = saved_timer;
+                }
+            }
+            else
+            {
+                save_time = false;
+            }
+
+            Vector2 diddy = Main.npc[ParentIndex].Center - NPC.Center;
+            var f = diddy.ToRotation();
+            NPC.rotation = NPC.rotation.AngleTowards(f, .1f);
+
             Timer = InfernusWorld.Boulder_Boss_Timer;
             if (Timer == 90)
             {
+                dashing = false;
                 Shoot_Projectile_Random();
                 Timer = 0;
             }
@@ -107,6 +133,19 @@ namespace Infernus.NPCs
             {
                 Shoot_Projectile_Random();
                 Timer = 0;
+            }
+            if(Timer == 470)
+            {
+                dashing = true;
+            }
+            if (Timer >= 520)
+            {
+                spam_boulder_bolts();
+            }
+            if (Timer == 900)
+            {
+                dashing = false;
+                InfernusWorld.Boulder_Boss_Timer = 0;
             }
             Form_Ice();
         }
@@ -135,6 +174,10 @@ namespace Infernus.NPCs
 
                 SoundEngine.PlaySound(SoundID.Item20, NPC.position);
             }
+        }
+        private void spam_boulder_bolts()
+        {
+            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (Main.npc[ParentIndex].Center - NPC.Center).SafeNormalize(Vector2.Zero) * 15f, ModContent.ProjectileType<Boulder_Bolt>(), 24, NPC.whoAmI);
         }
         private static float Magnitude(Vector2 mag)
         {

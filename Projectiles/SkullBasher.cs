@@ -22,6 +22,7 @@ namespace Infernus.Projectiles
             Projectile.height = 34;
             Projectile.timeLeft = 240;
             Projectile.tileCollide = true;
+            Projectile.ownerHitCheck = true;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -60,9 +61,9 @@ namespace Infernus.Projectiles
             Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.014f;
 
             Projectile.ai[0] += 1f;
-            if (Projectile.ai[0] >= 12f)
+            if (Projectile.ai[0] >= 19f)
             {
-                Projectile.ai[0] = 12f;
+                Projectile.ai[0] = 19f;
                 Projectile.velocity.Y = Projectile.velocity.Y + 0.7f;
             }
 
@@ -93,7 +94,7 @@ namespace Infernus.Projectiles
                         Projectile.Kill();
                     }
                 }
-                if (retracted == false && dist_check >= 300f)
+                if (retracted == false && dist_check >= 360f)
                 {
                     retracted = true;
                     Speed = 34;

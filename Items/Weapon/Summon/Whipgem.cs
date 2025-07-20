@@ -14,7 +14,7 @@ namespace Infernus.Items.Weapon.Summon
 
         public override void SetDefaults()
         {
-            Item.DefaultToWhip(ModContent.ProjectileType<Projectiles.Whipgem>(), 26, 3, 4.7f, 27);
+            Item.DefaultToWhip(ModContent.ProjectileType<Projectiles.Whipgem>(), 22, 3, 4.7f, 27);
             Item.value = Item.buyPrice(0, 7, 50, 0);
 
             //Item.shootSpeed = 4;

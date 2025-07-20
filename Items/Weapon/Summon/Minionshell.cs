@@ -20,7 +20,7 @@ namespace Infernus.Items.Weapon.Summon
 
         public override void SetDefaults()
         {
-            Item.damage = 16;
+            Item.damage = 10;
             Item.DamageType = DamageClass.Summon;
             Item.mana = 10;
             Item.width = 36;

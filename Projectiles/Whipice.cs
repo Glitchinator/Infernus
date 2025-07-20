@@ -33,6 +33,7 @@ namespace Infernus.Projectiles
         {
             Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
             target.AddBuff(ModContent.BuffType<icewhipbuff>(), 300);
+            target.AddBuff(ModContent.BuffType<Ice_Whip_Cooldown>(), 300);
             Projectile.damage = (int)(Projectile.damage * 0.85f);
         }
 

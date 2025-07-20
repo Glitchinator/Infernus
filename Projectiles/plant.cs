@@ -24,39 +24,25 @@ namespace Infernus.Projectiles
             Projectile.timeLeft = 140;
             Projectile.extraUpdates = 1;
         }
-        int timer;
         public override void AI()
         {
-            var damage = Projectile.damage / 2;
             Projectile.rotation += (float)Projectile.direction * 2;
-            timer++;
-            if (timer == 50)
-            {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.position.X + 40, Projectile.position.Y + 40, -7, 0, ModContent.ProjectileType<Flour_Homing>(), damage, 1, Main.myPlayer, 0f, 0f);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.position.X + 40, Projectile.position.Y + 40, 7, 0, ModContent.ProjectileType<Flour_Homing>(), damage, 1, Main.myPlayer, 0f, 0f);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.position.X + 40, Projectile.position.Y + 40, 0, 7, ModContent.ProjectileType<Flour_Homing>(), damage, 1, Main.myPlayer, 0f, 0f);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.position.X + 40, Projectile.position.Y + 40, 0, -7, ModContent.ProjectileType<Flour_Homing>(), damage, 1, Main.myPlayer, 0f, 0f);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.position.X + 40, Projectile.position.Y + 40, -7, -7, ModContent.ProjectileType<Flour_Homing>(), damage, 1, Main.myPlayer, 0f, 0f);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.position.X + 40, Projectile.position.Y + 40, 7, -7, ModContent.ProjectileType<Flour_Homing>(), damage, 1, Main.myPlayer, 0f, 0f);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.position.X + 40, Projectile.position.Y + 40, -7, 7, ModContent.ProjectileType<Flour_Homing>(), damage, 1, Main.myPlayer, 0f, 0f);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.position.X + 40, Projectile.position.Y + 40, 7, 7, ModContent.ProjectileType<Flour_Homing>(), damage, 1, Main.myPlayer, 0f, 0f);
-                timer = 0;
-                Projectile.netUpdate = true;
-            }
+
             Projectile.velocity.X = Projectile.velocity.X * .98f;
             Projectile.velocity.Y = Projectile.velocity.Y * .98f;
         }
         public override void OnKill(int timeLeft)
         {
-            var damage = Projectile.damage / 2;
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.position.X + 40, Projectile.position.Y + 40, -7, 0, ModContent.ProjectileType<Flour_Homing>(), damage, 1, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.position.X + 40, Projectile.position.Y + 40, 7, 0, ModContent.ProjectileType<Flour_Homing>(), damage, 1, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.position.X + 40, Projectile.position.Y + 40, 0, 7, ModContent.ProjectileType<Flour_Homing>(), damage, 1, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.position.X + 40, Projectile.position.Y + 40, 0, -7, ModContent.ProjectileType<Flour_Homing>(), damage, 1, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.position.X + 40, Projectile.position.Y + 40, -7, -7, ModContent.ProjectileType<Flour_Homing>(), damage, 1, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.position.X + 40, Projectile.position.Y + 40, 7, -7, ModContent.ProjectileType<Flour_Homing>(), damage, 1, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.position.X + 40, Projectile.position.Y + 40, -7, 7, ModContent.ProjectileType<Flour_Homing>(), damage, 1, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.position.X + 40, Projectile.position.Y + 40, 7, 7, ModContent.ProjectileType<Flour_Homing>(), damage, 1, Main.myPlayer, 0f, 0f);
+            var damage = (int)(Projectile.damage * 0.6f);
+            var proj = ModContent.ProjectileType<Flour_Homing>();
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, new Vector2(-7, 0), proj, damage, 3f, Main.myPlayer);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, new Vector2(7, 0), proj, damage, 3f, Main.myPlayer);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, new Vector2(0, 7), proj, damage, 3f, Main.myPlayer);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, new Vector2(0, -7), proj, damage, 3f, Main.myPlayer);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, new Vector2(-7, -7), proj, damage, 3f, Main.myPlayer);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, new Vector2(7, -7), proj, damage, 3f, Main.myPlayer);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, new Vector2(-7, 7), proj, damage, 3f, Main.myPlayer);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, new Vector2(7, 7), proj, damage, 3f, Main.myPlayer);
         }
         public override bool PreDraw(ref Color lightColor)
         {

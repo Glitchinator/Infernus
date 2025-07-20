@@ -27,11 +27,15 @@ namespace Infernus.Projectiles
             Projectile.timeLeft = 160;
             Projectile.tileCollide = false;
             Projectile.extraUpdates = 1;
+            Projectile.penetrate = -1;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 30;
         }
         public override void AI()
         {
-            if (Projectile.timeLeft == 125)
+            if (Projectile.timeLeft == 100)
             {
+                Projectile.penetrate = 1;
                 homing = true;
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;

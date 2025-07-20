@@ -1,4 +1,9 @@
-﻿using Infernus.Placeable;
+﻿using Infernus.Items.Materials;
+using Infernus.Items.Mounts;
+using Infernus.Items.Weapon.Melee;
+using Infernus.Items.Weapon.Ranged;
+using Infernus.Items.Weapon.Summon;
+using Infernus.Placeable;
 using Infernus.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -267,6 +272,11 @@ namespace Infernus.NPCs
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.GoldenKey, 3, 1, 3));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Cursed_Plasma>(), 1, 12, 36));
+
+            int[] Which_One = [ModContent.ItemType<Ghost_Pistol>()];
+
+            npcLoot.Add(ItemDropRule.OneFromOptions(1, Which_One));
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {

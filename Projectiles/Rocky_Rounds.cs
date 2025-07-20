@@ -14,14 +14,25 @@ namespace Infernus.Projectiles
             AIType = ProjectileID.Bullet;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
-            Projectile.height = 2;
-            Projectile.width = 2;
+            //Projectile.height = 2;
+            //Projectile.width = 2;
             Projectile.hostile = false;
             Projectile.netImportant = true;
+            Projectile.alpha = 255;
         }
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation();
+            if (Projectile.alpha > 0)
+            {
+                Projectile.alpha -= 7;
+            }
+        }
+        public override void OnKill(int timeLeft)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                Dust.NewDustPerfect(Projectile.Center, DustID.Stone);
+            }
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -35,12 +46,12 @@ namespace Infernus.Projectiles
             for (int i = 0; i < 1; i++)
             {
                 Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(rotation, -rotation, i));
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), positionX, positionY, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<Rocky_Rounds_Proj>(), (int)(Projectile.damage * .25f), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), positionX, positionY, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<Rocky_Rounds_Proj>(), (int)(Projectile.damage * .4f), 4f, Projectile.owner);
             }
             for (int i = 0; i < 2; i++)
             {
                 Vector2 perturbedSpeed = velocity2.RotatedBy(MathHelper.Lerp(rotation2, -rotation2, i));
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), positionX, positionY, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<Rocky_Rounds_Proj>(), (int)(Projectile.damage * .25f), 0, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), positionX, positionY, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<Rocky_Rounds_Proj>(), (int)(Projectile.damage * .4f), 4f, Projectile.owner);
             }
         }
     }

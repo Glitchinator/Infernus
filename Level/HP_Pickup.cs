@@ -29,7 +29,7 @@ namespace Infernus.Level
         }
         public override bool OnPickup(Player player)
         {
-            player.Heal(10);
+            player.GetModPlayer<InfernusPlayer>().Squid_Scroll_Amount += 1;
             return false;
         }
     }

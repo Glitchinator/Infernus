@@ -8,11 +8,6 @@ namespace Infernus.Projectiles
     public class BoulderMini_Summon : ModProjectile
     {
         public override string Texture => "Infernus/Projectiles/BoulderMini";
-
-        public override void SetStaticDefaults()
-        {
-            ProjectileID.Sets.MinionShot[Projectile.type] = true;
-        }
         public override void SetDefaults()
         {
             Projectile.DamageType = DamageClass.Summon;

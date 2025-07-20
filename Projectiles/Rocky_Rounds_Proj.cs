@@ -13,26 +13,36 @@ namespace Infernus.Projectiles
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailingMode[Type] = 0;
-            ProjectileID.Sets.TrailCacheLength[Type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Type] = 4;
         }
         public override void SetDefaults()
         {
             AIType = ProjectileID.Bullet;
             Projectile.DamageType = DamageClass.Ranged;
-            Projectile.friendly = false;
+            Projectile.friendly = true;
             Projectile.height = 6;
             Projectile.width = 6;
             Projectile.hostile = false;
-            Projectile.timeLeft = 60;
+            Projectile.timeLeft = 40;
+            Projectile.penetrate = -1;
             Projectile.netImportant = true;
         }
         public override void AI()
         {
-            if(Projectile.timeLeft <= 54)
+            Projectile.ai[0] += 1f;
+            if (Projectile.ai[0] >= 16f)
             {
-                Projectile.friendly = true;
+                Projectile.ai[0] = 16f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.6f;
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+        }
+        public override void OnKill(int timeLeft)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                Dust.NewDustPerfect(Projectile.Center, DustID.Stone);
+            }
         }
         public override bool PreDraw(ref Color lightColor)
         {

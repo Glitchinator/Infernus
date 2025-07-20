@@ -15,7 +15,7 @@ namespace Infernus.Items.Accesories
         }
         public override void SetDefaults()
         {
-            Item.width = 30;
+            Item.width = 28;
             Item.height = 46;
             Item.accessory = true;
             Item.value = 45000;
@@ -36,7 +36,7 @@ namespace Infernus.Items.Accesories
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<Cryo_Lash>(), 1)
             .AddIngredient(ModContent.ItemType<Antlion_Fist>(), 1)
-            .AddIngredient(ModContent.ItemType<IceSpikes>(), 8)
+            .AddIngredient(ModContent.ItemType<IceSpikes>(), 12)
             .AddTile(TileID.TinkerersWorkbench)
             .Register();
         }

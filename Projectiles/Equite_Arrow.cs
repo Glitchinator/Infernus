@@ -32,10 +32,10 @@ namespace Infernus.Projectiles
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
             Projectile.ai[0] += 1f;
-            if (Projectile.ai[0] >= 50f)
+            if (Projectile.ai[0] >= 44f)
             {
-                Projectile.ai[0] = 50f;
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.3f;
+                Projectile.ai[0] = 44f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.1f;
             }
             if (Projectile.velocity.Y > 16f)
             {

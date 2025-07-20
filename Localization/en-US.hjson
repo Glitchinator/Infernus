@@ -63,7 +63,7 @@ Mods: {
 
 			PotionBuff: {
 				DisplayName: Calamari Rage
-				Description: '''"Increases damage by 7%, and crit by 4%"'''
+				Description: '''"Increases damage by 7%, and crit by 3%"'''
 			}
 
 			RaikoBuff: {
@@ -240,6 +240,26 @@ Mods: {
 				DisplayName: Cryo_ Buff
 				Description: Mods.Infernus.Buffs.Cryo_Buff.Description
 			}
+
+			Equite_Melee_Debuff: {
+				DisplayName: Equite_ Melee_ Debuff
+				Description: Mods.Infernus.Buffs.Equite_Melee_Debuff.Description
+			}
+
+			Sentinel_Battery_Buff: {
+				DisplayName: Sentinel_ Battery_ Buff
+				Description: Mods.Infernus.Buffs.Sentinel_Battery_Buff.Description
+			}
+
+			Corrupt_Cooldown: {
+				DisplayName: Corrupt_ Cooldown
+				Description: Mods.Infernus.Buffs.Corrupt_Cooldown.Description
+			}
+
+			Enchanted_Femur_Cooldown: {
+				DisplayName: Enchanted_ Femur_ Cooldown
+				Description: Mods.Infernus.Buffs.Enchanted_Femur_Cooldown.Description
+			}
 		}
 
 		Items: {
@@ -302,7 +322,12 @@ Mods: {
 
 			CHARD: {
 				DisplayName: Sentinel Battery
-				Tooltip: +10% Summon damage + 1 Minion
+				Tooltip:
+					'''
+					Increased summon damage by 10%
+					Minion hits have a 10% chance to give the player a defensive buff for 4 seconds
+					This buff increases defense by 8 and reduces incoming damage by 7%
+					'''
 			}
 
 			Charge: {
@@ -410,7 +435,11 @@ Mods: {
 
 			Boss1sum: {
 				DisplayName: Meteor Shard
-				Tooltip: Points in the direction of the Meteor Alter
+				Tooltip:
+					'''
+					Points in the direction of the Meteor Alter
+					Only works in Infernus v2.0 or above worlds
+					'''
 			}
 
 			BossSummon: {
@@ -476,7 +505,7 @@ Mods: {
 
 			Potion: {
 				DisplayName: Calamari Rage
-				Tooltip: Gives a boost to most stats
+				Tooltip: Gives a boost to offensive stats
 			}
 
 			StartingBag: {
@@ -562,9 +591,9 @@ Mods: {
 				DisplayName: Dwarfven Pickaxe
 				Tooltip:
 					'''
+					Right click to throw out a sticky bomb and salute your fellow dwarfs
 					Gets more powerful in hardmode
-					 Right click to salute your fellow dwarfs
-					 'Rock and Stone, it never gets old'
+					'Rock and Stone, it never gets old'
 					'''
 			}
 
@@ -627,22 +656,12 @@ Mods: {
 
 			HiveHeart: {
 				DisplayName: Hive Heart
-				Tooltip:
-					'''
-					All attacks inflict Venom and Poisoned
-					 + Immune to venom and poisoned
-					 + Increases the strength of bees
-					 Minor increase to life regen
-					'''
+				Tooltip: Venom and shi gng
 			}
 
 			Mechboss: {
 				DisplayName: Mechanical Mind
-				Tooltip:
-					'''
-					Shoots lazers when attacking
-					 Only works with projectile weapons
-					'''
+				Tooltip: Shoots lazars at nearby enemies
 			}
 
 			Mechwings: {
@@ -809,7 +828,7 @@ Mods: {
 
 			Scythe: {
 				DisplayName: Scythe of Dark
-				Tooltip: Throw out a Scythe that fades quickly but releases homing souls on hit
+				Tooltip: Throw out a Scythe that rips through enemies
 			}
 
 			Subslicer: {
@@ -1344,7 +1363,7 @@ Mods: {
 				DisplayName: Aeritite Whip
 				Tooltip:
 					'''
-					5 summon tag damage
+					3 summon tag damage
 					After hitting an enemy you gain increased whip range
 					Your minions will attack struck foes
 					'''
@@ -1354,7 +1373,6 @@ Mods: {
 				DisplayName: Gem Tremor
 				Tooltip:
 					'''
-					5 summon tag damage
 					Gems erupt from the enemy on minion hit
 					Your minions will attack struck foes
 					'''
@@ -1711,10 +1729,11 @@ Mods: {
 				DisplayName: Unchained Scarab
 				Tooltip:
 					'''
-					Increases your max number of minions by 1
 					Increases whip speed by 14%
 					Increases summon damage by 18%
 					Increases the knockback of your minions
+					Minion hits have a 10% chance to give the player a defensive buff for 4 seconds
+					This buff increases defense by 8 and reduces incoming damage by 7%
 					'''
 			}
 
@@ -1881,7 +1900,7 @@ Mods: {
 					'''
 					Increases melee speed by 11%
 					While wearing the Equite set
-					Equite leafs reduce enemy defense by 1 on hit
+					Equite leafs reduce enemy defense by 1 on hit for 5 seconds, stacks
 					'''
 			}
 
@@ -1928,7 +1947,7 @@ Mods: {
 
 			Lucky_Candle_Pl: {
 				DisplayName: Lucky Candle
-				Tooltip: gives a luck increasing buff when close enough
+				Tooltip: gives a luck increasing buff when close enough (does not work)
 			}
 
 			MissleSilo_Bow: {
@@ -1960,6 +1979,84 @@ Mods: {
 					Whips have a 33% chance to inflict frostburn on hit
 					Whips have a 20% chance to gain a speed buff on hit
 					'''
+			}
+
+			BrickFall_Potion: {
+				DisplayName: Brickfall Potion
+				Tooltip: Hold down to increase falling speed
+			}
+
+			Aerodynamics: {
+				DisplayName: Aerodynamics
+				Tooltip:
+					'''
+					Increases flight time by 50 frames
+					Increases your jump speed by 200%
+					'Need a lift?'
+					'''
+			}
+
+			Corrupted_Veil: {
+				DisplayName: Corrupted Veil
+				Tooltip:
+					'''
+					10% for your next attack to haunt an enemy
+					Haunted enemies take 30% less damage
+					When the haunted enemy is killed or the haunt goes on for long enough
+					The mask above the enemy will break into 8 homing shards that each deal 15% of the total damage done
+					Haunt lasts for 15 seconds
+					has a 20 second cooldown before another enemy can be haunted
+					'''
+			}
+
+			Ghost_Pistol: {
+				DisplayName: Ghost Pistol
+				Tooltip: ""
+			}
+
+			Corrupt_Husk_Summon: {
+				DisplayName: Corrupt Husk Summon
+				Tooltip: Summons the Corrupted Husk
+			}
+
+			Mana_Equalizer: {
+				DisplayName: Mana Equalizer
+				Tooltip:
+					'''
+					Increases mana regen based on your current mana
+					Increases mana regen by 4 when above 70% of maximum
+					Increases mana regen by 2 when above 50% of maximum
+					'''
+			}
+
+			Cursed_Plasma: {
+				DisplayName: Cursed Plasma
+				Tooltip: ""
+			}
+
+			Mana_Gift: {
+				DisplayName: Mana's Gift
+				Tooltip:
+					'''
+					Increases magic damage based on your current mana
+					Increases magic damage by 10% when above 70% of maximum
+					Increases magic damage by 5% when above 50% of maximum
+					'''
+			}
+
+			Mana_Syphoner: {
+				DisplayName: Mana Syphoner
+				Tooltip:
+					'''
+					Conjures a aura around the player
+					When enemies are hit in the aura you gain mana
+					Mana gained is 10% of that hits damage
+					'''
+			}
+
+			Extra_Barrel: {
+				DisplayName: Extra_ Barrel
+				Tooltip: ""
 			}
 		}
 
@@ -2170,47 +2267,50 @@ Mods: {
 			Phantom.DisplayName: Phantom
 			Meteor_Huge.DisplayName: Raiko's Big Fucking Meteor
 			Meteor_Tracking.DisplayName: Meteor_ Tracking
-			Corrupt_Magic.DisplayName: Corrupt_ Magic
-			Magic_Meteor.DisplayName: Magic_ Meteor
-			Magic_Meteor_Explosion.DisplayName: Magic_ Meteor_ Explosion
-			Magic_Star.DisplayName: Magic_ Star
-			Bloom_Bomb_Explosion.DisplayName: Bloom_ Bomb_ Explosion
-			Raiko_Bow_Arrow.DisplayName: Raiko_ Bow_ Arrow
+			Corrupt_Magic.DisplayName: Corrupt Magic
+			Magic_Meteor.DisplayName: Magic Meteor
+			Magic_Meteor_Explosion.DisplayName: Magic Meteor Explosion
+			Magic_Star.DisplayName: Magic Star
+			Bloom_Bomb_Explosion.DisplayName: Bloom Bomb Explosion
+			Raiko_Bow_Arrow.DisplayName: Raiko Bow Arrow
 			A_M.DisplayName: A_ M
-			Molten_Chaingun.DisplayName: Molten_ Chaingun
-			Subslicer_Blade.DisplayName: Subslicer_ Blade
-			Subslicer_Proj.DisplayName: Subslicer_ Proj
+			Molten_Chaingun.DisplayName: Molten Chaingun
+			Subslicer_Blade.DisplayName: Subslicer Blade
+			Subslicer_Proj.DisplayName: Subslicer Proj
 			LeadPipe.DisplayName: Lead Pipe
-			LeadPipe_Proj.DisplayName: Lead Pipe_ Proj
-			Equite_Leaf_Proj.DisplayName: Equite_ Leaf_ Proj
-			Rock_Flail.DisplayName: Rock_ Flail
+			LeadPipe_Proj.DisplayName: Lead Pipe Proj
+			Equite_Leaf_Proj.DisplayName: Equite Leaf Proj
+			Rock_Flail.DisplayName: Rock Flail
 			Ancient_Fishing_Spear_Proj.DisplayName: Ancient_ Fishing_ Spear_ Proj
-			Ice_Gas.DisplayName: Ice_ Gas
-			Ice_Gas_Large.DisplayName: Ice_ Gas_ Large
-			Ice_Gas_Med.DisplayName: Ice_ Gas_ Med
-			Missle_Bow.DisplayName: Missle_ Bow
-			Bat_Minion_Spit.DisplayName: Bat_ Minion_ Spit
-			Caustic_Thorn.DisplayName: Caustic_ Thorn
-			Coral_Minion_Shot.DisplayName: Coral_ Minion_ Shot
-			Dunger_Exlos.DisplayName: Dunger_ Exlos
-			EqualMinion_Shot.DisplayName: Equal Minion_ Shot
-			Terra_Shot.DisplayName: Terra_ Shot
-			honey_exlos.DisplayName: honey_exlos
-			whip_ele_lightning.DisplayName: whip_ele_lightning
-			A_Ray_exlos.DisplayName: A_ Ray_exlos
-			whip_drill_exlos.DisplayName: whip_drill_exlos
-			Meteor_Alter_Replica.DisplayName: Meteor_ Alter_ Replica
-			Squid_In_Fishbowl.DisplayName: Squid_ In_ Fishbowl
-			Squid_proj.DisplayName: Squid_proj
-			whipe_ele_shot.DisplayName: whipe_ele_shot
-			BoulderMini_Summon.DisplayName: Boulder Mini_ Summon
-			DemonHand_Shot.DisplayName: Demon Hand_ Shot
-			Ice_Slash_Summon.DisplayName: Ice_ Slash_ Summon
+			Ice_Gas.DisplayName: Ice Gas
+			Ice_Gas_Large.DisplayName: Ice Gas Large Aura
+			Ice_Gas_Med.DisplayName: Ice Gas Med Aura
+			Missle_Bow.DisplayName: Missle Bow
+			Bat_Minion_Spit.DisplayName: Bat Minion Spit
+			Caustic_Thorn.DisplayName: Caustic Thorn
+			Coral_Minion_Shot.DisplayName: Coral Minion Shot
+			Dunger_Exlos.DisplayName: Dunger Explosion
+			EqualMinion_Shot.DisplayName: Equite Minion Shot
+			Terra_Shot.DisplayName: Terra Shot
+			honey_exlos.DisplayName: Honeycomb Explosion
+			whip_ele_lightning.DisplayName: Lightning Whip lightning strike
+			A_Ray_exlos.DisplayName: Sunlight Sinder Ray Explosion
+			whip_drill_exlos.DisplayName: Drill-X Explosion
+			Meteor_Alter_Replica.DisplayName: Meteor Alter Replica
+			Squid_In_Fishbowl.DisplayName: Squid In Fishbowl
+			Squid_proj.DisplayName: Friendly Inknado
+			whipe_ele_shot.DisplayName: Lightning Whip lightning strike
+			BoulderMini_Summon.DisplayName: Boulder Whip Boulders
+			DemonHand_Shot.DisplayName: Demon Hand Shot
+			Ice_Slash_Summon.DisplayName: Ice Slash
 			Raiko_Locator.DisplayName: Raiko_ Locator
 			Raiko_Loc.DisplayName: Raiko_ Loc
-			Lighning_Dagger_exlos.DisplayName: Lighning_ Dagger_exlos
-			Whip_Gem_proj.DisplayName: Whip_ Gem_proj
-			Aeritite_Minion_Explosion.DisplayName: Aeritite_ Minion_ Explosion
+			Lighning_Dagger_exlos.DisplayName: Lighning Dagger Explosion
+			Whip_Gem_proj.DisplayName: Gem Tremors
+			Aeritite_Minion_Explosion.DisplayName: Aeritite Minion Explosion
+			Corrupted_Mask.DisplayName: Corrupted Mask
+			Ruderibus_Round_exlos.DisplayName: Ruderibus Round Explosion
+			Ghost_Pistol_Shot.DisplayName: Ghost_ Pistol_ Shot
 		}
 
 		NPCs: {

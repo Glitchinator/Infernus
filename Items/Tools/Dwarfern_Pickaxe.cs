@@ -20,17 +20,36 @@ namespace Infernus.Items.Tools
             Item.DamageType = DamageClass.Melee;
             Item.width = 34;
             Item.height = 34;
-            Item.useTime = 17;
-            Item.useAnimation = 17;
+            Item.useTime = 13;
+            Item.useAnimation = 13;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 3f;
             Item.value = 50000;
             Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
+            Item.noUseGraphic = false;
             Item.axe = 12;
-            Item.pick = 50;
+            Item.pick = 59;
             Item.useTurn = true;
+            Item.shoot = ProjectileID.None;
+            Item.shootSpeed = 0f;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ItemID.CrimtaneBar, 4)
+            .AddRecipeGroup(RecipeGroupID.Wood, 16)
+            .AddRecipeGroup(RecipeGroupID.IronBar, 8)
+            .AddTile(TileID.Anvils)
+            .Register();
+
+            CreateRecipe()
+            .AddIngredient(ItemID.DemoniteBar, 4)
+            .AddRecipeGroup(RecipeGroupID.Wood, 16)
+            .AddRecipeGroup(RecipeGroupID.IronBar, 8)
+            .AddTile(TileID.Anvils)
+            .Register();
         }
         public override void UpdateInventory(Player player)
         {
@@ -38,7 +57,7 @@ namespace Infernus.Items.Tools
             {
                 Item.damage = 32;
                 Item.axe = 22;
-                Item.pick = 110;
+                Item.pick = 119;
                 return;
             }
             SetDefaults();
@@ -51,26 +70,16 @@ namespace Infernus.Items.Tools
         {
             if (player.altFunctionUse == 2)
             {
-                Item.useAnimation = 130;
-                Item.useTime = 130;
                 Item.axe = 0;
                 Item.pick = 0;
+                Item.noUseGraphic = true;
                 Item.autoReuse = false;
+                Item.shoot = ProjectileID.StickyBomb;
+                Item.shootSpeed = 5f;
                 CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), RocknStone, Main.rand.Next(new[] { "Rock and Stone!", "ROCK... AND... STONE!", "Rock and Stone forever!", "That's it lads! Rock and Stone!", "None can stand before us!", "We fight for Rock and Stone!", "If you don't Rock and Stone, you ain't comin' home!", "Did I hear a Rock and Stone?", "For Karl!", "Leave No Dwarf Behind!", "Rock and Stone, Brother!", "Rock and Stone in the Heart!", "Come on guys! Rock and Stone!", "Like that! Rock and Stone!", "Rock and Stone to the Bone!" }), true);
-
-                if (Main.netMode == NetmodeID.SinglePlayer)
-                {
-                    Main.NewText(player.name + " salutes his fellow dwarfs", RocknStone);
-                }
-                if (Main.netMode == NetmodeID.MultiplayerClient)
-                {
-                    Main.NewText(player.name + " salutes his fellow dwarfs", RocknStone);
-                }
             }
             else
             {
-                Item.useTime = 17;
-                Item.useAnimation = 17;
                 SetDefaults();
             }
             return base.CanUseItem(player);

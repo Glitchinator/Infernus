@@ -19,8 +19,10 @@ namespace Infernus.Projectiles
             Projectile.height = 8;
             Projectile.friendly = false;
             Projectile.hostile = false;
-            Projectile.timeLeft = 60;
+            Projectile.timeLeft = 45;
+            Projectile.penetrate = -1;
             Projectile.netImportant = true;
+            Projectile.ai[0] = 15f;
         }
         public override void AI()
         {
@@ -42,6 +44,10 @@ namespace Infernus.Projectiles
             {
                 Dust.NewDustPerfect(Projectile.Center, DustID.HallowedPlants);
             }
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            Projectile.damage = (int)(Projectile.damage * 0.75f);
         }
         public override void SetStaticDefaults()
         {

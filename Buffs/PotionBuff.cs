@@ -13,8 +13,8 @@ namespace Infernus.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetDamage(DamageClass.Generic) += .7f;
-            player.GetCritChance(DamageClass.Generic) += 4;
+            player.GetDamage(DamageClass.Generic) += .07f;
+            player.GetCritChance(DamageClass.Generic) += 3;
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Infernus.Projectiles
 {
     public class Boulder_Rain : ModProjectile
     {
+        public Vector2 target_pos;
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailingMode[Type] = 0;
@@ -61,7 +62,6 @@ namespace Infernus.Projectiles
 
             return true;
         }
-        /*
         public override void OnKill(int timeLeft)
         {
             for (int k = 0; k < 9; k++)
@@ -70,10 +70,16 @@ namespace Infernus.Projectiles
                 Dust wand = Dust.NewDustPerfect(Projectile.Center + speed_Dust * 18, DustID.Stone, speed_Dust, 0, default, Scale: 2f);
                 wand.noGravity = true;
             }
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, -2.5f, 0, ModContent.ProjectileType<Ice_Bolt_Homing>(), Projectile.damage,0, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 2.5f, 3f, ModContent.ProjectileType<Ice_Bolt_Homing>(), Projectile.damage, 0, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 2.5f, -3f, ModContent.ProjectileType<Ice_Bolt_Homing>(), Projectile.damage, 0, Projectile.owner);
+            for (int i = 0; i < Main.player.Length; i++)
+            {
+                if (Main.player[i].active == true)
+                {
+                    target_pos = Main.player[i].Center;
+                }
+            }
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, (target_pos - Projectile.Center).SafeNormalize(Vector2.Zero) * 16f, ModContent.ProjectileType<Boulder_Bolt>(), Projectile.damage,0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, (target_pos - Projectile.Center).SafeNormalize(Vector2.Zero) * 16f, ModContent.ProjectileType<Boulder_Bolt>(), Projectile.damage, 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, (target_pos - Projectile.Center).SafeNormalize(Vector2.Zero) * 16f, ModContent.ProjectileType<Boulder_Bolt>(), Projectile.damage, 0, Projectile.owner);
         }
-        */
     }
 }

@@ -28,6 +28,8 @@ namespace Infernus.Projectiles
             Projectile.alpha = 255;
             Projectile.damage = 22;
             Projectile.knockBack = 4f;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 20;
         }
         public override void OnSpawn(IEntitySource source)
         {

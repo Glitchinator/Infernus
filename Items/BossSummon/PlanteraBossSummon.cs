@@ -45,7 +45,7 @@ namespace Infernus.Items.BossSummon
             .AddIngredient(ItemID.SoulofMight, 6)
             .AddIngredient(ItemID.SoulofSight, 6)
             .AddIngredient(ItemID.Moonglow, 2)
-            .AddTile(TileID.MythrilAnvil)
+            .AddTile(TileID.DemonAltar)
             .Register();
         }
     }

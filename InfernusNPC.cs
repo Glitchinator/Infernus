@@ -2,6 +2,7 @@
 using Infernus.Items.Materials;
 using Infernus.Items.Weapon.HardMode.Accessories;
 using Infernus.NPCs;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -159,7 +160,6 @@ namespace Infernus
                 npc.timeLeft = 300;
             }
         }
-
         public override void OnKill(NPC npc)
         {
             Player player = new Player();

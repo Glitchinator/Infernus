@@ -36,6 +36,50 @@ namespace Infernus.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 30;
         }
+        public override void OnSpawn(IEntitySource source)
+        {
+            for (int k = 0; k < 14; k++)
+            {
+                Vector2 speed2 = Main.rand.NextVector2Circular(2f, 4f);
+                Dust Sword = Dust.NewDustPerfect(Projectile.Center + speed2 * 32, DustID.ShadowbeamStaff, speed2 * 3, Scale: 3f);
+                Sword.noGravity = true;
+            }
+            for (int k = 0; k < 12; k++)
+            {
+                Vector2 speed2 = Main.rand.NextVector2Circular(2f, 4f);
+                Dust Sword = Dust.NewDustPerfect(Projectile.Center + speed2 * 32, DustID.Shadowflame, speed2 * 3, Scale: 3f);
+                Sword.noGravity = true;
+            }
+            for (int k = 0; k < 6; k++)
+            {
+                Vector2 speed2 = Main.rand.NextVector2Circular(2f, 4f);
+                Dust Sword = Dust.NewDustPerfect(Projectile.Center + speed2 * 32, DustID.Smoke, speed2 * 3, Scale: 2f);
+                Sword.noGravity = true;
+            }
+            for (int k = 0; k < 2; k++)
+            {
+                float speedMulti = 0.8f;
+                if (k == 1)
+                {
+                    speedMulti = 1.6f;
+                }
+
+                var smokeGore = Gore.NewGoreDirect(Projectile.GetSource_NaturalSpawn(), Projectile.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                smokeGore.velocity *= speedMulti;
+                smokeGore.velocity += Vector2.One;
+                smokeGore = Gore.NewGoreDirect(Projectile.GetSource_NaturalSpawn(), Projectile.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                smokeGore.velocity *= speedMulti;
+                smokeGore.velocity.X -= 1.2f;
+                smokeGore.velocity.Y += 1.2f;
+                smokeGore = Gore.NewGoreDirect(Projectile.GetSource_NaturalSpawn(), Projectile.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                smokeGore.velocity *= speedMulti;
+                smokeGore.velocity.X += 1.2f;
+                smokeGore.velocity.Y -= 1.2f;
+                smokeGore = Gore.NewGoreDirect(Projectile.GetSource_NaturalSpawn(), Projectile.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                smokeGore.velocity *= speedMulti;
+                smokeGore.velocity -= Vector2.One;
+            }
+        }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

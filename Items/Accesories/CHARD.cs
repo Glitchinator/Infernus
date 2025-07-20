@@ -23,7 +23,10 @@ namespace Infernus.Items.Accesories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetDamage(DamageClass.Summon) += .10f;
-            player.maxMinions++;
+        }
+        public override void UpdateEquip(Player player)
+        {
+            Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Sentinel_Battery = true;
         }
         public override void AddRecipes()
         {

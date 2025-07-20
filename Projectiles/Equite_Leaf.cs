@@ -43,7 +43,8 @@ namespace Infernus.Projectiles
             {
                 // do melee stuff on hit
                 // reduce enemy defense
-                target.defense--;
+                //target.defense--;
+                target.GetGlobalNPC<EffectNPC>().Equite_Knuckles_Stacking.Add(new Vector2(1,300));
             }
             if (Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Equite_Quiver_Equipped == true)
             {

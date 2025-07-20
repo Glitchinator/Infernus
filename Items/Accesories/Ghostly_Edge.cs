@@ -27,14 +27,8 @@ namespace Infernus.Items.Accesories
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.Bone, 8)
-            .AddIngredient(ItemID.IronBroadsword, 1)
-            .AddTile(TileID.Anvils)
-            .Register();
-
-            CreateRecipe()
-            .AddIngredient(ItemID.Bone, 8)
-            .AddIngredient(ItemID.LeadBroadsword, 1)
+            .AddIngredient(ItemID.Bone, 12)
+            .AddIngredient(ModContent.ItemType<Bone_Bracer>(), 1)
             .AddTile(TileID.Anvils)
             .Register();
         }

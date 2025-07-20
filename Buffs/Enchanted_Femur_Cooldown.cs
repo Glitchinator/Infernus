@@ -1,15 +1,18 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using System;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Infernus.Buffs.Whip_Debuffs
+namespace Infernus.Buffs
 {
-    public class Gem_Whip_Cooldown : ModBuff
+    public class Enchanted_Femur_Cooldown : ModBuff
     {
         public override string Texture => "Infernus/Buffs/Whip_Debuffs/Whip_Debuff_Icon";
+
         public override void SetStaticDefaults()
         {
-            BuffID.Sets.IsATagBuff[Type] = true;
+            Main.debuff[Type] = true;
         }
     }
 }

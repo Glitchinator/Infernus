@@ -44,7 +44,7 @@ namespace Infernus.Items.BossSummon
             CreateRecipe()
             .AddIngredient(ItemID.SharkFin, 1)
             .AddIngredient(ItemID.SandBlock, 16)
-            .AddTile(TileID.MythrilAnvil)
+            .AddTile(TileID.DemonAltar)
             .Register();
         }
     }

@@ -700,7 +700,7 @@ namespace Infernus.NPCs
                 {
                     velocity = new Vector2(0f, 4.9f);
                 }
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Meteor_Huge>(), 10, NPC.whoAmI);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Meteor_Huge>(), 16, NPC.whoAmI);
             }
         }
         private void Meteor_Spawner()

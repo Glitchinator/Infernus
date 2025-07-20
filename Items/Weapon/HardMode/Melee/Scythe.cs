@@ -29,7 +29,7 @@ namespace Infernus.Items.Weapon.HardMode.Melee
             Item.shoot = ModContent.ProjectileType<Projectiles.Scythe>();
             Item.channel = true;
             Item.noUseGraphic = true;
-            Item.shootSpeed = 42f;
+            Item.shootSpeed = 26f;
             Item.autoReuse = true;
         }
         public override void AddRecipes()

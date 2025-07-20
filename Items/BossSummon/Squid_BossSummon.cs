@@ -47,6 +47,7 @@ namespace Infernus.Items.BossSummon
             .AddIngredient(ItemID.FallenStar, 2)
             .AddIngredient(ItemID.Lens, 1)
             .AddIngredient(ItemID.Gel, 6)
+            .AddTile(TileID.DemonAltar)
             .Register();
         }
     }

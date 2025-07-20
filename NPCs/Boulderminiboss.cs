@@ -79,7 +79,7 @@ namespace Infernus.NPCs
         bool is_dashing = false;
         bool spawned_second_Shield = false;
         bool timer_reset = false;
-        bool Timer_Halt = false;
+        //bool Timer_Halt = false;
         bool Spin = false;
         bool Stay_Above = false;
         public override void AI()
@@ -150,14 +150,17 @@ namespace Infernus.NPCs
                 Move_X = 0;
                 Move_Y = 300;
             }
+            if(Move_Location == 6)
+            {
+                Move_X = 0;
+                Move_Y = 0;
+            }
             if (Stay_Above == true)
             {
                 Move_Location = 0;
             }
-            if(Timer_Halt == false)
-            {
-                InfernusWorld.Boulder_Boss_Timer++;
-            }
+            InfernusWorld.Boulder_Boss_Timer++;
+
             Timer = InfernusWorld.Boulder_Boss_Timer;
             if (NPC.alpha == 0 && timer_reset == false)
             {
@@ -199,47 +202,71 @@ namespace Infernus.NPCs
                 {
                     Super_Dash();
                 }
-                if (Timer == 510)
+                
+                if (Timer == 900)
                 {
                     is_dashing = false;
                 }
+                
+                /*
                 if (Timer == 560)
                 {
                     InfernusWorld.Boulder_Boss_Timer = 0;
                 }
+                */
             }
             if (spawned_second_Shield == false && NPC.alpha == 0)
             {
+                //Move_Location = 6;
                 // first phase w/ shields
-                if (Timer >= 0)
+                if (Timer == 60)
                 {
-                    //Main.NewText("First phase without shields", 229, 214, 127);
+                    Boulder_Bombs();
                 }
+
                 if (Timer == 100)
                 {
-                    Rapid_Fire_Shotgun();
+                    Boulder_Bombs();
                 }
                 if (Timer == 120)
                 {
                     is_dashing = true;
+                }
+                if(Timer == 180)
+                {
                     Dash();
                 }
-                if (Timer >= 200 && Timer <= 300)
+                if (Timer == 210)
                 {
-                    Heresy_Rapid();
+                    Boulder_Bombs();
+                    Knockback();
+                }
+                if (Timer == 250)
+                {
+                    Boulder_Bombs();
+                    Knockback();
+                }
+                if (Timer == 280)
+                {
+                    Boulder_Bombs();
                     Knockback();
                 }
                 if (Timer == 360)
                 {
                     is_dashing = false;
                 }
+                if (Timer == 400)
+                {
+                    Boulder_Bombs();
+                }
                 if (Timer == 440)
                 {
-                    Move_Location = 3;
-                    Timer_Halt = true;
-                    InfernusWorld.Boulder_Boss_Timer += 1;
+                    Boulder_Bombs();
                 }
-                
+                if(Timer == 490)
+                {
+                    is_dashing = true;
+                }
                 if (Timer == 540)
                 {
                     PreDash();
@@ -248,17 +275,51 @@ namespace Infernus.NPCs
                 {
                     Dash();
                 }
+                if(Timer == 660)
+                {
+                    is_dashing = false;
+                }
                 if (Timer == 700)
                 {
-                    Timer_Halt = true;
                     Stay_Above = true;
                     Spin = true;
-                    InfernusWorld.Boulder_Boss_Timer += 1;
+                }
+                if(Spin == true)
+                {
+                    if(Timer % 20 < 0)
+                    {
+                        Homing_Shotts();
+                    }
                 }
                 if (Timer == 900)
                 {
                     Spin = false;
                     Stay_Above = false;
+                    //InfernusWorld.Boulder_Boss_Timer = 0;
+                }
+                if (Timer == 980)
+                {
+                    is_dashing = true;
+                }
+                if (Timer == 1040)
+                {
+                    Dash();
+                }
+                if (Timer == 1080)
+                {
+                    Dash();
+                }
+                if (Timer >= 1160 && Timer < 1460)
+                {
+                    Rapid_Fire_Shotgun();
+                }
+                if (Timer == 1480)
+                {
+                    Super_Dash();
+                }
+                if (Timer == 1520)
+                {
+                    is_dashing = false;
                     InfernusWorld.Boulder_Boss_Timer = 0;
                 }
             }
@@ -278,271 +339,6 @@ namespace Infernus.NPCs
                     Main.NewText("Second phase without shields", 229, 214, 127);
                 }
             }
-            /*
-            if (Timer == 60)
-            {
-                Timer = 11000;
-            }
-            if (Timer == 100)
-            {
-                //Boulder_Rain();
-                //SoundEngine.PlaySound(SoundID.Item74, NPC.position);
-            }
-            if (Timer == 150)
-            {
-                Homing_Shotts();
-                SoundEngine.PlaySound(SoundID.Item60, NPC.position);
-            }
-            if (Timer == 200)
-            {
-                Homing_Shotts();
-                SoundEngine.PlaySound(SoundID.Item60, NPC.position);
-            }
-            if (Timer == 250)
-            {
-                Homing_Shotts();
-                SoundEngine.PlaySound(SoundID.Item60, NPC.position);
-            }
-            if (Timer == 300)
-            {
-                Homing_Shotts();
-                SoundEngine.PlaySound(SoundID.Item60, NPC.position);
-            }
-            if (Timer == 400)
-            {
-                // dash starts
-                Timer = 10000;
-            }
-            if (Timer == 500)
-            {
-                //Boulder_Rain();
-                //SoundEngine.PlaySound(SoundID.Item74, NPC.position);
-            }
-            if (Timer == 600)
-            {
-                Timer = 12000;
-            }
-            if (Timer == 700)
-            {
-                //Boulder_Rain();
-                //SoundEngine.PlaySound(SoundID.Item74, NPC.position);
-            }
-            if (Timer == 800)
-            {
-                Timer = 0;
-            }
-            
-            #region first_phase_attacks
-            if (Timer == 10000)
-            {
-                Rock_Rain_Dash();
-                Dash();
-                SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
-            }
-            if (Timer == 10020)
-            {
-                Rock_Rain_Dash();
-            }
-            if (Timer == 10040)
-            {
-                Rock_Rain_Dash();
-            }
-            if (Timer == 10060)
-            {
-                Rock_Rain_Dash();
-            }
-            if (Timer == 10080)
-            {
-                Dash();
-                Rock_Rain_Dash();
-                SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
-            }
-            if (Timer == 10100)
-            {
-                Rock_Rain_Dash();
-            }
-            if (Timer == 10120)
-            {
-                Rock_Rain_Dash();
-            }
-            if (Timer == 10140)
-            {
-                Rock_Rain_Dash();
-            }
-            if (Timer == 10160)
-            {
-                Rock_Rain_Dash();
-                Dash();
-                SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
-            }
-            if (Timer == 10180)
-            {
-                Rock_Rain_Dash();
-            }
-            if (Timer == 10200)
-            {
-                Rock_Rain_Dash();
-            }
-            if (Timer == 10220)
-            {
-                Rock_Rain_Dash();
-            }
-            if (Timer == 10240)
-            {
-                Dash();
-                Rock_Rain_Dash();
-                SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
-                is_dashing = true;
-            }
-            if (Timer == 10260)
-            {
-                Rock_Rain_Dash();
-            }
-            if (Timer == 10280)
-            {
-                Rock_Rain_Dash();
-            }
-            if (Timer == 10290)
-            {
-                Rock_Rain_Dash();
-                Timer = 440;
-                is_dashing = false;
-            }
-            if (Timer >= 11000)
-            {
-                if (InfernusSystem.Level_systemON == true)
-                {
-                    Heresy_Rapid();
-                }
-            }
-            if (Timer == 11000)
-            {
-                Teleport_Up_Center();
-            }
-            if (Timer == 11015)
-            {
-                SoundEngine.PlaySound(SoundID.Item42, NPC.position);
-                Rapid_Fire_Shotgun();
-            }
-            if (Timer == 11030)
-            {
-                SoundEngine.PlaySound(SoundID.Item42, NPC.position);
-                Rapid_Fire_Shotgun();
-            }
-            if (Timer == 11045)
-            {
-                SoundEngine.PlaySound(SoundID.Item42, NPC.position);
-                Rapid_Fire_Shotgun();
-            }
-            if (Timer == 11060)
-            {
-                SoundEngine.PlaySound(SoundID.Item42, NPC.position);
-                Rapid_Fire_Shotgun();
-            }
-            if (Timer == 11075)
-            {
-                SoundEngine.PlaySound(SoundID.Item42, NPC.position);
-                Rapid_Fire_Shotgun();
-            }
-            if (Timer == 11090)
-            {
-                SoundEngine.PlaySound(SoundID.Item42, NPC.position);
-                Rapid_Fire_Shotgun();
-            }
-            if (Timer == 11105)
-            {
-                SoundEngine.PlaySound(SoundID.Item42, NPC.position);
-                Rapid_Fire_Shotgun();
-            }
-            if (Timer == 11120)
-            {
-                SoundEngine.PlaySound(SoundID.Item42, NPC.position);
-                Rapid_Fire_Shotgun();
-            }
-            if (Timer == 11135)
-            {
-                SoundEngine.PlaySound(SoundID.Item42, NPC.position);
-                Rapid_Fire_Shotgun();
-            }
-            if (Timer == 11150)
-            {
-                SoundEngine.PlaySound(SoundID.Item42, NPC.position);
-                Rapid_Fire_Shotgun();
-            }
-            if (Timer == 11165)
-            {
-                SoundEngine.PlaySound(SoundID.Item42, NPC.position);
-                Rapid_Fire_Shotgun();
-            }
-            if (Timer == 11180)
-            {
-                SoundEngine.PlaySound(SoundID.Item42, NPC.position);
-                Rapid_Fire_Shotgun();
-            }
-            if (Timer == 11195)
-            {
-                SoundEngine.PlaySound(SoundID.Item42, NPC.position);
-                Rapid_Fire_Shotgun();
-            }
-            if (Timer == 11210)
-            {
-                SoundEngine.PlaySound(SoundID.Item42, NPC.position);
-                Rapid_Fire_Shotgun();
-            }
-            if (Timer == 11300)
-            {
-                Timer = 70;
-            }
-            if (Timer == 12000)
-            {
-                Teleport_Up_Center();
-            }
-            if (Timer == 12060)
-            {
-                SoundEngine.PlaySound(SoundID.Item70, NPC.position);
-                Shotgun_360();
-            }
-            if (Timer == 12120)
-            {
-                SoundEngine.PlaySound(SoundID.Item70, NPC.position);
-                Shotgun_360();
-            }
-            if (Timer == 12180)
-            {
-                SoundEngine.PlaySound(SoundID.Item70, NPC.position);
-                Shotgun_360();
-            }
-            if (Timer == 12240)
-            {
-                SoundEngine.PlaySound(SoundID.Item70, NPC.position);
-                Shotgun_360();
-            }
-            if (Timer == 12300)
-            {
-                SoundEngine.PlaySound(SoundID.Item70, NPC.position);
-                Shotgun_360();
-            }
-            if (Timer == 12360)
-            {
-                SoundEngine.PlaySound(SoundID.Item70, NPC.position);
-                Shotgun_360();
-            }
-            if (Timer == 12420)
-            {
-                SoundEngine.PlaySound(SoundID.Item70, NPC.position);
-                Shotgun_360();
-            }
-            if (Timer == 12480)
-            {
-                SoundEngine.PlaySound(SoundID.Item70, NPC.position);
-                Shotgun_360();
-            }
-            if (Timer == 12600)
-            {
-                Timer = 650;
-            }
-            #endregion
-            */
 
 
             if (NPC.alpha == 0 && Arms_Left > 0)
@@ -582,6 +378,7 @@ namespace Infernus.NPCs
         }
         public override void OnSpawn(IEntitySource source)
         {
+            InfernusWorld.Boulder_Boss_Timer = 0;
             Arms_Left = 3;
             Spawn_IceShards();
             NPC.alpha = Arms_Left;
@@ -622,7 +419,8 @@ namespace Infernus.NPCs
             float magnitude = Magnitude(move);
             if (magnitude <= 80f)
             {
-                if (Move_Location >= 3 && Move_Location <= 5)
+                /*
+                if (Move_Location >= 3 && Move_Location == 5)
                 {
                     Rapid_Fire_Shotgun();
                     Move_Location++;
@@ -636,6 +434,7 @@ namespace Infernus.NPCs
                 {
                     Homing_Shotts();
                 }
+                */
                 speed = 11.5f;
             }
             if (Move_Location == Move_Location)
@@ -667,7 +466,7 @@ namespace Infernus.NPCs
                 NPC.velocity.X *= 2.25f;
                 NPC.velocity.Y *= 2.25f;
                 {
-                    float rotation = (float)Math.Atan2(NPC.Center.Y - (player.position.Y + Main.rand.Next(-40, 40)), NPC.Center.X - (player.position.X + Main.rand.Next(-40, 40)));
+                    float rotation = (float)Math.Atan2(NPC.Center.Y - (player.position.Y + Main.rand.Next(-400, 400)), NPC.Center.X - (player.position.X + Main.rand.Next(-400, 400)));
                     if (magnitude >= 700f)
                     {
                         magnitude = 700;
@@ -907,6 +706,29 @@ namespace Infernus.NPCs
                 }
             }
         }
+        private void Boulder_Bombs()
+        {
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    player = Main.player[NPC.target];
+                    Vector2 velocity = player.Center - NPC.Center;
+                    float magnitude = Magnitude(velocity);
+                    if (magnitude > 0)
+                    {
+                        velocity *= 5f / magnitude;
+                    }
+                    else
+                    {
+                        velocity = new Vector2(0f, 5f);
+                    }
+                    Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(70));
+
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, newVelocity, ModContent.ProjectileType<Boulder_Rain>(), 20, NPC.whoAmI);
+                }
+            }
+        }
         private void Boulder_Rain()
         {
             int damage = 16;
@@ -954,6 +776,7 @@ namespace Infernus.NPCs
         }
         public override void OnKill()
         {
+            InfernusWorld.Boulder_Boss_Timer = 0;
             InfernusSystem.downedBoulderBoss = true;
         }
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

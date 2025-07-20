@@ -51,6 +51,7 @@ namespace Infernus.Items.Tools
         public override void AddRecipes()
         {
             CreateRecipe()
+            .AddTile(TileID.DemonAltar)
             .Register();
         }
     }

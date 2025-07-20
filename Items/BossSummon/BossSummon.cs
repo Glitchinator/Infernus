@@ -42,7 +42,7 @@ namespace Infernus.Items.BossSummon
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<Materials.Ruderibus_Shard>(), 32)
             .AddIngredient(ItemID.IceBlock, 20)
-            .AddTile(TileID.Anvils)
+            .AddTile(TileID.DemonAltar)
             .Register();
         }
     }

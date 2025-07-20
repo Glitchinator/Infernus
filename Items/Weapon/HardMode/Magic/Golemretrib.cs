@@ -17,7 +17,7 @@ namespace Infernus.Items.Weapon.HardMode.Magic
 
         public override void SetDefaults()
         {
-            Item.damage = 80;
+            Item.damage = 50;
             Item.DamageType = DamageClass.Magic;
             Item.width = 24;
             Item.height = 56;
@@ -63,7 +63,7 @@ namespace Infernus.Items.Weapon.HardMode.Magic
             for (int i = 0; i < 2; i++)
             {
                 Vector2 perturbedSpeed = velocity2.RotatedBy(MathHelper.Lerp(-rotation2, rotation2, i));
-                Projectile.NewProjectileDirect(source, position, perturbedSpeed, ModContent.ProjectileType<Tesla>(), damage * 2, knockback, player.whoAmI);
+                Projectile.NewProjectileDirect(source, position, perturbedSpeed, ModContent.ProjectileType<Tesla>(), (int)(damage * 1.5f), knockback, player.whoAmI);
             }
             for (int i = 0; i < 2; i++)
             {

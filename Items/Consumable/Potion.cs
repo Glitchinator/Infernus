@@ -22,10 +22,10 @@ namespace Infernus.Items.Consumable
             Item.UseSound = SoundID.Item3;
             Item.maxStack = 30;
             Item.consumable = true;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 1000;
             Item.buffType = ModContent.BuffType<Buffs.PotionBuff>();
-            Item.buffTime = 32400;
+            Item.buffTime = 18000;
         }
     }
 }

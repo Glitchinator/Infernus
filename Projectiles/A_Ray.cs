@@ -46,11 +46,22 @@ namespace Infernus.Projectiles
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-
+            for (int k = 0; k < 4; k++)
+            {
+                Vector2 speed2 = Main.rand.NextVector2Unit();
+                Dust wand = Dust.NewDustPerfect(Projectile.Center + speed2 * 16, DustID.SolarFlare, speed2 * 2, Scale: 1f);
+                wand.noGravity = true;
+            }
             Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<A_Ray_exlos>(), (int)(Projectile.damage * 1.1f), 4f, Projectile.owner);
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
+            for (int k = 0; k < 4; k++)
+            {
+                Vector2 speed2 = Main.rand.NextVector2Unit();
+                Dust wand = Dust.NewDustPerfect(Projectile.Center + speed2 * 16, DustID.SolarFlare, speed2 * 2, Scale: 1f);
+                wand.noGravity = true;
+            }
             Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<A_Ray_exlos>(), (int)(Projectile.damage * 1.1f), 4f, Projectile.owner);
             return true;
         }
