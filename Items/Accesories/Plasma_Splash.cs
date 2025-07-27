@@ -14,15 +14,16 @@ namespace Infernus.Items.Accesories
         }
         public override void SetDefaults()
         {
-            Item.width = 44;
-            Item.height = 44;
+            Item.width = 34;
+            Item.height = 34;
             Item.accessory = true;
             Item.value = 85000;
             Item.rare = ItemRarityID.Orange;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetCritChance(DamageClass.Ranged) += 6;
+            player.GetCritChance(DamageClass.Ranged) += 7;
+            player.GetAttackSpeed(DamageClass.Ranged) -= 0.25f;
         }
         public override void UpdateEquip(Player player)
         {
@@ -31,10 +32,7 @@ namespace Infernus.Items.Accesories
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Charge>(), 1)
-            .AddIngredient(ModContent.ItemType<Materials.Hot>(), 7)
-            .AddIngredient(ModContent.ItemType<Materials.IceSpikes>(), 7)
-            .AddIngredient(ItemID.PygmyNecklace, 1)
+            .AddIngredient(ModContent.ItemType<Materials.Cursed_Plasma>(), 21)
             .AddTile(TileID.Anvils)
             .Register();
         }

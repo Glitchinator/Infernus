@@ -1,4 +1,5 @@
-﻿using Infernus.Items.Materials;
+﻿using Infernus.Items.Accesories;
+using Infernus.Items.Materials;
 using Infernus.Items.Mounts;
 using Infernus.Items.Weapon.Melee;
 using Infernus.Items.Weapon.Ranged;
@@ -273,6 +274,7 @@ namespace Infernus.NPCs
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.GoldenKey, 3, 1, 3));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Cursed_Plasma>(), 1, 12, 36));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Plasma_Splash>(), 3));
 
             int[] Which_One = [ModContent.ItemType<Ghost_Pistol>()];
 

@@ -14,11 +14,11 @@ namespace Infernus.Items.Accesories
         }
         public override void SetDefaults()
         {
-            Item.width = 30;
-            Item.height = 32;
+            Item.width = 34;
+            Item.height = 34;
             Item.accessory = true;
             Item.value = 45000;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.Blue;
         }
         public override void UpdateEquip(Player player)
         {
@@ -27,8 +27,16 @@ namespace Infernus.Items.Accesories
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Buckle>(), 1)
-            .AddIngredient(ModContent.ItemType<Materials.Hot>(), 12)
+            .AddRecipeGroup(RecipeGroupID.Wood, 8)
+            .AddRecipeGroup(RecipeGroupID.IronBar, 2)
+            .AddIngredient(ItemID.DemoniteBar, 2)
+            .AddTile(TileID.Anvils)
+            .Register();
+
+            CreateRecipe()
+            .AddRecipeGroup(RecipeGroupID.Wood, 8)
+            .AddRecipeGroup(RecipeGroupID.IronBar, 2)
+            .AddIngredient(ItemID.CrimtaneBar, 2)
             .AddTile(TileID.Anvils)
             .Register();
         }

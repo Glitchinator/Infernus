@@ -25,7 +25,7 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
             Item.knockBack = 3f;
             Item.value = Item.buyPrice(0, 25, 50, 0);
             Item.rare = ItemRarityID.Yellow;
-            Item.UseSound = SoundID.Item41;
+            Item.UseSound = SoundID.Item11;
             Item.autoReuse = true;
             Item.noMelee = true;
             Item.shoot = ProjectileID.Bullet;

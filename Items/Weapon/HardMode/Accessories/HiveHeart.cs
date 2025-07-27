@@ -21,11 +21,20 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.lifeRegen += 2;
+            player.statDefense += 6;
             player.buffImmune[BuffID.Poisoned] = true;
             player.buffImmune[BuffID.Venom] = true;
-            player.strongBees = true;
             Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Heart_Equipped = true;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<Accesories.Stone_Emblem>(), 1)
+            .AddIngredient(ModContent.ItemType<Toxic_Fang>(), 1)
+            .AddIngredient(ItemID.HoneyComb, 1)
+            .AddIngredient(ItemID.Bezoar, 1)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
         }
     }
 }

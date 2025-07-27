@@ -23,7 +23,7 @@ namespace Infernus.Projectiles
             AIType = ProjectileID.Bullet;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.netImportant = true;
-            Projectile.timeLeft = 95;
+            Projectile.timeLeft = 35;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.alpha = 255;

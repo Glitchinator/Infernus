@@ -1,4 +1,12 @@
-Projectiles.Iceicle_Necklace_Shot.DisplayName: Iceicle_ Necklace_ Shot
+Projectiles: {
+	Iceicle_Necklace_Shot.DisplayName: Iceicle_ Necklace_ Shot
+	Iceicle_Necklace_Shot2.DisplayName: Iceicle_ Necklace_ Shot2
+	Hellfire_Blast.DisplayName: Hellfire_ Blast
+	Hellfire_exlos.DisplayName: Hellfire_exlos
+	Iceicle_Necklace_exlos.DisplayName: Iceicle_ Necklace_exlos
+	Ink_Shot.DisplayName: Ink_ Shot
+	Tainted_Clip_exlos.DisplayName: Tainted_ Clip_exlos
+}
 
 NPCs: {
 	Ruderibus.BossChecklistIntegration.SpawnInfo: While in the snow biome, use [i:5574].
@@ -612,8 +620,9 @@ Items: {
 		DisplayName: Burning Grasp
 		Tooltip:
 			'''
-			Ranged attacks shoot a hellfire blast
-			2 second cooldown between blasts
+			Guns shoot a hellfire blast on a 3 second cooldown
+			The blast inflicts an arrow reactive debuff
+			On arrow hit, enemy explodes
 			'''
 	}
 
@@ -639,8 +648,10 @@ Items: {
 		DisplayName: Iceicle Necklace
 		Tooltip:
 			'''
-			Ranged attacks shoot a piercing iceicle
-			2 second cooldown between iceicles
+			Arrows inflict frostburn
+			Bows shoot a piercing iceicle on a 2 second cooldown
+			The iceicle inflicts an bullet reactive debuff
+			On bullet hit, blast frostbite onto nearby enemies
 			'''
 	}
 
@@ -667,8 +678,9 @@ Items: {
 		DisplayName: Plasma Splash
 		Tooltip:
 			'''
-			Increases ranged crit chance by 6%
-			Ranged crits release homing souls
+			Increases ranged crit by 7%
+			Reduces ranged attack speed by 25%
+			Ranged crits burst into plasma
 			'''
 	}
 
@@ -797,5 +809,30 @@ Buffs: {
 	Meteor_Core_Buff: {
 		DisplayName: Meteor_ Core_ Buff
 		Description: Mods.Infernus.Buffs.Meteor_Core_Buff.Description
+	}
+
+	Cryo_Necklace_Debuff: {
+		DisplayName: Cryo_ Necklace_ Debuff
+		Description: Mods.Infernus.Buffs.Cryo_Necklace_Debuff.Description
+	}
+
+	Cryo_Necklace_Debuff2: {
+		DisplayName: Cryo_ Necklace_ Debuff2
+		Description: Mods.Infernus.Buffs.Cryo_Necklace_Debuff2.Description
+	}
+
+	Burning_Grasp_Debuff: {
+		DisplayName: Burning_ Grasp_ Debuff
+		Description: Mods.Infernus.Buffs.Burning_Grasp_Debuff.Description
+	}
+
+	Tainted_Clip_Debuff: {
+		DisplayName: Tainted_ Clip_ Debuff
+		Description: Mods.Infernus.Buffs.Tainted_Clip_Debuff.Description
+	}
+
+	Tainted_Clip_Extra_Debuff: {
+		DisplayName: Tainted_ Clip_ Extra_ Debuff
+		Description: Mods.Infernus.Buffs.Tainted_Clip_Extra_Debuff.Description
 	}
 }

@@ -758,6 +758,7 @@ namespace Infernus.NPCs
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.Summon.Squid_Fishbowl>(), 2));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.Ranged.Squid_FlameThrower>(), 2));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Accesories.Squid_Accessory>(), 2));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Accesories.Ink_Cartridge>(), 2));
 
             npcLoot.Add(notExpertRule);
         }

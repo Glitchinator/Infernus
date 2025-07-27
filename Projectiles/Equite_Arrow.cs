@@ -31,12 +31,8 @@ namespace Infernus.Projectiles
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            Projectile.ai[0] += 1f;
-            if (Projectile.ai[0] >= 44f)
-            {
-                Projectile.ai[0] = 44f;
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.1f;
-            }
+
+            Projectile.velocity.Y = Projectile.velocity.Y + 0.08f;
             if (Projectile.velocity.Y > 16f)
             {
                 Projectile.velocity.Y = 16f;

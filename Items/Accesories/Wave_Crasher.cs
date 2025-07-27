@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace Infernus.Items.Accesories
 {
-    public class Extra_Barrel : ModItem
+    public class Wave_Crasher : ModItem
     {
 
         public override void SetStaticDefaults()
@@ -14,21 +14,21 @@ namespace Infernus.Items.Accesories
         }
         public override void SetDefaults()
         {
-            Item.width = 30;
-            Item.height = 32;
+            Item.width = 22;
+            Item.height = 26;
             Item.accessory = true;
             Item.value = 45000;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.Green;
         }
-        public override void UpdateEquip(Player player)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Extra_Barrel = true;
+            player.statDefense += 6;
+            player.GetAttackSpeed(DamageClass.Melee) -= 0.15f;
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Buckle>(), 1)
-            .AddIngredient(ModContent.ItemType<Materials.Hot>(), 12)
+            .AddIngredient(ItemID.StoneBlock, 80)
             .AddTile(TileID.Anvils)
             .Register();
         }

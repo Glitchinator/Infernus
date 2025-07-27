@@ -29,8 +29,7 @@ namespace Infernus.Items.Accesories
             CreateRecipe()
             .AddRecipeGroup(RecipeGroupID.IronBar, 4)
             .AddRecipeGroup(RecipeGroupID.Wood, 8)
-            .AddIngredient(ItemID.Cobweb, 16)
-            .AddIngredient(ItemID.LifeCrystal, 2)
+            .AddIngredient(ItemID.Silk, 12)
             .AddTile(TileID.Anvils)
             .Register();
         }

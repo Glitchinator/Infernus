@@ -14,22 +14,24 @@ namespace Infernus.Items.Accesories
         }
         public override void SetDefaults()
         {
-            Item.width = 56;
-            Item.height = 52;
+            Item.width = 28;
+            Item.height = 34;
             Item.accessory = true;
             Item.value = 60000;
             Item.rare = ItemRarityID.Green;
         }
         public override void UpdateEquip(Player player)
         {
+            Main.LocalPlayer.GetModPlayer<InfernusPlayer>().NPC_Iced = true;
             Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Iceicle_Necklace = true;
         }
         public override void AddRecipes()
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<Condensed_Iceicle>(), 1)
-            .AddIngredient(ModContent.ItemType<Quiver>(), 1)
-            .AddTile(TileID.TinkerersWorkbench)
+            .AddIngredient(ItemID.Silk, 12)
+            .AddRecipeGroup(RecipeGroupID.IronBar, 4)
+            .AddTile(TileID.Anvils)
             .Register();
         }
     }

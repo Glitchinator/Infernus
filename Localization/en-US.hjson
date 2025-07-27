@@ -1615,7 +1615,7 @@ Mods: {
 
 			Condensed_Iceicle: {
 				DisplayName: Condensed Iceicle
-				Tooltip: Ranged Attacks inflict frostburn
+				Tooltip: Arrows inflict frostburn
 			}
 
 			Ice_Banner: {
@@ -1632,7 +1632,7 @@ Mods: {
 				DisplayName: Icy Quiver
 				Tooltip:
 					'''
-					Ranged Attacks inflict frostburn
+					Arrows inflict frostburn
 					Ranged attacks go 20% farther
 					'''
 			}
@@ -1794,7 +1794,7 @@ Mods: {
 			Blood_Quiver: {
 				Tooltip:
 					'''
-					Ranged Attacks inflict frostburn
+					Arrows inflict frostburn
 					Ranged attacks go 20% farther
 					Hitting enemies has a 50% chance to gain life regen buff
 					'''
@@ -2051,12 +2051,53 @@ Mods: {
 					Conjures a aura around the player
 					When enemies are hit in the aura you gain mana
 					Mana gained is 10% of that hits damage
+					Aura visibilty can be turned off using accessory visibilty
 					'''
 			}
 
 			Extra_Barrel: {
 				DisplayName: Extra_ Barrel
 				Tooltip: ""
+			}
+
+			Dusk_Sigil: {
+				DisplayName: Dusk_ Sigil
+				Tooltip: ""
+			}
+
+			Wave_Crasher: {
+				DisplayName: Wave_ Crasher
+				Tooltip: ""
+			}
+
+			Crystal_String: {
+				DisplayName: Crystal_ String
+				Tooltip: ""
+			}
+
+			Glacial_Quiver: {
+				DisplayName: Glacial_ Quiver
+				Tooltip: ""
+			}
+
+			Igneous_Arrowhead: {
+				DisplayName: Igneous_ Arrowhead
+				Tooltip: ""
+			}
+
+			Toxic_Fang: {
+				DisplayName: Toxic_ Fang
+				Tooltip: ""
+			}
+
+			Tainted_Clip: {
+				DisplayName: Tainted Clip
+				Tooltip:
+					'''
+					Increases ranged attack speed by 10%
+					Bullets inflict plague debuff
+					Enemies effected by plague will spread plague to enemies near them
+					'''
 			}
 		}
 

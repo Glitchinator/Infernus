@@ -1,4 +1,7 @@
-﻿using Infernus.NPCs;
+﻿using Infernus.Buffs;
+using Infernus.NPCs;
+using Infernus.Projectiles;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

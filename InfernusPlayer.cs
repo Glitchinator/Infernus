@@ -22,6 +22,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
 using Terraria.WorldBuilding;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Infernus
 {
@@ -150,6 +151,7 @@ namespace Infernus
 
         // Plasma Splash
         public bool Plasma_Splash = false;
+        public int Plasma_Splash_Timer = 0;
 
         // Burning Grasp
         public bool Burning_Grasp = false;
@@ -171,8 +173,17 @@ namespace Infernus
         public bool Squid_Sroll = false;
         public int Squid_Scroll_Amount = 0;
 
-        // extra barrel
-        public bool Extra_Barrel = false;
+        //public bool Crystal string
+        public bool Crystal_String = false;
+
+        //toxic fang
+        public bool Toxic_Fang = false;
+
+        // Glacial Quiver
+        public bool Glacial_Quiver = false;
+
+        // Tainted clip
+        public bool Tainted_Clip = false;
 
         public override void ModifyNursePrice(NPC nurse, int health, bool removeDebuffs, ref int price)
         {
@@ -236,6 +247,13 @@ namespace Infernus
                     return false;
                 }
             }
+            if (Glacial_Quiver == true)
+            {
+                if (Main.rand.Next(10) < 1)
+                {
+                    return false;
+                }
+            }
             return base.CanConsumeAmmo(weapon, ammo);
         }
         public override void ModifyShootStats(Item item, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -244,13 +262,9 @@ namespace Infernus
             {
                 velocity *= 1.2f;
             }
-            if (Extra_Barrel == true && item.DamageType == DamageClass.Ranged && item.ammo == AmmoID.Bullet)
+            if (Glacial_Quiver == true && item.DamageType == DamageClass.Ranged)
             {
-                damage = (int)(damage * 0.5f);
-                knockback = (int)(knockback * 0.5f);
-                Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(12));
-
-                velocity = newVelocity;
+                velocity *= 1.3f;
             }
         }
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
@@ -269,6 +283,10 @@ namespace Infernus
             {
                 Stress_Current += 1;
             }
+            if (Heart_Equipped == true)
+            {
+                Player.AddBuff(BuffID.Honey, 300);
+            }
             if (Aeritite_Shield_Equipped == true && Player.HasBuff(ModContent.BuffType<Aeritite_Timer>()))
             {
                 Player.ClearBuff(ModContent.BuffType<Aeritite_Timer>());
@@ -283,7 +301,7 @@ namespace Infernus
             }
             if (Enchanted_Femur == true && info.Damage >= 10 && !Player.HasBuff(ModContent.BuffType<Buffs.Enchanted_Femur_Cooldown>()))
             {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Player.Center, Vector2.Zero, ModContent.ProjectileType<Ink_EmergencyTyphoon>(), 25, 2f);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Player.Center, Vector2.Zero, ModContent.ProjectileType<Lightning_Explosion_Small>(), 90, 4f);
                 Player.AddBuff(ModContent.BuffType<Buffs.Enchanted_Femur_Cooldown>(), 240);
             }
             if (Meteor_Core == true && info.Damage >= 10)
@@ -297,22 +315,23 @@ namespace Infernus
             {
                 if (Main.rand.Next(4) < 1)
                 {
-                    Projectile.NewProjectile(source, position, velocity * 0.8f, ModContent.ProjectileType<Projectiles.Temporal_Glow_Squid.Drops.Ink_Flamethrower>(), (int)(damage * 0.5f), 0, 0);
+                    Projectile.NewProjectile(source, position, velocity * 0.8f, ModContent.ProjectileType<Ink_Shot>(), (int)(damage * 0.75f), 0, 0);
                 }
             }
-            if (Extra_Barrel == true && item.DamageType == DamageClass.Ranged)
+            if (Iceicle_Necklace == true && item.DamageType == DamageClass.Ranged && Iceicle_Necklace_Timer == 0 && item.useAmmo == AmmoID.Arrow)
             {
-                Projectile.NewProjectile(source, position, velocity, type, damage, knockback);
-            }
-            if (Iceicle_Necklace == true && item.DamageType == DamageClass.Ranged && Iceicle_Necklace_Timer == 0)
-            {
-                Projectile.NewProjectile(source, position, velocity * 0.8f, ModContent.ProjectileType<Projectiles.Iceicle_Necklace_Shot>(), (int)(damage * 0.75f), 0, 0);
+                Projectile.NewProjectile(source, position, velocity * 0.8f, ModContent.ProjectileType<Projectiles.Iceicle_Necklace_Shot>(), 1, 2f, 0);
                 Iceicle_Necklace_Timer = 120;
             }
-            if (Burning_Grasp == true && item.DamageType == DamageClass.Ranged && Burning_Grasp_Timer == 0)
+            if (Burning_Grasp == true && item.DamageType == DamageClass.Ranged && Burning_Grasp_Timer == 0 && item.useAmmo == AmmoID.Bullet)
             {
-                Projectile.NewProjectile(source, position, velocity * 0.8f, ModContent.ProjectileType<Projectiles.Shuriken_HellFire>(), (int)(damage * 0.75f), 0, 0);
-                Burning_Grasp_Timer = 120;
+                Projectile.NewProjectile(source, position, velocity * 0.8f, ModContent.ProjectileType<Projectiles.Hellfire_Blast>(), (int)(damage * 1.2f), 2f, 0);
+                Burning_Grasp_Timer = 180;
+            }
+            if (Crystal_String == true && item.DamageType == DamageClass.Ranged && item.useAmmo == AmmoID.Arrow)
+            {
+                Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(12));
+                Projectile.NewProjectile(source, position, newVelocity, ModContent.ProjectileType<Projectiles.Equite_Arrow>(), (int)(damage * 0.75f), 2f, 0);
             }
             return base.Shoot(item, source, position, velocity, type, damage, knockback);
         }
@@ -337,10 +356,6 @@ namespace Infernus
                 {
                     Player.AddBuff(ModContent.BuffType<Souldrinker_Buff>(), 120);
                 }
-            }
-            if (NPC_Iced == true && hit.DamageType == DamageClass.Ranged)
-            {
-                target.AddBuff(BuffID.Frostburn, 120);
             }
             if (Ice_Whiphead == true && hit.DamageType == DamageClass.SummonMeleeSpeed)
             {
@@ -437,18 +452,13 @@ namespace Infernus
                     Player.statMana += (int)(damageDone * 0.1f);
                 }
             }
-            if (Plasma_Splash == true && hit.DamageType == DamageClass.Ranged && hit.Crit == true)
+            if (Plasma_Splash == true && hit.DamageType == DamageClass.Ranged && hit.Crit == true && Plasma_Splash_Timer == 0)
             {
-                var damage = (int)(damageDone * 0.3f);
-                var proj = ModContent.ProjectileType<Flour_Homing>();
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center, new Vector2(-7, 0), proj, damage, 3f, Main.myPlayer);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center, new Vector2(7, 0), proj, damage, 3f, Main.myPlayer);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center, new Vector2(0, 7), proj, damage, 3f, Main.myPlayer);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center, new Vector2(0, -7), proj, damage, 3f, Main.myPlayer);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center, new Vector2(-7, -7), proj, damage, 3f, Main.myPlayer);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center, new Vector2(7, -7), proj, damage, 3f, Main.myPlayer);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center, new Vector2(-7, 7), proj, damage, 3f, Main.myPlayer);
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center, new Vector2(7, 7), proj, damage, 3f, Main.myPlayer);
+                for (int i = 0; i < 3; i++)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, 11), ModContent.ProjectileType<Ghost_Pistol_Shot>(), (int)(damageDone * 0.5f), 2f, 0);
+                }
+                Plasma_Splash_Timer = 20;
             }
             if (Squid_Sroll == true && hit.DamageType == DamageClass.Magic)
             {
@@ -476,8 +486,16 @@ namespace Infernus
         {
             if (Heart_Equipped == true)
             {
-                target.AddBuff(BuffID.Venom, 700);
-                target.AddBuff(BuffID.Poisoned, 700);
+                target.AddBuff(BuffID.Venom, 120);
+                target.AddBuff(BuffID.Poisoned, 120);
+            }
+            if (Toxic_Fang == true)
+            {
+                target.AddBuff(BuffID.Venom, 30);
+            }
+            if (Glacial_Quiver == true)
+            {
+                target.AddBuff(BuffID.Frostburn2, 180);
             }
             if(NPC_Bleeding == true)
             {
@@ -535,22 +553,22 @@ namespace Infernus
                     modifiers.ScalingBonusDamage += 0.25f;
                     Main.NewText(g + "25%", 229, 214, 127);
                 }
-                else if (h.Length() <= 400f)
+                else if (h.Length() <= 350f)
                 {
                     modifiers.ScalingBonusDamage += 0.2f;
                     Main.NewText(g + "20%", 229, 214, 127);
                 }
-                else if (h.Length() <= 600f)
+                else if (h.Length() <= 500f)
                 {
                     modifiers.ScalingBonusDamage += 0.15f;
                     Main.NewText(g + "15%", 229, 214, 127);
                 }
-                else if (h.Length() <= 800f)
+                else if (h.Length() <= 650f)
                 {
                     modifiers.ScalingBonusDamage += 0.1f;
                     Main.NewText(g + "10%", 229, 214, 127);
                 }
-                else if (h.Length() <= 1000f)
+                else if (h.Length() <= 800f)
                 {
                     modifiers.ScalingBonusDamage += 0.05f;
                     Main.NewText(g + "5%", 229, 214, 127);
@@ -623,18 +641,6 @@ namespace Infernus
                     Mech_Timer = 0;
                 }
             }
-            if (Mana_Syphoner == true)
-            {
-                for (int i = 0; i < 24; i++)
-                {
-                    Vector2 dust_v = Player.Center - new Vector2(300, 0).RotatedBy(i * Math.PI * 2 / 24f) - Player.Center;
-                    var dest = dust_v.SafeNormalize(Vector2.Zero);
-                    Dust h = Dust.NewDustPerfect(Player.Center + new Vector2(300, 0).RotatedBy(i * Math.PI * 2 / 24f), DustID.PurpleCrystalShard, dest * 20f);
-                    h.noGravity = true;
-                    h.noLight = true;
-                }
-
-            }
             if (Iceicle_Necklace_Timer > 0)
             {
                 Iceicle_Necklace_Timer--;
@@ -650,6 +656,10 @@ namespace Infernus
             if(Equite_Cooldown > 0)
             {
                 Equite_Cooldown--;
+            }
+            if (Plasma_Splash_Timer > 0)
+            {
+                Plasma_Splash_Timer--;
             }
             if (Equite_Equipped == false)
             {
@@ -757,7 +767,10 @@ namespace Infernus
             Ammo_Pouch = false;
             Ink_Cartridge = false;
             Squid_Sroll = false;
-            Extra_Barrel = false;
+            Crystal_String = false;
+            Toxic_Fang = false;
+            Glacial_Quiver = false;
+            Tainted_Clip = false;
 
             if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[DashRight] < 15)
             {

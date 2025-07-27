@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Infernus.Items.Materials;
+using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,8 +15,8 @@ namespace Infernus.Items.Accesories
         }
         public override void SetDefaults()
         {
-            Item.width = 30;
-            Item.height = 32;
+            Item.width = 26;
+            Item.height = 22;
             Item.accessory = true;
             Item.value = 45000;
             Item.rare = ItemRarityID.Orange;
@@ -27,8 +28,8 @@ namespace Infernus.Items.Accesories
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Buckle>(), 1)
-            .AddIngredient(ModContent.ItemType<Materials.Hot>(), 12)
+            .AddIngredient(ItemID.HellstoneBar, 10)
+            .AddIngredient(ModContent.ItemType<Scorched_Sinew>(), 6)
             .AddTile(TileID.Anvils)
             .Register();
         }

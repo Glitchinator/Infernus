@@ -1,4 +1,6 @@
 ﻿using Infernus.Items.Materials;
+using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -24,6 +26,20 @@ namespace Infernus.Items.Accesories
         public override void UpdateEquip(Player player)
         {
             Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Mana_Syphoner = true;
+        }
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            if (hideVisual == false)
+            {
+                for (int i = 0; i < 24; i++)
+                {
+                    Vector2 dust_v = player.Center - new Vector2(300, 0).RotatedBy(i * Math.PI * 2 / 24f) - player.Center;
+                    var dest = dust_v.SafeNormalize(Vector2.Zero);
+                    Dust h = Dust.NewDustPerfect(player.Center + new Vector2(300, 0).RotatedBy(i * Math.PI * 2 / 24f), DustID.PurpleCrystalShard, dest * 20f);
+                    h.noGravity = true;
+                    h.noLight = true;
+                }
+            }
         }
         public override void AddRecipes()
         {

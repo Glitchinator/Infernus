@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Infernus.Buffs;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
@@ -12,8 +13,8 @@ namespace Infernus.Projectiles
     {
         public override void SetDefaults()
         {
-            Projectile.width = 14;
-            Projectile.height = 52;
+            Projectile.width = 10;
+            Projectile.height = 10;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Ranged;
@@ -27,6 +28,10 @@ namespace Infernus.Projectiles
             Main.dust[dust].noGravity = true;
             Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.014f;
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<Cryo_Necklace_Debuff>(), 300);
         }
         public override void SetStaticDefaults()
         {

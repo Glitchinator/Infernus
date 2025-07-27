@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Infernus.Placeable;
+using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,11 +14,11 @@ namespace Infernus.Items.Accesories
         }
         public override void SetDefaults()
         {
-            Item.width = 30;
-            Item.height = 46;
+            Item.width = 18;
+            Item.height = 28;
             Item.accessory = true;
             Item.value = 60000;
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Orange;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -27,8 +28,7 @@ namespace Infernus.Items.Accesories
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.Bone, 12)
-            .AddIngredient(ModContent.ItemType<Bone_Bracer>(), 1)
+            .AddIngredient(ModContent.ItemType<Rock>(), 18)
             .AddTile(TileID.Anvils)
             .Register();
         }
