@@ -2,6 +2,7 @@
 using Infernus.Items.Weapon.HardMode.Melee;
 using Infernus.Projectiles;
 using Infernus.Projectiles.Raiko.Boss;
+using Infernus.Projectiles.Temporal_Glow_Squid.Boss;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -67,7 +68,7 @@ namespace Infernus.NPCs
             NPC.value = 30000;
             NPC.boss = true;
             AIType = NPCID.AngryBones;
-            Music = MusicLoader.GetMusicSlot("Infernus/Music/Volcanic_Disaster");
+            Music = MusicID.Boss4;
             NPC.noTileCollide = true;
             NPC.lavaImmune = true;
             NPC.npcSlots = 10;
@@ -77,11 +78,14 @@ namespace Infernus.NPCs
         int Move_Location = 0;
         int Timer;
         bool is_dashing = false;
+        bool circle_player = false;
         bool spawned_second_Shield = false;
         bool timer_reset = false;
-        //bool Timer_Halt = false;
+        bool Timer_Halt = false;
         bool Spin = false;
         bool Stay_Above = false;
+        private Vector2 destination;
+        float rad = 0f;
         public override void AI()
         {
             Player player = Main.player[NPC.target];
@@ -94,14 +98,6 @@ namespace Infernus.NPCs
             else
             {
                 NPC.rotation = NPC.rotation += 0.2f;
-            }
-
-            if (NPC.life <= (NPC.lifeMax / 2) && spawned_second_Shield == false)
-            {
-                NPC.alpha = Arms_Left;
-                Spawn_IceShards();
-                timer_reset = false;
-                spawned_second_Shield = true;
             }
 
             if (NPC.target < 0 || NPC.target == 255 || player.dead || !player.active)
@@ -133,17 +129,17 @@ namespace Infernus.NPCs
             if (Move_Location == 2)
             {
                 Move_X = -300;
-                Move_Y = -500;
+                Move_Y = -460;
             }
             if (Move_Location == 3)
             {
-                Move_X = 0;
+                Move_X = 600;
                 Move_Y = -300;
             }
             if (Move_Location == 4)
             {
-                Move_X = 300;
-                Move_Y = 0;
+                Move_X = -600;
+                Move_Y = -300;
             }
             if (Move_Location == 5)
             {
@@ -159,16 +155,25 @@ namespace Infernus.NPCs
             {
                 Move_Location = 0;
             }
-            InfernusWorld.Boulder_Boss_Timer++;
+            if (Timer_Halt == false)
+            {
+                InfernusWorld.Boulder_Boss_Timer++;
+            }
 
             Timer = InfernusWorld.Boulder_Boss_Timer;
+            string g = Timer.ToString();
+            Main.NewText(g, 229, 214, 127);
             if (NPC.alpha == 0 && timer_reset == false)
             {
                 InfernusWorld.Boulder_Boss_Timer = 0;
+                Spin = false;
+                is_dashing = false;
+                Timer_Halt = false;
                 timer_reset = true;
             }
             if (spawned_second_Shield == false && NPC.alpha > 0)
             {
+                //InfernusWorld.Boulder_Boss_Timer = 0;
                 // first phase w shields
                 if (Timer >= 0)
                 {
@@ -180,166 +185,323 @@ namespace Infernus.NPCs
                 }
                 if (Timer == 180)
                 {
-                    //shields shoot
+                    Rapid_Fire_Shotgun();
                 }
-                if (Timer == 270)
+                if (Timer == 240)
                 {
-                    //shields shoot
-                }
-                if (Timer == 350)
-                {
-                    is_dashing = true;
-                }
-                if (Timer == 400)
-                {
-                    PreDash();
+                    Rapid_Fire_Shotgun();
                 }
                 if (Timer == 420)
                 {
-                    Dash();
+                    Rapid_Fire_Shotgun();
                 }
-                if (Timer == 470)
+                if (Timer == 480)
+                {
+                    Rapid_Fire_Shotgun();
+                }
+                // move to above the player
+                if (Timer == 559)
+                {
+                    Stay_Above = true;
+                    Timer_Halt = true;
+                }
+                // when he gets above stops moving and spins
+                if(Timer == 561)
+                {
+                    Spin = true;
+                }
+                // while spinning, shoot out rockets
+                if (Spin == true)
+                {
+                    if (Timer % 20 == 0)
+                    {
+                        Homing_Shotts();
+                    }
+                }
+                if(Timer == 860)
+                {
+                    //Spin = false;
+                }
+                if(Timer == 900)
+                {
+                    PreDash();
+                }
+                if(Timer == 920)
                 {
                     Super_Dash();
                 }
-                
-                if (Timer == 900)
+                if (Timer == 980)
+                {
+                    is_dashing = false;
+                    Spin = false;
+                }
+                if (Timer == 1079)
+                {
+                    Stay_Above = true;
+                    Timer_Halt = true;
+                }
+                if(Timer == 1081)
+                {
+                    circle_player = true;
+                    RotationTimer = -135;
+                }
+                if(circle_player == true)
+                {
+                    //rad = -2.4f;
+                    if (Timer % 55 == 0)
+                    {
+                        Circle_Shotguns();
+                    }
+                    Circle_Player();
+                }
+                if(Timer == 1580)
+                {
+                    circle_player = false;
+                    is_dashing = false;
+                }
+                if (Timer == 1679)
+                {
+                    Stay_Above = true;
+                    Timer_Halt = true;
+                }
+                if(Timer == 1800)
+                {
+                    Rain_Huge_Meteors();
+                }
+                if (Timer == 1880)
+                {
+                    Rain_Huge_Meteors();
+                }
+                if (Timer == 1960)
+                {
+                    Rain_Huge_Meteors();
+                }
+                if (Timer == 2040)
                 {
                     is_dashing = false;
                 }
-                
-                /*
-                if (Timer == 560)
+                if (Timer == 2180)
                 {
                     InfernusWorld.Boulder_Boss_Timer = 0;
                 }
-                */
             }
             if (spawned_second_Shield == false && NPC.alpha == 0)
             {
-                //Move_Location = 6;
-                // first phase w/ shields
                 if (Timer == 60)
                 {
-                    Boulder_Bombs();
+                    is_dashing = true;
+                    int x = (int)player.Center.X + Main.rand.Next(-200, 200);
+                    int y = (int)player.Center.Y + Main.rand.Next(-200, 200);
+                    Vector2 a = new Vector2(x, y);
+                    Dash_To_Position(a);
                 }
-
                 if (Timer == 100)
                 {
-                    Boulder_Bombs();
+                    is_dashing = true;
+                    int x = (int)player.Center.X + Main.rand.Next(-200, 200);
+                    int y = (int)player.Center.Y + Main.rand.Next(-200, 200);
+                    Vector2 a = new Vector2(x, y);
+                    Dash_To_Position(a);
                 }
-                if (Timer == 120)
+                if (Timer ==140)
                 {
                     is_dashing = true;
+                    int x = (int)player.Center.X + Main.rand.Next(-200, 200);
+                    int y = (int)player.Center.Y + Main.rand.Next(-200, 200);
+                    Vector2 a = new Vector2(x, y);
+                    Dash_To_Position(a);
                 }
-                if(Timer == 180)
+                if (Timer == 180)
                 {
-                    Dash();
+                    is_dashing = true;
+                    int x = (int)player.Center.X + Main.rand.Next(-200, 200);
+                    int y = (int)player.Center.Y + Main.rand.Next(-200, 200);
+                    Vector2 a = new Vector2(x, y);
+                    Dash_To_Position(a);
                 }
-                if (Timer == 210)
+                if (Timer == 220)
                 {
-                    Boulder_Bombs();
-                    Knockback();
+                    is_dashing = true;
+                    int x = (int)player.Center.X + Main.rand.Next(-200, 200);
+                    int y = (int)player.Center.Y + Main.rand.Next(-200, 200);
+                    Vector2 a = new Vector2(x, y);
+                    Dash_To_Position(a);
                 }
-                if (Timer == 250)
+                if(Timer == 280)
                 {
-                    Boulder_Bombs();
-                    Knockback();
+                    PreDash();
                 }
-                if (Timer == 280)
+                if(Timer == 300)
                 {
-                    Boulder_Bombs();
-                    Knockback();
+                    Super_Dash();
                 }
                 if (Timer == 360)
                 {
                     is_dashing = false;
                 }
-                if (Timer == 400)
-                {
-                    Boulder_Bombs();
-                }
-                if (Timer == 440)
-                {
-                    Boulder_Bombs();
-                }
-                if(Timer == 490)
+                if(Timer == 420)
                 {
                     is_dashing = true;
                 }
-                if (Timer == 540)
+                if(Timer == 460)
                 {
                     PreDash();
                 }
-                if (Timer == 600)
-                {
-                    Dash();
-                }
-                if(Timer == 660)
-                {
-                    is_dashing = false;
-                }
-                if (Timer == 700)
-                {
-                    Stay_Above = true;
-                    Spin = true;
-                }
-                if(Spin == true)
-                {
-                    if(Timer % 20 < 0)
-                    {
-                        Homing_Shotts();
-                    }
-                }
-                if (Timer == 900)
-                {
-                    Spin = false;
-                    Stay_Above = false;
-                    //InfernusWorld.Boulder_Boss_Timer = 0;
-                }
-                if (Timer == 980)
-                {
-                    is_dashing = true;
-                }
-                if (Timer == 1040)
-                {
-                    Dash();
-                }
-                if (Timer == 1080)
-                {
-                    Dash();
-                }
-                if (Timer >= 1160 && Timer < 1460)
-                {
-                    Rapid_Fire_Shotgun();
-                }
-                if (Timer == 1480)
+                if(Timer == 480)
                 {
                     Super_Dash();
                 }
-                if (Timer == 1520)
+                if(Timer == 540)
                 {
                     is_dashing = false;
+                }
+                if (Timer == 680)
+                {
+                    Rapid_Fire_Shotgun();
+                }
+                if (Timer == 720)
+                {
+                    Rapid_Fire_Shotgun();
+                }
+                if (Timer == 760)
+                {
+                    Rapid_Fire_Shotgun();
+                }
+                if (Timer == 979)
+                {
+                    Stay_Above = true;
+                    Timer_Halt = true;
+                }
+                if (Timer == 981)
+                {
+                    circle_player = true;
+                    RotationTimer = -135;
+                }
+                if (circle_player == true)
+                {
+                    //rad = -2.4f;
+                    if (Timer % 55 == 0)
+                    {
+                        Circle_Shotguns();
+                    }
+                    Circle_Player();
+                }
+                if (Timer == 1380)
+                {
+                    circle_player = false;
+                    is_dashing = true;
+                }
+                if(Timer == 1400)
+                {
+                    PreDash();
+                }
+                if(Timer == 1420)
+                {
+                    Super_Dash();
+                }
+                if(Timer == 1480)
+                {
+                    is_dashing = true;
+                    int x = (int)player.Center.X + Main.rand.Next(-200, 200);
+                    int y = (int)player.Center.Y + Main.rand.Next(-200, 200);
+                    Vector2 a = new Vector2(x, y);
+                    Dash_To_Position(a);
+                }
+                if (Timer == 1540)
+                {
+                    is_dashing = true;
+                    int x = (int)player.Center.X + Main.rand.Next(-200, 200);
+                    int y = (int)player.Center.Y + Main.rand.Next(-200, 200);
+                    Vector2 a = new Vector2(x, y);
+                    Dash_To_Position(a);
+                }
+                if (Timer == 1600)
+                {
+                    is_dashing = true;
+                    int x = (int)player.Center.X + Main.rand.Next(-200, 200);
+                    int y = (int)player.Center.Y + Main.rand.Next(-200, 200);
+                    Vector2 a = new Vector2(x, y);
+                    Dash_To_Position(a);
+                }
+                if (Timer == 1660)
+                {
+                    is_dashing = true;
+                    int x = (int)player.Center.X + Main.rand.Next(-200, 200);
+                    int y = (int)player.Center.Y + Main.rand.Next(-200, 200);
+                    Vector2 a = new Vector2(x, y);
+                    Dash_To_Position(a);
+                }
+                if(Timer == 1720)
+                {
+                    is_dashing = false;
+                }
+                if (Timer == 1879)
+                {
+                    Stay_Above = true;
+                    Timer_Halt = true;
+                }
+                if (Timer == 1900)
+                {
+                    Rain_Huge_Meteors();
+                }
+                if (Timer == 1950)
+                {
+                    Rain_Huge_Meteors();
+                }
+                if (Timer == 2000)
+                {
+                    Rain_Huge_Meteors();
+                }
+                if (Timer == 2050)
+                {
+                    Rain_Huge_Meteors();
+                }
+                if (Timer == 2140)
+                {
+                    PreDash();
+                }
+                if(Timer == 2160)
+                {
+                    Super_Dash();
+                }
+                if(Timer == 2220)
+                {
+                    is_dashing = false;
+                }
+                if(Timer == 2380)
+                {
+                    Shotgun_360();
+                }
+                if(Timer == 2460)
+                {
+                    Shotgun_360();
+                }
+                if(Timer == 2540)
+                {
+                    Shotgun_360();
+                }
+                if(Timer == 2620)
+                {
+                    is_dashing = true;
+                }
+                if(Timer == 2660)
+                {
+                    PreDash();
+                }
+                if(Timer == 2700)
+                {
+                    Super_Dash();
+                }
+                if(Timer == 2760)
+                {
+                    is_dashing = false;
+                }
+                if(Timer == 2820)
+                {
                     InfernusWorld.Boulder_Boss_Timer = 0;
                 }
-            }
-            if (spawned_second_Shield == true && NPC.alpha > 0)
-            {
-                // second phase w shields
-                if (Timer >= 0)
-                {
-                    Main.NewText("Second phase with shields", 229, 214, 127);
-                }
-            }
-            if (spawned_second_Shield == true && NPC.alpha == 0)
-            {
-                // second phase w/ shields
-                if (Timer >= 0)
-                {
-                    Main.NewText("Second phase without shields", 229, 214, 127);
-                }
-            }
 
+            }
 
             if (NPC.alpha == 0 && Arms_Left > 0)
             {
@@ -347,6 +509,43 @@ namespace Infernus.NPCs
                 return;
             }
             NPC.dontTakeDamage = true;
+        }
+        public ref float RotationTimer => ref NPC.ai[2];
+
+        private void Circle_Player()
+        {
+            Player player = Main.player[NPC.target];
+
+            rad = (float)MathHelper.TwoPi;
+
+            RotationTimer += 0.8f;
+
+            RotationTimer += 0.8f;
+            if (RotationTimer > 360)
+            {
+                RotationTimer = 0;
+            }
+            float continuousRotation = MathHelper.ToRadians(RotationTimer);
+            rad += continuousRotation;
+            if (rad > MathHelper.TwoPi)
+            {
+                rad -= MathHelper.TwoPi;
+            }
+            else if (rad < 0)
+            {
+                rad += MathHelper.TwoPi;
+            }
+            // if rad is -2.4 the enemy is above whatever it is spinning around
+            float distanceFromBody = player.width + NPC.width + 260;
+
+            Vector2 offset = Vector2.One.RotatedBy(rad) * distanceFromBody;
+
+            destination = player.Center + offset;
+
+            Vector2 toDestination = destination - NPC.Center;
+            Vector2 toDestinationNormalized = toDestination.SafeNormalize(Vector2.Zero);
+            Vector2 moveTo = toDestinationNormalized * 24f;
+            NPC.velocity = (NPC.velocity * (2 - 1) + moveTo) / 2;
         }
         private void PreDash()
         {
@@ -371,8 +570,8 @@ namespace Infernus.NPCs
                 NPC.velocity.Y *= 2.25f;
                 {
                     float rotation = (float)Math.Atan2(NPC.Center.Y - player.position.Y, NPC.Center.X - player.position.X);
-                    NPC.velocity.X = (float)(Math.Cos(rotation) * 2);
-                    NPC.velocity.Y = (float)(Math.Sin(rotation) * 2);
+                    NPC.velocity.X = (float)(Math.Cos(rotation) * 10);
+                    NPC.velocity.Y = (float)(Math.Sin(rotation) * 10);
                 }
             }
         }
@@ -405,10 +604,10 @@ namespace Infernus.NPCs
         }
         private void Move(Vector2 offset)
         {
-            if (Timer >= 10000 || is_dashing == true)
+            if (Timer >= 10000 || is_dashing == true || circle_player == true)
             {
-                Dust.NewDust(NPC.position + NPC.velocity, NPC.width, NPC.height, DustID.SolarFlare, NPC.velocity.X * -0.5f, NPC.velocity.Y * -0.5f, 0, default, 1.7f);
-                Dust.NewDust(NPC.position + NPC.velocity, NPC.width, NPC.height, DustID.Torch, NPC.velocity.X * -0.5f, NPC.velocity.Y * -0.5f, 0, default, 1.7f);
+                //Dust.NewDust(NPC.position + NPC.velocity, NPC.width, NPC.height, DustID.SolarFlare, NPC.velocity.X * -0.5f, NPC.velocity.Y * -0.5f, 0, default, 1.7f);
+               // Dust.NewDust(NPC.position + NPC.velocity, NPC.width, NPC.height, DustID.Torch, NPC.velocity.X * -0.5f, NPC.velocity.Y * -0.5f, 0, default, 1.7f);
                 return;
             }
             player = Main.player[NPC.target];
@@ -435,6 +634,15 @@ namespace Infernus.NPCs
                     Homing_Shotts();
                 }
                 */
+                if (Timer_Halt == true)
+                {
+                    InfernusWorld.Boulder_Boss_Timer += 1;
+                    is_dashing = true;
+                    NPC.velocity = Vector2.Zero;
+                    Timer_Halt = false;
+                    Stay_Above = false;
+                }
+                Move_Location = Main.rand.Next(5);
                 speed = 11.5f;
             }
             if (Move_Location == Move_Location)
@@ -457,6 +665,16 @@ namespace Infernus.NPCs
       
         private void Dash()
         {
+            int rand;
+            rand = Main.rand.Next(2);
+            if (rand == 0)
+            {
+                rand = 400;
+            }
+            if (rand == 1)
+            {
+                rand = -400;
+            }
             SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
             player = Main.player[NPC.target];
             var distancevec2 = player.position - NPC.position;
@@ -466,7 +684,7 @@ namespace Infernus.NPCs
                 NPC.velocity.X *= 2.25f;
                 NPC.velocity.Y *= 2.25f;
                 {
-                    float rotation = (float)Math.Atan2(NPC.Center.Y - (player.position.Y + Main.rand.Next(-400, 400)), NPC.Center.X - (player.position.X + Main.rand.Next(-400, 400)));
+                    float rotation = (float)Math.Atan2(NPC.Center.Y - (player.position.Y + rand), NPC.Center.X - (player.position.X + rand));
                     if (magnitude >= 700f)
                     {
                         magnitude = 700;
@@ -475,6 +693,20 @@ namespace Infernus.NPCs
                     NPC.velocity.Y = (float)(Math.Sin(rotation) * 12 * (magnitude / 200)) * -1;
                     string i = magnitude.ToString();
                     Main.NewText(i, 229, 214, 127);
+                }
+            }
+        }
+        private void Dash_To_Position(Vector2 position)
+        {
+            SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                NPC.velocity.X *= 2.25f;
+                NPC.velocity.Y *= 2.25f;
+                {
+                    float rotation = (float)Math.Atan2(NPC.Center.Y - (position.Y), NPC.Center.X - (position.X));
+                    NPC.velocity.X = (float)(Math.Cos(rotation) * 22 * -1);
+                    NPC.velocity.Y = (float)(Math.Sin(rotation) * 22 * -1);
                 }
             }
         }
@@ -493,6 +725,10 @@ namespace Infernus.NPCs
                     if (magnitude >= 800f)
                     {
                         magnitude = 800;
+                    }
+                    if (magnitude <= 300f)
+                    {
+                        magnitude = 300;
                     }
                     NPC.velocity.X = (float)(Math.Cos(rotation) * 12 * (magnitude / 200)) * -1;
                     NPC.velocity.Y = (float)(Math.Sin(rotation) * 12 * (magnitude / 200)) * -1;
@@ -555,58 +791,67 @@ namespace Infernus.NPCs
                 });
             }
         }
+        private void Rain_Huge_Meteors()
+        {
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                player = Main.player[NPC.target];
+                Vector2 spawn_pos = new Vector2(NPC.Center.X, NPC.Center.Y - 400);
+                Vector2 velocity = player.Center - spawn_pos;
+                float magnitude = Magnitude(velocity);
+                if (magnitude > 0)
+                {
+                    velocity *= 18f / magnitude;
+                }
+                else
+                {
+                    velocity = new Vector2(0f, 7f);
+                }
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), spawn_pos, velocity, ModContent.ProjectileType<Meteor_Huge>(), 14, NPC.whoAmI);
+
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), spawn_pos, new Vector2(-velocity.X, velocity.Y), ModContent.ProjectileType<Meteor_Huge>(), 14, NPC.whoAmI);
+            }
+        }
         private void Shotgun_360()
         {
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 player = Main.player[NPC.target];
-                Vector2 velocity = player.Center - NPC.Bottom;
+                Vector2 velocity = NPC.Top - NPC.Bottom;
                 float magnitude = Magnitude(velocity);
                 if (magnitude > 0)
                 {
-                    velocity *= 8f / magnitude;
+                    velocity *= 36f / magnitude;
                 }
                 else
                 {
                     velocity = new Vector2(0f, 7f);
                 }
 
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Boulder_Bolt>(), 14, NPC.whoAmI);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Boulder_Rain>(), 14, NPC.whoAmI);
                 float rotation = MathHelper.ToRadians(18);
                 for (int i = 0; i < 2; i++)
                 {
                     Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(rotation, -rotation, i));
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Boulder_Bolt>(), 14, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Boulder_Rain>(), 14, NPC.whoAmI);
                 }
                 float rotation2 = MathHelper.ToRadians(36);
                 for (int i = 0; i < 2; i++)
                 {
                     Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(rotation2, -rotation2, i));
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Boulder_Bolt>(), 14, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Boulder_Rain>(), 14, NPC.whoAmI);
                 }
                 float rotation3 = MathHelper.ToRadians(54);
                 for (int i = 0; i < 2; i++)
                 {
                     Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(rotation3, -rotation3, i));
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Boulder_Bolt>(), 14, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Boulder_Rain>(), 14, NPC.whoAmI);
                 }
                 float rotation4 = MathHelper.ToRadians(72);
                 for (int i = 0; i < 2; i++)
                 {
                     Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(rotation4, -rotation4, i));
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Boulder_Bolt>(), 14, NPC.whoAmI);
-                }
-                float rotation5 = MathHelper.ToRadians(90);
-                for (int i = 0; i < 2; i++)
-                {
-                    Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(rotation5, -rotation5, i));
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Boulder_Bolt>(), 14, NPC.whoAmI);
-                }
-                float rotation6 = MathHelper.ToRadians(108);
-                for (int i = 0; i < 2; i++)
-                {
-                    Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(rotation6, -rotation6, i));
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Boulder_Bolt>(), 14, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Boulder_Rain>(), 14, NPC.whoAmI);
                 }
             }
         }
@@ -627,6 +872,13 @@ namespace Infernus.NPCs
                 }
 
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Bottom, velocity, ModContent.ProjectileType<Boulder_Bolt>(), 20, NPC.whoAmI);
+            }
+        }
+        private void Smoke_Trail()
+        {
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Ruderibus_Gas_Mine>(), NPC.whoAmI);
             }
         }
         private void Rapid_Fire_Shotgun()
@@ -652,6 +904,36 @@ namespace Infernus.NPCs
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Boulder_Bolt>(), 21, NPC.whoAmI);
                 }
                 float rotation2 = MathHelper.ToRadians(32);
+                for (int i = 0; i < 2; i++)
+                {
+                    Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(rotation2, -rotation2, i));
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Boulder_Bolt>(), 21, NPC.whoAmI);
+                }
+            }
+        }
+        private void Circle_Shotguns()
+        {
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                player = Main.player[NPC.target];
+                Vector2 velocity = player.Center - NPC.Bottom;
+                float magnitude = Magnitude(velocity);
+                if (magnitude > 0)
+                {
+                    velocity *= 8f / magnitude;
+                }
+                else
+                {
+                    velocity = new Vector2(0f, 7f);
+                }
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<Boulder_Bolt>(), 21, NPC.whoAmI);
+                float rotation = MathHelper.ToRadians(24);
+                for (int i = 0; i < 2; i++)
+                {
+                    Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(rotation, -rotation, i));
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ModContent.ProjectileType<Boulder_Bolt>(), 21, NPC.whoAmI);
+                }
+                float rotation2 = MathHelper.ToRadians(56);
                 for (int i = 0; i < 2; i++)
                 {
                     Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(rotation2, -rotation2, i));
@@ -717,13 +999,13 @@ namespace Infernus.NPCs
                     float magnitude = Magnitude(velocity);
                     if (magnitude > 0)
                     {
-                        velocity *= 5f / magnitude;
+                        velocity *= 10f / magnitude;
                     }
                     else
                     {
                         velocity = new Vector2(0f, 5f);
                     }
-                    Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(70));
+                    Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(75));
 
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, newVelocity, ModContent.ProjectileType<Boulder_Rain>(), 20, NPC.whoAmI);
                 }
@@ -804,7 +1086,7 @@ namespace Infernus.NPCs
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Ranged.Bog>(), 2));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Summon.Whiprock>(), 2));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Accessories.Wings>(), 2));
-            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Accessories.HiveHeart>(), 2));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Accessories.Corrupted_Veil>(), 2));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.Broken_Heros_Staff>(), 2));
 
             npcLoot.Add(notExpertRule);

@@ -27,12 +27,12 @@ namespace Infernus.Items.Tools
             SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact, player.position);
             if (Main.dayTime == true)
             {
-                Main.dayTime = false;
+                Main.fastForwardTimeToDusk = true;
                 return true;
             }
             else if (Main.dayTime == false)
             {
-                Main.dayTime = true;
+                Main.fastForwardTimeToDawn = true;
             }
             return true;
         }

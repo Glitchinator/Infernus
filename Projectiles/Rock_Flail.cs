@@ -84,12 +84,12 @@ namespace Infernus.Projectiles
                         Projectile.Kill();
                     }
                 }
-                if (retracting == false && dist_check >= 200f)
+                if (retracting == false && dist_check >= 100f)
                 {
                     retracting = true;
                     //retracted = true;
                 }
-                if (retracting == true && dist_check >= 600f)
+                if (retracting == true && dist_check >= 250f)
                 {
                     retracted = true;
                     Speed = 40;

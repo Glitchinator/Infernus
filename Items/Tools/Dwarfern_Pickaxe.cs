@@ -33,6 +33,7 @@ namespace Infernus.Items.Tools
             Item.pick = 59;
             Item.useTurn = true;
             Item.shoot = ProjectileID.None;
+            Item.useAmmo = AmmoID.None;
             Item.shootSpeed = 0f;
         }
         public override void AddRecipes()
@@ -74,12 +75,14 @@ namespace Infernus.Items.Tools
                 Item.pick = 0;
                 Item.noUseGraphic = true;
                 Item.autoReuse = false;
+                Item.useAmmo = AmmoID.FallenStar;
                 Item.shoot = ProjectileID.StickyBomb;
                 Item.shootSpeed = 5f;
                 CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), RocknStone, Main.rand.Next(new[] { "Rock and Stone!", "ROCK... AND... STONE!", "Rock and Stone forever!", "That's it lads! Rock and Stone!", "None can stand before us!", "We fight for Rock and Stone!", "If you don't Rock and Stone, you ain't comin' home!", "Did I hear a Rock and Stone?", "For Karl!", "Leave No Dwarf Behind!", "Rock and Stone, Brother!", "Rock and Stone in the Heart!", "Come on guys! Rock and Stone!", "Like that! Rock and Stone!", "Rock and Stone to the Bone!" }), true);
             }
             else
             {
+                Item.noUseGraphic = false;
                 SetDefaults();
             }
             return base.CanUseItem(player);

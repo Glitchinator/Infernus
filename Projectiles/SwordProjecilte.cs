@@ -24,7 +24,7 @@ namespace Infernus.Projectiles
             Projectile.height = 112;
             Projectile.penetrate = 3;
             Projectile.tileCollide = true;
-            Projectile.timeLeft = 50;
+            Projectile.timeLeft = 35;
         }
         public override void AI()
         {

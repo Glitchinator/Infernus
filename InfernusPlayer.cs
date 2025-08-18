@@ -5,7 +5,9 @@ using Infernus.Items.Materials;
 using Infernus.Items.Tools;
 using Infernus.Items.Weapon.HardMode.Accessories;
 using Infernus.Level;
+using Infernus.NPCs;
 using Infernus.Projectiles;
+using Infernus.Projectiles.Temporal_Glow_Squid;
 using Infernus.Projectiles.Temporal_Glow_Squid.Drops;
 using Microsoft.Xna.Framework;
 using Mono.Cecil;
@@ -16,6 +18,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.DataStructures;
+using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -31,9 +34,9 @@ namespace Infernus
         // Doom Guy dash variables
         public const int DashRight = 2;
         public const int DashLeft = 3;
-        public const int DashCooldown = 150;
-        public const int DashDuration = 39;
-        public const float DashVelocity = 16.6f;
+        public const int DashCooldown = 65;
+        public const int DashDuration = 20;
+        public const float DashVelocity = 14f;
         public int DashDir = -1;
         public bool DoomDash;
         public int DashDelay = 0;
@@ -41,12 +44,34 @@ namespace Infernus
 
         // stress variables
         public int Stress_Current;
+        public const int DefaultStress_Max = 100;
+        public int Stress_Max;
+        public int Stress_Max2;
+        public static readonly Color GainXP_Resource = new(247, 171, 72);
+        public bool Stress_Buff_1 = false;
+        public bool Stress_Buff_2 = false;
+
+
+        public bool Deplete_Stress = false;
+        public bool Stress_DOT_Check = false;
+        public int Stress_DOT = 0;
+        public int Stress_Gain = 0;
+        public int Stress_Gain_Timer = 0;
+        public bool Stress_Full_Sound = false;
+
+        public bool Stress_Bleed = false;
+        public int Stress_Bleed_Amount = 0;
+        public int Stress_Gain_Amount = 17;
+
+        /*
+        public int Stress_Current;
         public const int DefaultStress_Max = 8;
         public int Stress_Max;
         public int Stress_Max2;
         public static readonly Color GainXP_Resource = new(247, 171, 72);
         public bool Stress_Buff_1 = false;
         public bool Stress_Buff_2 = false;
+        */
 
         // Ink Storm Variable
         public bool Ink_Storm_Equipped = false;
@@ -185,6 +210,26 @@ namespace Infernus
         // Tainted clip
         public bool Tainted_Clip = false;
 
+        // demonic_script
+        public bool Demonic_Script = false;
+
+        // ice scroll
+        public bool Ice_Scroll = false;
+        public bool Ice_Banner = false;
+
+        // Gem Robes
+        public bool Ruby_Robe = false;
+        public bool Topaz_Robe = false;
+        public bool Sapphire_Robe = false;
+        public bool Emerald_Robe = false;
+        public bool Diamond_Robe = false;
+        public bool Amethyst_Robe = false;
+        public bool Amber_Robe = false;
+
+        public List<Item> item = [];
+
+
+
         public override void ModifyNursePrice(NPC nurse, int health, bool removeDebuffs, ref int price)
         {
             if (Player.statLife < Player.statLifeMax)
@@ -192,10 +237,16 @@ namespace Infernus
                 price = 100;
             }
         }
+        public override void AnglerQuestReward(float rareMultiplier, List<Item> rewardItems)
+        {
+            rewardItems.Add(new Item(ItemID.WetBomb));
+            base.AnglerQuestReward(rareMultiplier, rewardItems);
+        }
         public override void OnEnterWorld()
         {
             Stress_Current = 0;
             Equite_Amount = 0;
+            Stress_Full_Sound = false;
             if (Main.netMode == NetmodeID.SinglePlayer)
             {
                 Main.NewText("Welcome to Infernus Mod! If you have any questions the Discord is the place to ask." + "\nYou are playing on Infernus V2.0", GainXP_Resource);
@@ -238,6 +289,66 @@ namespace Infernus
                 }
             }
         }
+        public override void ModifyManaCost(Item item, ref float reduce, ref float mult)
+        {
+            if (Ruby_Robe == true)
+            {
+                if(item.type == ItemID.RubyStaff)
+                {
+                    reduce -= 1f;
+                    mult = 1f;
+                }
+            }
+            if (Amber_Robe == true)
+            {
+                if (item.type == ItemID.AmberStaff)
+                {
+                    reduce -= 1f;
+                    mult = 1f;
+                }
+            }
+            if (Amethyst_Robe == true)
+            {
+                if (item.type == ItemID.AmethystStaff)
+                {
+                    reduce -= 1f;
+                    mult = 1f;
+                }
+            }
+            if (Diamond_Robe == true)
+            {
+                if (item.type == ItemID.DiamondStaff)
+                {
+                    reduce -= 1f;
+                    mult = 1f;
+                }
+            }
+            if (Emerald_Robe == true)
+            {
+                if (item.type == ItemID.EmeraldStaff)
+                {
+                    reduce -= 1f;
+                    mult = 1f;
+                }
+            }
+            if (Sapphire_Robe == true)
+            {
+                if (item.type == ItemID.SapphireStaff)
+                {
+                    reduce -= 1f;
+                    mult = 1f;
+                }
+            }
+            if (Topaz_Robe == true)
+            {
+                if (item.type == ItemID.TopazStaff)
+                {
+                    reduce -= 1f;
+                    mult = 1f;
+                }
+            }
+            base.ModifyManaCost(item, ref reduce, ref mult);
+        }
         public override bool CanConsumeAmmo(Item weapon, Item ammo)
         {
             if (Ammo_Pouch == true)
@@ -279,10 +390,21 @@ namespace Infernus
         }
         public override void OnHurt(Player.HurtInfo info)
         {
-            if (InfernusNPC.Is_Spawned == true)
+            if (Stress_Current > 0 && Deplete_Stress == false && info.Damage >= 10)
             {
-                Stress_Current += 1;
+                Stress_DOT_Check = true;
+                Player.AddBuff(ModContent.BuffType<Stress_Debuff>(), 300);
+                SoundEngine.PlaySound(SoundID.Item92, Player.position);
+                for (int i = 0; i < 16; i++)
+                {
+                    var smoke = Dust.NewDustPerfect(Player.Center, DustID.Smoke, null, 0, default, 2f);
+                    smoke.color = Color.Pink;
+                }
             }
+            //if (InfernusNPC.Is_Spawned == true)
+            //{
+           //     Stress_Current += 1;
+            //}
             if (Heart_Equipped == true)
             {
                 Player.AddBuff(BuffID.Honey, 300);
@@ -301,7 +423,7 @@ namespace Infernus
             }
             if (Enchanted_Femur == true && info.Damage >= 10 && !Player.HasBuff(ModContent.BuffType<Buffs.Enchanted_Femur_Cooldown>()))
             {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Player.Center, Vector2.Zero, ModContent.ProjectileType<Lightning_Explosion_Small>(), 90, 4f);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Player.Center, Vector2.Zero, ModContent.ProjectileType<Enchanted_Femur_Explosion>(), 45, 4f);
                 Player.AddBuff(ModContent.BuffType<Buffs.Enchanted_Femur_Cooldown>(), 240);
             }
             if (Meteor_Core == true && info.Damage >= 10)
@@ -334,6 +456,37 @@ namespace Infernus
                 Projectile.NewProjectile(source, position, newVelocity, ModContent.ProjectileType<Projectiles.Equite_Arrow>(), (int)(damage * 0.75f), 2f, 0);
             }
             return base.Shoot(item, source, position, velocity, type, damage, knockback);
+        }
+        public override void ProcessTriggers(TriggersSet triggersSet)
+        {
+            if (InfernusKeybind.StressKeybind.JustPressed)
+            {
+                if (Stress_Current >= Stress_Max)
+                {
+                    SoundEngine.PlaySound(SoundID.Item119 with
+                    {
+                        Volume = 1.25f,
+                        Pitch = -0.2f,
+                        SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest
+                    }, Player.position);
+                    if (Stress_Buff_1 == true)
+                    {
+                        Player.AddBuff(ModContent.BuffType<Stress_Better_Buff>(), 420);
+                    }
+                    else
+                    {
+                        Player.AddBuff(ModContent.BuffType<Stress_Buff>(), 420);
+                    }
+                    Deplete_Stress = true;
+                    Stress_Gain = 0;
+                    Stress_Gain_Timer = 0;
+                    Stress_Bleed_Amount = (int)(Player.statLifeMax2 * 0.30f);
+                    Stress_Bleed = true;
+                    Stress_Current = 99;
+                    Stress_Full_Sound = false;
+                }
+            }
+            base.ProcessTriggers(triggersSet);
         }
         public override async void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -460,9 +613,9 @@ namespace Infernus
                 }
                 Plasma_Splash_Timer = 20;
             }
-            if (Squid_Sroll == true && hit.DamageType == DamageClass.Magic)
+            if (Squid_Sroll == true && hit.DamageType == DamageClass.Magic && (Main.rand.Next(10) < 1))
             {
-                Item.NewItem(Entity.GetSource_OnHit(target), new Vector2(target.Center.X, target.Center.Y), ModContent.ItemType<HP_Pickup>(), 1);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-8, -5), ModContent.ProjectileType<Squid_Scroll_Pickup>(), (int)(damageDone * 0.5f), 2f, 0);
             }
         }
         /*
@@ -478,12 +631,69 @@ namespace Infernus
         {
             if (Squid_Sroll == true && Squid_Scroll_Amount >= 10)
             {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<Ink_EmergencyTyphoon>(), 25, 2f);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<Magic_Ink_Typhoon>(), 25, 2f);
                 Squid_Scroll_Amount = 0;
+            }
+            if (Demonic_Script == true)
+            {
+                Player.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(Player.name + " was consumed by demonic energy.")), 30, 0,false,false, -1,false, 1f, 1f, 0f);
+            }
+            if (Ice_Scroll == true)
+            {
+                Player.AddBuff(ModContent.BuffType<Ice_Scroll_Buff>(), 480);
+            }
+            if(Ice_Banner == true)
+            {
+                Player.AddBuff(ModContent.BuffType<Ice_Banner_Buff>(), 480);
+            }
+        }
+        public override void UpdateBadLifeRegen()
+        {
+            if (Stress_DOT_Check == true)
+            {
+                if (Stress_Current > Stress_DOT * 4)
+                {
+                    Stress_DOT = Stress_Current / 4;
+                }
+                Deplete_Stress = true;
+                Stress_DOT_Check = false;
+                Stress_Full_Sound = false;
+            }
+            if (Stress_Bleed == true)
+            {
+                Stress_Bleed_Amount--;
+                if(Player.statLife > 1)
+                {
+                    Player.statLife--;
+                }
+                if (Player.statLife == 1)
+                {
+                    Stress_Bleed_Amount = 0;
+                }
+                if(Stress_Bleed_Amount == 0)
+                {
+                    Stress_Bleed = false;
+                }
+            }
+            if (Player.HasBuff(ModContent.BuffType<Stress_Debuff>()))
+            {
+                if (Player.lifeRegen > 0)
+                {
+                    Player.lifeRegen = 0;
+                }
+                Player.lifeRegen -= Stress_DOT;
+            }
+            else
+            {
+                Stress_DOT = 0;
             }
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
+            if (Deplete_Stress == false && InfernusNPC.Is_Spawned == true)
+            {
+                Stress_Gain_Timer = 180;
+            }
             if (Heart_Equipped == true)
             {
                 target.AddBuff(BuffID.Venom, 120);
@@ -621,8 +831,35 @@ namespace Infernus
 
             return closestNPC;
         }
+        public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
+        {
+            Deplete_Stress = true;
+        }
         public override void PostUpdateMiscEffects()
         {
+            if(Squid_Sroll == true && Squid_Scroll_Amount >= 10)
+            {
+                if(Main.rand.NextBool(12))
+                {
+                    for (int k = 0; k < 12; k++)
+                    {
+                        Vector2 speed = Main.rand.NextVector2Circular(0.3f, 1f);
+                        Dust Sword = Dust.NewDustPerfect(Player.Center + speed * 32, DustID.Wraith, speed * 3, Scale: 1.4f);
+                        Sword.noGravity = true;
+                    }
+                }
+            }
+            if (Stress_Buff_2 == true)
+            {
+                Stress_Gain_Amount = 16;
+            }
+            else
+            {
+                Stress_Gain_Amount = 17;
+            }
+            float stress_buff = Stress_Current / 100f;
+            Player.moveSpeed += stress_buff;
+
             if (Mech_Equipped == true)
             {
                 float maxDetectRadius = 400f;
@@ -675,11 +912,65 @@ namespace Infernus
                 Player.wingTimeMax += 50;
                 Player.jumpSpeedBoost += 2f;
             }
-            
+
+            if (InfernusNPC.Is_Spawned == true)
+            {
+                if (Stress_Current > Stress_Max)
+                {
+                    Stress_Current = Stress_Max;
+                }
+                if (Stress_Current == Stress_Max)
+                {
+                    if (Stress_Full_Sound == false)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item84 with
+                        {
+                            Volume = 1.25f,
+                            Pitch = -0.6f,
+                            SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest
+                        }, Player.position);
+                        Stress_Full_Sound = true;
+                    }
+                }
+                if (Deplete_Stress == false)
+                {
+                    if (Stress_Gain_Timer > 0)
+                    {
+                        Stress_Gain_Timer--;
+                        Stress_Gain++;
+                        if (Stress_Gain % Stress_Gain_Amount == 0)
+                        {
+                            Stress_Current++;
+                        }
+                    }
+                    else
+                    {
+                        Stress_Gain = 0;
+                    }
+                }
+            }
+            else
+            {
+                Deplete_Stress = true;
+                Stress_Gain = 0;
+                Stress_Gain_Timer = 0;
+            }
+            if (Stress_Current <= 0)
+            {
+                Deplete_Stress = false;
+            }
+            if (Deplete_Stress == true)
+            {
+                Stress_Current -= 1;
+            }
+
+
+            /*
             Have_HeartAttack();
             Stress_Buffs();
+            */
 
-            if(Aeritite_Shield_Equipped == true)
+            if (Aeritite_Shield_Equipped == true)
             {
                 Aeritite_DR = 0.25f;
             }
@@ -771,6 +1062,16 @@ namespace Infernus
             Toxic_Fang = false;
             Glacial_Quiver = false;
             Tainted_Clip = false;
+            Ice_Scroll = false;
+            Ice_Banner = false;
+            Demonic_Script = false;
+            Ruby_Robe = false;
+            Topaz_Robe = false;
+            Sapphire_Robe = false;
+            Emerald_Robe = false;
+            Diamond_Robe = false;
+            Amethyst_Robe = false;
+            Amber_Robe = false;
 
             if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[DashRight] < 15)
             {
@@ -784,6 +1085,12 @@ namespace Infernus
             {
                 DashDir = -1;
             }
+        }
+        public override void PostUpdateRunSpeeds()
+        {
+            //float stress_buff = Stress_Current / 400f;
+            //Player.runAcceleration += stress_buff;
+            //Player.maxRunSpeed += stress_buff;
         }
         private void Have_HeartAttack()
         {
@@ -890,6 +1197,20 @@ namespace Infernus
             return new[] {
                 new Item(ModContent.ItemType<Items.Consumable.StartingBag>(), 1)
             };
+        }
+        public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
+        {
+            if (attempt.inHoney == false && attempt.inLava == false && attempt.playerFishingConditions.BaitItemType == ModContent.ItemType<Items.BossSummon.Squid_BossSummon>() && Player.ZoneBeach == true)
+            {
+                int npc = ModContent.NPCType<TemporalSquid>();
+                if (!NPC.AnyNPCs(npc))
+                {
+                    npcSpawn = npc;
+                    itemDrop = -1;
+                    return;
+                }
+            }
+            base.CatchFish(attempt, ref itemDrop, ref npcSpawn, ref sonar, ref sonarPosition);
         }
     }
 }

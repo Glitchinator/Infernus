@@ -23,16 +23,17 @@ namespace Infernus.Projectiles
             Projectile.penetrate = -1;
             Projectile.netImportant = true;
             Projectile.width = 12;
-            Projectile.height = 16;
+            Projectile.height = 12;
             Projectile.timeLeft = 240;
 
-            DrawOffsetX = -8;
+            DrawOffsetX = -4;
             DrawOriginOffsetY = -25;
             //DrawOriginOffsetX = 31;
         }
         bool retracting = false;
         bool retracted = false;
-        int Speed = 24;
+        int Speed = 18;
+        int rand = 0;
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
@@ -63,48 +64,123 @@ namespace Infernus.Projectiles
                     direction.Normalize();
                     direction *= Speed;
                     Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
-
-                    Projectile.rotation = Projectile.velocity.ToRotation();
                 }
                 if (dist_check <= 40f)
                 {
                     if (retracted == true)
                     {
-
                         if (player.ZoneJungle == true && player.ZoneOverworldHeight == true)
                         {
-                            Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.DoubleCod, 1, false);
+                            int rand = Main.rand.Next(3);
+                            if (rand == 0)
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.DoubleCod, 1, false);
+                            }
+                            else
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.Bass, 1, false);
+                            }
                         }
                         else if (player.ZoneJungle == true && (player.ZoneDirtLayerHeight == true || player.ZoneRockLayerHeight == true))
                         {
-                            Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.VariegatedLardfish, 1, false);
+                            int rand = Main.rand.Next(3);
+                            if (rand == 0)
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.VariegatedLardfish, 1, false);
+                            }
+                            else
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.Bass, 1, false);
+                            }
                         }
                         else if (player.ZoneCorrupt == true)
                         {
-                            Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.Ebonkoi, 1, false);
+                            int rand = Main.rand.Next(3);
+                            if (rand == 0)
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.Ebonkoi, 1, false);
+                            }
+                            else
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.Bass, 1, false);
+                            }
+
                         }
                         else if (player.ZoneCrimson == true)
                         {
-                            Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.CrimsonTigerfish, 1, false);
-                            Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.Hemopiranha, 1, false);
+                            int rand = Main.rand.Next(4);
+                            if (rand == 0)
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.CrimsonTigerfish, 1, false);
+                            }
+                            else if (rand == 1)
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.Hemopiranha, 1, false);
+                            }
+                            else
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.Bass, 1, false);
+                            }
+
                         }
                         else if (player.ZoneHallow == true && (player.ZoneDirtLayerHeight == true || player.ZoneRockLayerHeight == true))
                         {
-                            Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.ChaosFish, 1, false);
-                            Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.Prismite, 1, false);
+                            int rand = Main.rand.Next(4);
+                            if (rand == 0)
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.ChaosFish, 1, false);
+                            }
+                            else if (rand == 1)
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.Prismite, 1, false);
+                            }
+                            else
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.Bass, 1, false);
+                            }
+
                         }
                         else if (player.ZoneDirtLayerHeight == true || player.ZoneRockLayerHeight == true)
                         {
-                            Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.ArmoredCavefish, 1, false);
-                            Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.SpecularFish, 1, false);
+                            int rand = Main.rand.Next(4);
+                            if (rand == 0)
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.ArmoredCavefish, 1, false);
+                            }
+                            else if (rand == 1)
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.SpecularFish, 1, false);
+                            }
+                            else
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.Bass, 1, false);
+                            }
+
                         }
                         else if (player.ZoneSkyHeight == true)
                         {
-                            Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.Damselfish, 1, false);
+                            int rand = Main.rand.Next(3);
+                            if (rand == 0)
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.Damselfish, 1, false);
+                            }
+                            else
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.Bass, 1, false);
+                            }
+
                         }
-                        else  if (player.ZoneSnow == true)
+                        else if (player.ZoneSnow == true)
                         {
-                            Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.FrostMinnow, 1, false);
+                            int rand = Main.rand.Next(3);
+                            if (rand == 0)
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.FrostMinnow, 1, false);
+                            }
+                            else
+                            {
+                                Item.NewItem(Projectile.GetSource_NaturalSpawn(), new Vector2(Projectile.position.X, Projectile.position.Y), ItemID.Bass, 1, false);
+                            }
                         }
                         else
                         {

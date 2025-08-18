@@ -23,15 +23,15 @@ namespace Infernus.Items.Weapon.Summon
             Item.damage = 16;
             Item.DamageType = DamageClass.Summon;
             Item.mana = 10;
-            Item.width = 52;
-            Item.height = 60;
+            Item.width = 48;
+            Item.height = 50;
             Item.useTime = 36;
             Item.useAnimation = 36;
-            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.noMelee = true;
             Item.knockBack = 2f;
             Item.value = Item.buyPrice(0, 8, 50, 0);
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item96;
             Item.shoot = ModContent.ProjectileType<Projectiles.Meteor_Alter_Replica>();
         }

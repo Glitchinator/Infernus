@@ -23,7 +23,7 @@ namespace Infernus.Buffs
                 player.maxFallSpeed = 30;
                 if (Math.Abs(player.velocity.Y) > 0f)
                 {
-                    player.velocity.Y += 1.2f;
+                    player.velocity.Y += 0.25f;
                 }
             }
         }

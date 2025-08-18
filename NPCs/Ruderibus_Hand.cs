@@ -84,6 +84,7 @@ namespace Infernus.NPCs
             NPC.knockBackResist = 0.3f;
             NPC.netAlways = true;
             NPC.aiStyle = -1;
+            NPC.boss = true;
             //NPC.realLife = ParentIndex;
         }
         public override void AI()

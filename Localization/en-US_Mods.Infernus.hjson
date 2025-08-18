@@ -6,6 +6,7 @@ Projectiles: {
 	Iceicle_Necklace_exlos.DisplayName: Iceicle_ Necklace_exlos
 	Ink_Shot.DisplayName: Ink_ Shot
 	Tainted_Clip_exlos.DisplayName: Tainted_ Clip_exlos
+	Magic_Ink_Typhoon.DisplayName: Magic_ Ink_ Typhoon
 }
 
 NPCs: {
@@ -685,11 +686,11 @@ Items: {
 	}
 
 	Squid_Scroll: {
-		DisplayName: Squid Scroll
+		DisplayName: Gleaming Squid Intestine
 		Tooltip:
 			'''
 			Hitting enemies has a chance to create ink pickups on impact
-			Collecting 10 ink allows the player to summon a ink vortex
+			Collecting 10 ink allows the player to summon an ink vortex
 			Summon the vortex by drinking a mana potion
 			The vortex gives a mana power boosting buff when the player touches it
 			'''
@@ -717,6 +718,25 @@ Items: {
 			Increases ranged damage by 8%
 			12.5% chance to not consume ammo
 			Ranged attacks go 20% farther
+			'''
+	}
+
+	Dark_Glyph: {
+		DisplayName: Dark Glyph
+		Tooltip:
+			'''
+			Increases magic damage and regen based on your current mana
+			Increases magic damage by 16% and regen by 12 when above 70% of maximum
+			Increases magic damage by 8%  and regen by 8 when above 50% of maximum
+			'''
+	}
+
+	Demonic_Script: {
+		DisplayName: Demonic Script
+		Tooltip:
+			'''
+			Mana sickness effects are reduced
+			Mana potions hurt to drink however
 			'''
 	}
 }
@@ -807,8 +827,13 @@ Buffs: {
 	}
 
 	Meteor_Core_Buff: {
-		DisplayName: Meteor_ Core_ Buff
-		Description: Mods.Infernus.Buffs.Meteor_Core_Buff.Description
+		DisplayName: Meteor Rage
+		Description:
+			'''
+			Increases melee damage by 12%
+			Increases melee attack speed by 8%
+			Increases defense by 5
+			'''
 	}
 
 	Cryo_Necklace_Debuff: {
@@ -834,5 +859,27 @@ Buffs: {
 	Tainted_Clip_Extra_Debuff: {
 		DisplayName: Tainted_ Clip_ Extra_ Debuff
 		Description: Mods.Infernus.Buffs.Tainted_Clip_Extra_Debuff.Description
+	}
+
+	Ice_Banner_Buff: {
+		DisplayName: Ice_ Banner_ Buff
+		Description: Mods.Infernus.Buffs.Ice_Banner_Buff.Description
+	}
+
+	Ice_Scroll_Buff: {
+		DisplayName: Ice_ Scroll_ Buff
+		Description: Mods.Infernus.Buffs.Ice_Scroll_Buff.Description
+	}
+
+	Ink_Typhoon_Buff: {
+		DisplayName: Black Magic
+		Description:
+			'''
+			Increases magic damage by 12%
+			Increases magic crit by 8%
+			Increases max mana by 80
+			Reduces mana cost by 10%
+			Increases mana regen by 10
+			'''
 	}
 }

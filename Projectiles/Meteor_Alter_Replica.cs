@@ -12,9 +12,9 @@ namespace Infernus.Projectiles
 
         public sealed override void SetDefaults()
         {
-            Projectile.width = 12;
+            Projectile.width = 44;
             Projectile.DamageType = DamageClass.Summon;
-            Projectile.height = 30;
+            Projectile.height = 70;
             Projectile.tileCollide = false;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
@@ -36,7 +36,7 @@ namespace Infernus.Projectiles
             Projectile.ai[0] += 1f;
             if (Projectile.ai[0] >= 17f)
             {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X + Main.rand.Next(-300, 300), Projectile.Center.Y - 400, Main.rand.Next(-9, 8), Main.rand.Next(-11, -5), ModContent.ProjectileType<Boulder2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Top.Y, Main.rand.Next(-9, 8), Main.rand.Next(-14, -9), ModContent.ProjectileType<Meteor_Alter_Replica_Proj>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 Projectile.ai[0] = 0f;
             }
         }

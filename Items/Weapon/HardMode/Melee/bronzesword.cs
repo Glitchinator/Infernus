@@ -19,8 +19,8 @@ namespace Infernus.Items.Weapon.HardMode.Melee
             Item.DamageType = DamageClass.Melee;
             Item.width = 52;
             Item.height = 52;
-            Item.useTime = 30;
-            Item.useAnimation = 25;
+            Item.useTime = 24;
+            Item.useAnimation = 24;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 6f;
             Item.value = 160000;
@@ -28,7 +28,7 @@ namespace Infernus.Items.Weapon.HardMode.Melee
             Item.UseSound = SoundID.Item73;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.SwordHell>();
-            Item.shootSpeed = 10;
+            Item.shootSpeed = 13f;
         }
         public override void AddRecipes()
         {

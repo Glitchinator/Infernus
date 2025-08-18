@@ -28,7 +28,7 @@ namespace Infernus.Items.Accesories
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.Vine,4)
+            .AddIngredient(ItemID.Vine,2)
             .AddIngredient(ItemID.RichMahogany, 8)
             .AddTile(TileID.Anvils)
             .Register();

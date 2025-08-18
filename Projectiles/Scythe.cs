@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 namespace Infernus.Projectiles
@@ -9,6 +11,11 @@ namespace Infernus.Projectiles
 
     public class Scythe : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.TrailingMode[Type] = 0;
+            ProjectileID.Sets.TrailCacheLength[Type] = 5;
+        }
         public override void SetDefaults()
         {
             Projectile.width = 30;
@@ -20,6 +27,9 @@ namespace Infernus.Projectiles
             Projectile.tileCollide = true;
             Projectile.netImportant = true;
             Projectile.ownerHitCheck = true;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 20;
+            Projectile.extraUpdates = 1;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -31,53 +41,6 @@ namespace Infernus.Projectiles
             }
             Projectile.damage = (int)(Projectile.damage * 0.75f);
             SoundEngine.PlaySound(SoundID.Item62, Projectile.position);
-            if (Main.rand.NextBool(7))
-            {
-                int h = Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<Aeritite_Mine_Explosion>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);
-                Main.projectile[h].DamageType = DamageClass.Melee;
-                // Spawn a bunch of smoke dusts.
-                for (int i = 0; i < 30; i++)
-                {
-                    var smoke = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
-                    smoke.velocity *= 1.4f;
-                    smoke.color = Color.LightPink;
-                }
-
-                // Spawn a bunch of fire dusts.
-                for (int j = 0; j < 20; j++)
-                {
-                    var fireDust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.GemSapphire, 0f, 0f, 100, default, 3.5f);
-                    fireDust.noGravity = true;
-                    fireDust.velocity *= 7f;
-                    fireDust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.FrostStaff, 0f, 0f, 100, default, 1.5f);
-                    fireDust.velocity *= 3f;
-                }
-
-                // Spawn a bunch of smoke gores.
-                for (int k = 0; k < 2; k++)
-                {
-                    float speedMulti = 0.4f;
-                    if (k == 1)
-                    {
-                        speedMulti = 0.8f;
-                    }
-
-                    var smokeGore = Gore.NewGoreDirect(Projectile.GetSource_Death(), Projectile.position, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
-                    smokeGore.velocity *= speedMulti;
-                    smokeGore.velocity += Vector2.One;
-                    smokeGore = Gore.NewGoreDirect(Projectile.GetSource_Death(), Projectile.position, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
-                    smokeGore.velocity *= speedMulti;
-                    smokeGore.velocity.X -= 1f;
-                    smokeGore.velocity.Y += 1f;
-                    smokeGore = Gore.NewGoreDirect(Projectile.GetSource_Death(), Projectile.position, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
-                    smokeGore.velocity *= speedMulti;
-                    smokeGore.velocity.X += 1f;
-                    smokeGore.velocity.Y -= 1f;
-                    smokeGore = Gore.NewGoreDirect(Projectile.GetSource_Death(), Projectile.position, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
-                    smokeGore.velocity *= speedMulti;
-                    smokeGore.velocity -= Vector2.One;
-                }
-            }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -100,7 +63,7 @@ namespace Infernus.Projectiles
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            Projectile.rotation += 0.2f * (float)Projectile.direction;
+            Projectile.rotation += (float)Projectile.direction * 0.4f;
 
             int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Smoke, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
             Main.dust[dust].noGravity = true;
@@ -140,6 +103,25 @@ namespace Infernus.Projectiles
                     //retracted = true;
                 }
             }
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Main.instance.LoadProjectile(Projectile.type);
+            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+            SpriteEffects spriteEffects = SpriteEffects.None;
+
+            if (Projectile.spriteDirection == -1)
+            {
+                spriteEffects = SpriteEffects.FlipHorizontally;
+            }
+            Vector2 drawOrigin = new(texture.Width * 0.5f, Projectile.height * 0.5f);
+            for (int k = 0; k < Projectile.oldPos.Length; k++)
+            {
+                Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Main.EntitySpriteDraw(texture, drawPos, null, new Color(242, 240, 235, 0) * (.30f - Projectile.alpha / 210f), Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
+            }
+
+            return true;
         }
         private static float Magnitude(Vector2 mag)
         {

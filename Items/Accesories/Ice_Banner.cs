@@ -19,12 +19,12 @@ namespace Infernus.Items.Accesories
             Item.accessory = true;
             Item.value = 60000;
             Item.rare = ItemRarityID.Orange;
+            Item.defense += 5;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.statManaMax2 += 60;
             player.manaCost -= .12f;
-            player.manaRegen += 1;
+            Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Ice_Banner = true;
         }
         public override void AddRecipes()
         {

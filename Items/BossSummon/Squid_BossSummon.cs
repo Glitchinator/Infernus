@@ -20,26 +20,11 @@ namespace Infernus.Items.BossSummon
         {
             Item.width = 22;
             Item.height = 28;
-            Item.useTime = 10;
-            Item.useAnimation = 10;
-            Item.useStyle = ItemUseStyleID.HoldUp;
             Item.value = 0;
             Item.rare = ItemRarityID.Blue;
             Item.consumable = true;
             Item.maxStack = 20;
-        }
-        public override bool CanUseItem(Player player)
-        {
-            return !NPC.AnyNPCs(Mod.Find<ModNPC>("TemporalSquid").Type) && player.ZoneBeach;
-        }
-        public override bool? UseItem(Player player)
-        {
-            SoundEngine.PlaySound(SoundID.ForceRoar, player.position);
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                NPC.SpawnOnPlayer(player.whoAmI, Mod.Find<ModNPC>("TemporalSquid").Type);
-            }
-            return true;
+            Item.bait = 69;
         }
         public override void AddRecipes()
         {

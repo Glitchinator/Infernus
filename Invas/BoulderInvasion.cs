@@ -120,7 +120,7 @@ namespace Infernus.Invas
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        NPC.SpawnOnPlayer(player.whoAmI, ModLoader.GetMod("Infernus").Find<ModNPC>("Boulder_Beetle").Type);
+                        NPC.SpawnOnPlayer(player.whoAmI, ModLoader.GetMod("Infernus").Find<ModNPC>("Boulder_Beetle_MiniBoss").Type);
                     }
                     spawned_mini_boss = true;
                 }
@@ -133,7 +133,7 @@ namespace Infernus.Invas
                 {
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        NPC.SpawnOnPlayer(player.whoAmI, ModLoader.GetMod("Infernus").Find<ModNPC>("Boulder_Beetle").Type);
+                        NPC.SpawnOnPlayer(player.whoAmI, ModLoader.GetMod("Infernus").Find<ModNPC>("Boulder_Beetle_MiniBoss").Type);
                     }
                     spawned_mini_boss = true;
                 }

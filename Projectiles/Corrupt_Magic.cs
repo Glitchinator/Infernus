@@ -51,18 +51,18 @@ namespace Infernus.Projectiles
                 Dust wand = Dust.NewDustPerfect(Projectile.Center + speed * 32, DustID.Demonite, speed * 2, 0, default, Scale: 2f);
                 wand.noGravity = true;
             }
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, -5, ModContent.ProjectileType<CorrShot>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 5, ModContent.ProjectileType<CorrShot>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, -5, 0, ModContent.ProjectileType<CorrShot>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 5, 0, ModContent.ProjectileType<CorrShot>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, -5, ModContent.ProjectileType<CorrShot>(), (int)(Projectile.damage * 0.75f), 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 5, ModContent.ProjectileType<CorrShot>(), (int)(Projectile.damage * 0.75f), 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, -5, 0, ModContent.ProjectileType<CorrShot>(), (int)(Projectile.damage * 0.75f), 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 5, 0, ModContent.ProjectileType<CorrShot>(), (int)(Projectile.damage * 0.75f), 0, Projectile.owner);
             return true;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, -5, ModContent.ProjectileType<CorrShot>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 5, ModContent.ProjectileType<CorrShot>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, -5, 0, ModContent.ProjectileType<CorrShot>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 5, 0, ModContent.ProjectileType<CorrShot>(), (int)(Projectile.damage * 0.5f), 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, -5, ModContent.ProjectileType<CorrShot>(), (int)(Projectile.damage * 0.75f), 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 0, 5, ModContent.ProjectileType<CorrShot>(), (int)(Projectile.damage * 0.75f), 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, -5, 0, ModContent.ProjectileType<CorrShot>(), (int)(Projectile.damage * 0.75f), 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, 5, 0, ModContent.ProjectileType<CorrShot>(), (int)(Projectile.damage * 0.75f), 0, Projectile.owner);
             for (int k = 0; k < 16; k++)
             {
                 Vector2 speed = Main.rand.NextVector2Unit();

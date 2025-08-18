@@ -15,7 +15,7 @@ namespace Infernus.Items.Accesories
         public override void SetDefaults()
         {
             Item.width = 22;
-            Item.height = 26;
+            Item.height = 20;
             Item.accessory = true;
             Item.value = 45000;
             Item.rare = ItemRarityID.Green;
@@ -24,13 +24,6 @@ namespace Infernus.Items.Accesories
         {
             player.statDefense += 6;
             player.GetAttackSpeed(DamageClass.Melee) -= 0.15f;
-        }
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ItemID.StoneBlock, 80)
-            .AddTile(TileID.Anvils)
-            .Register();
         }
     }
 }

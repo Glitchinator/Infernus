@@ -33,7 +33,7 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<Hallowed_Chain>(), 1)
             .AddIngredient(ItemID.HerculesBeetle)
-            .AddTile(TileID.MythrilAnvil)
+            .AddTile(TileID.TinkerersWorkbench)
             .Register();
         }
     }

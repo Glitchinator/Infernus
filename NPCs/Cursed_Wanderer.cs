@@ -273,10 +273,9 @@ namespace Infernus.NPCs
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.GoldenKey, 3, 1, 3));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Cursed_Plasma>(), 1, 12, 36));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Plasma_Splash>(), 3));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Cursed_Plasma>(), 1, 8, 18));
 
-            int[] Which_One = [ModContent.ItemType<Ghost_Pistol>()];
+            int[] Which_One = [ModContent.ItemType<Plasma_Splash>(), ModContent.ItemType<Cursed_Spear>()];
 
             npcLoot.Add(ItemDropRule.OneFromOptions(1, Which_One));
         }

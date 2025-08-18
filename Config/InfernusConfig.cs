@@ -15,6 +15,10 @@ namespace Infernus.Config
 
         public bool Disable_Elf;
 
+        public bool Enable_Progression_Change;
+
+        public bool Enable_StressUI_Text;
+
         [ReloadRequired]
         public bool No_Invasion;
     }

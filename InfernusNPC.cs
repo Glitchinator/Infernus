@@ -1,9 +1,11 @@
-﻿using Infernus.Invas;
+﻿using Infernus.Config;
+using Infernus.Invas;
 using Infernus.Items.Materials;
 using Infernus.Items.Weapon.HardMode.Accessories;
 using Infernus.NPCs;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
@@ -55,6 +57,22 @@ namespace Infernus
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Souldrinker>(), 40, 1, 1));
             }
+            if (npc.type == NPCID.Skeleton || npc.type == NPCID.UndeadMiner || npc.type == NPCID.ArmoredSkeleton)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Accesories.Bone_Bracer>(), 40, 1, 1));
+            }
+            if (npc.type == NPCID.Tim)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Accesories.Enchanted_Femur>(), 10, 1, 1));
+            }
+            if (npc.type == NPCID.BigMimicHallow)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Accessories.Crystal_String>(), 5, 1, 1));
+            }
+            if (npc.type == NPCID.BlackRecluse || npc.type == NPCID.BlackRecluseWall)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Accessories.Toxic_Fang>(), 20, 1, 1));
+            }
         }
         public override void OnSpawn(NPC npc, IEntitySource source)
         {
@@ -85,6 +103,7 @@ namespace Infernus
         }
         public override void AI(NPC npc)
         {
+            /*
             if (InfernusSystem.Level_systemON == true && npc.boss == true)
             {
                 if(Is_Spawned == false)
@@ -93,6 +112,7 @@ namespace Infernus
                 }
                 return;
             }
+            */
         }
         public override void ModifyShop(NPCShop shop)
         {
@@ -143,6 +163,19 @@ namespace Infernus
                     }
                 }
             }
+            /*
+            if (ModContent.GetInstance<InfernusConfig>().Enable_Progression_Change == false)
+            {
+                if (InfernusSystem.downedTigerShark == true && NPC.downedMartians == true)
+                {
+                    pool.Add(NPCID.CultistTablet, 1f);
+                }
+                if (InfernusSystem.downedTigerShark == false || NPC.downedMartians == false)
+                {
+                    pool.Add(NPCID.CultistTablet, 0f);
+                }
+            }
+            */
         }
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
         {
@@ -175,6 +208,7 @@ namespace Infernus
                     }
                 }
             }
+            /*
             if (InfernusSystem.Level_systemON == true && npc.boss == true)
             {
                 // When you kill a boss, it checks weather another is alive, or if one isn't. Then removes your stress
@@ -185,11 +219,10 @@ namespace Infernus
                     {
                         return;
                     }
+                    Is_Spawned = false;
                 }
-                var modPlayer = Main.LocalPlayer.GetModPlayer<InfernusPlayer>();
-                modPlayer.Stress_Current = 0;
-                Is_Spawned = false;
             }
+            */
             if (InfernusSystem.Level_systemON == true)
             {
                 if (npc.type == NPCID.Plantera)

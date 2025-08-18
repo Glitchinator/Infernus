@@ -67,6 +67,7 @@ namespace Infernus.NPCs
             NPC.netAlways = true;
             NPC.aiStyle = -1;
             NPC.npcSlots = 0;
+            NPC.boss = true;
         }
         public override void AI()
         {
@@ -74,19 +75,7 @@ namespace Infernus.NPCs
             Player player = Main.player[NPC.target];
             NPC.netUpdate = true;
             NPC.TargetClosest(true);
-            NPC.DoesntDespawnToInactivity();
-            NPC.DiscourageDespawn(60);
-
-            if (NPC.target < 0 || NPC.target == 255 || player.dead || !player.active)
-            {
-                NPC.TargetClosest(false);
-                NPC.velocity.Y = NPC.velocity.Y + .3f;
-                if (NPC.timeLeft > 20)
-                {
-                    NPC.timeLeft = 20;
-                    return;
-                }
-            }
+            NPC.despawnEncouraged = false;
 
             if (Despawn())
             {
@@ -94,8 +83,6 @@ namespace Infernus.NPCs
             }
             Vector2 dest = NPC.Center - destination;
             float gj = Magnitude(dest);
-            string h = gj.ToString();
-            Main.NewText(h, 229, 214, 127);
             if (gj > 80f)
             {
                 if (dashing == true)
@@ -117,36 +104,65 @@ namespace Infernus.NPCs
             var f = diddy.ToRotation();
             NPC.rotation = NPC.rotation.AngleTowards(f, .1f);
 
+
+            if (Main.npc[ParentIndex].alpha < 3)
+            {
+                Timer = InfernusWorld.Boulder_Boss_Timer;
+                if(Timer % 80 == 0)
+                {
+                    Shoot_Projectile_Random();
+                }
+            }
+            /*
             Timer = InfernusWorld.Boulder_Boss_Timer;
             if (Timer == 90)
             {
                 dashing = false;
                 Shoot_Projectile_Random();
-                Timer = 0;
+                //Timer = 0;
+            }
+            if (Timer == 135)
+            {
+                dashing = false;
+                Shoot_Projectile_Random();
+                //Timer = 0;
             }
             if (Timer == 180)
             {
                 Shoot_Projectile_Random();
-                Timer = 0;
+                //Timer = 0;
+            }
+            if (Timer == 225)
+            {
+                dashing = false;
+                Shoot_Projectile_Random();
+                //Timer = 0;
             }
             if (Timer == 270)
             {
                 Shoot_Projectile_Random();
-                Timer = 0;
+                //Timer = 0;
             }
+            */
+            /*
             if(Timer == 470)
             {
                 dashing = true;
             }
-            if (Timer >= 520)
+            if (Timer >= 580)
             {
                 spam_boulder_bolts();
+                if (Timer % 50 == 0)
+                {
+                    Shoot_Projectile_Random();
+                }
             }
             if (Timer == 900)
             {
                 dashing = false;
-                InfernusWorld.Boulder_Boss_Timer = 0;
+                //InfernusWorld.Boulder_Boss_Timer = 0;
             }
+            */
             Form_Ice();
         }
         public override void OnSpawn(IEntitySource source)
@@ -174,6 +190,16 @@ namespace Infernus.NPCs
 
                 SoundEngine.PlaySound(SoundID.Item20, NPC.position);
             }
+        }
+        public override void BossLoot(ref int potionType)
+        {
+            potionType = 0;
+        }
+        public override bool PreKill()
+        {
+            Main.npc[ParentIndex].alpha--;
+            Despawn();
+            return false;
         }
         private void spam_boulder_bolts()
         {
@@ -231,10 +257,6 @@ namespace Infernus.NPCs
 
             Vector2 moveTo = toDestinationNormalized * speed;
             NPC.velocity = (NPC.velocity * (inertia - 1) + moveTo) / inertia;
-        }
-        public override void OnKill()
-        {
-            Main.npc[ParentIndex].alpha--;
         }
     }
 }

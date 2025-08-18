@@ -12,7 +12,7 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
         public override void SetDefaults()
@@ -23,7 +23,7 @@ namespace Infernus.Projectiles
             Projectile.width = 40;
             Projectile.height = 114;
             Projectile.tileCollide = true;
-            Projectile.timeLeft = 64;
+            Projectile.timeLeft = 35;
             Projectile.penetrate = 2;
         }
         public override void AI()
@@ -46,8 +46,7 @@ namespace Infernus.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.damage = (int)(Projectile.damage * 0.85f);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, Main.rand.Next(-5, 6), Main.rand.Next(-5, -5), ProjectileID.Flames, (int)(damageDone * 1.1f), 0, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, Main.rand.Next(-5, 6), Main.rand.Next(-5, -5), ProjectileID.Flames, (int)(damageDone * 1.1f), 0, Projectile.owner);
+            target.AddBuff(BuffID.OnFire3, 180);
         }
         public override bool PreDraw(ref Color lightColor)
         {

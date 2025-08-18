@@ -36,7 +36,7 @@ namespace Infernus.Items.Weapon.Melee
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<BoldnBash>(), 1)
+            .AddIngredient(ItemID.Sunfury, 1)
             .AddIngredient(ModContent.ItemType<IvyWhip>(), 1)
             .AddIngredient(ModContent.ItemType<Viral>(), 1)
             .AddIngredient(ItemID.BlueMoon, 1)

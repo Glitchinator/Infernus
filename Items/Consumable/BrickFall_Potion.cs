@@ -13,7 +13,7 @@ namespace Infernus.Items.Consumable
         }
         public override void SetDefaults()
         {
-            Item.width = 34;
+            Item.width = 16;
             Item.height = 30;
             Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.useAnimation = 15;
@@ -26,6 +26,15 @@ namespace Infernus.Items.Consumable
             Item.value = 1000;
             Item.buffType = ModContent.BuffType<Buffs.Equite_Melee_Debuff>();
             Item.buffTime = 36000;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<Placeable.Rock>(), 4)
+            .AddIngredient(ItemID.Blinkroot, 1)
+            .AddIngredient(ItemID.BottledWater, 1)
+            .AddTile(TileID.Bottles)
+            .Register();
         }
     }
 }

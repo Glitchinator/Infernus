@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Infernus")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+867cfd839bc477221b472f6bc16ee2c5eeac02e5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e5041e24b0de205532584a2026060e6fd549338c")]
 [assembly: System.Reflection.AssemblyProductAttribute("Infernus")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Infernus")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

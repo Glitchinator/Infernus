@@ -1,3 +1,4 @@
+using Infernus.Projectiles;
 using System.Drawing;
 using Terraria;
 using Terraria.Chat;
@@ -28,11 +29,14 @@ namespace Infernus.Invas
             Item.rare = ItemRarityID.Blue;
             Item.consumable = true;
             Item.noUseGraphic = true;
+            Item.shoot = ModContent.ProjectileType<Thick_Boulder>();
+            Item.shootSpeed = 8f;
         }
         public override bool CanUseItem(Player player)
         {
             return Main.dayTime == true;
         }
+        /*
         public override bool? UseItem(Player player)
         {
             if (Main.netMode == NetmodeID.SinglePlayer)
@@ -46,6 +50,7 @@ namespace Infernus.Invas
             BoulderInvasion.StartBoulderInvasion();
             return true;
         }
+        */
         public override void AddRecipes()
         {
             CreateRecipe()

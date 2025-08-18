@@ -260,6 +260,21 @@ Mods: {
 				DisplayName: Enchanted_ Femur_ Cooldown
 				Description: Mods.Infernus.Buffs.Enchanted_Femur_Cooldown.Description
 			}
+
+			Stress_Buff: {
+				DisplayName: Stress_ Buff
+				Description: Mods.Infernus.Buffs.Stress_Buff.Description
+			}
+
+			Stress_Debuff: {
+				DisplayName: Stress_ Debuff
+				Description: Mods.Infernus.Buffs.Stress_Debuff.Description
+			}
+
+			Stress_Better_Buff: {
+				DisplayName: Stress_ Better_ Buff
+				Description: Mods.Infernus.Buffs.Stress_Better_Buff.Description
+			}
 		}
 
 		Items: {
@@ -348,9 +363,9 @@ Mods: {
 				DisplayName: Ice Scroll
 				Tooltip:
 					'''
-					Cold to the touch
 					8% Reduced Mana Usage
-					Increases max mana by 40
+					Drinking a mana potioning gives a defensive buff
+					'Cold to the touch'
 					'''
 			}
 
@@ -498,8 +513,8 @@ Mods: {
 				DisplayName: Hypnotic Glow Lyum
 				Tooltip:
 					'''
-					Summons the Temporal Glow Squid
-					Must be in ocean biome
+					A special bait that attracts a dangerous squid
+					Must fish in ocean biome
 					'''
 			}
 
@@ -568,8 +583,9 @@ Mods: {
 				DisplayName: Chorus Bloom
 				Tooltip:
 					'''
-					Increases damage and crit buffs in Stress
-					 Can only be used once
+					Increases Stress gain rate by 1
+					Can only be used once
+					Heresy mode exclusive
 					'''
 			}
 
@@ -577,8 +593,9 @@ Mods: {
 				DisplayName: Cursed Soul
 				Tooltip:
 					'''
-					Increases movespeed buffs in Stress
-					 Can only be used once
+					Increases Stress Bloodletting damage by 50%
+					Can only be used once
+					Heresy mode exclusive
 					'''
 			}
 
@@ -592,6 +609,7 @@ Mods: {
 				Tooltip:
 					'''
 					Right click to throw out a sticky bomb and salute your fellow dwarfs
+					Uses fallen stars as ammo for bombs
 					Gets more powerful in hardmode
 					'Rock and Stone, it never gets old'
 					'''
@@ -616,11 +634,17 @@ Mods: {
 				Tooltip:
 					'''
 					Your journey awaits, with fortune and fame...
-					 Enables Stress for the Player
-					 40% Increase Health and 40% Increased Damage of Bosses
-					 Stress is an amount of hits the player can take before they die
-					 With each hit(s) you take, you gain a buff until you die
-					 Stress only activates when a boss is alive
+					Increases boss health and damage by 40%
+					Enables Stress mechanic for the player
+					Stress is a bar that slowly gains when attacking a boss
+					Increases movespeed based on how much stress your player currently has
+					If you are hit, you get a DOT based on how much stress you had and lose all stress you built up
+					While at full stress, hitting C will make the player bloodlet
+					While bloodletting, you lose 30% of your health over a few seconds
+					bloodletting gives a buff that increases damage by 3X over 7 seconds
+					bloodletting depletes your stress back to zero
+					Stress only activates when a boss is alive
+					'What a calamity'
 					'''
 			}
 
@@ -788,7 +812,7 @@ Mods: {
 
 			bronzesword: {
 				DisplayName: Hellfire Flayer
-				Tooltip: Slashes spew fire on impact
+				Tooltip: ""
 			}
 
 			Coralcronk: {
@@ -1622,9 +1646,9 @@ Mods: {
 				DisplayName: Cryo Banner
 				Tooltip:
 					'''
-					Increases mana regen by 1
 					12% Reduced Mana Usage
-					Increases max mana by 60
+					Drinking a mana potions gives a defensive buff
+					Enemies attacking you while you have the buff take full damage back
 					'''
 			}
 
@@ -1873,8 +1897,9 @@ Mods: {
 				Tooltip:
 					'''
 					When on a mount
-					Increases max mana by 45
-					Increases mana regen by 1
+					Increases max mana by 69
+					Increases magic crit by 10%
+
 					'''
 			}
 
@@ -1941,7 +1966,7 @@ Mods: {
 					'''
 					Throw a fishing spear that has a chance to catch a fish used for crafting potions
 					The type of fish it catches depends on the biome
-					15% fishing spear power
+					25% fishing spear power
 					'''
 			}
 
@@ -1956,8 +1981,8 @@ Mods: {
 			}
 
 			Meteor_Sentry: {
-				DisplayName: Meteor Sentry
-				Tooltip: Rains meteors from above
+				DisplayName: Meteor Rainer
+				Tooltip: Summona a meteor launcher sentry that spews out meteors
 			}
 
 			Squid_Fishbowl: {
@@ -2019,13 +2044,13 @@ Mods: {
 				Tooltip: Summons the Corrupted Husk
 			}
 
-			Mana_Equalizer: {
-				DisplayName: Mana Equalizer
+			Magic_Glyph: {
+				DisplayName: Magic Glyph
 				Tooltip:
 					'''
 					Increases mana regen based on your current mana
-					Increases mana regen by 4 when above 70% of maximum
-					Increases mana regen by 2 when above 50% of maximum
+					Increases mana regen by 8 when above 70% of maximum
+					Increases mana regen by 4 when above 50% of maximum
 					'''
 			}
 
@@ -2034,18 +2059,18 @@ Mods: {
 				Tooltip: ""
 			}
 
-			Mana_Gift: {
-				DisplayName: Mana's Gift
+			Dark_Heart: {
+				DisplayName: Dark Heart
 				Tooltip:
 					'''
 					Increases magic damage based on your current mana
-					Increases magic damage by 10% when above 70% of maximum
-					Increases magic damage by 5% when above 50% of maximum
+					Increases magic damage by 16% when above 70% of maximum
+					Increases magic damage by 8% when above 50% of maximum
 					'''
 			}
 
-			Mana_Syphoner: {
-				DisplayName: Mana Syphoner
+			Ancient_Incantation: {
+				DisplayName: Ancient Incantation
 				Tooltip:
 					'''
 					Conjures a aura around the player
@@ -2061,13 +2086,17 @@ Mods: {
 			}
 
 			Dusk_Sigil: {
-				DisplayName: Dusk_ Sigil
-				Tooltip: ""
+				DisplayName: Dusk Sigil
+				Tooltip:
+					'''
+					Reduces mana by 50
+					Increases magic damage by 12%
+					'''
 			}
 
 			Wave_Crasher: {
-				DisplayName: Wave_ Crasher
-				Tooltip: ""
+				DisplayName: Wave Crasher
+				Tooltip: Reduces melee attack speed by 15%
 			}
 
 			Crystal_String: {
@@ -2098,6 +2127,21 @@ Mods: {
 					Bullets inflict plague debuff
 					Enemies effected by plague will spread plague to enemies near them
 					'''
+			}
+
+			Ruderibus_Pickaxe: {
+				DisplayName: Necrotic Permafrost AxePick
+				Tooltip: ""
+			}
+
+			Cursed_Spear: {
+				DisplayName: Cursed Spear
+				Tooltip: Conjures a phantom hand with every thrust
+			}
+
+			Rock_Shield: {
+				DisplayName: Rock_ Shield
+				Tooltip: ""
 			}
 		}
 
@@ -2352,12 +2396,21 @@ Mods: {
 			Corrupted_Mask.DisplayName: Corrupted Mask
 			Ruderibus_Round_exlos.DisplayName: Ruderibus Round Explosion
 			Ghost_Pistol_Shot.DisplayName: Ghost_ Pistol_ Shot
+			Thick_Boulder.DisplayName: Thick_ Boulder
+			Wanderer_Spear.DisplayName: Wanderer_ Spear
+			Wanderer_Spear_Proj.DisplayName: Wanderer_ Spear_ Proj
+			Luminite_Sword_Proj.DisplayName: Luminite_ Sword_ Proj
+			Squid_Scroll_Pickup.DisplayName: Squid_ Scroll_ Pickup
+			Meteor_Alter_Replica_Proj.DisplayName: Meteor_ Alter_ Replica_ Proj
+			Boulder3.DisplayName: Boulder3
+			Corrupted_Husk_Big.DisplayName: Corrupted_ Husk_ Big
+			Corrupted_Husk_Proj.DisplayName: Corrupted_ Husk_ Proj
+			Enchanted_Femur_Explosion.DisplayName: Enchanted_ Femur_ Explosion
 		}
 
 		NPCs: {
 			Basalt_Boulder.DisplayName: Basalt Bastion
 			Boulder_Bat.DisplayName: Rock Bat
-			Boulder_Beetle.DisplayName: Boulder Beetle
 			Boulder_Cloud.DisplayName: Crumbling Aquifer
 			Boulder_Corpse.DisplayName: Stoned Corpse
 			Boulder_Golem.DisplayName: Mossy Golem
@@ -2379,6 +2432,7 @@ Mods: {
 			TemporalSquid.DisplayName: Temporal Glow Squid
 			Yuletideelf.DisplayName: Yuletide Elf
 			Ruderibus_Gas_Mine.DisplayName: Icy Gas Mine
+			Boulder_Beetle_MiniBoss.DisplayName: Boulder Beetle
 		}
 
 		BossChecklistIntegration: {
@@ -2416,7 +2470,19 @@ Mods: {
 					Label: Disable Yuletide Elf Spawns
 					Tooltip: This Disables the Yuletide Elf from spawning in your worlds.
 				}
+
+				Enable_Progression_Change: {
+					Label: Disable Progression Change
+					Tooltip: This disables the player requiring to kill Serphious and the martians before the cultist can spawn
+				}
+
+				Enable_StressUI_Text: {
+					Label: Enable_ Stress U I_ Text
+					Tooltip: ""
+				}
 			}
 		}
+
+		Keybinds.Stress.DisplayName: Stress
 	}
 }

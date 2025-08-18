@@ -34,7 +34,6 @@ namespace Infernus.Items.Accesories
             .AddIngredient(ModContent.ItemType<Charge>(), 1)
             .AddIngredient(ModContent.ItemType<Materials.Hot>(), 7)
             .AddIngredient(ModContent.ItemType<Materials.IceSpikes>(), 7)
-            .AddIngredient(ItemID.PygmyNecklace, 1)
             .AddTile(TileID.Anvils)
             .Register();
         }

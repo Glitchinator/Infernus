@@ -20,7 +20,7 @@ namespace Infernus.Buffs
         {
             player.statDefense += 5;
             player.GetAttackSpeed(DamageClass.Melee) += .08f;
-            player.GetDamage(DamageClass.Melee) += 0.08f;
+            player.GetDamage(DamageClass.Melee) += 0.12f;
         }
     }
 }

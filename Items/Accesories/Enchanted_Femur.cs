@@ -13,8 +13,8 @@ namespace Infernus.Items.Accesories
         }
         public override void SetDefaults()
         {
-            Item.width = 30;
-            Item.height = 46;
+            Item.width = 34;
+            Item.height = 30;
             Item.accessory = true;
             Item.value = 60000;
             Item.rare = ItemRarityID.Green;
@@ -22,14 +22,6 @@ namespace Infernus.Items.Accesories
         public override void UpdateEquip(Player player)
         {
             Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Enchanted_Femur = true;
-        }
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ItemID.Bone, 12)
-            .AddIngredient(ModContent.ItemType<Bone_Bracer>(), 1)
-            .AddTile(TileID.Anvils)
-            .Register();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using Infernus.Items.Accesories;
+using Infernus.Items.Materials;
+using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,6 +28,14 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.statLifeMax2 -= 80;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<Bayonett>(), 8)
+            .AddIngredient(ItemID.SoulofNight, 4)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
         }
     }
 }

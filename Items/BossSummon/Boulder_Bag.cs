@@ -36,7 +36,7 @@ namespace Infernus.Items.BossSummon
         }
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Weapon.HardMode.Accessories.HiveHeart>(), 2));
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Weapon.HardMode.Accessories.Corrupted_Veil>(), 2));
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Weapon.HardMode.Accessories.Wings>(), 2));
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Weapon.HardMode.Melee.bould>()));
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Weapon.HardMode.Magic.Bouldermagicweapon>(), 2));

@@ -11,6 +11,7 @@ namespace Infernus.Projectiles
     public class CorrShot : ModProjectile
     {
         int timer;
+        bool homing = false;
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.Bullet);
@@ -39,6 +40,21 @@ namespace Infernus.Projectiles
                     Sword.noGravity = true;
                 }
             }
+            if (homing == true)
+            {
+                float maxDetectRadius = 400f;
+                var inertia = 12f;
+
+                NPC closestNPC = FindClosestNPC(maxDetectRadius);
+                if (closestNPC == null)
+                    return;
+
+                Vector2 direction = closestNPC.Center - Projectile.Center;
+                direction.Normalize();
+                direction *= 16;
+                Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
+                return;
+            }
             timer++;
             if (timer == 24)
             {
@@ -58,8 +74,33 @@ namespace Infernus.Projectiles
             }
             if (timer == 34)
             {
+                homing = true;
                 Projectile.tileCollide = true;
             }
+        }
+
+        public NPC FindClosestNPC(float maxDetectDistance)
+        {
+            NPC closestNPC = null;
+
+            float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
+
+            for (int k = 0; k < Main.maxNPCs; k++)
+            {
+                NPC target = Main.npc[k];
+                if (target.CanBeChasedBy())
+                {
+                    float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, Projectile.Center);
+
+                    if (sqrDistanceToTarget < sqrMaxDetectDistance)
+                    {
+                        sqrMaxDetectDistance = sqrDistanceToTarget;
+                        closestNPC = target;
+                    }
+                }
+            }
+
+            return closestNPC;
         }
         public override bool PreDraw(ref Color lightColor)
         {

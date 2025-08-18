@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using Infernus.Items.Accesories;
+using Infernus.Items.Materials;
+using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,6 +25,14 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
         {
             player.GetArmorPenetration(DamageClass.Ranged) += 8;
             player.GetCritChance(DamageClass.Ranged) += 9;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<Chiseled_Arrowhead>(), 1)
+            .AddIngredient(ModContent.ItemType<Crumbling_Basalt>(), 12)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
         }
     }
 }

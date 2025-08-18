@@ -19,12 +19,13 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
 
         public override void SetDefaults()
         {
-            Item.damage = 108;
+            Item.damage = 420;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 50;
             Item.height = 32;
             Item.useAnimation = 1;
             Item.useTime = 25;
+            Item.crit = 16;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 6.7f;
             Item.value = Item.buyPrice(0, 22, 50, 0);

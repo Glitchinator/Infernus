@@ -24,8 +24,8 @@ namespace Infernus.Items.Accesories
         {
             if (player.mount.Active)
             {
-                player.statManaMax2 += 45;
-                player.manaRegen += 1;
+                player.statManaMax2 += 69;
+                player.GetCritChance(DamageClass.Magic) += 10;
             }
         }
         public override void AddRecipes()

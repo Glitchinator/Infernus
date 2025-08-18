@@ -24,17 +24,6 @@ namespace Infernus.Items.Materials
         {
             CreateRecipe()
             .AddIngredient(ModContent.ItemType<Placeable.Equite_Ore_Item>(), 3)
-            .AddIngredient(ItemID.Bone, 1)
-            .AddIngredient(ItemID.BeeWax, 1)
-            .AddIngredient(ItemID.TissueSample, 1)
-            .AddTile(TileID.Furnaces)
-            .Register();
-
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Placeable.Equite_Ore_Item>(), 3)
-            .AddIngredient(ItemID.Bone, 1)
-            .AddIngredient(ItemID.BeeWax, 1)
-            .AddIngredient(ItemID.ShadowScale, 1)
             .AddTile(TileID.Furnaces)
             .Register();
         }

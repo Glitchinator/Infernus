@@ -20,7 +20,7 @@ namespace Infernus.Items.Weapon.Ranged
 
         public override void SetDefaults()
         {
-            Item.damage = 4;
+            Item.damage = 8;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 56;
             Item.height = 22;

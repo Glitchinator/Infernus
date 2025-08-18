@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Infernus.Items.Accesories;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Bestiary;
@@ -68,6 +69,8 @@ namespace Infernus.NPCs
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Ocean_Crest>(), 4));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Wave_Crasher>(), 4));
             npcLoot.Add(ItemDropRule.Common(ItemID.ShellPileBlock, 1, 1, 2));
             npcLoot.Add(ItemDropRule.Common(ItemID.Coral, 1, 1, 2));
             npcLoot.Add(ItemDropRule.Common(ItemID.Seashell, 1, 1, 2));

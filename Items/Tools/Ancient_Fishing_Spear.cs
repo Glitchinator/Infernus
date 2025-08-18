@@ -1,3 +1,4 @@
+using Infernus.Items.Materials;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -16,11 +17,8 @@ namespace Infernus.Items.Tools
 
         public override void SetDefaults()
         {
-            Item.damage = 0;
-            Item.DamageType = DamageClass.Melee;
-            Item.noMelee = true;
-            Item.width = 40;
-            Item.height = 40;
+            Item.width = 14;
+            Item.height = 90;
             Item.useTime = 34;
             Item.useAnimation = 34;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -53,8 +51,9 @@ namespace Infernus.Items.Tools
         }
         public override void AddRecipes()
         {
-            CreateRecipe()
-            .AddIngredient(ItemID.FossilOre, 16)
+            CreateRecipe(22)
+            .AddIngredient(ItemID.CopperBar, 6)
+            .AddIngredient(ModContent.ItemType<Cursed_Plasma>(), 10)
             .AddTile(TileID.AlchemyTable)
             .Register();
         }

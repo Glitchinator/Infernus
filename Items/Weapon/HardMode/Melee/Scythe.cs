@@ -35,7 +35,7 @@ namespace Infernus.Items.Weapon.HardMode.Melee
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Weapon.Melee.Hatchet>(), 1)
+            .AddIngredient(ModContent.ItemType<Weapon.Melee.SkullBasher>(), 1)
             .AddIngredient(ItemID.SoulofNight, 14)
             .AddTile(TileID.MythrilAnvil)
             .Register();

@@ -54,12 +54,14 @@ namespace Infernus.NPCs
             NPC.noTileCollide = true;
             NPC.lavaImmune = true;
             NPC.npcSlots = 6;
+            NPC.alpha = 255;
         }
         int Timer;
         int Timer_Tornado;
         int Timer_SecondPhase;
         int frameSpeed = 16;
         bool secondphase = false;
+        bool spawn_anim = false;
 
         public override void AI()
         {
@@ -77,6 +79,16 @@ namespace Infernus.NPCs
                     NPC.timeLeft = 20;
                     return;
                 }
+            }
+            if (NPC.alpha <= 0)
+            {
+                spawn_anim = true;
+                NPC.alpha = 0;
+            }
+            if (spawn_anim == false)
+            {
+                NPC.alpha -= 7;
+                return;
             }
             if (Main.expertMode == true || player.ZoneBeach == false)
             {
@@ -510,6 +522,12 @@ namespace Infernus.NPCs
             }
             #endregion
         }
+        public override void OnSpawn(IEntitySource source)
+        {
+            NPC.position.Y += 90;
+            NPC.velocity.Y -= 4;
+            base.OnSpawn(source);
+        }
         private void Teleport_Left()
         {
             if (NPC.HasValidTarget)
@@ -759,6 +777,7 @@ namespace Infernus.NPCs
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.Ranged.Squid_FlameThrower>(), 2));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Accesories.Squid_Accessory>(), 2));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Accesories.Ink_Cartridge>(), 2));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Accesories.Squid_Scroll>(), 2));
 
             npcLoot.Add(notExpertRule);
         }

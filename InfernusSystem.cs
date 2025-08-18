@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -152,6 +153,83 @@ namespace Infernus
             Equite_Generated = flags[9];
             downedWanderer = flags[10];
             downedFlower = flags[11];
+        }
+        public override void PostAddRecipes()
+        {
+            for (int i = 0; i < Recipe.numRecipes; i++)
+            {
+                Recipe recipe = Main.recipe[i];
+                if (recipe.TryGetIngredient(ItemID.Ruby, out Item ingredient2) && recipe.TryGetIngredient(ItemID.Robe, out Item ingredient3))
+                {
+                    recipe.RemoveIngredient(ItemID.Ruby);
+                    recipe.AddIngredient(ItemID.Ruby, 3);
+                }
+                if (recipe.TryGetIngredient(ItemID.Emerald, out Item ingredient) && recipe.TryGetIngredient(ItemID.Robe, out Item ingredient4))
+                {
+                    recipe.RemoveIngredient(ItemID.Emerald);
+                    recipe.AddIngredient(ItemID.Emerald, 3);
+                }
+                if (recipe.TryGetIngredient(ItemID.Sapphire, out Item ingredient5) && recipe.TryGetIngredient(ItemID.Robe, out Item ingredient6))
+                {
+                    recipe.RemoveIngredient(ItemID.Sapphire);
+                    recipe.AddIngredient(ItemID.Sapphire, 3);
+                }
+                if (recipe.TryGetIngredient(ItemID.Topaz, out Item ingredient7) && recipe.TryGetIngredient(ItemID.Robe, out Item ingredient8))
+                {
+                    recipe.RemoveIngredient(ItemID.Topaz);
+                    recipe.AddIngredient(ItemID.Topaz, 3);
+                }
+                if (recipe.TryGetIngredient(ItemID.Amethyst, out Item ingredient1) && recipe.TryGetIngredient(ItemID.Robe, out Item ingredient9))
+                {
+                    recipe.RemoveIngredient(ItemID.Amethyst);
+                    recipe.AddIngredient(ItemID.Amethyst, 3);
+                }
+                if (recipe.TryGetIngredient(ItemID.Amber, out Item ingredient11) && recipe.TryGetIngredient(ItemID.Robe, out Item ingredient12))
+                {
+                    recipe.RemoveIngredient(ItemID.Amber);
+                    recipe.AddIngredient(ItemID.Amber, 3);
+                }
+                if (recipe.TryGetIngredient(ItemID.Diamond, out Item ingredient13) && recipe.TryGetIngredient(ItemID.Robe, out Item ingredient14))
+                {
+                    recipe.RemoveIngredient(ItemID.Diamond);
+                    recipe.AddIngredient(ItemID.Diamond, 3);
+                }
+                if (recipe.TryGetIngredient(ItemID.Ruby, out Item ingredient21) && recipe.TryGetIngredient(ItemID.GoldBar, out Item ingredient31))
+                {
+                    recipe.RemoveIngredient(ItemID.Ruby);
+                    recipe.AddIngredient(ItemID.Ruby, 3);
+                }
+                if (recipe.TryGetIngredient(ItemID.Emerald, out Item ingredient111) && recipe.TryGetIngredient(ItemID.TungstenBar, out Item ingredient4111))
+                {
+                    recipe.RemoveIngredient(ItemID.Emerald);
+                    recipe.AddIngredient(ItemID.Emerald, 3);
+                }
+                if (recipe.TryGetIngredient(ItemID.Sapphire, out Item ingredient5111) && recipe.TryGetIngredient(ItemID.SilverBar, out Item ingredient611))
+                {
+                    recipe.RemoveIngredient(ItemID.Sapphire);
+                    recipe.AddIngredient(ItemID.Sapphire, 3);
+                }
+                if (recipe.TryGetIngredient(ItemID.Topaz, out Item ingredient7111) && recipe.TryGetIngredient(ItemID.TinBar, out Item ingredient81))
+                {
+                    recipe.RemoveIngredient(ItemID.Topaz);
+                    recipe.AddIngredient(ItemID.Topaz, 3);
+                }
+                if (recipe.TryGetIngredient(ItemID.Amethyst, out Item ingredient1111) && recipe.TryGetIngredient(ItemID.CopperBar, out Item ingredient91))
+                {
+                    recipe.RemoveIngredient(ItemID.Amethyst);
+                    recipe.AddIngredient(ItemID.Amethyst, 3);
+                }
+                if (recipe.TryGetIngredient(ItemID.Amber, out Item ingredient11111) && recipe.TryGetIngredient(ItemID.FossilOre, out Item ingredient121))
+                {
+                    recipe.RemoveIngredient(ItemID.Amber);
+                    recipe.AddIngredient(ItemID.Amber, 3);
+                }
+                if (recipe.TryGetIngredient(ItemID.Diamond, out Item ingredient131) && recipe.TryGetIngredient(ItemID.PlatinumBar, out Item ingredient141))
+                {
+                    recipe.RemoveIngredient(ItemID.Diamond);
+                    recipe.AddIngredient(ItemID.Diamond, 3);
+                }
+            }
         }
     }
 }

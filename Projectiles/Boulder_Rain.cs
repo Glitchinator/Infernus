@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,6 +24,10 @@ namespace Infernus.Projectiles
             Projectile.netImportant = true;
             Projectile.extraUpdates = 1;
             Projectile.timeLeft = 300;
+        }
+        public override void OnSpawn(IEntitySource source)
+        {
+            Projectile.timeLeft = Main.rand.Next(250, 320);
         }
         public override void AI()
         {

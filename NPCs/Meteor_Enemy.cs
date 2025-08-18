@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Infernus.Items.Accesories;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
@@ -93,6 +94,8 @@ namespace Infernus.NPCs
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Materials.Scorched_Sinew>(), 1, 0, 2));
             npcLoot.Add(ItemDropRule.Common(ItemID.MilkCarton, 50, 1, 1));
+
+            npcLoot.Add(ItemDropRule.ByCondition(new Special_DropRules.Raiko_Drop_Rule(), ModContent.ItemType<Meteor_Core>(), 10));
         }
     }
 }

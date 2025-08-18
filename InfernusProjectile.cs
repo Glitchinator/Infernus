@@ -11,14 +11,24 @@ namespace Infernus
 {
     public class InfernusProjectiles : GlobalProjectile
     {
+        
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
+            /*
             if (InfernusSystem.Level_systemON == true && InfernusNPC.Is_Spawned == true && projectile.hostile == true)
             {
                 projectile.damage = (int)(projectile.damage * 1.4f);
             }
+            */
+            if (source is EntitySource_Parent parent && parent.Entity is NPC npc && InfernusSystem.Level_systemON == true && InfernusNPC.Is_Spawned == true && projectile.hostile == true)
+            {
+                projectile.damage = (int)(projectile.damage * 1.4f);
+            }
+            //string dam = projectile.damage.ToString();
+            //Main.NewText(dam, 229, 214, 127);
         }
         /*
+        
          * just set timeleft during projectile spawn in flarerolver
         public override void SetDefaults(Projectile projectile)
         {

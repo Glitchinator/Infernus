@@ -22,13 +22,20 @@ namespace Infernus.Items.Accesories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.statManaMax2 += 50;
-            player.manaRegen += 2;
+            player.statManaMax2 -= 50;
+            player.GetDamage(DamageClass.Magic) += 0.12f;
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.DemoniteBar, 5)
+            .AddIngredient(ItemID.DemoniteBar, 8)
+            .AddIngredient(ItemID.ShadowScale, 12)
+            .AddTile(TileID.Anvils)
+            .Register();
+
+            CreateRecipe()
+            .AddIngredient(ItemID.CrimtaneBar, 8)
+            .AddIngredient(ItemID.TissueSample, 12)
             .AddTile(TileID.Anvils)
             .Register();
         }

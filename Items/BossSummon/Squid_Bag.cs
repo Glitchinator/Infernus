@@ -45,6 +45,7 @@ namespace Infernus.Items.BossSummon
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Weapon.Ranged.Squid_FlameThrower>(), 2));
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Accesories.Squid_Accessory>(), 2));
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Accesories.Ink_Cartridge>(), 2));
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Accesories.Squid_Scroll>(), 2));
 
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Accesories.Squid_Expert>()));
 

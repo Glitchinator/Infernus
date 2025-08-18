@@ -25,9 +25,6 @@ namespace Infernus.Projectiles
             Projectile.height = 42;
             Projectile.netImportant = true;
             Projectile.timeLeft = 240;
-            Projectile.penetrate = 6;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 1;
             Projectile.extraUpdates = 1;
         }
         public override void AI()

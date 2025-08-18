@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Infernus.Config;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
@@ -43,7 +44,7 @@ namespace Infernus.Level
             buff2.Width.Set(10, 0f);
             buff2.Height.Set(10, 0f);
 
-            text = new UIText("0/0", 0.8f);
+            text = new UIText("", 0.8f);
             text.Width.Set(138, 0f);
             text.Height.Set(34, 0f);
             text.Top.Set(40, 0f);
@@ -97,7 +98,15 @@ namespace Infernus.Level
             }
 
             var modPlayer = Main.LocalPlayer.GetModPlayer<InfernusPlayer>();
-            text.SetText($"Stress: {modPlayer.Stress_Current} / {modPlayer.Stress_Max2}");
+
+            if (ModContent.GetInstance<InfernusConfig>().Enable_StressUI_Text == true)
+            {
+                text.SetText($"Stress: {modPlayer.Stress_Current} / {modPlayer.Stress_Max2}");
+            }
+            else
+            {
+                text.SetText($"");
+            }
 
 
             if (modPlayer.Stress_Buff_1 == true)

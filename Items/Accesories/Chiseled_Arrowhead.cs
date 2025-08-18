@@ -25,12 +25,5 @@ namespace Infernus.Items.Accesories
             player.GetArmorPenetration(DamageClass.Ranged) += 4;
             player.GetCritChance(DamageClass.Ranged) += 4;
         }
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Rock>(), 18)
-            .AddTile(TileID.Anvils)
-            .Register();
-        }
     }
 }

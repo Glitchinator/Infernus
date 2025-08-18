@@ -9,6 +9,7 @@ namespace Infernus.Items.Weapon.HardMode.Melee
 {
     public class lumsword : ModItem
     {
+        public override string Texture => "Infernus/Projectiles/Luminite_Sword_Proj";
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -16,10 +17,10 @@ namespace Infernus.Items.Weapon.HardMode.Melee
 
         public override void SetDefaults()
         {
-            Item.damage = 160;
+            Item.damage = 280;
             Item.DamageType = DamageClass.Melee;
-            Item.width = 80;
-            Item.height = 80;
+            Item.width = 78;
+            Item.height = 78;
             Item.useTime = 20;
             Item.useAnimation = 15;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -27,39 +28,30 @@ namespace Infernus.Items.Weapon.HardMode.Melee
             Item.value = Item.buyPrice(0, 26, 50, 0);
             Item.rare = ItemRarityID.Cyan;
             Item.UseSound = SoundID.Item19;
+            Item.noUseGraphic = true;
             Item.autoReuse = true;
-            Item.shoot = ModContent.ProjectileType<Projectiles.elumfire>();
-            Item.shootSpeed = 10;
-        }
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-
-            for (int i = 0; i < 4; i++)
-            {
-
-                Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(26));
-
-
-                newVelocity *= 1f - Main.rand.NextFloat(.4f);
-
-                Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI);
-            }
-
-            return false;
+            Item.noMelee = true;
+            Item.shoot = ModContent.ProjectileType<Projectiles.Luminite_Sword_Proj>();
+            Item.shootSpeed = 26f;
         }
         public override void AddRecipes()
         {
             CreateRecipe()
+            .AddIngredient(ModContent.ItemType<Weapon.HardMode.Melee.Scythe>(), 1)
             .AddIngredient(ItemID.LunarBar, 18)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }
-        public override void MeleeEffects(Player player, Rectangle hitbox)
+        public override bool CanUseItem(Player player)
         {
-            if (Main.rand.NextBool(3))
+            for (int i = 0; i < 1000; ++i)
             {
-                Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.MagicMirror);
+                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == Item.shoot)
+                {
+                    return false;
+                }
             }
+            return true;
         }
     }
 }

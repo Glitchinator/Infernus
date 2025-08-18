@@ -15,24 +15,15 @@ namespace Infernus.Items.Accesories
         }
         public override void SetDefaults()
         {
-            Item.width = 28;
-            Item.height = 46;
+            Item.width = 24;
+            Item.height = 20;
             Item.accessory = true;
             Item.value = 45000;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.Blue;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetCritChance(DamageClass.Magic) += 7;
-        }
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Cryo_Lash>(), 1)
-            .AddIngredient(ModContent.ItemType<Antlion_Fist>(), 1)
-            .AddIngredient(ModContent.ItemType<IceSpikes>(), 12)
-            .AddTile(TileID.TinkerersWorkbench)
-            .Register();
         }
     }
 }

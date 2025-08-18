@@ -25,8 +25,8 @@ namespace Infernus.Tiles
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
 
-            MinPick = 55;
-            MineResist = 0.8f;
+            MinPick = 105;
+            MineResist = 2f;
 
             AddMapEntry(new Color(229, 214, 127), Language.GetText("Equite Ore"));
 

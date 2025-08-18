@@ -22,22 +22,22 @@ namespace Infernus.Items.Accesories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.statManaMax2 += 40;
+            Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Ice_Scroll = true;
             player.manaCost -= .08f;
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.IceBlock, 26)
-            .AddIngredient(ItemID.Cobweb, 8)
-            .AddIngredient(ItemID.TissueSample, 8)
+            .AddIngredient(ItemID.IceBlock, 50)
+            .AddIngredient(ItemID.Silk, 12)
+            .AddIngredient(ItemID.TissueSample, 4)
             .AddTile(TileID.Anvils)
             .Register();
 
             CreateRecipe()
-            .AddIngredient(ItemID.IceBlock, 26)
-            .AddIngredient(ItemID.Cobweb, 8)
-            .AddIngredient(ItemID.ShadowScale, 8)
+            .AddIngredient(ItemID.IceBlock, 50)
+            .AddIngredient(ItemID.Silk, 12)
+            .AddIngredient(ItemID.ShadowScale, 4)
             .AddTile(TileID.Anvils)
             .Register();
         }

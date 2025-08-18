@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Infernus.Items.Accesories;
+using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -27,6 +28,16 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetDamage(DamageClass.Ranged) += 0.08f;
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ItemID.RangerEmblem, 1)
+            .AddIngredient(ModContent.ItemType<Ammo_Pouch>(), 1)
+            .AddIngredient(ModContent.ItemType<Quiver>(), 1)
+
+            .AddTile(TileID.TinkerersWorkbench)
+            .Register();
         }
     }
 }

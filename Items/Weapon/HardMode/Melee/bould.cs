@@ -27,7 +27,7 @@ namespace Infernus.Items.Weapon.HardMode.Melee
             Item.UseSound = SoundID.Item19;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.SwordTerra2>();
-            Item.shootSpeed = 14;
+            Item.shootSpeed = 15f;
         }
     }
 }

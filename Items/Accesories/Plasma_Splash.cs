@@ -32,7 +32,7 @@ namespace Infernus.Items.Accesories
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Materials.Cursed_Plasma>(), 21)
+            .AddIngredient(ModContent.ItemType<Materials.Cursed_Plasma>(), 16)
             .AddTile(TileID.Anvils)
             .Register();
         }

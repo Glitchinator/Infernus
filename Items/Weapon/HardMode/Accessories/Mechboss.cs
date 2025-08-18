@@ -17,8 +17,7 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
             Item.width = 28;
             Item.height = 26;
             Item.value = Item.buyPrice(0, 14, 25, 0);
-            Item.rare = ItemRarityID.Expert;
-            Item.expert = true;
+            Item.rare = ItemRarityID.LightRed;
             Item.accessory = true;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -29,9 +28,10 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.MechanicalBatteryPiece, 1)
-            .AddIngredient(ItemID.MechanicalWagonPiece, 1)
-            .AddIngredient(ItemID.MechanicalWheelPiece, 1)
+            .AddIngredient(ItemID.HallowedBar, 8)
+            .AddIngredient(ItemID.SoulofFright, 4)
+            .AddIngredient(ItemID.SoulofMight, 4)
+            .AddIngredient(ItemID.SoulofSight, 4)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }
