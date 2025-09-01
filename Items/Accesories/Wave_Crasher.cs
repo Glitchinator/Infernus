@@ -7,7 +7,6 @@ namespace Infernus.Items.Accesories
 {
     public class Wave_Crasher : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -19,10 +18,10 @@ namespace Infernus.Items.Accesories
             Item.accessory = true;
             Item.value = 45000;
             Item.rare = ItemRarityID.Green;
+            Item.defense = 6;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.statDefense += 6;
             player.GetAttackSpeed(DamageClass.Melee) -= 0.15f;
         }
     }

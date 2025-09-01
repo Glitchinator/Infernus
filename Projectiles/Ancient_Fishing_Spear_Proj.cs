@@ -26,14 +26,28 @@ namespace Infernus.Projectiles
             Projectile.height = 12;
             Projectile.timeLeft = 240;
 
-            DrawOffsetX = -4;
-            DrawOriginOffsetY = -25;
+            DrawOffsetX = -102;
+            DrawOriginOffsetY = -14;
             //DrawOriginOffsetX = 31;
         }
         bool retracting = false;
         bool retracted = false;
         int Speed = 18;
         int rand = 0;
+        public override bool PreAI()
+        {
+            if (Projectile.spriteDirection == -1)
+            {
+                // If sprite is facing left, rotate 45 degrees
+                Projectile.rotation += MathHelper.ToRadians(45f);
+            }
+            else
+            {
+                // If sprite is facing right, rotate 135 degrees
+                Projectile.rotation += MathHelper.ToRadians(135f);
+            }
+            return base.PreAI();
+        }
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;

@@ -132,7 +132,9 @@
     <None Remove="Items\Weapon\HardMode\Magic\Ancient_Crest.png" />
     <None Remove="Items\Weapon\HardMode\Magic\Bouldermagicweapon.png" />
     <None Remove="Items\Weapon\HardMode\Magic\SkullStorm.png" />
+    <None Remove="Items\Weapon\HardMode\Melee\Aeritite_Claymore.png" />
     <None Remove="Items\Weapon\HardMode\Melee\Frisbe.png" />
+    <None Remove="Items\Weapon\HardMode\Melee\Piss_Shit_Fart_Sword.png" />
     <None Remove="Items\Weapon\HardMode\Melee\Subslicer.png" />
     <None Remove="Items\Weapon\HardMode\Ranged\Bog.png" />
     <None Remove="Items\Weapon\HardMode\Ranged\GolemPistol.png" />
@@ -201,6 +203,7 @@
     <None Remove="Projectiles\Aeritite_Mine.png" />
     <None Remove="Projectiles\Aeritite_Mine_Explosion.png" />
     <None Remove="Projectiles\Aeritite_Minion.png" />
+    <None Remove="Projectiles\Aeritite_Sword_Energy.png" />
     <None Remove="Projectiles\Ancient_Fishing_Spear_Proj.png" />
     <None Remove="Projectiles\A_M.png" />
     <None Remove="Projectiles\Basalt_Arrow.png" />
@@ -230,6 +233,7 @@
     <None Remove="Projectiles\Equite_Arrow.png" />
     <None Remove="Projectiles\Equite_Leaf.png" />
     <None Remove="Projectiles\Eternalflame.png" />
+    <None Remove="Projectiles\Fart_Sword_Energy.png" />
     <None Remove="Projectiles\Frisbe.png" />
     <None Remove="Projectiles\Gas.png" />
     <None Remove="Projectiles\Ghost_Pistol_Shot.png" />

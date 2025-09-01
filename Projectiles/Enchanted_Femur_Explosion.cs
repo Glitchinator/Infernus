@@ -15,7 +15,7 @@ namespace Infernus.Projectiles
             Projectile.tileCollide = false;
             Projectile.netImportant = true;
             Projectile.alpha = 0;
-            Projectile.scale = 0.5f;
+            Projectile.scale = 1f;
             Projectile.penetrate = -1;
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 60;

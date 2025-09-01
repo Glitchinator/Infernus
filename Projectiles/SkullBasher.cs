@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
 namespace Infernus.Projectiles
@@ -23,6 +24,10 @@ namespace Infernus.Projectiles
             Projectile.timeLeft = 240;
             Projectile.tileCollide = true;
             Projectile.ownerHitCheck = true;
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.HitDirectionOverride = (Main.player[Projectile.owner].Center.X < target.Center.X) ? 1 : (-1);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -51,6 +56,7 @@ namespace Infernus.Projectiles
 
             return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
+        
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];

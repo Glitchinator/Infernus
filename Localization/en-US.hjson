@@ -2140,7 +2140,22 @@ Mods: {
 			}
 
 			Rock_Shield: {
-				DisplayName: Rock_ Shield
+				DisplayName: Rock Shield
+				Tooltip: Increases melee damage by 10%
+			}
+
+			Aeritite_Claymore: {
+				DisplayName: Aeritite Claymore
+				Tooltip:
+					'''
+					Deals 2x damage to enemies under half health
+					After hitting an enemy you gain increased melee speed
+					Performs better against multiple targets than most energy swords
+					'''
+			}
+
+			Piss_Shit_Fart_Sword: {
+				DisplayName: Piss Shit n' Fart Sword
 				Tooltip: ""
 			}
 		}
@@ -2406,6 +2421,9 @@ Mods: {
 			Corrupted_Husk_Big.DisplayName: Corrupted_ Husk_ Big
 			Corrupted_Husk_Proj.DisplayName: Corrupted_ Husk_ Proj
 			Enchanted_Femur_Explosion.DisplayName: Enchanted_ Femur_ Explosion
+			Aeritite_Sword_Energy.DisplayName: Aeritite_ Sword_ Energy
+			Fart_Sword_Energy.DisplayName: Fart_ Sword_ Energy
+			Homing_Piss.DisplayName: Homing_ Piss
 		}
 
 		NPCs: {

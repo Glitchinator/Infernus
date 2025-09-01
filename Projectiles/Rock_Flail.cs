@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -44,6 +45,20 @@ namespace Infernus.Projectiles
             fallThrough = true;
 
             return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.HitDirectionOverride = (Main.player[Projectile.owner].Center.X < target.Center.X) ? 1 : (-1);
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            // Vanilla has several particles that can easily be used anywhere.
+            // The particles from the Particle Orchestra are predefined by vanilla and most can not be customized that much.
+            // Use auto complete to see the other ParticleOrchestraType types there are.
+            // Here we are spawning the Excalibur particle randomly inside of the target's hitbox.
+            ParticleOrchestrator.RequestParticleSpawn(clientOnly: false, ParticleOrchestraType.SilverBulletSparkle,
+                new ParticleOrchestraSettings { PositionInWorld = Main.rand.NextVector2FromRectangle(target.Hitbox) },
+                Projectile.owner);
         }
         public override void AI()
         {

@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "digLzXzbba1RqVpoPvYsK2Va/YMKLeMC5JDlJUBnZ8eLH0/a7A8H857aPlfHDZ/uJxkwO0BHb7MdIHVWs+ftDg==",
+  "dgSpecHash": "BYB8MCp5nYBiH0ER2JWDusxJIWoFrxNBonFJbMfkUn3G+7ogDx/ZKUMKCU/31O6cfE3/Dqe8ZeqALjanXwxrYg==",
   "success": true,
   "projectFilePath": "C:\\Users\\logan\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Infernus\\Infernus.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\logan\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }

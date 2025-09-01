@@ -1,4 +1,5 @@
 ﻿using Infernus.Buffs;
+using Infernus.Items.Materials;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -7,6 +8,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -228,7 +230,10 @@ namespace Infernus.Projectiles
             }
             return true;
         }
-
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.HitDirectionOverride = (Main.player[Projectile.owner].Center.X < target.Center.X) ? 1 : (-1);
+        }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             SoundEngine.PlaySound(SoundID.Item70, Projectile.position);
@@ -240,6 +245,9 @@ namespace Infernus.Projectiles
             {
                 target.AddBuff(BuffID.OnFire, 300);
             }
+            ParticleOrchestrator.RequestParticleSpawn(clientOnly: false, ParticleOrchestraType.StellarTune,
+                new ParticleOrchestraSettings { PositionInWorld = Main.rand.NextVector2FromRectangle(target.Hitbox) },
+                Projectile.owner);
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {

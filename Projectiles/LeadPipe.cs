@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ReLogic.Content;
 using System;
+using Terraria.GameContent.Drawing;
 namespace Infernus.Projectiles
 {
 
@@ -25,6 +26,10 @@ namespace Infernus.Projectiles
             Projectile.timeLeft = 240;
             Projectile.tileCollide = true;
             Projectile.ownerHitCheck = true;
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.HitDirectionOverride = (Main.player[Projectile.owner].Center.X < target.Center.X) ? 1 : (-1);
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -62,9 +67,9 @@ namespace Infernus.Projectiles
             Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.014f;
 
             Projectile.ai[0] += 1f;
-            if (Projectile.ai[0] >= 8f)
+            if (Projectile.ai[0] >= 15f)
             {
-                Projectile.ai[0] = 8f;
+                Projectile.ai[0] = 15f;
                 Projectile.velocity.Y = Projectile.velocity.Y + 0.5f;
             }
 
@@ -95,7 +100,7 @@ namespace Infernus.Projectiles
                         Projectile.Kill();
                     }
                 }
-                if (retracted == false && dist_check >= 260f)
+                if (retracted == false && dist_check >= 290f)
                 {
                     retracted = true;
                     Speed = 34;

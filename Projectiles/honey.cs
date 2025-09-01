@@ -77,6 +77,7 @@ namespace Infernus.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Poisoned, 120);
+            Projectile.Kill();
         }
         public override void OnKill(int timeLeft)
         {

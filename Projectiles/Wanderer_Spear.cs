@@ -70,7 +70,7 @@ namespace Infernus.Projectiles
                 progress = Projectile.timeLeft / halfDuration;
                 if (shot == false)
                 {
-                    Projectile.NewProjectile(Terraria.Entity.GetSource_NaturalSpawn(), Projectile.Center, Projectile.velocity * 5, ModContent.ProjectileType<Wanderer_Spear_Proj>(), (int)(Projectile.damage * 0.8f), 0, Projectile.owner);
+                    Projectile.NewProjectile(Terraria.Entity.GetSource_NaturalSpawn(), Projectile.Center, Projectile.velocity * 5, ModContent.ProjectileType<Wanderer_Spear_Proj>(), (int)(Projectile.damage * 0.8f), 4f, Projectile.owner);
                     shot = true;
                 }
             }

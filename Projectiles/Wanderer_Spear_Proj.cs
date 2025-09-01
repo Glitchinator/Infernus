@@ -66,42 +66,6 @@ namespace Infernus.Projectiles
                 Main.EntitySpriteDraw(texture, drawPosg, null, new Color(242, 240, 235, 0) * (.75f - Projectile.alpha / 210f), Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
             }
 
-            Rectangle frame;
-
-
-            frame = texture.Frame();
-
-            Vector2 frameOrigin = frame.Size() / 2f;
-            Vector2 offset = new(Projectile.width / 2 - frameOrigin.X, Projectile.height - frame.Height);
-            Vector2 drawPos = Projectile.position - Main.screenPosition + frameOrigin + offset;
-
-            float time = Main.GlobalTimeWrappedHourly;
-            float timer = Projectile.timeLeft / 240f + time * 0.04f;
-
-            time %= 4f;
-            time /= 2f;
-
-            if (time >= 1f)
-            {
-                time = 2f - time;
-            }
-
-            time = time * 0.5f + 0.5f;
-
-            for (float i = 0f; i < 1f; i += 0.25f)
-            {
-                float radians = (i + timer) * MathHelper.TwoPi;
-
-                spriteBatch.Draw(texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, new Color(242, 240, 235, 50), Projectile.rotation, frameOrigin, 1f, SpriteEffects.None, 0);
-            }
-
-            for (float i = 0f; i < 1f; i += 0.34f)
-            {
-                float radians = (i + timer) * MathHelper.TwoPi;
-
-                spriteBatch.Draw(texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(1, 87, 155, 77), Projectile.rotation, frameOrigin, 1f, SpriteEffects.None, 0);
-            }
-
             return true;
         }
     }

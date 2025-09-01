@@ -5,6 +5,7 @@ using ReLogic.Content;
 using System;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
 namespace Infernus.Projectiles
@@ -37,7 +38,9 @@ namespace Infernus.Projectiles
                 wand.noGravity = true;
             }
             Projectile.damage = (int)(Projectile.damage * 0.75f);
+            hit.HitDirection = (Main.player[Projectile.owner].Center.X < target.Center.X) ? 1 : (-1);
         }
+        
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             retracted = true;

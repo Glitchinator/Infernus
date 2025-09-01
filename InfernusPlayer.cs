@@ -29,7 +29,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Infernus
 {
-    internal class InfernusPlayer : ModPlayer
+    public class InfernusPlayer : ModPlayer
     {
         // Doom Guy dash variables
         public const int DashRight = 2;

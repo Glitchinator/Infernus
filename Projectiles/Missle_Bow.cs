@@ -60,34 +60,51 @@ namespace Infernus.Projectiles
                     Sword.noGravity = true;
                 }
             }
-            if (time >= 38 && homing == true)
+            if (time >= 38)
             {
                 Projectile.friendly = true;
                 Projectile.netUpdate = true;
-                if (Main.myPlayer == Projectile.owner)
+                float maxDetectRadiusenemy = 90f;
+                var inertiaenemy = 12f;
+
+                NPC closestNPC = FindClosestNPC(maxDetectRadiusenemy);
+                if (closestNPC == null)
                 {
-                    float speed = 18f;
-                    Vector2 VectorToCursor = Main.MouseWorld - Projectile.position;
-                    float DistToCursor = VectorToCursor.Length();
-
-                    VectorToCursor *= DistToCursor;
-
-                    //Projectile.velocity = VectorToCursor;
-                    float maxDetectRadius = 400f;
-                    var inertia = 12f;
-
-                    VectorToCursor.Normalize();
-                    VectorToCursor *= 16;
-                    Projectile.velocity = (Projectile.velocity * (inertia - 1) + VectorToCursor) / inertia;
-
-
-                   // string i = DistToCursor.ToString();
-                    //Main.NewText(i, 229, 214, 127);
-                    if (DistToCursor <= 60f)
+                    if (homing == true)
                     {
-                        homing = false;
-                    }
+                        if (Main.myPlayer == Projectile.owner)
+                        {
+                            float speed = 18f;
+                            Vector2 VectorToCursor = Main.MouseWorld - Projectile.position;
+                            float DistToCursor = VectorToCursor.Length();
 
+                            VectorToCursor *= DistToCursor;
+
+                            //Projectile.velocity = VectorToCursor;
+                            float maxDetectRadius = 400f;
+                            var inertia = 12f;
+
+                            VectorToCursor.Normalize();
+                            VectorToCursor *= 16;
+                            Projectile.velocity = (Projectile.velocity * (inertia - 1) + VectorToCursor) / inertia;
+
+
+                            // string i = DistToCursor.ToString();
+                            //Main.NewText(i, 229, 214, 127);
+                            if (DistToCursor <= 60f)
+                            {
+                                homing = false;
+                            }
+
+                        }
+                    }
+                }
+                else
+                {
+                    Vector2 direction = closestNPC.Center - Projectile.Center;
+                    direction.Normalize();
+                    direction *= 16;
+                    Projectile.velocity = (Projectile.velocity * (inertiaenemy - 1) + direction) / inertiaenemy;
                 }
             }
             if (time >= 30)
@@ -103,6 +120,30 @@ namespace Infernus.Projectiles
 
 
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+        }
+
+        public NPC FindClosestNPC(float maxDetectDistance)
+        {
+            NPC closestNPC = null;
+
+            float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
+
+            for (int k = 0; k < Main.maxNPCs; k++)
+            {
+                NPC target = Main.npc[k];
+                if (target.CanBeChasedBy())
+                {
+                    float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, Projectile.Center);
+
+                    if (sqrDistanceToTarget < sqrMaxDetectDistance)
+                    {
+                        sqrMaxDetectDistance = sqrDistanceToTarget;
+                        closestNPC = target;
+                    }
+                }
+            }
+
+            return closestNPC;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
