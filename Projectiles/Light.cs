@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using System;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.Drawing;
@@ -40,6 +41,7 @@ namespace Infernus.Projectiles
             {
                 Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, Projectile.velocity.X, Projectile.velocity.Y, ModContent.ProjectileType<Light_Proj>(), Projectile.damage, 2, Projectile.owner);
                 Projectile.ai[1]++;
+                hit_tile = true;
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)

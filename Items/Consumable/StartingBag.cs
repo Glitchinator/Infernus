@@ -28,6 +28,7 @@ namespace Infernus.Items.Consumable
         {
 
             itemLoot.Add(ItemDropRule.Common(ItemID.CopperHammer, 1, 1, 1));
+            itemLoot.Add(ItemDropRule.Common(ItemID.GrapplingHook, 1, 1, 1));
             itemLoot.Add(ItemDropRule.Common(ItemID.ShinePotion, 1, 2, 2));
             itemLoot.Add(ItemDropRule.Common(ItemID.MiningPotion, 1, 2, 2));
             itemLoot.Add(ItemDropRule.Common(ItemID.BuilderPotion, 1, 2, 2));

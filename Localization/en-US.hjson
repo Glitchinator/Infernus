@@ -242,8 +242,8 @@ Mods: {
 			}
 
 			Equite_Melee_Debuff: {
-				DisplayName: Equite_ Melee_ Debuff
-				Description: Mods.Infernus.Buffs.Equite_Melee_Debuff.Description
+				DisplayName: Brickfall Potion
+				Description: Hold down to fall fast!
 			}
 
 			Sentinel_Battery_Buff: {
@@ -257,23 +257,28 @@ Mods: {
 			}
 
 			Enchanted_Femur_Cooldown: {
-				DisplayName: Enchanted_ Femur_ Cooldown
-				Description: Mods.Infernus.Buffs.Enchanted_Femur_Cooldown.Description
+				DisplayName: Enchanted Femur Cooldown
+				Description: Your boner is on cooldown
 			}
 
 			Stress_Buff: {
-				DisplayName: Stress_ Buff
-				Description: Mods.Infernus.Buffs.Stress_Buff.Description
+				DisplayName: Post Hysteria Clarity
+				Description: Damage is increased by 2X!
 			}
 
 			Stress_Debuff: {
-				DisplayName: Stress_ Debuff
-				Description: Mods.Infernus.Buffs.Stress_Debuff.Description
+				DisplayName: Blazing Mind
+				Description: Get close, and get personal
 			}
 
 			Stress_Better_Buff: {
 				DisplayName: Stress_ Better_ Buff
 				Description: Mods.Infernus.Buffs.Stress_Better_Buff.Description
+			}
+
+			Sparkling_Mixture_Buff: {
+				DisplayName: Sparkling_ Mixture_ Buff
+				Description: Mods.Infernus.Buffs.Sparkling_Mixture_Buff.Description
 			}
 		}
 
@@ -583,7 +588,7 @@ Mods: {
 				DisplayName: Chorus Bloom
 				Tooltip:
 					'''
-					Increases Stress gain rate by 1
+					Increases Stress offensive and defensive buffs
 					Can only be used once
 					Heresy mode exclusive
 					'''
@@ -593,7 +598,7 @@ Mods: {
 				DisplayName: Cursed Soul
 				Tooltip:
 					'''
-					Increases Stress Bloodletting damage by 50%
+					Increases Stress offensive and defensive buffs
 					Can only be used once
 					Heresy mode exclusive
 					'''
@@ -636,13 +641,17 @@ Mods: {
 					Your journey awaits, with fortune and fame...
 					Increases boss health and damage by 40%
 					Enables Stress mechanic for the player
-					Stress is a bar that slowly gains when attacking a boss
-					Increases movespeed based on how much stress your player currently has
-					If you are hit, you get a DOT based on how much stress you had and lose all stress you built up
-					While at full stress, hitting C will make the player bloodlet
-					While bloodletting, you lose 30% of your health over a few seconds
-					bloodletting gives a buff that increases damage by 3X over 7 seconds
-					bloodletting depletes your stress back to zero
+					Stress is a bar that gains when the player takes damage
+					Stress gives offensive and defensive buffs at certain thresholds
+					When you reach max stress, you are afflicted with Blazing Mind
+					Blazing Mind is a debuff that grows in power over time
+					Attack enemies to get rid of Blazing Mind
+					When Blazing Mind runs out and you still have it, you will bloodlet
+					While bloodletting, you lose 50% of your health over a few seconds
+					Bloodletting will not go below 1 hp
+					If you got rid of Blazing Mind, you gain Post Hysteria Clarity
+					Post Hysteria Clarity is a buff that increases damage by 2X!
+					Both bloodletting and Post Hysteria Clarity reduce Stress back to zero
 					Stress only activates when a boss is alive
 					'What a calamity'
 					'''
@@ -1584,7 +1593,7 @@ Mods: {
 
 			Scorched_Sinew: {
 				DisplayName: Scorched Sinew
-				Tooltip: Sacrifice at the Meteor Alter to summo-n-*-
+				Tooltip: Sacrifice the flesh and call upon the meteor
 			}
 
 			Equite_Pickaxe: {
@@ -1952,7 +1961,7 @@ Mods: {
 
 			Boulder_Flail: {
 				DisplayName: Cliff Jumper
-				Tooltip: Throw out multiple flails that fall
+				Tooltip: Charge up multiple flail heads while spinning to throw them
 			}
 
 			Sand_Scale: {
@@ -2100,8 +2109,8 @@ Mods: {
 			}
 
 			Crystal_String: {
-				DisplayName: Crystal_ String
-				Tooltip: ""
+				DisplayName: Crystal String
+				Tooltip: Bows shoot an additional crystal arrow
 			}
 
 			Glacial_Quiver: {
@@ -2154,9 +2163,28 @@ Mods: {
 					'''
 			}
 
-			Piss_Shit_Fart_Sword: {
-				DisplayName: Piss Shit n' Fart Sword
-				Tooltip: ""
+			Sparkling_Mixture: {
+				DisplayName: Sparkling Mixture
+				Tooltip: Gain a short surge of melee power when drinking a healing potion
+			}
+
+			Morning_Dew: {
+				DisplayName: Morning Dew
+				Tooltip:
+					'''
+					Drinking a healing potion removes dangerous debuffs
+					'dey put da mamstre ciehf in da sodar'
+					'''
+			}
+
+			Crystal_Arrow_Ammo: {
+				DisplayName: Crystal Arrow
+				Tooltip: Returns to player after hitting an enemy
+			}
+
+			Crystal_Bow: {
+				DisplayName: Crystal Bow
+				Tooltip: Converts all arrows into crystal arrows
 			}
 		}
 
@@ -2175,11 +2203,11 @@ Mods: {
 			Boldsum.DisplayName: Elemental Vortex
 			Bone.DisplayName: Bouncy Bone
 			Boulder.DisplayName: Boulder
-			Boulder_Bolt.DisplayName: Boulder Bolt
+			Boulder_Bolt.DisplayName: Corrupt Bolt
 			Boulder_Cannon.DisplayName: Cannonball
 			Boulder_Rain.DisplayName: Boulder
 			Boulder_Rain2.DisplayName: Boulder
-			Boulder_Rocket.DisplayName: Boulder Soul
+			Boulder_Rocket.DisplayName: Corrupt Soul
 			Boulder2.DisplayName: Boulder
 			Bouldermagicweaponshot.DisplayName: Rock Shrapnel
 			BoulderMini.DisplayName: Tiny Boulder
@@ -2424,6 +2452,11 @@ Mods: {
 			Aeritite_Sword_Energy.DisplayName: Aeritite_ Sword_ Energy
 			Fart_Sword_Energy.DisplayName: Fart_ Sword_ Energy
 			Homing_Piss.DisplayName: Homing_ Piss
+			Luminite_Sword_Energy.DisplayName: Luminite_ Sword_ Energy
+			Infernus_Bat_Energy.DisplayName: Infernus_ Bat_ Energy
+			Boulder_Ray.DisplayName: Boulder_ Ray
+			Boulder_Storm.DisplayName: Boulder_ Storm
+			Crystal_Arrow.DisplayName: Crystal_ Arrow
 		}
 
 		NPCs: {
@@ -2436,7 +2469,7 @@ Mods: {
 			Boulderminiboss.DisplayName: Corrupted Husk
 			Calypsical.DisplayName: King Calypsical
 			Chorus_Plant.DisplayName: Chorus Plant
-			Chorus_Plant_Arm.DisplayName: Chlorophyte Vine
+			Chorus_Plant_Arm.DisplayName: Veil Breaker Shield
 			Cursed_Wanderer.DisplayName: Cursed Wanderer
 			HorseShoeCrab.DisplayName: Horseshoe Crab
 			Meteor_Enemy.DisplayName: Midlite
@@ -2495,8 +2528,8 @@ Mods: {
 				}
 
 				Enable_StressUI_Text: {
-					Label: Enable_ Stress U I_ Text
-					Tooltip: ""
+					Label: Enable Stress Text
+					Tooltip: When enabled, numbers showing current and max stress will appear under the stress bar
 				}
 			}
 		}

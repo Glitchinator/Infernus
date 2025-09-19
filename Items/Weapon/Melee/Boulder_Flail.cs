@@ -18,8 +18,8 @@ namespace Infernus.Items.Weapon.Melee
             Item.DamageType = DamageClass.Melee;
             Item.width = 36;
             Item.height = 38;
-            Item.useTime = 28;
-            Item.useAnimation = 28;
+            Item.useTime = 38;
+            Item.useAnimation = 38;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 6f;
             Item.value = Item.buyPrice(0, 1, 50, 0);
@@ -31,6 +31,10 @@ namespace Infernus.Items.Weapon.Melee
             Item.shootSpeed = 14;
             Item.channel = true;
             Item.noUseGraphic = true;
+        }
+        public override bool CanUseItem(Player player)
+        {
+            return player.ownedProjectileCounts[Item.shoot] < 5;
         }
     }
 }

@@ -17,8 +17,8 @@ namespace Infernus.Items.Tools
 
         public override void SetDefaults()
         {
-            Item.width = 120;
-            Item.height = 120;
+            Item.width = 68;
+            Item.height = 68;
             Item.useTime = 34;
             Item.useAnimation = 34;
             Item.useStyle = ItemUseStyleID.Swing;

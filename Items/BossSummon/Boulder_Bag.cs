@@ -40,10 +40,8 @@ namespace Infernus.Items.BossSummon
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Weapon.HardMode.Accessories.Wings>(), 2));
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Weapon.HardMode.Melee.bould>()));
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Weapon.HardMode.Magic.Bouldermagicweapon>(), 2));
-            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Weapon.HardMode.Magic.BoulderTomb>(), 2));
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Weapon.HardMode.Ranged.Bog>(), 2));
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Weapon.HardMode.Summon.Whiprock>(), 2));
-            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Materials.Broken_Heros_Staff>(), 2));
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Weapon.HardMode.Accessories.Boulder_Expert>()));
 
             itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<NPCs.Boulderminiboss>()));

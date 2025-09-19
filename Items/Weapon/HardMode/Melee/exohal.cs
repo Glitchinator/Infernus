@@ -1,4 +1,7 @@
+using Infernus.Projectiles;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,8 +29,20 @@ namespace Infernus.Items.Weapon.HardMode.Melee
             Item.rare = ItemRarityID.Yellow;
             Item.UseSound = SoundID.Item19;
             Item.autoReuse = true;
-            Item.useTurn = true;
-            Item.scale = 1.8f;
+            Item.shoot = ModContent.ProjectileType<Projectiles.Fart_Sword_Energy>();
+            Item.scale = 1.4f;
+            Item.noMelee = true; // This is set the sword itself doesn't deal damage (only the projectile does).
+            Item.shootsEveryUse = true; // This makes sure Player.ItemAnimationJustStarted is set when swinging.
+            Item.autoReuse = true;
+            Item.shootSpeed = 24f;
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            float adjustedItemScale = player.GetAdjustedItemScale(Item) + 0.5f; // Get the melee scale of the player and item.
+            Projectile.NewProjectile(source, player.MountedCenter, new Vector2(player.direction, 0f), type, damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax, adjustedItemScale);
+            NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI); // Sync the changes in multiplayer.
+
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 
         public override void AddRecipes()
@@ -37,10 +52,6 @@ namespace Infernus.Items.Weapon.HardMode.Melee
             .AddIngredient(ItemID.ChlorophyteClaymore, 1)
             .AddTile(TileID.MythrilAnvil)
             .Register();
-        }
-        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, 0, 0, ProjectileID.DD2ExplosiveTrapT1Explosion, (int)(Item.damage * 1.2f), 0, player.whoAmI);
         }
     }
 }

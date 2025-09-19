@@ -59,10 +59,12 @@
     <None Remove="Items\Accesories\Magic_Glyph.png" />
     <None Remove="Items\Accesories\Magic_Pouch.png" />
     <None Remove="Items\Accesories\Meteor_Whetstone.png" />
+    <None Remove="Items\Accesories\Morning_Dew.png" />
     <None Remove="Items\Accesories\Ocean_Crest.png" />
     <None Remove="Items\Accesories\Plasma_Splash.png" />
     <None Remove="Items\Accesories\Quiver.png" />
     <None Remove="Items\Accesories\Relic.png" />
+    <None Remove="Items\Accesories\Sparkling_Mixture.png" />
     <None Remove="Items\Accesories\Squid_SCroll.png" />
     <None Remove="Items\Accesories\Stone_Emblem.png" />
     <None Remove="Items\Accesories\Tainted_Clip.png" />
@@ -71,6 +73,7 @@
     <None Remove="Items\Accesories\Wave_Crasher.png" />
     <None Remove="Items\Ammo\Aeritite_arrow_Ammo.png" />
     <None Remove="Items\Ammo\Basalt_Arrow_Ammo.png" />
+    <None Remove="Items\Ammo\Crystal_Arrow_Ammo.png" />
     <None Remove="Items\Ammo\Equite_Arrow_Ammo.png" />
     <None Remove="Items\Ammo\Rocky_Rounds_Ammo.png" />
     <None Remove="Items\Ammo\Ruderibus_Rounds_Ammo.png" />
@@ -98,6 +101,7 @@
     <None Remove="Items\Mounts\Boulder_Saddle.png" />
     <None Remove="Items\Mounts\Rock_Mount_Back.png" />
     <None Remove="Items\Tools\Ancient_Fishing_Spear.png" />
+    <None Remove="Items\Tools\Ancient_Fishing_Spear_bad.png" />
     <None Remove="Items\Tools\Equite_Axmer.png" />
     <None Remove="Items\Tools\Equite_Pickaxe.png" />
     <None Remove="Items\Tools\FishingPole.png" />
@@ -134,9 +138,10 @@
     <None Remove="Items\Weapon\HardMode\Magic\SkullStorm.png" />
     <None Remove="Items\Weapon\HardMode\Melee\Aeritite_Claymore.png" />
     <None Remove="Items\Weapon\HardMode\Melee\Frisbe.png" />
-    <None Remove="Items\Weapon\HardMode\Melee\Piss_Shit_Fart_Sword.png" />
+    <None Remove="Items\Weapon\HardMode\Melee\lumsword.png" />
     <None Remove="Items\Weapon\HardMode\Melee\Subslicer.png" />
     <None Remove="Items\Weapon\HardMode\Ranged\Bog.png" />
+    <None Remove="Items\Weapon\HardMode\Ranged\Crystal_Bow.png" />
     <None Remove="Items\Weapon\HardMode\Ranged\GolemPistol.png" />
     <None Remove="Items\Weapon\HardMode\Ranged\MechBow.png" />
     <None Remove="Items\Weapon\HardMode\Ranged\MissleSilo_Bow.png" />
@@ -160,6 +165,7 @@
     <None Remove="Items\Weapon\Melee\Hatchet.png" />
     <None Remove="Items\Weapon\Melee\LeadPipe.png" />
     <None Remove="Items\Weapon\Melee\SkullBasher.png" />
+    <None Remove="Items\Weapon\Melee\Viral.png" />
     <None Remove="Items\Weapon\Meteor - Copy.png" />
     <None Remove="Items\Weapon\Ranged\Aerbow.png" />
     <None Remove="Items\Weapon\Ranged\Cement.png" />
@@ -179,6 +185,9 @@
     <None Remove="Items\Weapon\Summon\Whipaer.png" />
     <None Remove="Level\Squid_Scroll_Pickup.png" />
     <None Remove="Music\pixil-frame-0(20).png" />
+    <None Remove="NPCs\Boulderminiboss.png" />
+    <None Remove="NPCs\Boulderminibossaura.png" />
+    <None Remove="NPCs\Boulderminiboss_Chain.png" />
     <None Remove="NPCs\Boulder_Beetle_MiniBoss.png" />
     <None Remove="NPCs\Boulder_Beetle_Miniboss_Head_Boss.png" />
     <None Remove="NPCs\Chorus_Plant_Arm.png" />
@@ -214,6 +223,8 @@
     <None Remove="Projectiles\Bone_Whip.png" />
     <None Remove="Projectiles\Boulder_Orbit.png" />
     <None Remove="Projectiles\Boulder_Orbit_Proj.png" />
+    <None Remove="Projectiles\Boulder_Rocket.png" />
+    <None Remove="Projectiles\Boulder_Storm.png" />
     <None Remove="Projectiles\Budsnap_Thorn.png" />
     <None Remove="Projectiles\B_Ray_Proj.png" />
     <None Remove="Projectiles\Caustic.png" />
@@ -225,6 +236,7 @@
     <None Remove="Projectiles\CoralMinion.png" />
     <None Remove="Projectiles\Corrupted_Mask.png" />
     <None Remove="Projectiles\Corrupt_Magic.png" />
+    <None Remove="Projectiles\Crystal_Arrow.png" />
     <None Remove="Projectiles\DemonHand_Shot.png" />
     <None Remove="Projectiles\Dunger.png" />
     <None Remove="Projectiles\Enchanted_Femur_Explosion.png" />

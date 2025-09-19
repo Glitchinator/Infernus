@@ -18,8 +18,8 @@ namespace Infernus.Items.Tools
             Item.DamageType = DamageClass.Melee;
             Item.width = 64;
             Item.height = 64;
-            Item.useTime = 18;
-            Item.useAnimation = 18;
+            Item.useTime = 16;
+            Item.useAnimation = 16;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 6f;
             Item.value = 80000;

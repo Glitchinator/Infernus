@@ -27,7 +27,7 @@ namespace Infernus.Items.Weapon.HardMode.Melee
             Item.UseSound = SoundID.Item19;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<Projectiles.SwordProjecilte>();
-            Item.shootSpeed = 17f;
+            Item.shootSpeed = 19f;
         }
         public override void AddRecipes()
         {

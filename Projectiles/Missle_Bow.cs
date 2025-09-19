@@ -64,7 +64,7 @@ namespace Infernus.Projectiles
             {
                 Projectile.friendly = true;
                 Projectile.netUpdate = true;
-                float maxDetectRadiusenemy = 90f;
+                float maxDetectRadiusenemy = 150f;
                 var inertiaenemy = 12f;
 
                 NPC closestNPC = FindClosestNPC(maxDetectRadiusenemy);

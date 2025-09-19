@@ -1,4 +1,5 @@
-﻿using Infernus.NPCs;
+﻿using Infernus.Buffs;
+using Infernus.NPCs;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -33,6 +34,49 @@ namespace Infernus
                 Main.projectile[i].usesIDStaticNPCImmunity = false;
                 Main.projectile[i].localNPCHitCooldown = 12;
             }
+        }
+        public override bool? UseItem(Item item, Player player)
+        {
+            if (item.type == ItemID.HealingPotion || item.type == ItemID.LesserHealingPotion || item.type == ItemID.GreaterHealingPotion || item.type == ItemID.SuperHealingPotion || item.type == ItemID.StrangeBrew || item.type == ItemID.RestorationPotion)
+            {
+                if (player.GetModPlayer<InfernusPlayer>().Sparkling_Mixture == true)
+                {
+                    player.AddBuff(ModContent.BuffType<Sparkling_Mixture_Buff>(), 720);
+                }
+                if (player.GetModPlayer<InfernusPlayer>().Morning_Dew == true)
+                {
+                    if (player.HasBuff(BuffID.OnFire))
+                    {
+                        player.ClearBuff(BuffID.OnFire);
+                    }
+                    if (player.HasBuff(BuffID.OnFire3))
+                    {
+                        player.ClearBuff(BuffID.OnFire3);
+                    }
+                    if (player.HasBuff(BuffID.Poisoned))
+                    {
+                        player.ClearBuff(BuffID.Poisoned);
+                    }
+                    if (player.HasBuff(BuffID.Frostburn))
+                    {
+                        player.ClearBuff(BuffID.Frostburn);
+                    }
+                    if (player.HasBuff(BuffID.Frostburn2))
+                    {
+                        player.ClearBuff(BuffID.Frostburn2);
+                    }
+                    if (player.HasBuff(BuffID.CursedInferno))
+                    {
+                        player.ClearBuff(BuffID.CursedInferno);
+                    }
+                    if (player.HasBuff(BuffID.Venom))
+                    {
+                        player.ClearBuff(BuffID.Venom);
+                    }
+                }
+            }
+
+            return base.UseItem(item, player);
         }
         public override void UpdateEquip(Item item, Player player)
         {

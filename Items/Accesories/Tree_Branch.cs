@@ -11,6 +11,7 @@ namespace Infernus.Items.Accesories
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<Morning_Dew>();
         }
         public override void SetDefaults()
         {

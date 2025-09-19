@@ -82,9 +82,7 @@ namespace Infernus.Projectiles
                     target_pos = Main.player[i].Center;
                 }
             }
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, (target_pos - Projectile.Center).SafeNormalize(Vector2.Zero) * 16f, ModContent.ProjectileType<Boulder_Bolt>(), Projectile.damage,0, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, (target_pos - Projectile.Center).SafeNormalize(Vector2.Zero) * 16f, ModContent.ProjectileType<Boulder_Bolt>(), Projectile.damage, 0, Projectile.owner);
-            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, (target_pos - Projectile.Center).SafeNormalize(Vector2.Zero) * 16f, ModContent.ProjectileType<Boulder_Bolt>(), Projectile.damage, 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, (target_pos - Projectile.Center).SafeNormalize(Vector2.Zero) * 13f, ModContent.ProjectileType<Boulder_Bolt>(), Projectile.damage,0, Projectile.owner);
         }
     }
 }

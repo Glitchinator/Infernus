@@ -23,7 +23,7 @@ namespace Infernus.Items.Weapon.Melee
             Item.useTime = 18;
             Item.useAnimation = 18;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.knockBack = 4.5f;
+            Item.knockBack = 6.5f;
             Item.value = Item.buyPrice(0, 8, 50, 0);
             Item.rare = ItemRarityID.Orange;
             Item.UseSound = SoundID.Item1;

@@ -12,7 +12,7 @@ namespace Infernus.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
         }
         public override void SetDefaults()
@@ -23,8 +23,9 @@ namespace Infernus.Projectiles
             Projectile.width = 40;
             Projectile.height = 114;
             Projectile.tileCollide = true;
-            Projectile.timeLeft = 35;
+            Projectile.timeLeft = 25;
             Projectile.penetrate = 2;
+            Projectile.extraUpdates = 1;
         }
         public override void AI()
         {

@@ -13,10 +13,11 @@ namespace Infernus.Projectiles
         {
             ProjectileID.Sets.TrailingMode[Type] = 0;
             ProjectileID.Sets.TrailCacheLength[Type] = 8;
+            ProjectileID.Sets.SentryShot[Projectile.type] = true;
         }
         public override void SetDefaults()
         {
-            Projectile.DamageType = DamageClass.Melee;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.width = 36;
             Projectile.height = 36;
             Projectile.friendly = true;

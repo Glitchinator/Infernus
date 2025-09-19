@@ -50,7 +50,7 @@ namespace Infernus.Projectiles
             SoundEngine.PlaySound(SoundID.NPCDeath14, Projectile.position);
             for (int k = 0; k < 19; k++)
             {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Stone, 2.5f, -2.5f, 0, default, 2.7f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Obsidian, 2.5f, -2.5f, 0, default, 2.7f);
             }
         }
         public override bool PreDraw(ref Color lightColor)
@@ -67,7 +67,7 @@ namespace Infernus.Projectiles
             for (int k = 0; k < Projectile.oldPos.Length; k++)
             {
                 Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Main.EntitySpriteDraw(texture, drawPos, null, new Color(242, 240, 235, 0) * (.45f - Projectile.alpha / 210f), Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
+                Main.EntitySpriteDraw(texture, drawPos, null, new Color(40, 43, 67, 0) * (.45f - Projectile.alpha / 210f), Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
             }
 
             return true;

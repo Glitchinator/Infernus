@@ -1,6 +1,7 @@
 ﻿using Infernus.Items.Accesories;
 using Infernus.Items.BossSummon;
 using Infernus.Items.Mounts;
+using Infernus.Items.Weapon.HardMode.Magic;
 using Infernus.Items.Weapon.Melee;
 using Infernus.Items.Weapon.Summon;
 using Infernus.Placeable;
@@ -341,7 +342,10 @@ namespace Infernus.NPCs
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.Ranged.July4th>(), 400, 1, 1));
             LeadingConditionRule in_hardmode = new LeadingConditionRule(new Conditions.IsHardmode());
 
+            int[] Which_One_HM = [ModContent.ItemType<BoulderTomb>()];
+
             in_hardmode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.Broken_Heros_Staff>()));
+            in_hardmode.OnSuccess(ItemDropRule.OneFromOptions(1, Which_One_HM));
 
             npcLoot.Add(in_hardmode);
         }

@@ -7,6 +7,7 @@ using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -55,10 +56,10 @@ namespace Infernus.NPCs
         public override void SetDefaults()
         {
             NPC.width = 40;
-            NPC.height = 40;
+            NPC.height = 114;
             NPC.damage = 0;
             NPC.defense = 32;
-            NPC.lifeMax = 6000;
+            NPC.lifeMax = 5000;
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.noGravity = true;
@@ -165,10 +166,91 @@ namespace Infernus.NPCs
             */
             Form_Ice();
         }
-        public override void OnSpawn(IEntitySource source)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
-            NPC.lifeMax = 6000;
-            NPC.life = 6000;
+            NPC.damage = (int)(NPC.damage * 1.3f);
+            NPC.lifeMax = (NPC.lifeMax = 6000 * (int)balance);
+
+            if (Main.masterMode == true)
+            {
+                NPC.lifeMax = (NPC.lifeMax = 7000 * (int)balance);
+                NPC.life = (NPC.lifeMax = 7000 * (int)balance);
+                NPC.damage = ((NPC.damage / 2) * 3);
+            }
+            if (Main.getGoodWorld == true)
+            {
+                NPC.scale = 2f;
+                NPC.lifeMax = (NPC.lifeMax = 8000 * (int)balance);
+                NPC.life = (NPC.lifeMax = 8000 * (int)balance);
+                NPC.damage = ((NPC.damage / 10) * 13);
+            }
+        }
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Texture2D textureb = TextureAssets.Npc[NPC.type].Value;
+
+            Rectangle frame;
+
+
+            frame = textureb.Frame();
+
+            Vector2 frameOrigin = frame.Size() / 2f;
+            Vector2 offset = new(NPC.width / 2 - frameOrigin.X, NPC.height - frame.Height);
+            Vector2 drawPos = NPC.position - Main.screenPosition + frameOrigin + offset;
+
+            float time = Main.GlobalTimeWrappedHourly;
+            float timer = NPC.activeTime / 240f + time * 0.04f;
+
+            time %= 4f;
+            time /= 2f;
+
+            if (time >= 1f)
+            {
+                time = 2f - time;
+            }
+
+            time = time * 0.5f + 0.5f;
+
+            for (float i = 0f; i < 1f; i += 0.25f)
+            {
+                float radians = (i + timer) * MathHelper.TwoPi;
+
+                spriteBatch.Draw((Texture2D)textureb, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, new Color(29, 30, 40, 50), NPC.rotation, frameOrigin, 1f, SpriteEffects.None, 0);
+            }
+
+            for (float i = 0f; i < 1f; i += 0.34f)
+            {
+                float radians = (i + timer) * MathHelper.TwoPi;
+
+                spriteBatch.Draw((Texture2D)textureb, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(40, 43, 67, 77), NPC.rotation, frameOrigin, 1f, SpriteEffects.None, 0);
+            }
+
+            Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>("Infernus/NPCs/Boulderminiboss_Chain");
+
+            Rectangle? chainSourceRectangle = null;
+
+            Vector2 chainOrigin = chainSourceRectangle.HasValue ? (chainSourceRectangle.Value.Size() / 2f) : (chainTexture.Size() / 2f);
+            Vector2 chainDrawPosition = NPC.Center;
+            Vector2 vectorFromProjectileToPlayerArms = Main.npc[ParentIndex].Center.MoveTowards(chainDrawPosition, 0f) - chainDrawPosition;
+            Vector2 unitVectorFromProjectileToPlayerArms = vectorFromProjectileToPlayerArms.SafeNormalize(Vector2.Zero);
+            float chainSegmentLength = (chainSourceRectangle.HasValue ? chainSourceRectangle.Value.Height : chainTexture.Height());
+            if (chainSegmentLength == 0)
+            {
+                chainSegmentLength = 10;
+            }
+            float chainRotation = unitVectorFromProjectileToPlayerArms.ToRotation() + MathHelper.PiOver2;
+            int chainCount = 0;
+            float chainLengthRemainingToDraw = vectorFromProjectileToPlayerArms.Length() + chainSegmentLength;
+
+            while (chainLengthRemainingToDraw > 0f)
+            {
+                var chainTextureToDraw = chainTexture;
+                Main.spriteBatch.Draw(chainTextureToDraw.Value, chainDrawPosition - Main.screenPosition, chainSourceRectangle, drawColor, chainRotation, chainOrigin, 1f, SpriteEffects.None, 0f);
+                chainDrawPosition += unitVectorFromProjectileToPlayerArms * chainSegmentLength;
+                chainCount++;
+                chainLengthRemainingToDraw -= chainSegmentLength;
+            }
+            return true;
         }
         private void Shoot_Projectile_Random()
         {

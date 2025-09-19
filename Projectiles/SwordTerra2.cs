@@ -24,7 +24,8 @@ namespace Infernus.Projectiles
             Projectile.height = 114;
             Projectile.penetrate = 4;
             Projectile.tileCollide = true;
-            Projectile.timeLeft = 35;
+            Projectile.timeLeft = 25;
+            Projectile.extraUpdates = 1;
 
             
 

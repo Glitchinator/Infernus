@@ -58,12 +58,12 @@ namespace Infernus.NPCs
 
         public override void SetDefaults()
         {
-            NPC.lifeMax = 24000;
+            NPC.lifeMax = 32000;
             NPC.damage = 50;
             NPC.defense = 30;
             NPC.knockBackResist = 0.0f;
-            NPC.width = 50;
-            NPC.height = 60;
+            NPC.width = 80;
+            NPC.height = 80;
             NPC.aiStyle = -1;
             NPC.noGravity = true;
             NPC.HitSound = SoundID.NPCHit10;
@@ -87,8 +87,10 @@ namespace Infernus.NPCs
         bool Timer_Halt = false;
         bool Spin = false;
         bool Stay_Above = false;
+        bool Quick_Slow = false;
         private Vector2 destination;
         float rad = 0f;
+        private Vector2 Rand_Circ_Velocity;
         public override void AI()
         {
             Player player = Main.player[NPC.target];
@@ -117,6 +119,11 @@ namespace Infernus.NPCs
             {
                 NPC.velocity.X = NPC.velocity.X * 0.98f;
                 NPC.velocity.Y = NPC.velocity.Y * 0.98f;
+            }
+            if(Quick_Slow == true)
+            {
+                NPC.velocity.X = NPC.velocity.X * 0.9f;
+                NPC.velocity.Y = NPC.velocity.Y * 0.9f;
             }
             Move(new Vector2(Move_X, Move_Y));
             if (Move_Location == 0)
@@ -164,8 +171,6 @@ namespace Infernus.NPCs
             }
 
             Timer = InfernusWorld.Boulder_Boss_Timer;
-            string g = Timer.ToString();
-            Main.NewText(g, 229, 214, 127);
             if (NPC.alpha == 0 && timer_reset == false)
             {
                 InfernusWorld.Boulder_Boss_Timer = 0;
@@ -174,6 +179,7 @@ namespace Infernus.NPCs
                 Timer_Halt = false;
                 circle_player = false;
                 timer_reset = true;
+                Quick_Slow = false;
             }
             if (spawned_second_Shield == false && NPC.alpha > 0)
             {
@@ -224,6 +230,7 @@ namespace Infernus.NPCs
                 }
                 if(Timer == 860)
                 {
+                    Quick_Slow = false;
                     //Spin = false;
                 }
                 if(Timer == 900)
@@ -246,6 +253,7 @@ namespace Infernus.NPCs
                 }
                 if(Timer == 1081)
                 {
+                    Quick_Slow = false;
                     circle_player = true;
                     RotationTimer = -135;
                 }
@@ -268,20 +276,34 @@ namespace Infernus.NPCs
                     Stay_Above = true;
                     Timer_Halt = true;
                 }
-                if(Timer == 1800)
+                if (Timer == 1700)
                 {
-                    Rain_Huge_Meteors();
+                    NPC.velocity = Vector2.Zero;
+                    Pre_Circle_Blast();
                 }
-                if (Timer == 1880)
+                if (Timer == 1760)
                 {
-                    Rain_Huge_Meteors();
+                    Circle_Blast(Rand_Circ_Velocity);
                 }
-                if (Timer == 1960)
+                if (Timer == 1780)
                 {
-                    Rain_Huge_Meteors();
+                    Pre_Circle_Blast();
+                }
+                if (Timer == 1840)
+                {
+                    Circle_Blast(Rand_Circ_Velocity);
+                }
+                if (Timer == 1860)
+                {
+                    Pre_Circle_Blast();
+                }
+                if (Timer == 1920)
+                {
+                    Circle_Blast(Rand_Circ_Velocity);
                 }
                 if (Timer == 2040)
                 {
+                    Quick_Slow = false;
                     is_dashing = false;
                 }
                 if (Timer == 2180)
@@ -291,6 +313,7 @@ namespace Infernus.NPCs
             }
             if (spawned_second_Shield == false && NPC.alpha == 0)
             {
+
                 if (Timer == 60)
                 {
                     is_dashing = true;
@@ -394,6 +417,7 @@ namespace Infernus.NPCs
                 {
                     circle_player = false;
                     is_dashing = true;
+                    Quick_Slow = false;
                 }
                 if(Timer == 1400)
                 {
@@ -444,24 +468,42 @@ namespace Infernus.NPCs
                     Stay_Above = true;
                     Timer_Halt = true;
                 }
-                if (Timer == 1900)
+                if (Timer == 1920)
                 {
-                    Rain_Huge_Meteors();
+                    NPC.velocity = Vector2.Zero;
+                    Pre_Circle_Blast();
                 }
-                if (Timer == 1950)
+                if (Timer == 1960)
                 {
-                    Rain_Huge_Meteors();
+                    Circle_Blast(Rand_Circ_Velocity);
                 }
-                if (Timer == 2000)
+                if (Timer == 1980)
                 {
-                    Rain_Huge_Meteors();
+                    Pre_Circle_Blast();
                 }
-                if (Timer == 2050)
+                if (Timer == 2020)
                 {
-                    Rain_Huge_Meteors();
+                    Circle_Blast(Rand_Circ_Velocity);
+                }
+                if (Timer == 2040)
+                {
+                    Pre_Circle_Blast();
+                }
+                if (Timer == 2080)
+                {
+                    Circle_Blast(Rand_Circ_Velocity);
+                }
+                if (Timer == 2100)
+                {
+                    Pre_Circle_Blast();
                 }
                 if (Timer == 2140)
                 {
+                    Circle_Blast(Rand_Circ_Velocity);
+                }
+                if (Timer == 2140)
+                {
+                    Quick_Slow = false;
                     PreDash();
                 }
                 if(Timer == 2160)
@@ -516,22 +558,24 @@ namespace Infernus.NPCs
                     SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
                     NPC.velocity.X = 0;
                     Rain_Boulders();
+                    Spin = true;
                 }
                 if(Timer > 2832)
                 {
-                    NPC.velocity.Y = 14;
-                    if (Timer % 20 == 0)
+                    Quick_Slow = false;
+                    NPC.velocity.Y = 20;
+                    if (Timer % 8 == 0)
                     {
-                        Rain_Boulders();
+                        Homing_Shotts();
                     }
                 }
-                if (Timer > 2872)
+                if (Timer > 2932)
                 {
                     if(NPC.position.Y > player.position.Y)
                     {
-                        NPC.velocity = Vector2.Zero;
                         explode();
                         InfernusWorld.Boulder_Boss_Timer = 0;
+                        Spin = false;
                     }
                 }
 
@@ -578,8 +622,8 @@ namespace Infernus.NPCs
 
             Vector2 toDestination = destination - NPC.Center;
             Vector2 toDestinationNormalized = toDestination.SafeNormalize(Vector2.Zero);
-            Vector2 moveTo = toDestinationNormalized * 24f;
-            NPC.velocity = (NPC.velocity * (2 - 1) + moveTo) / 2;
+            Vector2 moveTo = toDestinationNormalized * 26f;
+            NPC.velocity = (NPC.velocity * (3 - 1) + moveTo) / 3;
         }
         private void PreDash()
         {
@@ -617,6 +661,70 @@ namespace Infernus.NPCs
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center + new Vector2(-500f, Main.rand.Next(new[] { 75f, 150f, 200f }) - 800f), new Vector2(0f, Main.rand.Next(new[] { 4f, 6f })), proj, damage, NPC.whoAmI);
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center + new Vector2(-600f, Main.rand.Next(new[] { 75f, 150f, 200f }) - 800f), new Vector2(0f, Main.rand.Next(new[] { 4f, 6f })), proj, damage, NPC.whoAmI);
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center + new Vector2(-700f, Main.rand.Next(new[] { 75f, 150f, 200f }) - 800f), new Vector2(0f, Main.rand.Next(new[] { 4f, 6f })), proj, damage, NPC.whoAmI);
+                }
+                SoundEngine.PlaySound(SoundID.NPCDeath14, NPC.position);
+                for (int i = 0; i < 30; i++)
+                {
+                    var smoke = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
+                    smoke.velocity *= 1.4f;
+                }
+
+                // Spawn a bunch of fire dusts.
+                for (int j = 0; j < 20; j++)
+                {
+                    var fireDust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Stone, 0f, 0f, 100, default, 1.4f);
+                    fireDust.noGravity = true;
+                    fireDust.velocity *= 7f;
+                }
+
+                // Spawn a bunch of smoke gores.
+                for (int k = 0; k < 2; k++)
+                {
+                    float speedMulti = 0.8f;
+                    if (k == 1)
+                    {
+                        speedMulti = 1.6f;
+                    }
+
+                    var smokeGore = Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                    smokeGore.velocity *= speedMulti;
+                    smokeGore.velocity += Vector2.One;
+                    smokeGore = Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                    smokeGore.velocity *= speedMulti;
+                    smokeGore.velocity.X -= 1.2f;
+                    smokeGore.velocity.Y += 1.2f;
+                    smokeGore = Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                    smokeGore.velocity *= speedMulti;
+                    smokeGore.velocity.X += 1.2f;
+                    smokeGore.velocity.Y -= 1.2f;
+                    smokeGore = Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                    smokeGore.velocity *= speedMulti;
+                    smokeGore.velocity -= Vector2.One;
+                }
+            }
+        }
+        private void diddle()
+        {
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                int damage = 16;
+                var proj = ModContent.ProjectileType<Boulder_Bolt>();
+                if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(100f, Main.rand.Next(new[] { 75f, 150f, 200f }) - 400f), new Vector2(0f, Main.rand.Next(new[] { 4f, 6f })), proj, damage, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(200f, Main.rand.Next(new[] { 75f, 150f, 200f }) - 400f), new Vector2(0f, Main.rand.Next(new[] { 4f, 6f })), proj, damage, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(300f, Main.rand.Next(new[] { 75f, 150f, 200f }) - 400f), new Vector2(0f, Main.rand.Next(new[] { 4f, 6f })), proj, damage, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(400f, Main.rand.Next(new[] { 75f, 150f, 200f }) - 400f), new Vector2(0f, Main.rand.Next(new[] { 4f, 6f })), proj, damage, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(500f, Main.rand.Next(new[] { 75f, 150f, 200f }) - 400f), new Vector2(0f, Main.rand.Next(new[] { 4f, 6f })), proj, damage, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(600f, Main.rand.Next(new[] { 75f, 150f, 200f }) - 400f), new Vector2(0f, Main.rand.Next(new[] { 4f, 6f })), proj, damage, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(700f, Main.rand.Next(new[] { 75f, 150f, 200f }) - 400f), new Vector2(0f, Main.rand.Next(new[] { 4f, 6f })), proj, damage, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(-100f, Main.rand.Next(new[] { 75f, 150f, 200f }) - 400f), new Vector2(0f, Main.rand.Next(new[] { 4f, 6f })), proj, damage, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(-200f, Main.rand.Next(new[] { 75f, 150f, 200f }) - 400f), new Vector2(0f, Main.rand.Next(new[] { 4f, 6f })), proj, damage, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(-300f, Main.rand.Next(new[] { 75f, 150f, 200f }) - 400f), new Vector2(0f, Main.rand.Next(new[] { 4f, 6f })), proj, damage, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(-400f, Main.rand.Next(new[] { 75f, 150f, 200f }) - 400f), new Vector2(0f, Main.rand.Next(new[] { 4f, 6f })), proj, damage, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(-500f, Main.rand.Next(new[] { 75f, 150f, 200f }) - 400f), new Vector2(0f, Main.rand.Next(new[] { 4f, 6f })), proj, damage, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(-600f, Main.rand.Next(new[] { 75f, 150f, 200f }) - 400f), new Vector2(0f, Main.rand.Next(new[] { 4f, 6f })), proj, damage, NPC.whoAmI);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(-700f, Main.rand.Next(new[] { 75f, 150f, 200f }) - 400f), new Vector2(0f, Main.rand.Next(new[] { 4f, 6f })), proj, damage, NPC.whoAmI);
                 }
                 SoundEngine.PlaySound(SoundID.NPCDeath14, NPC.position);
                 for (int i = 0; i < 30; i++)
@@ -711,7 +819,6 @@ namespace Infernus.NPCs
             player = Main.player[NPC.target];
             //speed = 7f;
             Vector2 moveTo = player.Center + offset;
-            Dust.NewDust(moveTo, 10, 10, DustID.SolarFlare, 0, 0);
             Vector2 move = moveTo - NPC.Center;
             float magnitude = Magnitude(move);
             if (magnitude <= 80f)
@@ -736,7 +843,7 @@ namespace Infernus.NPCs
                 {
                     InfernusWorld.Boulder_Boss_Timer += 1;
                     is_dashing = true;
-                    NPC.velocity = Vector2.Zero;
+                    //Quick_Slow = true;
                     Timer_Halt = false;
                     Stay_Above = false;
                 }
@@ -799,12 +906,55 @@ namespace Infernus.NPCs
             SoundEngine.PlaySound(SoundID.ForceRoar, NPC.position);
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
+                if(NPC.alpha == 0)
+                {
+                    Rock_Rain_Dash();
+                }
+
                 NPC.velocity.X *= 2.25f;
                 NPC.velocity.Y *= 2.25f;
                 {
                     float rotation = (float)Math.Atan2(NPC.Center.Y - (position.Y), NPC.Center.X - (position.X));
                     NPC.velocity.X = (float)(Math.Cos(rotation) * 22 * -1);
                     NPC.velocity.Y = (float)(Math.Sin(rotation) * 22 * -1);
+                }
+                for (int i = 0; i < 30; i++)
+                {
+                    var smoke = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
+                    smoke.velocity *= 1.4f;
+                }
+
+                // Spawn a bunch of fire dusts.
+                for (int j = 0; j < 20; j++)
+                {
+                    var fireDust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Stone, 0f, 0f, 100, default, 1.4f);
+                    fireDust.noGravity = true;
+                    fireDust.velocity *= 7f;
+                }
+
+                // Spawn a bunch of smoke gores.
+                for (int k = 0; k < 2; k++)
+                {
+                    float speedMulti = 0.8f;
+                    if (k == 1)
+                    {
+                        speedMulti = 1.6f;
+                    }
+
+                    var smokeGore = Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                    smokeGore.velocity *= speedMulti;
+                    smokeGore.velocity += Vector2.One;
+                    smokeGore = Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                    smokeGore.velocity *= speedMulti;
+                    smokeGore.velocity.X -= 1.2f;
+                    smokeGore.velocity.Y += 1.2f;
+                    smokeGore = Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                    smokeGore.velocity *= speedMulti;
+                    smokeGore.velocity.X += 1.2f;
+                    smokeGore.velocity.Y -= 1.2f;
+                    smokeGore = Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, default, Main.rand.Next(GoreID.Smoke1, GoreID.Smoke3 + 1));
+                    smokeGore.velocity *= speedMulti;
+                    smokeGore.velocity -= Vector2.One;
                 }
             }
         }
@@ -814,6 +964,10 @@ namespace Infernus.NPCs
             player = Main.player[NPC.target];
             var distancevec2 = player.position - NPC.position;
             float magnitude = Magnitude(distancevec2);
+            if(NPC.alpha == 0)
+            {
+                Shotgun_360();
+            }
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 NPC.velocity.X *= 2.25f;
@@ -889,6 +1043,20 @@ namespace Infernus.NPCs
                 });
             }
         }
+        private void Tracking()
+        {
+            player = Main.player[NPC.target];
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                Vector2 velocity = player.Center - NPC.Center;
+                Vector2 position = new(NPC.Center.X, NPC.Center.Y - 400);
+                float rotation = (float)Math.Atan2(position.Y - (player.position.Y + player.velocity.Y * 10), position.X - (player.position.X + player.velocity.X * 10));
+                velocity.X = (float)(Math.Cos(rotation) * 52) * -1;
+                velocity.Y = (float)(Math.Sin(rotation) * 52) * -1;
+
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), position, velocity, ModContent.ProjectileType<Lightning_Tracking>(), 0, NPC.whoAmI);
+            }
+        }
         private void Rain_Huge_Meteors()
         {
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
@@ -905,9 +1073,9 @@ namespace Infernus.NPCs
                 {
                     velocity = new Vector2(0f, 7f);
                 }
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), spawn_pos, velocity, ModContent.ProjectileType<Meteor_Huge>(), 14, NPC.whoAmI);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), spawn_pos, velocity, ModContent.ProjectileType<Boulder_Storm>(), 14, NPC.whoAmI);
 
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), spawn_pos, new Vector2(-velocity.X, velocity.Y), ModContent.ProjectileType<Meteor_Huge>(), 14, NPC.whoAmI);
+                //Projectile.NewProjectile(NPC.GetSource_FromAI(), spawn_pos, new Vector2(-velocity.X, velocity.Y), ModContent.ProjectileType<Boulder_Storm>(), 14, NPC.whoAmI);
             }
         }
         private void Shotgun_360()
@@ -915,7 +1083,7 @@ namespace Infernus.NPCs
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 player = Main.player[NPC.target];
-                Vector2 velocity = NPC.Top - NPC.Bottom;
+                Vector2 velocity = NPC.Top - NPC.Center;
                 float magnitude = Magnitude(velocity);
                 if (magnitude > 0)
                 {
@@ -958,11 +1126,11 @@ namespace Infernus.NPCs
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 player = Main.player[NPC.target];
-                Vector2 velocity = NPC.Top - NPC.Bottom;
+                Vector2 velocity = NPC.Top - NPC.Center;
                 float magnitude = Magnitude(velocity);
                 if (magnitude > 0)
                 {
-                    velocity *= 36f / magnitude;
+                    velocity *= 18f / magnitude;
                 }
                 else
                 {
@@ -996,12 +1164,50 @@ namespace Infernus.NPCs
                 }
             }
         }
+        private void Pre_Circle_Blast()
+        {
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                for (int i = 0; i < 18; i++)
+                {
+                    player = Main.player[NPC.target];
+                    Vector2 velocity = player.Center - NPC.Center;
+                    float magnitude = Magnitude(velocity);
+                    if (magnitude > 0)
+                    {
+                        velocity *= 8f / magnitude;
+                    }
+                    else
+                    {
+                        velocity = new Vector2(0f, 7f);
+                    }
+                    Vector2 newVelocity = velocity.RotatedBy(MathHelper.ToRadians(i * 20));
+
+                    Rand_Circ_Velocity = newVelocity;
+
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, newVelocity, ModContent.ProjectileType<Boulder_Ray>(), 20, NPC.whoAmI);
+                }
+            }
+        }
+        private void Circle_Blast(Vector2 rand_velocity)
+        {
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                SoundEngine.PlaySound(SoundID.Item70, NPC.position);
+                for (int i = 0; i < 18; i++)
+                {
+                    Vector2 newVelocity = rand_velocity.RotatedBy(MathHelper.ToRadians(i * 20)) * 4f;
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, newVelocity, ModContent.ProjectileType<Boulder_Bolt>(), 20, NPC.whoAmI);
+                }
+            }
+        }
         private void Heresy_Rapid()
         {
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 player = Main.player[NPC.target];
-                Vector2 velocity = player.Center - NPC.Bottom;
+                Vector2 position = new(NPC.Center.X, NPC.Center.Y - 400);
+                Vector2 velocity = player.Center - NPC.Center;
                 float magnitude = Magnitude(velocity);
                 if (magnitude > 0)
                 {
@@ -1012,14 +1218,7 @@ namespace Infernus.NPCs
                     velocity = new Vector2(0f, 7f);
                 }
 
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Bottom, velocity, ModContent.ProjectileType<Boulder_Bolt>(), 20, NPC.whoAmI);
-            }
-        }
-        private void Smoke_Trail()
-        {
-            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<Ruderibus_Gas_Mine>(), NPC.whoAmI);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), position, velocity, ModContent.ProjectileType<Boulder_Ray>(), 20, NPC.whoAmI);
             }
         }
         private void Rapid_Fire_Shotgun()
@@ -1027,7 +1226,7 @@ namespace Infernus.NPCs
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 player = Main.player[NPC.target];
-                Vector2 velocity = player.Center - NPC.Bottom;
+                Vector2 velocity = player.Center - NPC.Center;
                 float magnitude = Magnitude(velocity);
                 if (magnitude > 0)
                 {
@@ -1057,7 +1256,7 @@ namespace Infernus.NPCs
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 player = Main.player[NPC.target];
-                Vector2 velocity = player.Center - NPC.Bottom;
+                Vector2 velocity = player.Center - NPC.Center;
                 float magnitude = Magnitude(velocity);
                 if (magnitude > 0)
                 {
@@ -1087,7 +1286,7 @@ namespace Infernus.NPCs
             if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 {
-                    Vector2 velocity = new(10, Main.rand.Next(-8,8));
+                    Vector2 velocity = new(20, Main.rand.Next(-16,16));
                     float magnitude = Magnitude(velocity);
                     if (magnitude > 0)
                     {
@@ -1096,7 +1295,7 @@ namespace Infernus.NPCs
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Top, velocity, ModContent.ProjectileType<Boulder_Rain>(), 20, NPC.whoAmI);
                 }
                 {
-                    Vector2 velocity = new(-10, Main.rand.Next(-8, 8));
+                    Vector2 velocity = new(-20, Main.rand.Next(-16, 16));
                     float magnitude = Magnitude(velocity);
                     if (magnitude > 0)
                     {
@@ -1200,13 +1399,11 @@ namespace Infernus.NPCs
             LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
 
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Magic.Bouldermagicweapon>(), 2));
-            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Magic.BoulderTomb>(), 2));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Melee.bould>(), 2));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Ranged.Bog>(), 2));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Summon.Whiprock>(), 2));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Accessories.Wings>(), 2));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Accessories.Corrupted_Veil>(), 2));
-            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Items.Materials.Broken_Heros_Staff>(), 2));
 
             npcLoot.Add(notExpertRule);
         }
@@ -1217,25 +1414,25 @@ namespace Infernus.NPCs
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.damage = (int)(NPC.damage * 1.3f);
-            NPC.lifeMax = (NPC.lifeMax = 28000 * (int)balance);
+            NPC.lifeMax = (NPC.lifeMax = 47000 * (int)balance);
 
             if (Main.masterMode == true)
             {
-                NPC.lifeMax = (NPC.lifeMax = 32000 * (int)balance);
-                NPC.life = (NPC.lifeMax = 32000 * (int)balance);
+                NPC.lifeMax = (NPC.lifeMax = 51000 * (int)balance);
+                NPC.life = (NPC.lifeMax = 51000 * (int)balance);
                 NPC.damage = ((NPC.damage / 2) * 3);
             }
             if (Main.getGoodWorld == true)
             {
                 NPC.scale = 2f;
-                NPC.lifeMax = (NPC.lifeMax = 36000 * (int)balance);
-                NPC.life = (NPC.lifeMax = 36000 * (int)balance);
+                NPC.lifeMax = (NPC.lifeMax = 54000 * (int)balance);
+                NPC.life = (NPC.lifeMax = 54000 * (int)balance);
                 NPC.damage = ((NPC.damage / 10) * 13);
             }
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Asset<Texture2D> texture = ModContent.Request<Texture2D>("Infernus/Projectiles/Enchanted_Femur_Explosion");
+            Asset<Texture2D> texture = ModContent.Request<Texture2D>("Infernus/NPCs/Boulderminibossaura");
 
             Rectangle frame;
 
@@ -1243,7 +1440,7 @@ namespace Infernus.NPCs
             frame = texture.Frame();
 
             Vector2 frameOrigin = frame.Size() / 2f;
-            Vector2 offset = new(NPC.width / 2 - frameOrigin.X, NPC.height / 2 - frame.Height);
+            Vector2 offset = new(NPC.width / 2 - frameOrigin.X, NPC.height / 2 - frameOrigin.Y);
             Vector2 drawPos = NPC.position - Main.screenPosition + frameOrigin + offset;
 
             float time = Main.GlobalTimeWrappedHourly;
@@ -1263,14 +1460,14 @@ namespace Infernus.NPCs
             {
                 float radians = (i + timer) * MathHelper.TwoPi;
 
-                spriteBatch.Draw((Texture2D)texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, new Color(42, 39, 82, 50), NPC.rotation, frameOrigin, 1f, SpriteEffects.None, 0);
+                spriteBatch.Draw((Texture2D)texture, drawPos + new Vector2(0f, 8f).RotatedBy(radians) * time, frame, new Color(29, 30, 40, 50), NPC.rotation, frameOrigin, 1f, SpriteEffects.None, 0);
             }
 
             for (float i = 0f; i < 1f; i += 0.34f)
             {
                 float radians = (i + timer) * MathHelper.TwoPi;
 
-                spriteBatch.Draw((Texture2D)texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(94, 76, 78, 77), NPC.rotation, frameOrigin, 1f, SpriteEffects.None, 0);
+                spriteBatch.Draw((Texture2D)texture, drawPos + new Vector2(0f, 4f).RotatedBy(radians) * time, frame, new Color(40, 43, 67, 77), NPC.rotation, frameOrigin, 1f, SpriteEffects.None, 0);
             }
             return true;
         }

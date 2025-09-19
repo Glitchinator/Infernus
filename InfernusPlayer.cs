@@ -43,20 +43,21 @@ namespace Infernus
         public int DashTimer = 0;
 
         // stress variables
-        public int Stress_Current;
-        public const int DefaultStress_Max = 100;
-        public int Stress_Max;
-        public int Stress_Max2;
+        public float Stress_Current;
+        public const float DefaultStress_Max = 5f;
+        public float Stress_Amount_To_Gain;
+        public float Stress_Max2;
         public static readonly Color GainXP_Resource = new(247, 171, 72);
         public bool Stress_Buff_1 = false;
         public bool Stress_Buff_2 = false;
 
 
         public bool Deplete_Stress = false;
-        public bool Stress_DOT_Check = false;
         public int Stress_DOT = 0;
-        public int Stress_Gain = 0;
-        public int Stress_Gain_Timer = 0;
+        public int Stress_DOT_Gain_Timer = 0;
+        public int Hit_Timer = 1;
+        public int Hit_Gain_Timer = 0;
+        public bool Stress_Full = false;
         public bool Stress_Full_Sound = false;
 
         public bool Stress_Bleed = false;
@@ -228,6 +229,11 @@ namespace Infernus
 
         public List<Item> item = [];
 
+        // Sparkling Mixture
+        public bool Sparkling_Mixture = false;
+        // morning dew
+        public bool Morning_Dew = false;
+
 
 
         public override void ModifyNursePrice(NPC nurse, int health, bool removeDebuffs, ref int price)
@@ -276,17 +282,6 @@ namespace Infernus
             if (Main.netMode == NetmodeID.Server)
             {
                 ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Welcome to Infernus Mod! If you have any questions the Discord is the place to ask." + "\nYou are playing on Infernus V1.6.7"), GainXP_Resource, Player.whoAmI);
-            }
-        }
-
-        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            if (Phantom_Blade == true)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y * 1.35f, Main.rand.Next(-1, 1), Main.rand.Next(-20, 10), ModContent.ProjectileType<Projectiles.Phantom>(), (int)(damageDone * 0.75f), 0, 0);
-                }
             }
         }
         public override void ModifyManaCost(Item item, ref float reduce, ref float mult)
@@ -390,6 +385,7 @@ namespace Infernus
         }
         public override void OnHurt(Player.HurtInfo info)
         {
+            /*
             if (Stress_Current > 0 && Deplete_Stress == false && info.Damage >= 10)
             {
                 Stress_DOT_Check = true;
@@ -401,10 +397,11 @@ namespace Infernus
                     smoke.color = Color.Pink;
                 }
             }
-            //if (InfernusNPC.Is_Spawned == true)
-            //{
-           //     Stress_Current += 1;
-            //}
+            */
+            if (InfernusNPC.Is_Spawned == true && info.Damage >= 1)
+            {
+               Stress_Amount_To_Gain += 1f;
+            }
             if (Heart_Equipped == true)
             {
                 Player.AddBuff(BuffID.Honey, 300);
@@ -453,43 +450,20 @@ namespace Infernus
             if (Crystal_String == true && item.DamageType == DamageClass.Ranged && item.useAmmo == AmmoID.Arrow)
             {
                 Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(12));
-                Projectile.NewProjectile(source, position, newVelocity, ModContent.ProjectileType<Projectiles.Equite_Arrow>(), (int)(damage * 0.75f), 2f, 0);
+                Projectile.NewProjectile(source, position, newVelocity, ModContent.ProjectileType<Crystal_Arrow>(), (int)(damage * 0.75f), 2f, 0);
             }
             return base.Shoot(item, source, position, velocity, type, damage, knockback);
         }
-        public override void ProcessTriggers(TriggersSet triggersSet)
-        {
-            if (InfernusKeybind.StressKeybind.JustPressed)
-            {
-                if (Stress_Current >= Stress_Max)
-                {
-                    SoundEngine.PlaySound(SoundID.Item119 with
-                    {
-                        Volume = 1.25f,
-                        Pitch = -0.2f,
-                        SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest
-                    }, Player.position);
-                    if (Stress_Buff_1 == true)
-                    {
-                        Player.AddBuff(ModContent.BuffType<Stress_Better_Buff>(), 420);
-                    }
-                    else
-                    {
-                        Player.AddBuff(ModContent.BuffType<Stress_Buff>(), 420);
-                    }
-                    Deplete_Stress = true;
-                    Stress_Gain = 0;
-                    Stress_Gain_Timer = 0;
-                    Stress_Bleed_Amount = (int)(Player.statLifeMax2 * 0.30f);
-                    Stress_Bleed = true;
-                    Stress_Current = 99;
-                    Stress_Full_Sound = false;
-                }
-            }
-            base.ProcessTriggers(triggersSet);
-        }
         public override async void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if (InfernusNPC.Is_Spawned == true && Stress_Full == true)
+            {
+                if (Stress_DOT > 0)
+                {
+                    Hit_Timer = 30;
+                    //Stress_DOT--;
+                }
+            }
             int heal = (int)(damageDone * 0.07f);
             if (heal < 1)
             {
@@ -530,6 +504,10 @@ namespace Infernus
                 {
                     Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y / 1.35f, Main.rand.Next(-2, 3), Main.rand.Next(-2, 2), ModContent.ProjectileType<Basalt_Whip_Proj>(), (int)(damageDone * 0.5f), 0, 0);
                 }
+            }
+            if (Phantom_Blade == true && hit.DamageType == DamageClass.Melee)
+            {
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y * 1.35f, Main.rand.Next(-1, 1), Main.rand.Next(-20, 10), ModContent.ProjectileType<Projectiles.Phantom>(), (int)(damageDone * 0.5f), 0, 0);
             }
             /*
             if (Ancient_Whiphead == true && hit.DamageType == DamageClass.SummonMeleeSpeed)
@@ -649,16 +627,6 @@ namespace Infernus
         }
         public override void UpdateBadLifeRegen()
         {
-            if (Stress_DOT_Check == true)
-            {
-                if (Stress_Current > Stress_DOT * 4)
-                {
-                    Stress_DOT = Stress_Current / 4;
-                }
-                Deplete_Stress = true;
-                Stress_DOT_Check = false;
-                Stress_Full_Sound = false;
-            }
             if (Stress_Bleed == true)
             {
                 Stress_Bleed_Amount--;
@@ -681,19 +649,12 @@ namespace Infernus
                 {
                     Player.lifeRegen = 0;
                 }
-                Player.lifeRegen -= Stress_DOT;
-            }
-            else
-            {
-                Stress_DOT = 0;
+                int neg_regen = Stress_DOT * 2;
+                Player.lifeRegen -= neg_regen;
             }
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (Deplete_Stress == false && InfernusNPC.Is_Spawned == true)
-            {
-                Stress_Gain_Timer = 180;
-            }
             if (Heart_Equipped == true)
             {
                 target.AddBuff(BuffID.Venom, 120);
@@ -789,17 +750,15 @@ namespace Infernus
         {
             Stress_Buff_1 = tag.GetBool("Stress_Buff_1");
             Stress_Buff_2 = tag.GetBool("Stress_Buff_2");
-            Stress_Current = tag.GetInt("Stress_Current");
         }
         public override void SaveData(TagCompound tag)
         {
-            tag["Stress_Current"] = Stress_Current;
             tag["Stress_Buff_1"] = Stress_Buff_1;
             tag["Stress_Buff_2"] = Stress_Buff_2;
         }
         public override void Initialize()
         {
-            Stress_Max = DefaultStress_Max;
+            Stress_Max2 = DefaultStress_Max;
         }
 
         public override void UpdateDead()
@@ -837,7 +796,7 @@ namespace Infernus
         }
         public override void PostUpdateMiscEffects()
         {
-            if(Squid_Sroll == true && Squid_Scroll_Amount >= 10)
+            if (Squid_Sroll == true && Squid_Scroll_Amount >= 10)
             {
                 if(Main.rand.NextBool(12))
                 {
@@ -915,11 +874,13 @@ namespace Infernus
 
             if (InfernusNPC.Is_Spawned == true)
             {
-                if (Stress_Current > Stress_Max)
+                Stress_Buffs();
+                if (Stress_Current > Stress_Max2)
                 {
-                    Stress_Current = Stress_Max;
+                    Stress_Current = Stress_Max2;
                 }
-                if (Stress_Current == Stress_Max)
+                /*
+                if (Stress_Current == Stress_Max2)
                 {
                     if (Stress_Full_Sound == false)
                     {
@@ -932,28 +893,73 @@ namespace Infernus
                         Stress_Full_Sound = true;
                     }
                 }
-                if (Deplete_Stress == false)
+                */
+                if(Stress_Full == true && Stress_DOT_Gain_Timer > 0)
                 {
-                    if (Stress_Gain_Timer > 0)
+                    Stress_DOT_Gain_Timer--;
+                }
+                if (Stress_Full == true && Stress_DOT_Gain_Timer == 0)
+                {
+                    Stress_DOT_Gain_Timer = 48;
+                    Stress_DOT++;
+                }
+                if (Stress_Current < Stress_Amount_To_Gain && Stress_Full == false)
+                {
+                    Stress_Current += 0.01f;
+                }
+                if(Stress_Full == true)
+                {
+                    if (Hit_Timer > 0)
                     {
-                        Stress_Gain_Timer--;
-                        Stress_Gain++;
-                        if (Stress_Gain % Stress_Gain_Amount == 0)
-                        {
-                            Stress_Current++;
-                        }
+                        Hit_Timer--;
+                        Hit_Gain_Timer++;
                     }
-                    else
+                    if (Hit_Gain_Timer % 10 == 0)
                     {
-                        Stress_Gain = 0;
+                        Stress_DOT--;
                     }
                 }
+                if(Stress_DOT <= 0 && Stress_Full == true)
+                {
+                    Player.AddBuff(ModContent.BuffType<Stress_Buff>(), 360);
+                    if (Player.HasBuff(ModContent.BuffType<Stress_Debuff>()))
+                    {
+                        Player.ClearBuff(ModContent.BuffType<Stress_Debuff>());
+                    }
+                    Deplete_Stress = true;
+                    Stress_Amount_To_Gain = 0f;
+                    Stress_Full = false;
+                    SoundEngine.PlaySound(SoundID.Item119 with
+                    {
+                        Volume = 1.25f,
+                        Pitch = -0.2f,
+                        SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest
+                    }, Player.position);
+                }
+                
+                if(Stress_DOT > 0 && Player.HasBuff(ModContent.BuffType<Stress_Debuff>()) == false && Stress_Full == true)
+                {
+                    Stress_Bleed_Amount = (int)(Player.statLifeMax2 * 0.50f);
+                    Stress_Bleed = true;
+                    Deplete_Stress = true;
+                    Stress_Amount_To_Gain = 0f;
+                    Stress_Full = false;
+                    SoundEngine.PlaySound(SoundID.NPCDeath50 with
+                    {
+                        Volume = 1.25f,
+                        Pitch = -0.2f,
+                        SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest
+                    }, Player.position);
+                }
+                
             }
             else
             {
                 Deplete_Stress = true;
-                Stress_Gain = 0;
-                Stress_Gain_Timer = 0;
+                Stress_Full = false;
+                Stress_DOT_Gain_Timer = 0;
+                Hit_Timer = 1;
+                Stress_Amount_To_Gain = 0f;
             }
             if (Stress_Current <= 0)
             {
@@ -961,14 +967,11 @@ namespace Infernus
             }
             if (Deplete_Stress == true)
             {
-                Stress_Current -= 1;
+                Stress_Current -= 0.05f;
             }
 
 
-            /*
-            Have_HeartAttack();
-            Stress_Buffs();
-            */
+            //Have_HeartAttack();
 
             if (Aeritite_Shield_Equipped == true)
             {
@@ -1072,6 +1075,8 @@ namespace Infernus
             Diamond_Robe = false;
             Amethyst_Robe = false;
             Amber_Robe = false;
+            Sparkling_Mixture = false;
+            Morning_Dew = false;
 
             if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[DashRight] < 15)
             {
@@ -1091,6 +1096,19 @@ namespace Infernus
             //float stress_buff = Stress_Current / 400f;
             //Player.runAcceleration += stress_buff;
             //Player.maxRunSpeed += stress_buff;
+            if (Stress_Current >= 2f)
+            {
+                if (Stress_Buff_1 == true)
+                {
+                    Player.runAcceleration += .08f;
+                    Player.maxRunSpeed += .08f;
+                }
+                else
+                {
+                    Player.runAcceleration += .04f;
+                    Player.maxRunSpeed += .04f;
+                }
+            }
         }
         private void Have_HeartAttack()
         {
@@ -1098,7 +1116,7 @@ namespace Infernus
             {
                 return;
             }
-            if (Stress_Current >= Stress_Max)
+            if (Stress_Current >= Stress_Max2)
             {
                 Player.lifeRegen -= 200;
                 Player.lifeRegenCount = -200;
@@ -1110,43 +1128,63 @@ namespace Infernus
             {
                 return;
             }
-            if (Stress_Current >= 1)
+            if (Stress_Current >= 1f)
             {
                 if (Stress_Buff_1 == true)
                 {
-                    Player.moveSpeed += .12f;
-                    Player.maxRunSpeed += .12f;
-                    return;
+                    Player.GetDamage(DamageClass.Generic) += .20f;
                 }
-                Player.moveSpeed += .06f;
-                Player.maxRunSpeed += .06f;
+                else
+                {
+                    Player.GetDamage(DamageClass.Generic) += .1f;
+                }
             }
-            if (Stress_Current >= 3)
+            if (Stress_Current >= 2f)
             {
                 if (Stress_Buff_1 == true)
                 {
-                    Player.jumpSpeedBoost += .12f;
-                    return;
+                    Player.statDefense += 16;
                 }
-                Player.jumpSpeedBoost += .06f;
+                else
+                {
+                    Player.statDefense += 8;
+                }
             }
-            if (Stress_Current >= 5)
+            if (Stress_Current >= 3f)
             {
                 if (Stress_Buff_2 == true)
                 {
-                    Player.GetDamage(DamageClass.Generic) += .25f;
-                    return;
+                    Player.GetCritChance(DamageClass.Generic) += 28;
+                    Player.moveSpeed += 0.08f;
                 }
-                Player.GetDamage(DamageClass.Generic) += .12f;
+                else
+                {
+                    Player.GetCritChance(DamageClass.Generic) += 14;
+                    Player.moveSpeed += 0.04f;
+                }
             }
-            if (Stress_Current >= 7)
+            if (Stress_Current >= 4f)
             {
                 if (Stress_Buff_2 == true)
                 {
-                    Player.GetCritChance(DamageClass.Generic) += 35;
-                    return;
+                    Player.endurance += .12f;
                 }
-                Player.GetCritChance(DamageClass.Generic) += 20;
+                else
+                {
+                    Player.endurance += .06f;
+                }
+            }
+            if (Stress_Current >= 5f && Stress_Full == false)
+            {
+                Stress_DOT = 14;
+                Player.AddBuff(ModContent.BuffType<Stress_Debuff>(), 600);
+                SoundEngine.PlaySound(SoundID.Item84 with
+                {
+                    Volume = 1.25f,
+                    Pitch = -0.6f,
+                    SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest
+                }, Player.position);
+                Stress_Full = true;
             }
         }
 

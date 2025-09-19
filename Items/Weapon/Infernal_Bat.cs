@@ -23,8 +23,8 @@ namespace Infernus.Items.Weapon
             Item.DamageType = DamageClass.Generic;
             Item.width = 40;
             Item.height = 40;
-            Item.useTime = 37;
-            Item.useAnimation = 37;
+            Item.useTime = 34;
+            Item.useAnimation = 34;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 6.5f;
             Item.value = Item.buyPrice(0, 8, 50, 0);
@@ -33,7 +33,19 @@ namespace Infernus.Items.Weapon
             Item.autoReuse = true;
             Item.holdStyle = ItemHoldStyleID.HoldGuitar;
             Item.ArmorPenetration = 10000;
-            Item.scale = 1f;
+            Item.shoot = ModContent.ProjectileType<Infernus_Bat_Energy>();
+            Item.noMelee = true; // This is set the sword itself doesn't deal damage (only the projectile does).
+            Item.shootsEveryUse = true; // This makes sure Player.ItemAnimationJustStarted is set when swinging.
+            Item.autoReuse = true;
+            Item.shootSpeed = 24f;
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            float adjustedItemScale = player.GetAdjustedItemScale(Item); // Get the melee scale of the player and item.
+            Projectile.NewProjectile(source, player.MountedCenter, new Vector2(player.direction, 0f), type, damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax, adjustedItemScale);
+            NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI); // Sync the changes in multiplayer.
+
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -45,13 +57,6 @@ namespace Infernus.Items.Weapon
         {
             modifiers.HideCombatText();
             modifiers.FinalDamage += (int)(target.lifeMax * 0.02f) - 1;
-        }
-        public override void MeleeEffects(Player player, Rectangle hitbox)
-        {
-            if (Main.rand.NextBool(1))
-            {
-                Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Smoke);
-            }
         }
     }
 }

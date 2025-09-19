@@ -40,7 +40,9 @@ namespace Infernus.Projectiles
         bool retracted = false;
         int Speed = 24;
         float lerp_mag = 0f;
-        bool lerped = false;
+
+        int half_damage;
+
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             width = 18;
@@ -59,30 +61,29 @@ namespace Infernus.Projectiles
             Vector2 distance = player.Center - Main.MouseWorld;
 
             float magnitude = Magnitude(distance);
-            if (magnitude > 400f)
+            if (magnitude > 260f)
             {
-                magnitude = 400f;
+                magnitude = 260f;
+            }
+            if(magnitude < 70f)
+            {
+                magnitude = 70f;
             }
 
             if(player.channel)
             {
-                if (lerp_mag >= magnitude && lerped == false)
+                if (lerp_mag >= magnitude && retracted == false)
                 {
-                    lerp_mag = magnitude;
-                    lerped = true;
+                    lerp_mag -= 3f;
                 }
-                if(lerp_mag <= magnitude && lerped == false)
+                if(lerp_mag <= (magnitude) && retracted == false)
                 {
                     lerp_mag += 3f;
                 }
-                if (lerped == true)
-                {
-                    lerp_mag = magnitude;
-                }
                 double dist = lerp_mag;
                 Projectile.timeLeft = 299;
-                Projectile.position.X = player.Center.X - (int)(Math.Cos(rad) * dist) - Projectile.width / 2;
-                Projectile.position.Y = player.Center.Y - (int)(Math.Sin(rad) * dist) - Projectile.height / 2;
+                Projectile.position.X = player.position.X - (int)(Math.Cos(rad) * dist);
+                Projectile.position.Y = player.position.Y - (int)(Math.Sin(rad) * dist);
                 /* TODO- Make projectile hitbox bigger while swinging around player without fucking everything else up
                 Projectile.width = 72;
                 Projectile.height = 72;
@@ -123,7 +124,7 @@ namespace Infernus.Projectiles
                         if (retracted == false)
                         {
                             retracting = false;
-                            Projectile.damage = (int)(Projectile.damage * 0.5f);
+                            Projectile.damage = half_damage;
                         }
                         if(retracted == true)
                         {
@@ -139,7 +140,7 @@ namespace Infernus.Projectiles
                         Projectile.velocity = VectorToCursor;
                         Projectile.tileCollide = true;
                     }
-                    if (retracting == false && dist_check >= 400f)
+                    if (retracting == false && dist_check >= 200f)
                     {
                         retracting = true;
                         retracted = true;
@@ -161,7 +162,9 @@ namespace Infernus.Projectiles
         public override void OnSpawn(IEntitySource source)
         {
             Player player = Main.player[Projectile.owner];
-            Projectile.position = player.position;
+            Projectile.Center = player.Center;
+            half_damage = (int)(Projectile.damage * 0.5f);
+
             /*
             Projectile.width = 36;
             Projectile.height = 36;
@@ -177,9 +180,9 @@ namespace Infernus.Projectiles
             if (Projectile.velocity.Y != oldVelocity.Y)
             {
                 Projectile.velocity.Y = -oldVelocity.Y;
-                retracting = true;
-                retracted = true;
             }
+            retracting = true;
+            retracted = true;
             Projectile.tileCollide = false;
             return false;
         }

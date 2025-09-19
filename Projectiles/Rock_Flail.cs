@@ -1,4 +1,5 @@
 ﻿using Infernus.Buffs;
+using Infernus.Items.Materials;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -24,20 +25,24 @@ namespace Infernus.Projectiles
             Projectile.penetrate = -1;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.scale = 1f;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 40;
+            Projectile.localNPCHitCooldown = 12;
             Projectile.timeLeft = 1000;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             //Projectile.aiStyle = 2;
         }
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailingMode[Type] = 0;
-            ProjectileID.Sets.TrailCacheLength[Type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Type] = 3;
         }
-        bool retracting = false;
+        bool retracting = true;
         bool retracted = false;
         int Speed = 24;
+        float lerp_mag = 0f;
+        int rand_dist;
+
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             width = 18;
@@ -46,76 +51,112 @@ namespace Infernus.Projectiles
 
             return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
-        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
-        {
-            modifiers.HitDirectionOverride = (Main.player[Projectile.owner].Center.X < target.Center.X) ? 1 : (-1);
-        }
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            // Vanilla has several particles that can easily be used anywhere.
-            // The particles from the Particle Orchestra are predefined by vanilla and most can not be customized that much.
-            // Use auto complete to see the other ParticleOrchestraType types there are.
-            // Here we are spawning the Excalibur particle randomly inside of the target's hitbox.
-            ParticleOrchestrator.RequestParticleSpawn(clientOnly: false, ParticleOrchestraType.SilverBulletSparkle,
-                new ParticleOrchestraSettings { PositionInWorld = Main.rand.NextVector2FromRectangle(target.Hitbox) },
-                Projectile.owner);
-        }
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
+            double deg = (double)Projectile.ai[1];
+            double rad = deg * (Math.PI / Speed);
+            //double dist = 64;
 
-            int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Stone, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
-            Main.dust[dust].noGravity = true;
-            Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.014f;
+            Vector2 distance = player.Center - Main.MouseWorld;
 
-            //Projectile.velocity.Y = Projectile.velocity.Y + 0.44f;
-
-            if (Main.myPlayer == Projectile.owner)
+            float magnitude = Magnitude(distance);
+            if (magnitude > 60f)
             {
-                var inertia = 8f;
-                Vector2 direction = player.Center - Projectile.Center;
-                float dist_check = Magnitude(direction);
+                magnitude = 60f;
+            }
+            if(magnitude < 30f)
+            {
+                magnitude = 30f;
+            }
 
-                if (player.dead || !player.active)
+            if(player.channel && retracted == false && retracting == true)
+            {
+                if (lerp_mag >= (magnitude -= rand_dist) && retracted == false)
                 {
-                    return;
+                    lerp_mag -= 3f;
                 }
-                if (retracting == true && retracted == false)
+                if(lerp_mag <= (magnitude += rand_dist) && retracted == false)
                 {
-                    Projectile.velocity.Y = Projectile.velocity.Y + 0.84f;
+                    lerp_mag += 3f;
                 }
-                if(retracted == true)
+                double dist = lerp_mag;
+                Projectile.timeLeft = 299;
+                Projectile.position.X = player.position.X - (int)(Math.Cos(rad) * dist);
+                Projectile.position.Y = player.position.Y - (int)(Math.Sin(rad) * dist);
+                /* TODO- Make projectile hitbox bigger while swinging around player without fucking everything else up
+                Projectile.width = 72;
+                Projectile.height = 72;
+                DrawOffsetX = 18;
+                DrawOriginOffsetY = 18;
+                */
+            }
+            else
+            {
+                /*
+                Projectile.width = 36;
+                Projectile.height = 36;
+                DrawOffsetX = 0;
+                DrawOriginOffsetY = 0;
+                */
+                if (Main.myPlayer == Projectile.owner)
                 {
-                    direction.Normalize();
-                    direction *= Speed;
-                    Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
+                    var inertia = 8f;
+                    Vector2 direction = player.Center - Projectile.Center;
+                    float dist_check = Magnitude(direction);
 
-                    Projectile.rotation = Projectile.velocity.ToRotation();
-                }
-                if (dist_check <= 40f)
-                {
-                    if (retracted == true)
+                    if (player.dead || !player.active)
                     {
-                        Projectile.Kill();
+                        return;
+                    }
+                    if(retracting == true)
+                    {
+                        direction.Normalize();
+                        direction *= Speed;
+                        Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
+
+                        Projectile.rotation = Projectile.velocity.ToRotation();
+
+                        //Projectile.velocity.Y += Projectile.ai[0];
+                    }
+                    if (dist_check <= 40f)
+                    {
+                        if (retracted == false)
+                        {
+                            retracting = false;
+                            Projectile.usesIDStaticNPCImmunity = false;
+                            Projectile.usesLocalNPCImmunity = true;
+                        }
+                        if(retracted == true)
+                        {
+                            Projectile.Kill();
+                        }
+                        float speed = (float)Speed;
+                        Vector2 VectorToCursor = Main.MouseWorld - Projectile.Center;
+                        float DistToCursor = VectorToCursor.Length();
+
+                        DistToCursor = speed / DistToCursor;
+                        VectorToCursor *= DistToCursor;
+
+                        VectorToCursor = VectorToCursor.RotatedByRandom(MathHelper.ToRadians(18));
+
+                        Projectile.velocity = VectorToCursor;
+                        Projectile.tileCollide = true;
+                    }
+                    if (retracting == false && dist_check >= 300f)
+                    {
+                        retracting = true;
+                        retracted = true;
                     }
                 }
-                if (retracting == false && dist_check >= 100f)
-                {
-                    retracting = true;
-                    //retracted = true;
-                }
-                if (retracting == true && dist_check >= 250f)
-                {
-                    retracted = true;
-                    Speed = 40;
-                }
+                
             }
 
             Projectile.ai[1] += 1f;
 
-            //int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Stone, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
-            //Main.dust[dust].noGravity = true;
-            //Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.014f;
+            int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Stone, Projectile.velocity.X * -0.5f, Projectile.velocity.Y * -0.5f);
+            Main.dust[dust].noGravity = true;
+            Main.dust[dust].scale = Main.rand.Next(70, 110) * 0.014f;
         }
         private static float Magnitude(Vector2 mag)
         {
@@ -124,7 +165,10 @@ namespace Infernus.Projectiles
         public override void OnSpawn(IEntitySource source)
         {
             Player player = Main.player[Projectile.owner];
-            Projectile.position = player.position;
+            Projectile.Center = player.Center;
+
+            rand_dist = Main.rand.Next(5, 25);
+            Speed = Main.rand.Next(20, 28);
             /*
             Projectile.width = 36;
             Projectile.height = 36;
@@ -189,9 +233,19 @@ namespace Infernus.Projectiles
             for (int k = 0; k < Projectile.oldPos.Length; k++)
             {
                 Vector2 drawPos = (Projectile.oldPos[k] - Main.screenPosition) + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-                Main.EntitySpriteDraw(texture, drawPos, null, new Color(128, 132, 138, 0) * (.70f - Projectile.alpha / 210f), Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
+                Main.EntitySpriteDraw(texture, drawPos, null, new Color(151, 151, 151, 0) * (.70f - Projectile.alpha / 210f), Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
             }
             return true;
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.HitDirectionOverride = (Main.player[Projectile.owner].Center.X < target.Center.X) ? 1 : (-1);
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            ParticleOrchestrator.RequestParticleSpawn(clientOnly: false, ParticleOrchestraType.SilverBulletSparkle,
+                new ParticleOrchestraSettings { PositionInWorld = Main.rand.NextVector2FromRectangle(target.Hitbox) },
+                Projectile.owner);
         }
         public override void OnKill(int timeLeft)
         {
