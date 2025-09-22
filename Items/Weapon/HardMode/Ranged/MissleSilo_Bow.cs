@@ -16,13 +16,13 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
 
         public override void SetDefaults()
         {
-            Item.damage = 64;
+            Item.damage = 68;
             Item.DamageType = DamageClass.Ranged;
             Item.noMelee = true;
             Item.width = 44;
             Item.height = 60;
-            Item.useTime = 13;
-            Item.useAnimation = 13;
+            Item.useTime = 11;
+            Item.useAnimation = 11;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 3f;
             Item.value = Item.buyPrice(0, 23, 50, 0);
@@ -59,11 +59,7 @@ namespace Infernus.Items.Weapon.HardMode.Ranged
                 heading.Normalize();
                 heading *= velocity.Length();
                 heading.Y += Main.rand.Next(-300, 300) * 0.02f;
-                if (type == ProjectileID.WoodenArrowFriendly)
-                {
-                    type = ModContent.ProjectileType<Projectiles.Missle_Bow>();
-                }
-                Projectile.NewProjectile(source, position, heading, type, damage, knockback, player.whoAmI, 0f, 0);
+                Projectile.NewProjectile(source, position, heading, ModContent.ProjectileType<Projectiles.Missle_Bow>(), damage, knockback, player.whoAmI, 0f, 0);
             }
 
             return false;

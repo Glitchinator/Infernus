@@ -17,13 +17,103 @@ namespace Infernus
         bool Bullet = false;
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
-            if (projectile.type == ProjectileID.WoodenArrowFriendly || projectile.type == ProjectileID.FlamingArrow || projectile.type == ProjectileID.UnholyArrow || projectile.type == ProjectileID.JestersArrow || projectile.type == ProjectileID.HellfireArrow || projectile.type == ProjectileID.HolyArrow || projectile.type == ProjectileID.CursedArrow || projectile.type == ProjectileID.FrostburnArrow || projectile.type == ProjectileID.ChlorophyteArrow || projectile.type == ProjectileID.IchorArrow || projectile.type == ProjectileID.VenomArrow || projectile.type == ProjectileID.BoneArrow || projectile.type == ProjectileID.MoonlordArrow || projectile.type == ProjectileID.MoonlordArrowTrail || projectile.type == ProjectileID.ShimmerArrow || projectile.type == ModContent.ProjectileType<Aeritite_Arrow>() || projectile.type == ModContent.ProjectileType<Equite_Arrow>() || projectile.type == ModContent.ProjectileType<Basalt_Arrow>() || projectile.type == ProjectileID.BloodArrow || projectile.type == ProjectileID.FrostArrow || projectile.type == ProjectileID.PulseBolt || projectile.type == ProjectileID.BeeArrow || projectile.type == ProjectileID.FairyQueenRangedItemShot || projectile.type == ProjectileID.Hellwing || projectile.type == ProjectileID.ShadowFlameArrow || projectile.type == ProjectileID.DD2BetsyArrow || projectile.type == ProjectileID.Phantasm || projectile.type == ModContent.ProjectileType<Missle_Bow>() || projectile.type == ModContent.ProjectileType<Lightning_Arrow>() || projectile.type == ModContent.ProjectileType<Raiko_Bow_Arrow>())
+            if (projectile.type == ProjectileID.WoodenArrowFriendly || projectile.type == ProjectileID.FrostArrow || projectile.type == ProjectileID.FlamingArrow || projectile.type == ProjectileID.UnholyArrow || projectile.type == ProjectileID.JestersArrow || projectile.type == ProjectileID.HellfireArrow || projectile.type == ProjectileID.HolyArrow || projectile.type == ProjectileID.CursedArrow || projectile.type == ProjectileID.FrostburnArrow || projectile.type == ProjectileID.ChlorophyteArrow || projectile.type == ProjectileID.IchorArrow || projectile.type == ProjectileID.VenomArrow || projectile.type == ProjectileID.BoneArrow || projectile.type == ProjectileID.MoonlordArrow || projectile.type == ProjectileID.MoonlordArrowTrail || projectile.type == ProjectileID.ShimmerArrow || projectile.type == ModContent.ProjectileType<Aeritite_Arrow>() || projectile.type == ModContent.ProjectileType<Equite_Arrow>() || projectile.type == ModContent.ProjectileType<Basalt_Arrow>() || projectile.type == ProjectileID.BloodArrow || projectile.type == ProjectileID.FrostArrow || projectile.type == ProjectileID.PulseBolt || projectile.type == ProjectileID.BeeArrow || projectile.type == ProjectileID.FairyQueenRangedItemShot || projectile.type == ProjectileID.Hellwing || projectile.type == ProjectileID.ShadowFlameArrow || projectile.type == ProjectileID.DD2BetsyArrow || projectile.type == ProjectileID.Phantasm || projectile.type == ModContent.ProjectileType<Missle_Bow>() || projectile.type == ModContent.ProjectileType<Lightning_Arrow>() || projectile.type == ModContent.ProjectileType<Crystal_Arrow>() || projectile.type == ModContent.ProjectileType<Raiko_Bow_Arrow>())
             {
                 Arrow = true;
             }
             if (projectile.type == ProjectileID.Bullet || projectile.type == ProjectileID.MeteorShot || projectile.type == ProjectileID.SilverBullet || projectile.type == ProjectileID.CrystalBullet || projectile.type == ProjectileID.CursedBullet || projectile.type == ProjectileID.ChlorophyteBullet || projectile.type == ProjectileID.BulletHighVelocity || projectile.type == ProjectileID.IchorBullet || projectile.type == ProjectileID.VenomBullet || projectile.type == ProjectileID.PartyBullet || projectile.type == ProjectileID.NanoBullet || projectile.type == ProjectileID.ExplosiveBullet || projectile.type == ProjectileID.GoldenBullet || projectile.type == ProjectileID.MoonlordBullet || projectile.type == ModContent.ProjectileType<Ruderibus_Rounds>() || projectile.type == ModContent.ProjectileType<Rocky_Rounds>() || projectile.type == ModContent.ProjectileType<Rocky_Rounds_Proj>() || projectile.type == ModContent.ProjectileType<SandySlug>() || projectile.type == ModContent.ProjectileType<Lazar>() || projectile.type == ModContent.ProjectileType<Bullet_Rocket_Prime>() || projectile.type == ModContent.ProjectileType<Pump_Fire_Slug>() || projectile.type == ModContent.ProjectileType<Bullet_Rocket>())
             {
                 Bullet = true;
+            }
+        }
+        public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
+        {
+            Player player = Main.player[projectile.owner];
+            if (Bullet == true)
+            {
+                if (player.GetModPlayer<InfernusPlayer>().Bayonett == true && player.GetModPlayer<InfernusPlayer>().Cursed_Bayonett == false)
+                {
+                    Vector2 h = player.Center - target.Center;
+                    string g = h.ToString();
+                    if (h.Length() <= 200f)
+                    {
+                        modifiers.ScalingBonusDamage += 0.15f;
+                        Main.NewText(g + "15%", 229, 214, 127);
+                    }
+                    else if (h.Length() <= 400f)
+                    {
+                        modifiers.ScalingBonusDamage += 0.1f;
+                        Main.NewText(g + "10%", 229, 214, 127);
+                    }
+                    else if (h.Length() <= 600f)
+                    {
+                        modifiers.ScalingBonusDamage += 0.05f;
+                        Main.NewText(g + "5%", 229, 214, 127);
+                    }
+                }
+                if (player.GetModPlayer<InfernusPlayer>().Cursed_Bayonett == true)
+                {
+                    Vector2 h = player.Center - target.Center;
+                    string g = h.ToString();
+                    if (h.Length() <= 200f)
+                    {
+                        modifiers.ScalingBonusDamage += 0.25f;
+                        Main.NewText(g + "25%", 229, 214, 127);
+                    }
+                    else if (h.Length() <= 350f)
+                    {
+                        modifiers.ScalingBonusDamage += 0.2f;
+                        Main.NewText(g + "20%", 229, 214, 127);
+                    }
+                    else if (h.Length() <= 500f)
+                    {
+                        modifiers.ScalingBonusDamage += 0.15f;
+                        Main.NewText(g + "15%", 229, 214, 127);
+                    }
+                    else if (h.Length() <= 650f)
+                    {
+                        modifiers.ScalingBonusDamage += 0.1f;
+                        Main.NewText(g + "10%", 229, 214, 127);
+                    }
+                    else if (h.Length() <= 800f)
+                    {
+                        modifiers.ScalingBonusDamage += 0.05f;
+                        Main.NewText(g + "5%", 229, 214, 127);
+                    }
+                }
+            }
+            if (Arrow == true)
+            {
+                if (player.GetModPlayer<InfernusPlayer>().Compound_Uplift == true)
+                {
+                    Vector2 h = player.Center - target.Center;
+                    string g = h.ToString();
+                    if (h.Length() >= 900f)
+                    {
+                        modifiers.ScalingBonusDamage += 0.3f;
+                        Main.NewText(g + "30%", 229, 214, 127);
+                    }
+                    else if (h.Length() >= 800f && h.Length() < 900f)
+                    {
+                        modifiers.ScalingBonusDamage += 0.2f;
+                        Main.NewText(g + "20%", 229, 214, 127);
+                    }
+                    else if (h.Length() >= 650f && h.Length() < 800f)
+                    {
+                        modifiers.ScalingBonusDamage += 0.15f;
+                        Main.NewText(g + "15%", 229, 214, 127);
+                    }
+                    else if (h.Length() >= 500f && h.Length() < 650f)
+                    {
+                        modifiers.ScalingBonusDamage += 0.15f;
+                        Main.NewText(g + "10%", 229, 214, 127);
+                    }
+                    else if (h.Length() >= 300f && h.Length() < 500f)
+                    {
+                        modifiers.ScalingBonusDamage += 0.05f;
+                        Main.NewText(g + "5%", 229, 214, 127);
+                    }
+                }
             }
         }
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)

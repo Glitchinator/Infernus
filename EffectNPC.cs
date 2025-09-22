@@ -1,4 +1,5 @@
-﻿using Infernus.Invas;
+﻿using Infernus.Buffs;
+using Infernus.Invas;
 using Infernus.Items.Materials;
 using Infernus.Items.Weapon.HardMode.Accessories;
 using Infernus.NPCs;
@@ -20,6 +21,8 @@ namespace Infernus
         public override bool InstancePerEntity => true;
 
         public List<Vector2> Equite_Knuckles_Stacking = [];
+
+        public List<Vector2> Gladius_Stacks = [];
 
         public Vector2 Haunted_Status = Vector2.Zero;
         public static NPC Haunted_NPC;
@@ -43,6 +46,28 @@ namespace Infernus
                     Equite_Knuckles_Stacking[z] = new Vector2(Equite_Knuckles_Buff.X, Equite_Knuckles_Buff.Y - 1);
                 }
             }
+
+            int gladius_count = Gladius_Stacks.Count;
+            for(int g = 0; g < gladius_count; g++)
+            {
+                Vector2 Gladius_Debuff = Gladius_Stacks[g];
+                if(Gladius_Debuff.X % 20 == 0)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), npc.Center, Vector2.Zero, ModContent.ProjectileType<Gladius_Exlos>(), 90, 4f, 0);
+                }
+                if(Gladius_Debuff.Y <= 0)
+                {
+                    Gladius_Stacks.Remove(Gladius_Debuff);
+                    gladius_count--;
+                    g--;
+                    continue;
+                }
+                else
+                {
+                    Gladius_Stacks[g] = new Vector2 (Gladius_Debuff.X + 1, Gladius_Debuff.Y - 1);
+                }
+            }
+
             // very similiar to how equite leafs work, first checks if the player has a target and if that target is active
             if (Haunted_NPC != null)
             {

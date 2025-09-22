@@ -22,9 +22,8 @@ namespace Infernus.Items.Weapon.Magic
             Item.DamageType = DamageClass.Magic;
             Item.width = 48;
             Item.height = 48;
-            Item.useAnimation = 16;
-            Item.useTime = 8;
-            Item.reuseDelay = 18;
+            Item.useAnimation = 29;
+            Item.useTime = 29;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 2f;
             Item.value = Item.buyPrice(0, 5, 50, 0);

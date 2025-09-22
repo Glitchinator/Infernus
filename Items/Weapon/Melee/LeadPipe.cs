@@ -15,7 +15,7 @@ namespace Infernus.Items.Weapon.Melee
 
         public override void SetDefaults()
         {
-            Item.damage = 18;
+            Item.damage = 20;
             Item.DamageType = DamageClass.Melee;
             Item.width = 56;
             Item.height = 56;

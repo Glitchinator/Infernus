@@ -26,5 +26,13 @@ namespace Infernus.Items.Accesories
         {
             player.GetDamage(DamageClass.Melee) += 0.1f;
         }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<Placeable.Rock>(), 18)
+            .AddIngredient(ItemID.Bone, 16)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
     }
 }

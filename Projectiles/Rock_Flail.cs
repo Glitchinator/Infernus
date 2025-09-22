@@ -26,7 +26,7 @@ namespace Infernus.Projectiles
             Projectile.DamageType = DamageClass.Melee;
             Projectile.scale = 1f;
             Projectile.usesIDStaticNPCImmunity = true;
-            Projectile.idStaticNPCHitCooldown = 40;
+            Projectile.idStaticNPCHitCooldown = 24;
             Projectile.localNPCHitCooldown = 12;
             Projectile.timeLeft = 1000;
             Projectile.tileCollide = false;

@@ -24,7 +24,8 @@ namespace Infernus.Projectiles
             Projectile.penetrate = 5;
             Projectile.timeLeft = 240;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 16;
+            Projectile.localNPCHitCooldown = 20;
+            Projectile.extraUpdates = 1;
         }
         public override void AI()
         {

@@ -63,6 +63,7 @@
     <None Remove="Items\Accesories\Ocean_Crest.png" />
     <None Remove="Items\Accesories\Plasma_Splash.png" />
     <None Remove="Items\Accesories\Quiver.png" />
+    <None Remove="Items\Accesories\Raging_Bone.png" />
     <None Remove="Items\Accesories\Relic.png" />
     <None Remove="Items\Accesories\Sparkling_Mixture.png" />
     <None Remove="Items\Accesories\Squid_SCroll.png" />
@@ -110,9 +111,13 @@
     <None Remove="Items\Weapon\HardMode\Accessories\Aerodynamics.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Basalt_Tooth_Necklace.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Basalt_Whiphead.png" />
+    <None Remove="Items\Weapon\HardMode\Accessories\Blazing_Cloak.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Blood_Quiver.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Boulder_Expert.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Boulder_Expert_Shield.png" />
+    <None Remove="Items\Weapon\HardMode\Accessories\Chaos_Cloak.png" />
+    <None Remove="Items\Weapon\HardMode\Accessories\Cloak_of_Deceit.png" />
+    <None Remove="Items\Weapon\HardMode\Accessories\Compound_Kit.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Corrupted_Veil.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Crystal_String.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Cursed_Bayonett.png" />
@@ -120,16 +125,17 @@
     <None Remove="Items\Weapon\HardMode\Accessories\deitygift.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Effigy_of_might.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Elemental_Lash.png" />
+    <None Remove="Items\Weapon\HardMode\Accessories\Equalibrium.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Glacial_Quiver.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Hallowed_Chain.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Hallowed_Lash.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Hellion_Spite.png" />
-    <None Remove="Items\Weapon\HardMode\Accessories\Hunters_Cloak.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Igneous_Arrowhead.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Lacerator_Whiphead.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Lectric.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Phantom_Blade.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Power_Drills.png" />
+    <None Remove="Items\Weapon\HardMode\Accessories\Ring_of_Haste.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Souldrinker.png" />
     <None Remove="Items\Weapon\HardMode\Accessories\Titanium_Gloves.png" />
     <None Remove="Items\Weapon\HardMode\Magic\Aeritite_Plasma_Cannon.png" />
@@ -218,6 +224,7 @@
     <None Remove="Projectiles\Basalt_Arrow.png" />
     <None Remove="Projectiles\Basalt_Proj.png" />
     <None Remove="Projectiles\Basalt_Whip_Proj.png" />
+    <None Remove="Projectiles\Blazing_Cloak_Dagger.png" />
     <None Remove="Projectiles\Bloom_Bomb_Explosion.png" />
     <None Remove="Projectiles\boldsum.png" />
     <None Remove="Projectiles\Bone_Whip.png" />
@@ -229,6 +236,8 @@
     <None Remove="Projectiles\B_Ray_Proj.png" />
     <None Remove="Projectiles\Caustic.png" />
     <None Remove="Projectiles\Caustic_Thorn.png" />
+    <None Remove="Projectiles\Cloak_Chaos_Dagger.png" />
+    <None Remove="Projectiles\Cloak_Dagger.png" />
     <None Remove="Projectiles\Cloud_Knife.png" />
     <None Remove="Projectiles\Cloud_Knife_Prime.png" />
     <None Remove="Projectiles\Cloud_Knife_Proj.png" />
@@ -239,6 +248,7 @@
     <None Remove="Projectiles\Crystal_Arrow.png" />
     <None Remove="Projectiles\DemonHand_Shot.png" />
     <None Remove="Projectiles\Dunger.png" />
+    <None Remove="Projectiles\Enchanted_Bone.png" />
     <None Remove="Projectiles\Enchanted_Femur_Explosion.png" />
     <None Remove="Projectiles\EqualMinion.png" />
     <None Remove="Projectiles\EqualSword.png" />

@@ -182,6 +182,8 @@ namespace Infernus.Projectiles
                 new ParticleOrchestraSettings { PositionInWorld = Main.rand.NextVector2FromRectangle(target.Hitbox) },
                 Projectile.owner);
 
+            target.GetGlobalNPC<EffectNPC>().Gladius_Stacks.Add(new Vector2(0, 100));
+
             // You could also spawn dusts at the enemy position. Here is simple an example:
             // Dust.NewDust(Main.rand.NextVector2FromRectangle(target.Hitbox), 0, 0, ModContent.DustType<Content.Dusts.Sparkle>());
 

@@ -280,6 +280,21 @@ Mods: {
 				DisplayName: Sparkling_ Mixture_ Buff
 				Description: Mods.Infernus.Buffs.Sparkling_Mixture_Buff.Description
 			}
+
+			Gladius_Debuff: {
+				DisplayName: Gladius_ Debuff
+				Description: Mods.Infernus.Buffs.Gladius_Debuff.Description
+			}
+
+			Chaos_Dagger_Buff: {
+				DisplayName: Chaos_ Dagger_ Buff
+				Description: Mods.Infernus.Buffs.Chaos_Dagger_Buff.Description
+			}
+
+			Blazing_Cloak_Buff: {
+				DisplayName: Blazing_ Cloak_ Buff
+				Description: Mods.Infernus.Buffs.Blazing_Cloak_Buff.Description
+			}
 		}
 
 		Items: {
@@ -840,7 +855,11 @@ Mods: {
 					'''
 			}
 
-			exohal.DisplayName: Shining Gladius
+			exohal: {
+				DisplayName: Shining Gladius
+				Tooltip: Hit enemies are struck multiple times by energy
+			}
+
 			Frisbe.DisplayName: Frisbe
 			golemsword.DisplayName: Brartic Sword
 
@@ -2119,8 +2138,12 @@ Mods: {
 			}
 
 			Igneous_Arrowhead: {
-				DisplayName: Igneous_ Arrowhead
-				Tooltip: ""
+				DisplayName: Igneous Arrowhead
+				Tooltip:
+					'''
+					Increases ranged armor penetration by 8
+					Increases ranged crit chance by 9%
+					'''
 			}
 
 			Toxic_Fang: {
@@ -2185,6 +2208,65 @@ Mods: {
 			Crystal_Bow: {
 				DisplayName: Crystal Bow
 				Tooltip: Converts all arrows into crystal arrows
+			}
+
+			Chaos_Cloak: {
+				DisplayName: Chaos Cloak
+				Tooltip:
+					'''
+					Increases ranged attack speed by 6%
+					On hit, throw high damage knifes at the cursor
+					When the knifes hit an enemy, the player receives a ranged attack speed buff
+					'''
+			}
+
+			Cloak_of_Deceit: {
+				DisplayName: Cloak of Deceit
+				Tooltip: On hit, throw high damage knifes at the cursor
+			}
+
+			Ring_of_Haste: {
+				DisplayName: Ring of Haste
+				Tooltip: Increases ranged attack speed by 12%
+			}
+
+			Raging_Bone: {
+				DisplayName: Raging Bone
+				Tooltip:
+					'''
+					When hit, gain a boost of melee power and release a blast of fire
+					The blast has a 4 second cooldown
+					'''
+			}
+
+			Blazing_Cloak: {
+				DisplayName: Blazing Cloak
+				Tooltip:
+					'''
+					On hit, throw high damage knifes at the cursor, gain a boost of melee power and release a blast of fire
+					When the knifes hit an enemy, the player receives a melee boosting buff
+					The blast has a 4 second cooldown
+					'''
+			}
+
+			Compound_Kit: {
+				DisplayName: Compound Kit
+				Tooltip:
+					'''
+					Increases arrow damage the further you are to an enemy
+					Max damage increase is 30%
+					'''
+			}
+
+			Equalibrium: {
+				DisplayName: Equalibrium
+				Tooltip:
+					'''
+					Increases arrow damage the further you are to an enemy
+					Max arrow damage increase is 30%
+					Increases bullet damage the closer you are to an enemy
+					Max bullet damage increase is 25%
+					'''
 			}
 		}
 
@@ -2457,6 +2539,11 @@ Mods: {
 			Boulder_Ray.DisplayName: Boulder_ Ray
 			Boulder_Storm.DisplayName: Boulder_ Storm
 			Crystal_Arrow.DisplayName: Crystal_ Arrow
+			Gladius_Exlos.DisplayName: Gladius_ Exlos
+			Cloak_Chaos_Dagger.DisplayName: Cloak_ Chaos_ Dagger
+			Cloak_Dagger.DisplayName: Cloak_ Dagger
+			Enchanted_Bone.DisplayName: Enchanted_ Bone
+			Blazing_Cloak_Dagger.DisplayName: Blazing_ Cloak_ Dagger
 		}
 
 		NPCs: {

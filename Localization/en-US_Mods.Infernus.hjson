@@ -339,7 +339,6 @@ Items: {
 
 	golemsword.Tooltip: ""
 	Frisbe.Tooltip: ""
-	exohal.Tooltip: ""
 
 	Electricice: {
 	}
@@ -603,7 +602,7 @@ Items: {
 		DisplayName: Bayonett
 		Tooltip:
 			'''
-			Increases ranged damage the closer you are to an enemy
+			Increases bullet damage the closer you are to an enemy
 			Max damage increase is 15%
 			'''
 	}
@@ -702,11 +701,11 @@ Items: {
 	}
 
 	Cursed_Bayonett: {
-		DisplayName: Cursed Bayonett
+		DisplayName: Scoped Bayonett
 		Tooltip:
 			'''
-			Reduces max life by 80
-			Increases ranged damage the closer you are to an enemy
+			Reduces max life by 50
+			Increases bullet damage the closer you are to an enemy
 			Max damage increase is 25%
 			'''
 	}

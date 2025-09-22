@@ -234,6 +234,17 @@ namespace Infernus
         // morning dew
         public bool Morning_Dew = false;
 
+        //
+        public bool Deceit_Cloak = false;
+        public int Deceit_Cloak_Time = 0;
+
+        public bool Chaos_Cloak = false;
+
+        public bool Raging_Bone = false;
+
+        public bool Blazing_Cloak = false;
+
+        public bool Compound_Uplift = false;
 
 
         public override void ModifyNursePrice(NPC nurse, int health, bool removeDebuffs, ref int price)
@@ -420,12 +431,32 @@ namespace Infernus
             }
             if (Enchanted_Femur == true && info.Damage >= 10 && !Player.HasBuff(ModContent.BuffType<Buffs.Enchanted_Femur_Cooldown>()))
             {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Player.Center, Vector2.Zero, ModContent.ProjectileType<Enchanted_Femur_Explosion>(), 45, 4f);
+                if(Raging_Bone == true)
+                {
+                    int dam = 0;
+                    if(Blazing_Cloak == true)
+                    {
+                        dam = 120;
+                    }
+                    else
+                    {
+                        dam = 60;
+                    }
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Player.Center, Vector2.Zero, ModContent.ProjectileType<Enchanted_Bone>(), dam, 4f);
+                }
+                else
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Player.Center, Vector2.Zero, ModContent.ProjectileType<Enchanted_Femur_Explosion>(), 45, 4f);
+                }
                 Player.AddBuff(ModContent.BuffType<Buffs.Enchanted_Femur_Cooldown>(), 240);
             }
             if (Meteor_Core == true && info.Damage >= 10)
             {
                 Player.AddBuff(ModContent.BuffType<Buffs.Meteor_Core_Buff>(), 480);
+            }
+            if(Deceit_Cloak == true && info.Damage >= 10)
+            {
+                Deceit_Cloak_Time += 90;
             }
         }
         public override bool Shoot(Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -695,56 +726,6 @@ namespace Infernus
                     SoundEngine.PlaySound(SoundID.Item110, target.position);
                 }
             }
-            if (Bayonett == true && modifiers.DamageType == DamageClass.Ranged)
-            {
-                Vector2 h = Player.Center - target.Center;
-                string g = h.ToString();
-                if (h.Length() <= 200f)
-                {
-                    modifiers.ScalingBonusDamage += 0.15f;
-                    Main.NewText(g + "15%", 229, 214, 127);
-                }
-                else if (h.Length() <= 400f)
-                {
-                    modifiers.ScalingBonusDamage += 0.1f;
-                    Main.NewText(g + "10%", 229, 214, 127);
-                }
-                else if (h.Length() <= 600f)
-                {
-                    modifiers.ScalingBonusDamage += 0.05f;
-                    Main.NewText(g + "5%", 229, 214, 127);
-                }
-            }
-            if (Cursed_Bayonett == true && modifiers.DamageType == DamageClass.Ranged)
-            {
-                Vector2 h = Player.Center - target.Center;
-                string g = h.ToString();
-                if (h.Length() <= 200f)
-                {
-                    modifiers.ScalingBonusDamage += 0.25f;
-                    Main.NewText(g + "25%", 229, 214, 127);
-                }
-                else if (h.Length() <= 350f)
-                {
-                    modifiers.ScalingBonusDamage += 0.2f;
-                    Main.NewText(g + "20%", 229, 214, 127);
-                }
-                else if (h.Length() <= 500f)
-                {
-                    modifiers.ScalingBonusDamage += 0.15f;
-                    Main.NewText(g + "15%", 229, 214, 127);
-                }
-                else if (h.Length() <= 650f)
-                {
-                    modifiers.ScalingBonusDamage += 0.1f;
-                    Main.NewText(g + "10%", 229, 214, 127);
-                }
-                else if (h.Length() <= 800f)
-                {
-                    modifiers.ScalingBonusDamage += 0.05f;
-                    Main.NewText(g + "5%", 229, 214, 127);
-                }
-            }
         }
         public override void LoadData(TagCompound tag)
         {
@@ -872,8 +853,33 @@ namespace Infernus
                 Player.jumpSpeedBoost += 2f;
             }
 
+            if(Deceit_Cloak == true)
+            {
+                if(Deceit_Cloak_Time > 0)
+                {
+                    Deceit_Cloak_Time--;
+                }
+                if(Deceit_Cloak_Time % 19 == 1)
+                {
+                    if (Chaos_Cloak == true)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.Zero) * 30f, ModContent.ProjectileType<Cloak_Chaos_Dagger>(), 100, 6f, Main.myPlayer);
+                    }
+                    if (Blazing_Cloak == true)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.Zero) * 30f, ModContent.ProjectileType<Blazing_Cloak_Dagger>(), 100, 6f, Main.myPlayer);
+                    }
+                    if(Blazing_Cloak == false && Chaos_Cloak == false)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Player.Center, (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.Zero) * 19f, ModContent.ProjectileType<Cloak_Dagger>(), 60, 6f, Main.myPlayer);
+                    }
+                }
+            }
+
             if (InfernusNPC.Is_Spawned == true)
             {
+                string gat = Stress_DOT.ToString();
+                Main.NewText("Stress DOT: " + gat, 229, 214, 127);
                 Stress_Buffs();
                 if (Stress_Current > Stress_Max2)
                 {
@@ -939,11 +945,20 @@ namespace Infernus
                 
                 if(Stress_DOT > 0 && Player.HasBuff(ModContent.BuffType<Stress_Debuff>()) == false && Stress_Full == true)
                 {
-                    Stress_Bleed_Amount = (int)(Player.statLifeMax2 * 0.50f);
+                    Stress_Bleed_Amount = (int)(Player.statLifeMax2 * 0.25f);
+                    if ((Stress_Buff_1 == true && Stress_Buff_2 == false) || (Stress_Buff_1 == false && Stress_Buff_2 == true))
+                    {
+                        Stress_Bleed_Amount = (int)(Player.statLifeMax2 * 0.35f);
+                    }
+                    if (Stress_Buff_1 == true && Stress_Buff_2 == true)
+                    {
+                        Stress_Bleed_Amount = (int)(Player.statLifeMax2 * 0.5f);
+                    }
                     Stress_Bleed = true;
                     Deplete_Stress = true;
                     Stress_Amount_To_Gain = 0f;
                     Stress_Full = false;
+                    Stress_DOT = 0;
                     SoundEngine.PlaySound(SoundID.NPCDeath50 with
                     {
                         Volume = 1.25f,
@@ -1077,6 +1092,11 @@ namespace Infernus
             Amber_Robe = false;
             Sparkling_Mixture = false;
             Morning_Dew = false;
+            Deceit_Cloak = false;
+            Chaos_Cloak = false;
+            Raging_Bone = false;
+            Blazing_Cloak = false;
+            Compound_Uplift = false;
 
             if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[DashRight] < 15)
             {
@@ -1177,7 +1197,21 @@ namespace Infernus
             if (Stress_Current >= 5f && Stress_Full == false)
             {
                 Stress_DOT = 14;
-                Player.AddBuff(ModContent.BuffType<Stress_Debuff>(), 600);
+                int Stress_debuff_time = 900;
+                //15 sec is 900, 12 is 720, 9 is 540
+
+                if ((Stress_Buff_1 == true && Stress_Buff_2 == false) || (Stress_Buff_1 == false && Stress_Buff_2 == true))
+                {
+                    Stress_DOT = 16;
+                    Stress_debuff_time = 720;
+                }
+                if(Stress_Buff_1 == true && Stress_Buff_2 == true)
+                {
+                    Stress_DOT = 18;
+                    Stress_debuff_time = 540;
+                }
+
+                Player.AddBuff(ModContent.BuffType<Stress_Debuff>(), Stress_debuff_time);
                 SoundEngine.PlaySound(SoundID.Item84 with
                 {
                     Volume = 1.25f,

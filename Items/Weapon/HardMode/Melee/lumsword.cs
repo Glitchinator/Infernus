@@ -58,7 +58,7 @@ namespace Infernus.Items.Weapon.HardMode.Melee
             }
 
 
-            float adjustedItemScale = player.GetAdjustedItemScale(Item) + 0.5f; // Get the melee scale of the player and item.
+            float adjustedItemScale = player.GetAdjustedItemScale(Item) + 0.1f; // Get the melee scale of the player and item.
             Projectile.NewProjectile(source, player.MountedCenter, new Vector2(player.direction, 0f), type, damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax, adjustedItemScale);
             NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI); // Sync the changes in multiplayer.
 

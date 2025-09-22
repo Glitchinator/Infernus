@@ -19,13 +19,14 @@ namespace Infernus.Projectiles
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 3;
             Projectile.netImportant = true;
             Projectile.width = 54;
             Projectile.height = 54;
             Projectile.timeLeft = 240;
             Projectile.tileCollide = true;
             Projectile.ownerHitCheck = true;
+            Projectile.stopsDealingDamageAfterPenetrateHits = true;
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
@@ -34,11 +35,11 @@ namespace Infernus.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Poisoned, 120);
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
                 Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center.X, Projectile.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, 11), ModContent.ProjectileType<LeadPipe_Proj>(), (int)(Projectile.damage * 0.30f), 1f, Projectile.owner);
             }
-            Projectile.damage = (int)(Projectile.damage * 0.75f);
+            Projectile.damage = (int)(Projectile.damage * 0.5f);
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

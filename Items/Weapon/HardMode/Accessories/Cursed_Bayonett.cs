@@ -15,10 +15,10 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
         }
         public override void SetDefaults()
         {
-            Item.width = 28;
-            Item.height = 30;
+            Item.width = 40;
+            Item.height = 34;
             Item.value = Item.buyPrice(0, 14, 25, 0);
-            Item.rare = ItemRarityID.Lime;
+            Item.rare = ItemRarityID.LightRed;
             Item.accessory = true;
         }
         public override void UpdateEquip(Player player)
@@ -27,13 +27,21 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.statLifeMax2 -= 80;
+            player.statLifeMax2 -= 50;
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Bayonett>(), 8)
+            .AddIngredient(ModContent.ItemType<Bayonett>(), 1)
             .AddIngredient(ItemID.SoulofNight, 4)
+            .AddIngredient(ItemID.CobaltBar, 6)
+            .AddTile(TileID.MythrilAnvil)
+            .Register();
+
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<Bayonett>(), 1)
+            .AddIngredient(ItemID.SoulofNight, 4)
+            .AddIngredient(ItemID.PalladiumBar, 6)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

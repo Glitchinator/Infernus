@@ -15,8 +15,8 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
         }
         public override void SetDefaults()
         {
-            Item.width = 28;
-            Item.height = 30;
+            Item.width = 20;
+            Item.height = 36;
             Item.value = Item.buyPrice(0, 14, 25, 0);
             Item.rare = ItemRarityID.Lime;
             Item.accessory = true;

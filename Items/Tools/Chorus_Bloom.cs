@@ -29,6 +29,7 @@ namespace Infernus.Items.Tools
         }
         public override bool CanUseItem(Player player)
         {
+            return true;
             if (player.GetModPlayer<InfernusPlayer>().Stress_Buff_2 == true)
             {
                 return false;
@@ -37,7 +38,14 @@ namespace Infernus.Items.Tools
         }
         public override bool? UseItem(Player player)
         {
-            player.GetModPlayer<InfernusPlayer>().Stress_Buff_2 = true;
+            if (player.GetModPlayer<InfernusPlayer>().Stress_Buff_2 == true)
+            {
+                player.GetModPlayer<InfernusPlayer>().Stress_Buff_2 = false;
+            }
+            else if (player.GetModPlayer<InfernusPlayer>().Stress_Buff_2 == false)
+            {
+                player.GetModPlayer<InfernusPlayer>().Stress_Buff_2 = true;
+            }
             return true;
         }
         public override void PostUpdate()
