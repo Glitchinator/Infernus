@@ -12,8 +12,8 @@ namespace Infernus.Projectiles.Temporal_Glow_Squid.Boss
         public override void SetDefaults()
         {
             Projectile.aiStyle = 0;
-            Projectile.width = 14;
-            Projectile.height = 38;
+            Projectile.width = 10;
+            Projectile.height = 10;
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.netImportant = true;

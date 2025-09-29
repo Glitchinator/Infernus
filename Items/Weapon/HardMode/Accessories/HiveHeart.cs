@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using Infernus.Items.Accesories;
+using Infernus.Items.Materials;
+using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,7 +15,7 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
         }
         public override void SetDefaults()
         {
-            Item.width = 28;
+            Item.width = 24;
             Item.height = 30;
             Item.value = Item.buyPrice(0, 14, 25, 0);
             Item.rare = ItemRarityID.Lime;
@@ -21,18 +23,18 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.statDefense += 6;
-            player.buffImmune[BuffID.Poisoned] = true;
-            player.buffImmune[BuffID.Venom] = true;
-            Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Heart_Equipped = true;
+            player.GetDamage(DamageClass.Magic) += 0.15f;
+            player.manaCost -= 0.15f;
+            player.GetCritChance(DamageClass.Magic) += 10;
+            player.statManaMax2 += 100;
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Accesories.Stone_Emblem>(), 1)
-            .AddIngredient(ModContent.ItemType<Toxic_Fang>(), 1)
-            .AddIngredient(ItemID.HoneyComb, 1)
-            .AddIngredient(ItemID.Bezoar, 1)
+            .AddIngredient(ModContent.ItemType<Undying_Ember>(), 1)
+            .AddIngredient(ModContent.ItemType<Dusk_Sigil>(), 1)
+            .AddIngredient(ModContent.ItemType<Ocean_Crest>(), 1)
+            .AddIngredient(ModContent.ItemType<Crumbling_Basalt>(), 30)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

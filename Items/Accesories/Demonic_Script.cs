@@ -22,7 +22,7 @@ namespace Infernus.Items.Accesories
         }
         public override void UpdateEquip(Player player)
         {
-            player.manaSickReduction *= 0.5f;
+            player.manaSickReduction *= 0.35f;
             Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Demonic_Script = true;
         }
         public override void AddRecipes()

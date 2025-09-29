@@ -1,5 +1,4 @@
 ﻿using Infernus.Items.Accesories;
-using Infernus.Items.Materials;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -7,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace Infernus.Items.Weapon.HardMode.Accessories
 {
-    public class Glacial_Quiver : ModItem
+    public class Chlorophyte_Script : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -15,22 +14,23 @@ namespace Infernus.Items.Weapon.HardMode.Accessories
         }
         public override void SetDefaults()
         {
-            Item.width = 28;
-            Item.height = 30;
+            Item.width = 30;
+            Item.height = 26;
             Item.value = Item.buyPrice(0, 14, 25, 0);
             Item.rare = ItemRarityID.Lime;
             Item.accessory = true;
         }
         public override void UpdateEquip(Player player)
         {
-            Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Glacial_Quiver = true;
+            player.manaSickReduction *= 0.5f;
+            Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Chlorophyte_Script = true;
+            Main.LocalPlayer.GetModPlayer<InfernusPlayer>().Demonic_Script = true;
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<Icy_Quiver>(), 1)
-            .AddIngredient(ModContent.ItemType<IceSpikes>(), 8)
-            .AddIngredient(ItemID.FrostCore, 1)
+            .AddIngredient(ModContent.ItemType<Demonic_Script>(), 1)
+            .AddIngredient(ItemID.ChlorophyteBar, 12)
             .AddTile(TileID.MythrilAnvil)
             .Register();
         }

@@ -19,7 +19,7 @@ namespace Infernus.Items.Accesories
             Item.accessory = true;
             Item.value = 60000;
             Item.rare = ItemRarityID.Orange;
-            Item.defense += 5;
+            Item.defense = 5;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

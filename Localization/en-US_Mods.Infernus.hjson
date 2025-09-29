@@ -724,9 +724,10 @@ Items: {
 		DisplayName: Dark Glyph
 		Tooltip:
 			'''
+			Reduces mana regen cooldown by 35%
 			Increases magic damage and regen based on your current mana
-			Increases magic damage by 16% and regen by 12 when above 70% of maximum
-			Increases magic damage by 8%  and regen by 8 when above 50% of maximum
+			Increases magic damage by 16% and regen by 8 when above 70% of maximum
+			Increases magic damage by 8%  and regen by 4 when above 50% of maximum
 			'''
 	}
 

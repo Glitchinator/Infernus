@@ -295,6 +295,21 @@ Mods: {
 				DisplayName: Blazing_ Cloak_ Buff
 				Description: Mods.Infernus.Buffs.Blazing_Cloak_Buff.Description
 			}
+
+			Shadowflame_Hex_Buff: {
+				DisplayName: Shadowflame_ Hex_ Buff
+				Description: Mods.Infernus.Buffs.Shadowflame_Hex_Buff.Description
+			}
+
+			Chloro_Buff: {
+				DisplayName: Chloro_ Buff
+				Description: Mods.Infernus.Buffs.Chloro_Buff.Description
+			}
+
+			Manic_Flash_Buff: {
+				DisplayName: Manic_ Flash_ Buff
+				Description: Mods.Infernus.Buffs.Manic_Flash_Buff.Description
+			}
 		}
 
 		Items: {
@@ -703,8 +718,14 @@ Mods: {
 			}
 
 			HiveHeart: {
-				DisplayName: Hive Heart
-				Tooltip: Venom and shi gng
+				DisplayName: Molten Basalt
+				Tooltip:
+					'''
+					Increases magic damage by 15%
+					Increases magic crit by 10%
+					Decreases mana cost by 15%
+					Increases max mana by 100
+					'''
 			}
 
 			Mechboss: {
@@ -2268,6 +2289,97 @@ Mods: {
 					Max bullet damage increase is 25%
 					'''
 			}
+
+			Shadowflame_Hex: {
+				DisplayName: Shadowflame Hex
+				Tooltip:
+					'''
+					Guns shoot a homing shadowflame bullet on a 4 second cooldown
+					The bullet inflicts an arrow reactive debuff
+					On arrow hit, conjures homing shadowflames
+					'''
+			}
+
+			Chlorophyte_Growth: {
+				DisplayName: Chlorophyte Growth
+				Tooltip:
+					'''
+					Bows shoot a petal on a 1 second cooldown
+					The petal inflicts an bullet reactive debuff
+					On bullet hit, explode into spores
+					'If you listen closely, you can hear a chorus'
+					'''
+			}
+
+			Glacial_Shield: {
+				DisplayName: Glacial Shield
+				Tooltip:
+					'''
+					Increases max mana by 40
+					12% Reduced Mana Usage
+					Restores mana when damaged
+					Drinking a mana potions gives a defensive buff
+					Enemies attacking you while you have the buff take full damage back
+					Increases pickup range of mana stars
+					'''
+			}
+
+			Frigid_Flash_Bulwark: {
+				DisplayName: Frigid Flash Bulwark
+				Tooltip:
+					'''
+					Increases max mana by 40
+					12% Reduced Mana Usage
+					On hit, restore mana, release a blast of magic and rain mana stars
+					Stars restore mana when collected
+					The blast has a 4 second cooldown
+					Drinking a mana potions gives a defensive buff
+					Enemies attacking you while you have the buff take full damage back
+					Increases pickup range of mana stars
+					'''
+			}
+
+			Manic_Flash: {
+				DisplayName: Manic Flash
+				Tooltip:
+					'''
+					On hit, release a blast of magic and rain mana stars
+					Stars restore mana when collected
+					The blast has a 4 second cooldown
+					'''
+			}
+
+			Chlorophyte_Script: {
+				DisplayName: Blighted Script
+				Tooltip:
+					'''
+					Mana sickness effects are further reduced
+					Mana potions hurt to drink
+					Mana sickness slowly drains life
+					'''
+			}
+
+			Hallowed_Glyph: {
+				DisplayName: Hallowed Glyph
+				Tooltip:
+					'''
+					Reduces mana regen cooldown by 45%
+					Increases magic damage and regen based on your current mana
+					Increases magic damage by 25% and regen by 10 when above 70% of maximum
+					Increases magic damage by 15%  and regen by 6 when above 50% of maximum
+					'''
+			}
+
+			Spooky_Glyph: {
+				DisplayName: Spooky Glyph
+				Tooltip:
+					'''
+					Reduces mana regen cooldown by 60%
+					Increases magic damage and regen based on your current mana
+					Increases magic damage by 35% and regen by 12 when above 70% of maximum
+					Increases magic damage by 20%  and regen by 8 when above 50% of maximum
+					'''
+			}
 		}
 
 		Projectiles: {
@@ -2544,6 +2656,11 @@ Mods: {
 			Cloak_Dagger.DisplayName: Cloak_ Dagger
 			Enchanted_Bone.DisplayName: Enchanted_ Bone
 			Blazing_Cloak_Dagger.DisplayName: Blazing_ Cloak_ Dagger
+			Shadowflame_Hex_Homing.DisplayName: Shadowflame_ Hex_ Homing
+			Chloro_Arrow.DisplayName: Chloro_ Arrow
+			Shadowflame_Splash.DisplayName: Shadowflame_ Splash
+			Manic_Flash_Cyclone.DisplayName: Manic_ Flash_ Cyclone
+			Enchanted_Magic.DisplayName: Enchanted_ Magic
 		}
 
 		NPCs: {

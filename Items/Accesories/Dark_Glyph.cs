@@ -23,15 +23,16 @@ namespace Infernus.Items.Accesories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.manaRegenDelay -= 0.35f;
             if (player.statMana > (int)(player.statManaMax * 0.7f))
             {
                 player.GetDamage(DamageClass.Magic) += 0.16f;
-                player.manaRegen += 12;
+                player.manaRegen += 8;
                 return;
             }
             if (player.statMana > (int)(player.statManaMax * 0.5f))
             {
-                player.manaRegen += 8;
+                player.manaRegen += 4;
                 player.GetDamage(DamageClass.Magic) += 0.08f;
             }
         }

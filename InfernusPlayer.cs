@@ -9,6 +9,7 @@ using Infernus.NPCs;
 using Infernus.Projectiles;
 using Infernus.Projectiles.Temporal_Glow_Squid;
 using Infernus.Projectiles.Temporal_Glow_Squid.Drops;
+using Microsoft.Win32.SafeHandles;
 using Microsoft.Xna.Framework;
 using Mono.Cecil;
 using System;
@@ -112,9 +113,6 @@ namespace Infernus
         public bool Mech_Equipped = false;
         public int Mech_Timer = 0;
 
-        // hive heart
-        public bool Heart_Equipped = false;
-
         // chipped whetstone
         public bool NPC_Bleeding = false;
 
@@ -202,12 +200,6 @@ namespace Infernus
         //public bool Crystal string
         public bool Crystal_String = false;
 
-        //toxic fang
-        public bool Toxic_Fang = false;
-
-        // Glacial Quiver
-        public bool Glacial_Quiver = false;
-
         // Tainted clip
         public bool Tainted_Clip = false;
 
@@ -246,6 +238,15 @@ namespace Infernus
 
         public bool Compound_Uplift = false;
 
+        public bool shadowflame_hex = false;
+        public int shadowflame_timer = 0;
+
+        public bool chloro_growth = false;
+        public int chloro_timer = 0;
+
+        public bool Manic_Flash = false;
+
+        public bool Chlorophyte_Script = false;
 
         public override void ModifyNursePrice(NPC nurse, int health, bool removeDebuffs, ref int price)
         {
@@ -364,13 +365,6 @@ namespace Infernus
                     return false;
                 }
             }
-            if (Glacial_Quiver == true)
-            {
-                if (Main.rand.Next(10) < 1)
-                {
-                    return false;
-                }
-            }
             return base.CanConsumeAmmo(weapon, ammo);
         }
         public override void ModifyShootStats(Item item, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -378,10 +372,6 @@ namespace Infernus
             if (Quiver_Equipped == true && item.DamageType == DamageClass.Ranged)
             {
                 velocity *= 1.2f;
-            }
-            if (Glacial_Quiver == true && item.DamageType == DamageClass.Ranged)
-            {
-                velocity *= 1.3f;
             }
         }
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
@@ -413,10 +403,6 @@ namespace Infernus
             {
                Stress_Amount_To_Gain += 1f;
             }
-            if (Heart_Equipped == true)
-            {
-                Player.AddBuff(BuffID.Honey, 300);
-            }
             if (Aeritite_Shield_Equipped == true && Player.HasBuff(ModContent.BuffType<Aeritite_Timer>()))
             {
                 Player.ClearBuff(ModContent.BuffType<Aeritite_Timer>());
@@ -446,7 +432,17 @@ namespace Infernus
                 }
                 else
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Player.Center, Vector2.Zero, ModContent.ProjectileType<Enchanted_Femur_Explosion>(), 45, 4f);
+                    int dam = 0;
+                    if(Manic_Flash == true)
+                    {
+                        dam = 180;
+                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Player.Center, Vector2.Zero, ModContent.ProjectileType<Enchanted_Magic>(), dam, 4f);
+                    }
+                    else
+                    {
+                        dam = 45;
+                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Player.Center, Vector2.Zero, ModContent.ProjectileType<Enchanted_Femur_Explosion>(), dam, 4f);
+                    }
                 }
                 Player.AddBuff(ModContent.BuffType<Buffs.Enchanted_Femur_Cooldown>(), 240);
             }
@@ -454,7 +450,7 @@ namespace Infernus
             {
                 Player.AddBuff(ModContent.BuffType<Buffs.Meteor_Core_Buff>(), 480);
             }
-            if(Deceit_Cloak == true && info.Damage >= 10)
+            if (Deceit_Cloak == true && info.Damage >= 10)
             {
                 Deceit_Cloak_Time += 90;
             }
@@ -473,10 +469,20 @@ namespace Infernus
                 Projectile.NewProjectile(source, position, velocity * 0.8f, ModContent.ProjectileType<Projectiles.Iceicle_Necklace_Shot>(), 1, 2f, 0);
                 Iceicle_Necklace_Timer = 120;
             }
+            if (chloro_growth == true && item.DamageType == DamageClass.Ranged && chloro_timer == 0 && item.useAmmo == AmmoID.Arrow)
+            {
+                Projectile.NewProjectile(source, position, velocity * 0.8f, ModContent.ProjectileType<Projectiles.Chloro_Arrow>(), 69, 2f, 0);
+                chloro_timer = 60;
+            }
             if (Burning_Grasp == true && item.DamageType == DamageClass.Ranged && Burning_Grasp_Timer == 0 && item.useAmmo == AmmoID.Bullet)
             {
                 Projectile.NewProjectile(source, position, velocity * 0.8f, ModContent.ProjectileType<Projectiles.Hellfire_Blast>(), (int)(damage * 1.2f), 2f, 0);
                 Burning_Grasp_Timer = 180;
+            }
+            if (shadowflame_hex == true && item.DamageType == DamageClass.Ranged && shadowflame_timer == 0 && item.useAmmo == AmmoID.Bullet)
+            {
+                Projectile.NewProjectile(source, position, velocity * 0.8f, ModContent.ProjectileType<Projectiles.Shadowflame_Hex_Homing>(), (int)(damage * 1.2f), 2f);
+                shadowflame_timer = 240;
             }
             if (Crystal_String == true && item.DamageType == DamageClass.Ranged && item.useAmmo == AmmoID.Arrow)
             {
@@ -647,14 +653,6 @@ namespace Infernus
             {
                 Player.Hurt(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(Player.name + " was consumed by demonic energy.")), 30, 0,false,false, -1,false, 1f, 1f, 0f);
             }
-            if (Ice_Scroll == true)
-            {
-                Player.AddBuff(ModContent.BuffType<Ice_Scroll_Buff>(), 480);
-            }
-            if(Ice_Banner == true)
-            {
-                Player.AddBuff(ModContent.BuffType<Ice_Banner_Buff>(), 480);
-            }
         }
         public override void UpdateBadLifeRegen()
         {
@@ -674,6 +672,15 @@ namespace Infernus
                     Stress_Bleed = false;
                 }
             }
+            if (Chlorophyte_Script == true)
+            {
+                if (Player.HasBuff(BuffID.ManaSickness))
+                {
+                    Player.lifeRegen = 0;
+
+                    Player.lifeRegen -= 6;
+                }
+            }
             if (Player.HasBuff(ModContent.BuffType<Stress_Debuff>()))
             {
                 if (Player.lifeRegen > 0)
@@ -686,19 +693,6 @@ namespace Infernus
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (Heart_Equipped == true)
-            {
-                target.AddBuff(BuffID.Venom, 120);
-                target.AddBuff(BuffID.Poisoned, 120);
-            }
-            if (Toxic_Fang == true)
-            {
-                target.AddBuff(BuffID.Venom, 30);
-            }
-            if (Glacial_Quiver == true)
-            {
-                target.AddBuff(BuffID.Frostburn2, 180);
-            }
             if(NPC_Bleeding == true)
             {
                 target.AddBuff(ModContent.BuffType<Buffs.Bleeding_Debuff>(), 180);
@@ -826,6 +820,14 @@ namespace Infernus
             {
                 Burning_Grasp_Timer--;
             }
+            if(shadowflame_timer > 0)
+            {
+                shadowflame_timer--;
+            }
+            if(chloro_timer > 0)
+            {
+                chloro_timer--;
+            }
             if (life_steal_timer > 0)
             {
                 life_steal_timer--;
@@ -878,8 +880,6 @@ namespace Infernus
 
             if (InfernusNPC.Is_Spawned == true)
             {
-                string gat = Stress_DOT.ToString();
-                Main.NewText("Stress DOT: " + gat, 229, 214, 127);
                 Stress_Buffs();
                 if (Stress_Current > Stress_Max2)
                 {
@@ -1037,7 +1037,6 @@ namespace Infernus
             Meteor_Storm_Active = false;
             Tiara_Equipped = false;
             Mech_Equipped = false;
-            Heart_Equipped = false;
             Boulder_Equipped = false;
             Aeritite_Equipped = false;
             Equite_Equipped = false;
@@ -1077,8 +1076,6 @@ namespace Infernus
             Ink_Cartridge = false;
             Squid_Sroll = false;
             Crystal_String = false;
-            Toxic_Fang = false;
-            Glacial_Quiver = false;
             Tainted_Clip = false;
             Ice_Scroll = false;
             Ice_Banner = false;
@@ -1097,6 +1094,10 @@ namespace Infernus
             Raging_Bone = false;
             Blazing_Cloak = false;
             Compound_Uplift = false;
+            shadowflame_hex = false;
+            chloro_growth = false;
+            Manic_Flash = false;
+            Chlorophyte_Script = false;
 
             if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[DashRight] < 15)
             {

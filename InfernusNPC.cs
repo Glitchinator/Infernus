@@ -69,9 +69,9 @@ namespace Infernus
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Accessories.Crystal_String>(), 5, 1, 1));
             }
-            if (npc.type == NPCID.BlackRecluse || npc.type == NPCID.BlackRecluseWall)
+            if (npc.type == NPCID.GoblinSummoner)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Accessories.Toxic_Fang>(), 20, 1, 1));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Weapon.HardMode.Accessories.Shadowflame_Hex>(), 3, 1, 1));
             }
         }
         public override void OnSpawn(NPC npc, IEntitySource source)

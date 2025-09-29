@@ -23,6 +23,14 @@ namespace Infernus
                 item.useTime = 18;
                 item.useAnimation = 18;
             }
+            if (item.type == ItemID.TheHorsemansBlade)
+            {
+                item.damage = 210;
+            }
+            if (item.type == ItemID.ShadowFlameHexDoll)
+            {
+                item.damage = 44;
+            }
         }
         public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
@@ -73,6 +81,17 @@ namespace Infernus
                     {
                         player.ClearBuff(BuffID.Venom);
                     }
+                }
+            }
+            if (item.type == ItemID.ManaPotion || item.type == ItemID.LesserManaPotion || item.type == ItemID.GreaterManaPotion || item.type == ItemID.SuperManaPotion)
+            {
+                if (player.GetModPlayer<InfernusPlayer>().Ice_Banner == true)
+                {
+                    player.AddBuff(ModContent.BuffType<Ice_Scroll_Buff>(), 480);
+                }
+                if (player.GetModPlayer<InfernusPlayer>().Ice_Banner == true)
+                {
+                    player.AddBuff(ModContent.BuffType<Ice_Banner_Buff>(), 480);
                 }
             }
 

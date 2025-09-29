@@ -11,9 +11,16 @@ namespace Infernus
         {
             if (!noItem && type == TileID.LeafBlock)
             {
-                if (Main.rand.NextBool(100))
+                if (Main.rand.NextBool(70))
                 {
                     Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Accesories.Tree_Branch>());
+                }
+            }
+            if (!noItem && type == TileID.Chlorophyte)
+            {
+                if (Main.rand.NextBool(50))
+                {
+                    Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Weapon.HardMode.Accessories.Chlorophyte_Growth>());
                 }
             }
         }

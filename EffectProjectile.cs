@@ -38,17 +38,14 @@ namespace Infernus
                     if (h.Length() <= 200f)
                     {
                         modifiers.ScalingBonusDamage += 0.15f;
-                        Main.NewText(g + "15%", 229, 214, 127);
                     }
                     else if (h.Length() <= 400f)
                     {
                         modifiers.ScalingBonusDamage += 0.1f;
-                        Main.NewText(g + "10%", 229, 214, 127);
                     }
                     else if (h.Length() <= 600f)
                     {
                         modifiers.ScalingBonusDamage += 0.05f;
-                        Main.NewText(g + "5%", 229, 214, 127);
                     }
                 }
                 if (player.GetModPlayer<InfernusPlayer>().Cursed_Bayonett == true)
@@ -58,27 +55,22 @@ namespace Infernus
                     if (h.Length() <= 200f)
                     {
                         modifiers.ScalingBonusDamage += 0.25f;
-                        Main.NewText(g + "25%", 229, 214, 127);
                     }
                     else if (h.Length() <= 350f)
                     {
                         modifiers.ScalingBonusDamage += 0.2f;
-                        Main.NewText(g + "20%", 229, 214, 127);
                     }
                     else if (h.Length() <= 500f)
                     {
                         modifiers.ScalingBonusDamage += 0.15f;
-                        Main.NewText(g + "15%", 229, 214, 127);
                     }
                     else if (h.Length() <= 650f)
                     {
                         modifiers.ScalingBonusDamage += 0.1f;
-                        Main.NewText(g + "10%", 229, 214, 127);
                     }
                     else if (h.Length() <= 800f)
                     {
                         modifiers.ScalingBonusDamage += 0.05f;
-                        Main.NewText(g + "5%", 229, 214, 127);
                     }
                 }
             }
@@ -91,27 +83,22 @@ namespace Infernus
                     if (h.Length() >= 900f)
                     {
                         modifiers.ScalingBonusDamage += 0.3f;
-                        Main.NewText(g + "30%", 229, 214, 127);
                     }
                     else if (h.Length() >= 800f && h.Length() < 900f)
                     {
                         modifiers.ScalingBonusDamage += 0.2f;
-                        Main.NewText(g + "20%", 229, 214, 127);
                     }
                     else if (h.Length() >= 650f && h.Length() < 800f)
                     {
                         modifiers.ScalingBonusDamage += 0.15f;
-                        Main.NewText(g + "15%", 229, 214, 127);
                     }
                     else if (h.Length() >= 500f && h.Length() < 650f)
                     {
                         modifiers.ScalingBonusDamage += 0.15f;
-                        Main.NewText(g + "10%", 229, 214, 127);
                     }
                     else if (h.Length() >= 300f && h.Length() < 500f)
                     {
                         modifiers.ScalingBonusDamage += 0.05f;
-                        Main.NewText(g + "5%", 229, 214, 127);
                     }
                 }
             }
@@ -124,6 +111,13 @@ namespace Infernus
                 {
                     Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center, Vector2.Zero, ModContent.ProjectileType<Iceicle_Necklace_exlos>(), projectile.damage, 4f, projectile.owner);
                     int buff_id = target.FindBuffIndex(ModContent.BuffType<Cryo_Necklace_Debuff>());
+                    target.DelBuff(buff_id);
+                }
+                if (target.HasBuff(ModContent.BuffType<Chloro_Buff>()))
+                {
+                    int type = Main.rand.Next(new int[] {ProjectileID.SporeGas, ProjectileID.SporeGas2, ProjectileID.SporeGas3});
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X,target.Center.Y, Main.rand.Next(-2, 3), Main.rand.Next(-2, 3), type, projectile.damage, 4f, projectile.owner);
+                    int buff_id = target.FindBuffIndex(ModContent.BuffType<Chloro_Buff>());
                     target.DelBuff(buff_id);
                 }
                 Player player = Main.player[projectile.owner];
@@ -144,6 +138,15 @@ namespace Infernus
                 {
                     Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center, Vector2.Zero, ModContent.ProjectileType<Hellfire_exlos>(), projectile.damage, 4f, projectile.owner);
                     int buff_id = target.FindBuffIndex(ModContent.BuffType<Burning_Grasp_Debuff>());
+                    target.DelBuff(buff_id);
+                }
+                if (target.HasBuff(ModContent.BuffType<Shadowflame_Hex_Buff>()))
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center.X, target.Center.Y, Main.rand.Next(-10, 11), Main.rand.Next(-10, 11), ModContent.ProjectileType<Shadowflame_Splash>(), projectile.damage, 2f, 0);
+                    }
+                    int buff_id = target.FindBuffIndex(ModContent.BuffType<Shadowflame_Hex_Buff>());
                     target.DelBuff(buff_id);
                 }
             }

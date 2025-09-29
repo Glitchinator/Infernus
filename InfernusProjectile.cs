@@ -20,6 +20,12 @@ namespace Infernus
                 projectile.damage = (int)(projectile.damage * 1.4f);
             }
             */
+
+            if (projectile.type == 496)
+            {
+                projectile.velocity *= 2f;
+            }
+
             if (source is EntitySource_Parent parent && parent.Entity is NPC npc && InfernusSystem.Level_systemON == true && InfernusNPC.Is_Spawned == true && projectile.hostile == true)
             {
                 projectile.damage = (int)(projectile.damage * 1.4f);
@@ -27,17 +33,13 @@ namespace Infernus
             //string dam = projectile.damage.ToString();
             //Main.NewText(dam, 229, 214, 127);
         }
-        /*
-        
-         * just set timeleft during projectile spawn in flarerolver
         public override void SetDefaults(Projectile projectile)
         {
-            if (projectile.aiStyle == 33)
+            if (projectile.type == 496)
             {
-                projectile.timeLeft = 1030;
+                projectile.stopsDealingDamageAfterPenetrateHits = true;
             }
         }
-        */
         public override void AI(Projectile projectile)
         {
             if(Calypsical.death_aninatiom == true)
